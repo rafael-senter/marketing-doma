@@ -9,8 +9,8 @@
  *   marketing-doma uninstall       bash install.sh --uninstall
  *   marketing-doma version         mostra versão deste CLI
  *
- * Filosofia: CLI = wrapper minúsculo. Plugin vive no GitLab.
- * Updates do plugin = git push GitLab → user roda `marketing-doma update`.
+ * Filosofia: CLI = wrapper minúsculo. Plugin vive no GitHub.
+ * Updates do plugin = git push GitHub → user roda `marketing-doma update`.
  * Updates do CLI = npm publish (raro, só se mudar fluxo de install).
  */
 
@@ -146,7 +146,7 @@ function cmdUpdate() {
   const before = pluginVersion();
   info(`Versão atual: ${before || 'desconhecida'}`);
 
-  info('Buscando atualizações no GitLab...');
+  info('Buscando atualizações no GitHub...');
   const pullResult = sh(`cd ${PLUGIN_DIR} && git fetch --tags origin main && git pull --ff-only origin main`, {
     allowFail: true,
   });
@@ -186,13 +186,13 @@ function cmdStatus() {
   const local = pluginVersion();
   log(`  Plugin local (${PLUGIN_DIR}):  ${c('cyan', local || '?')}`);
 
-  info('Verificando última versão no GitLab...');
+  info('Verificando última versão no GitHub...');
   const remote = remoteVersion();
   if (!remote) {
-    warn('Não foi possível consultar GitLab (offline ou acesso negado).');
+    warn('Não foi possível consultar GitHub (offline ou acesso negado).');
     return;
   }
-  log(`  Plugin remoto (GitLab):  ${c('cyan', remote)}`);
+  log(`  Plugin remoto (GitHub):  ${c('cyan', remote)}`);
 
   if (local && remote && local !== remote) {
     warn(`Há atualização disponível: ${local} → ${remote}`);
@@ -241,8 +241,8 @@ function cmdHelp() {
 ${c('bold', 'marketing-doma')} — CLI do plugin Claude Code
 
 ${c('bold', 'Comandos:')}
-  ${c('cyan', 'install')}      Instala plugin (clone GitLab + registra no Claude Code).
-  ${c('cyan', 'update')}       Atualiza plugin (git pull no GitLab).
+  ${c('cyan', 'install')}      Instala plugin (clone GitHub + registra no Claude Code).
+  ${c('cyan', 'update')}       Atualiza plugin (git pull no GitHub).
   ${c('cyan', 'status')}       Mostra versão local vs remota + saúde da instalação.
   ${c('cyan', 'uninstall')}    Remove plugin (mantém este CLI).
   ${c('cyan', 'version')}      Mostra versão do CLI + plugin.

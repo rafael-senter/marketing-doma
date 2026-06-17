@@ -2,7 +2,7 @@
 
 CLI Node.js wrapper do plugin Claude Code [`marketing-doma`](https://github.com/rafael-senter/marketing-doma).
 
-Pacote npm pequeno (~5 KB). Faz `git clone` + `git pull` do plugin real. Plugin continua versionado no GitLab.
+Pacote npm pequeno (~5 KB). Faz `git clone` + `git pull` do plugin real. Plugin continua versionado no GitHub.
 
 ## Instalar (uma vez só)
 
@@ -20,9 +20,9 @@ npx marketing-doma-cli install
 
 | Comando | O que faz |
 |---|---|
-| `marketing-doma install` | Clona o plugin do GitLab em `~/.local/share/marketing-doma` + roda `install.sh` (registra no Claude Code global). |
+| `marketing-doma install` | Clona o plugin do GitHub em `~/.local/share/marketing-doma` + roda `install.sh` (registra no Claude Code global). |
 | `marketing-doma update` | `git pull` no plugin clonado + re-roda `install.sh` (idempotente). |
-| `marketing-doma status` | Mostra versão do CLI, versão do plugin local, última versão no GitLab. |
+| `marketing-doma status` | Mostra versão do CLI, versão do plugin local, última versão no GitHub. |
 | `marketing-doma uninstall` | Remove plugin + symlinks. CLI continua. |
 | `marketing-doma version` | Versão do CLI + plugin. |
 | `marketing-doma help` | Ajuda. |
@@ -50,7 +50,7 @@ claude
 ## Como atualizações funcionam
 
 - **CLI**: só muda se o fluxo de install mudar. Atualiza com `npm install -g marketing-doma-cli@latest`.
-- **Plugin** (regras, templates, fichas, componentes): atualiza com `marketing-doma update`. Plugin vive no GitLab — `git push` lá → próximo `update` puxa.
+- **Plugin** (regras, templates, fichas, componentes): atualiza com `marketing-doma update`. Plugin vive no GitHub — `git push` lá no GitHub → próximo `update` puxa.
 
 Resultado: equipe roda 1 comando (`marketing-doma update`) pra ter última versão.
 
