@@ -129,6 +129,24 @@ Se logo de cliente NOVO → asset-ingester gera também `_205-card<cliente>.png`
 
 Equipe revisa periodicamente as `live-rules/` e promove pras RULES gerais (`knowledge-base/padroes/RULES-recriacao.md`).
 
+## 🆕 AUTO-COMMIT de mudanças durante sessão (REGRA OBRIGATÓRIA)
+
+**Toda vez** que editar ficha de categoria, componente em `templates/components/`, script, ou regra na knowledge-base **DURANTE uma sessão de uso real** (não recriação inicial):
+
+1. Validar mudança visualmente (render OK).
+2. Rodar `bash ~/.claude/plugins/marketing-doma/scripts/auto-commit-changes.sh --push`.
+3. Mudança fica versionada no GitLab pra próximas sessões.
+
+Por quê? Sem auto-commit, melhorias descobertas em runtime **morrem com a sessão**. Próxima sessão começa do zero com mesma regra desatualizada.
+
+O script:
+- Roda `check-all.sh` antes de commitar (não persiste plugin quebrado).
+- Agrupa mudanças por tipo (`docs:` knowledge-base, `fix:` templates, `feat:` scripts/skills).
+- Gera mensagem auto com lista de arquivos.
+- Opcional `--push` envia direto pro origin.
+
+Skill `auto-optimizer` invoca este script automaticamente ao promover regra.
+
 ---
 
 ## 🗺️ Glossário de caminhos (importante)

@@ -51,9 +51,26 @@ Invocar agent `validador-marca` no plano. Se BLOQUEIA: mostrar ao usuário + par
 2. Rodar `bash ~/.claude/plugins/marketing-doma/scripts/sync-components.sh`.
 3. Rodar `bash remotion-doma/render-still.sh <nome>-N` para cada slide.
 
-## Passo 7 — mostrar resultado
+## Passo 7 — análise + correção automática (OBRIGATÓRIO)
+
+Invocar Task tool com agent `analyzer-pos-render`. Ele:
+- Roda validador-marca + compare.py + lint visual + medição de equilíbrio.
+- Aplica fixes triviais (fontSize, padding, cores) DIRETO no componente do plugin.
+- Sync + re-render.
+- Auto-commit das mudanças no plugin global.
+
+Reportar ao usuário:
+- ✅ N fixes aplicados.
+- ⚠️ Findings não-triviais (decisão humana).
+- 📈 Métricas (fidelidade ANTES → DEPOIS).
+
+## Passo 8 — mostrar resultado
 
 Listar PNGs em `remotion-doma/out/<nome>-*.png` + perguntar se aprova.
+
+Se `analyzer-pos-render` fez mudanças no plugin:
+- Plugin global agora tem regra/componente atualizado.
+- Próxima sessão usa versão melhorada automaticamente.
 
 ## Anti-padrões
 
