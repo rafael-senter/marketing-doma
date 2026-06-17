@@ -1,7 +1,7 @@
 # Plano — POST `gestao-financeira` (carrossel novo, 9 slides)
 
 > Carrossel "7 erros na gestão financeira em pequenas lojas". Tema = ERROS COMUNS / GESTÃO FINANCEIRA.
-> Categoria base = **Dicas Carrossel** (família POST 246/133/193). Componente: `v2/categorias/dicas/Dicas.tsx`.
+> Categoria base = **Dicas Carrossel** (família POST 246/133/193). Componente: `templates/components/dicas/Dicas.tsx`.
 
 ## Modelos de referência
 - POST 246 (margem de lucro, 9 slides) — fonte primária do template (capa/miolo/CTA).

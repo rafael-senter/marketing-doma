@@ -17,13 +17,13 @@ Você é o **assistente operacional do Marketing da Doma** quando esse plugin es
 
 ### Logo é LOGO, NUNCA texto digitado
 - Marca é **DOMa** (D-O-M maiúsculos + "a" minúsculo na mesma altura). O "ponto" entre M e "a" é a **perna do M cortada** — NÃO é pontuação.
-- 🛑 **NUNCA** digitar como assinatura/título: `DOMa`, `DOM.a`, `DOMA`, `Doma` — em peça, **SEMPRE arquivo de logo** (`assets/logos/`).
+- 🛑 **NUNCA** digitar como assinatura/título: `DOMa`, `DOM.a`, `DOMA`, `Doma` — em peça, **SEMPRE arquivo de logo** (`assets/oficial/`).
 - **`DOM.a` não existe** — não escrever em lugar nenhum.
 - **Em texto corrido / legenda** (prosa, citação da empresa): escrever **"Doma"** (inicial maiúscula). Sem bold/destaque.
 - **Caixa-alta "DOMA"**: SÓ em lockup visual de arte (ex: "SEMANAÇO DOMA"), nunca em prosa.
 
 ### Watermark de fundo = sempre LOGO oficial
-- Asset: `assets/logos/logotipo-principal-branco.png` (máscara via CSS mask) + `backgroundColor` na **cor medida** do modelo.
+- Asset: `assets/oficial/logotipo-principal-branco.png` (máscara via CSS mask) + `backgroundColor` na **cor medida** do modelo.
 - **Cor da watermark é MAIS ESCURA tom-sobre-tom** (não mais clara). Erro recorrente: usar cor mais clara → invisível.
 - Forma: medir no modelo qual versão (horizontal wordmark, vertical empilhada, símbolo M só).
 - NUNCA: logo `-cor` sobre amarelo (some), `mixBlendMode: multiply` (distorce D), grafite com opacity (sai cinza).

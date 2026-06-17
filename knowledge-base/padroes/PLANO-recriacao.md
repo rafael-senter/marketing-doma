@@ -20,9 +20,9 @@ Cada peça é validada com o Patrick antes de seguir.
 - **Infra** (raiz `src/`): `theme.ts`, `components.tsx`, `Root.tsx`.
 
 ### ✅ Na v2 (prontos, validados)
-- **Frase em Pílulas** (DWO5_TLDG1w) → `v2/FrasePilulas.tsx` (~94%) — **PADRÃO-OURO do método** (todas as técnicas novas).
-- **Mapa de Clientes** (DSdIG_FkuI4_2) → `v2/MapaClientes.tsx` (~95-96%, REVISADO: mapa 892×932 medido, DF cinza, rótulos em posição medida c/ PE/AL/ES/RJ à direita, fonte+letterSpacing).
-- **Certo e Errado** (POST 247 / 256) → `v2/CertoErrado.tsx` (~96%) — refeito com método novo: ícones X/✓ em SVG, raio 45, watermark vertical DO/MA via CSS mask, cores por população. Ficha: `certo-e-errado.md`.
+- **Frase em Pílulas** (DWO5_TLDG1w) → `templates/components/frase-em-pilulas/FrasePilulas.tsx` (~94%) — **PADRÃO-OURO do método** (todas as técnicas novas).
+- **Mapa de Clientes** (DSdIG_FkuI4_2) → `templates/components/mapa-de-clientes/MapaClientes.tsx` (~95-96%, REVISADO: mapa 892×932 medido, DF cinza, rótulos em posição medida c/ PE/AL/ES/RJ à direita, fonte+letterSpacing).
+- **Certo e Errado** (POST 247 / 256) → `templates/components/certo-e-errado/CertoErrado.tsx` (~96%) — refeito com método novo: ícones X/✓ em SVG, raio 45, watermark vertical DO/MA via CSS mask, cores por população. Ficha: `certo-e-errado.md`.
 
 ### ⬜ A recriar (ordem sugerida: simples → complexo)
 
