@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-# pre-commit — roda validate.sh antes de cada commit no sub-repo do plugin.
-# Instalação: configurar core.hooksPath ou copiar pra .git/hooks/pre-commit.
+# pre-commit — roda check-all.sh (validate + lint-voz) antes de cada commit.
+# Instalado via: git config core.hooksPath .git-hooks
 
 set -e
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-bash "$DIR/scripts/validate.sh"
+bash "$DIR/scripts/check-all.sh"

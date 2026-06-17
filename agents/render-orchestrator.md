@@ -14,7 +14,7 @@ Sub-agente que **renderiza em lote** e **audita comparativamente** stills do Rem
 - OU **Range**: `id="dicas-246" range="1..9"` (gera IDs `dicas-246-1`..`dicas-246-9`).
 - **Modelos** (opcional): map ID → path do modelo. Se vazio, pula audit comparativo.
 
-## Workflow
+## Fluxo
 
 ### 1. Render
 Para cada ID, rodar:

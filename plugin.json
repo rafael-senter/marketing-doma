@@ -32,6 +32,8 @@
     "install-deps": "scripts/install-deps.sh",
     "auto-rules-learn": "scripts/auto-rules-learn.sh",
     "validate": "scripts/validate.sh",
+    "lint-voz": "scripts/lint-voz.sh",
+    "check-all": "scripts/check-all.sh",
     "discover-models": "scripts/discover-models.sh"
   },
   "embedded_subskills": [

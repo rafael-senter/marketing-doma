@@ -1,0 +1,28 @@
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; height: 100%; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; background: #F4BB35; color: #1F1F1F; }
+#root { min-height: 100vh; display: flex; flex-direction: column; }
+
+.app { max-width: 1200px; margin: 0 auto; padding: 24px; flex: 1; display: flex; flex-direction: column; }
+
+.hd { padding-bottom: 16px; border-bottom: 2px solid #1F1F1F; margin-bottom: 16px; }
+.hd h1 { margin: 0 0 8px; font-size: 32px; font-weight: 900; letter-spacing: -0.5px; }
+.hd .ver { font-size: 14px; font-weight: 400; opacity: 0.6; }
+.hd .desc { margin: 0; font-size: 14px; line-height: 1.5; max-width: 800px; }
+
+.tabs { display: flex; gap: 8px; margin-bottom: 16px; }
+.tabs button { padding: 10px 20px; border: 2px solid #1F1F1F; background: #F8DD6B; color: #1F1F1F; font-weight: 700; font-size: 14px; cursor: pointer; border-radius: 999px; }
+.tabs button:hover { background: #1F1F1F; color: #F8DD6B; }
+.tabs button.on { background: #1F1F1F; color: #F8DD6B; }
+
+.grid { display: grid; grid-template-columns: 260px 1fr; gap: 16px; flex: 1; min-height: 500px; }
+.list { display: flex; flex-direction: column; gap: 4px; overflow-y: auto; }
+.list button { padding: 10px 14px; border: 1px solid #1F1F1F; background: #FFF; color: #1F1F1F; cursor: pointer; text-align: left; font-size: 13px; border-radius: 6px; }
+.list button:hover { background: #F8DD6B; }
+.list button.on { background: #1F1F1F; color: #F8DD6B; font-weight: 700; }
+
+.detail { background: #FFF; border: 1px solid #1F1F1F; border-radius: 8px; padding: 24px; overflow-y: auto; }
+.detail h2 { margin: 0 0 16px; font-size: 24px; }
+.detail .empty { opacity: 0.5; padding: 40px; text-align: center; }
+.detail .md { white-space: pre-wrap; font-family: 'SF Mono', Menlo, Consolas, monospace; font-size: 12px; line-height: 1.6; background: #F8F8F6; padding: 16px; border-radius: 4px; }
+
+.ft { margin-top: 16px; padding-top: 12px; border-top: 1px solid #1F1F1F; font-size: 12px; opacity: 0.7; text-align: center; }
