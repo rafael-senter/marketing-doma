@@ -51,47 +51,35 @@ npx marketing-doma-cli install
 | **git** | 2.30+ | `git --version` |
 | **bash** | 4+ | `bash --version` |
 
-**Sistema**: Linux / macOS (testado Ubuntu). Windows via WSL2.
+**Sistema**: Linux / macOS / Windows. Windows: via **Git Bash** (Git for Windows) ou WSL2.
 **Disco por projeto**: ~800 MB (plugin ~30 MB + Remotion `node_modules` ~600 MB + venv Python ~150 MB).
 **⚠️ Path do projeto SEM espaços**: webpack do Remotion quebra com espaços no caminho. Use `meu-projeto/` em vez de `meu projeto/`. Setup bloqueia com mensagem clara se detectar.
 
 ### Instalar pré-requisitos
 
-#### Ubuntu / Debian
+**Caminho recomendado (todos OS)** — o CLI faz tudo automaticamente:
 
 ```bash
-# 1. Claude Code CLI
-curl -fsSL https://claude.ai/install.sh | sh
-
-# 2. Node.js LTS (20.x)
-curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo bash -
-sudo apt install -y nodejs
-
-# 3. Python 3 + venv
-sudo apt install -y python3 python3-venv python3-pip
-
-# 4. git + bash (geralmente já vêm)
-sudo apt install -y git bash
+npm install -g marketing-doma-cli
+marketing-doma install
 ```
 
-#### macOS
+`marketing-doma install` detecta o que falta, pergunta confirmação, e instala via `apt` / `dnf` / `pacman` / `brew` / `winget` conforme o OS. Vai pedir senha de admin (sudo no Linux/mac, UAC no Windows).
+
+**Único pré-requisito manual:**
+
+- **Linux / macOS**: ter `npm` instalado (pra rodar `npm install -g marketing-doma-cli`). Se faltar, instala Node.js LTS primeiro:
+  - Ubuntu/Debian: `curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo bash - && sudo apt install -y nodejs`
+  - macOS: `brew install node`
+- **Windows**: instalar [Git for Windows](https://git-scm.com/download/win) (Git Bash incluído) e abrir o **Git Bash** (não PowerShell/CMD). Depois `winget install OpenJS.NodeJS.LTS` se npm faltar.
+
+### Conferir o que está instalado
 
 ```bash
-# 1. Homebrew (se não tiver): https://brew.sh
-# 2. Claude Code CLI
-curl -fsSL https://claude.ai/install.sh | sh
-# 3. Node.js LTS
-brew install node
-# 4. Python 3
-brew install python@3.11
-# 5. git
-brew install git
+marketing-doma status
 ```
 
-#### Windows
-
-WSL2 com Ubuntu (recomendado) — usar os comandos do Ubuntu acima.
-Ou nativo: instalar [Node.js](https://nodejs.org) LTS + [Python](https://www.python.org/downloads/) 3.11+ + [Git for Windows](https://git-scm.com).
+Mostra todas as versões + o que falta. Útil pra debugar se algo der errado.
 
 Detalhes passo-a-passo em [INSTALL.md](INSTALL.md).
 
