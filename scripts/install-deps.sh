@@ -96,8 +96,13 @@ if [ ! -f "$SETTINGS" ]; then
   "hooks": {
     "SessionStart": [
       {
-        "type": "command",
-        "command": "$HOOK_CMD"
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$HOOK_CMD",
+            "timeout": 5
+          }
+        ]
       }
     ]
   }
@@ -113,7 +118,11 @@ else
   {
     "hooks": {
       "SessionStart": [
-        {"type": "command", "command": "$HOOK_CMD"}
+        {
+          "hooks": [
+            {"type": "command", "command": "$HOOK_CMD", "timeout": 5}
+          ]
+        }
       ]
     }
   }
