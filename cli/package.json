@@ -1,0 +1,37 @@
+{
+  "name": "marketing-doma-cli",
+  "version": "0.1.22",
+  "description": "CLI instalador/atualizador do plugin marketing-doma para Claude Code. Wrapper Node que faz git clone + install.sh + git pull.",
+  "bin": {
+    "marketing-doma": "bin/marketing-doma.js"
+  },
+  "main": "bin/marketing-doma.js",
+  "type": "commonjs",
+  "engines": {
+    "node": ">=18"
+  },
+  "files": [
+    "bin/",
+    "README.md"
+  ],
+  "keywords": [
+    "claude-code",
+    "claude-code-plugin",
+    "marketing-doma",
+    "doma",
+    "remotion",
+    "instagram",
+    "cli"
+  ],
+  "author": "Doma — rafael@domagestao.com.br",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/valem_grupo/marketing-doma.git",
+    "directory": "cli"
+  },
+  "bugs": {
+    "url": "https://gitlab.com/valem_grupo/marketing-doma/-/issues"
+  },
+  "homepage": "https://gitlab.com/valem_grupo/marketing-doma#readme"
+}

@@ -24,11 +24,27 @@ Plugin do Marketing da Doma para [Claude Code](https://claude.com/claude-code) �
 - **Pessoa de marketing leiga** → usa só comandos `/marketing-doma` e `/marketing-doma-setup`.
 - **Patrick / dev** → mantém e evolui sub-skills, regras e templates.
 
-## Instalação — 2 etapas claras
+## Instalação — 2 caminhos
 
-### Etapa 1 (1×) — instalar o plugin no Claude Code GLOBAL
+### 🟢 Caminho A (recomendado para usuário leigo) — via `npm`
 
-Clone o plugin em **qualquer pasta** (recomendado: separado dos projetos):
+```bash
+# 1× só:
+npm install -g marketing-doma-cli
+marketing-doma install
+
+# Sempre que tiver versão nova:
+marketing-doma update
+
+# Ver versão / saúde da instalação:
+marketing-doma status
+```
+
+CLI faz `git clone` do plugin em `~/.local/share/marketing-doma`, roda `install.sh` automaticamente, registra no Claude Code global. Atualizações via `git pull` transparente. Detalhes em [`cli/README.md`](cli/README.md).
+
+### 🔧 Caminho B (dev / quem quer mexer no código)
+
+Clone o plugin em qualquer pasta e rode `install.sh`:
 
 ```bash
 git clone git@gitlab.com:valem_grupo/marketing-doma.git ~/plugins/marketing-doma
