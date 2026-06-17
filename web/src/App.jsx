@@ -2,8 +2,10 @@ import React, {useEffect, useState} from 'react';
 import manifest from '@plugin/plugin.json';
 import LintCopyPanel from './LintCopyPanel.jsx';
 import NewPostForm from './NewPostForm.jsx';
+import AssetsPanel from './AssetsPanel.jsx';
+import RenderPreview from './RenderPreview.jsx';
 
-const SECTIONS = ['categorias', 'agentes', 'commands', 'scripts', 'new-post', 'lint-copy'];
+const SECTIONS = ['categorias', 'agentes', 'commands', 'scripts', 'new-post', 'lint-copy', 'assets', 'renders'];
 
 export default function App() {
   const [tab, setTab] = useState('categorias');
@@ -45,6 +47,14 @@ export default function App() {
       ) : tab === 'new-post' ? (
         <main className="lint-copy-wrap">
           <NewPostForm />
+        </main>
+      ) : tab === 'assets' ? (
+        <main className="lint-copy-wrap">
+          <AssetsPanel />
+        </main>
+      ) : tab === 'renders' ? (
+        <main className="lint-copy-wrap">
+          <RenderPreview />
         </main>
       ) : (
       <main className="grid">

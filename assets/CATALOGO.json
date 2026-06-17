@@ -1,0 +1,1287 @@
+{
+  "oficial": [
+    {
+      "arquivo": "complemento-fundo-amarelo.png",
+      "slug": "complemento-fundo-amarelo",
+      "ext": "png",
+      "size_kb": 70.3,
+      "dims": {
+        "w": 1920,
+        "h": 1080
+      },
+      "path_plugin": "assets/oficial/complemento-fundo-amarelo.png",
+      "path_host": "oficial/complemento-fundo-amarelo.png",
+      "tipo": "grafismo-fundo",
+      "cor": "amarelo",
+      "usar_sobre": [
+        "preto/grafite"
+      ],
+      "evitar_sobre": [
+        "amarelo"
+      ],
+      "uso": "Grafismo decorativo de fundo sobre escuro."
+    },
+    {
+      "arquivo": "complemento-fundo-grafite.png",
+      "slug": "complemento-fundo-grafite",
+      "ext": "png",
+      "size_kb": 70.2,
+      "dims": {
+        "w": 1920,
+        "h": 1080
+      },
+      "path_plugin": "assets/oficial/complemento-fundo-grafite.png",
+      "path_host": "oficial/complemento-fundo-grafite.png",
+      "tipo": "grafismo-fundo",
+      "cor": "grafite",
+      "usar_sobre": [
+        "amarelo",
+        "branco"
+      ],
+      "evitar_sobre": [
+        "grafite"
+      ],
+      "uso": "Grafismo de fundo sobre amarelo/branco."
+    },
+    {
+      "arquivo": "complemento-principal-branco.png",
+      "slug": "complemento-principal-branco",
+      "ext": "png",
+      "size_kb": 29.6,
+      "dims": {
+        "w": 1883,
+        "h": 478
+      },
+      "path_plugin": "assets/oficial/complemento-principal-branco.png",
+      "path_host": "oficial/complemento-principal-branco.png",
+      "tipo": "grafismo-mask",
+      "cor": "branco (mask)",
+      "usar_sobre": [
+        "qualquer via tingimento"
+      ],
+      "evitar_sobre": [],
+      "uso": "Grafismo como máscara — tingir conforme contexto."
+    },
+    {
+      "arquivo": "complemento-principal-cor.png",
+      "slug": "complemento-principal-cor",
+      "ext": "png",
+      "size_kb": 30.2,
+      "dims": {
+        "w": 1883,
+        "h": 478
+      },
+      "path_plugin": "assets/oficial/complemento-principal-cor.png",
+      "path_host": "oficial/complemento-principal-cor.png",
+      "tipo": "grafismo",
+      "cor": "amarelo",
+      "usar_sobre": [
+        "grafite"
+      ],
+      "evitar_sobre": [
+        "amarelo"
+      ],
+      "uso": "Grafismo amber — uso decorativo."
+    },
+    {
+      "arquivo": "complemento-principal-grafite.png",
+      "slug": "complemento-principal-grafite",
+      "ext": "png",
+      "size_kb": 29.6,
+      "dims": {
+        "w": 1883,
+        "h": 478
+      },
+      "path_plugin": "assets/oficial/complemento-principal-grafite.png",
+      "path_host": "oficial/complemento-principal-grafite.png",
+      "tipo": "grafismo",
+      "cor": "grafite",
+      "usar_sobre": [
+        "amarelo",
+        "branco"
+      ],
+      "evitar_sobre": [
+        "grafite"
+      ],
+      "uso": "Grafismo grafite — bordas/divisores."
+    },
+    {
+      "arquivo": "logotipo-principal-branco.png",
+      "slug": "logotipo-principal-branco",
+      "ext": "png",
+      "size_kb": 18.0,
+      "dims": {
+        "w": 1767,
+        "h": 322
+      },
+      "path_plugin": "assets/oficial/logotipo-principal-branco.png",
+      "path_host": "oficial/logotipo-principal-branco.png",
+      "tipo": "wordmark-horizontal-mask",
+      "cor": "branco (uso como CSS mask)",
+      "usar_sobre": [
+        "qualquer cor via backgroundColor"
+      ],
+      "evitar_sobre": [],
+      "uso": "Máscara alpha. Tingir com cor medida via CSS mask + backgroundColor (técnica watermark + RULES §9)."
+    },
+    {
+      "arquivo": "logotipo-principal-cor.png",
+      "slug": "logotipo-principal-cor",
+      "ext": "png",
+      "size_kb": 18.1,
+      "dims": {
+        "w": 1767,
+        "h": 323
+      },
+      "path_plugin": "assets/oficial/logotipo-principal-cor.png",
+      "path_host": "oficial/logotipo-principal-cor.png",
+      "tipo": "wordmark-horizontal",
+      "cor": "amarelo manga (#F4BB35)",
+      "usar_sobre": [
+        "grafite",
+        "branco"
+      ],
+      "evitar_sobre": [
+        "amarelo",
+        "soft"
+      ],
+      "uso": "Logo principal sobre fundo escuro/branco. NÃO usar sobre amarelo (some)."
+    },
+    {
+      "arquivo": "logotipo-principal-grafite.png",
+      "slug": "logotipo-principal-grafite",
+      "ext": "png",
+      "size_kb": 18.0,
+      "dims": {
+        "w": 1768,
+        "h": 323
+      },
+      "path_plugin": "assets/oficial/logotipo-principal-grafite.png",
+      "path_host": "oficial/logotipo-principal-grafite.png",
+      "tipo": "wordmark-horizontal",
+      "cor": "grafite #1F1F1F",
+      "usar_sobre": [
+        "manga",
+        "soft",
+        "branco",
+        "claro"
+      ],
+      "evitar_sobre": [
+        "grafite"
+      ],
+      "uso": "Logo principal sobre fundo amarelo/branco. Versão MAIS COMUM em peças Doma."
+    },
+    {
+      "arquivo": "logotipo-vertical-branco.png",
+      "slug": "logotipo-vertical-branco",
+      "ext": "png",
+      "size_kb": 40.6,
+      "dims": {
+        "w": 1681,
+        "h": 1328
+      },
+      "path_plugin": "assets/oficial/logotipo-vertical-branco.png",
+      "path_host": "oficial/logotipo-vertical-branco.png",
+      "tipo": "wordmark-vertical-mask",
+      "cor": "branco (mask)",
+      "usar_sobre": [
+        "qualquer via tingimento"
+      ],
+      "evitar_sobre": [],
+      "uso": "Máscara vertical — usado em watermark DO/MA (Certo e Errado POST 247/256)."
+    },
+    {
+      "arquivo": "logotipo-vertical-cor.png",
+      "slug": "logotipo-vertical-cor",
+      "ext": "png",
+      "size_kb": 41.1,
+      "dims": {
+        "w": 1681,
+        "h": 1327
+      },
+      "path_plugin": "assets/oficial/logotipo-vertical-cor.png",
+      "path_host": "oficial/logotipo-vertical-cor.png",
+      "tipo": "wordmark-vertical",
+      "cor": "amarelo",
+      "usar_sobre": [
+        "grafite",
+        "branco"
+      ],
+      "evitar_sobre": [
+        "amarelo"
+      ],
+      "uso": "Vertical empilhada DO/M.a — pra story/lockup vertical."
+    },
+    {
+      "arquivo": "logotipo-vertical-grafite.png",
+      "slug": "logotipo-vertical-grafite",
+      "ext": "png",
+      "size_kb": 40.5,
+      "dims": {
+        "w": 1682,
+        "h": 1327
+      },
+      "path_plugin": "assets/oficial/logotipo-vertical-grafite.png",
+      "path_host": "oficial/logotipo-vertical-grafite.png",
+      "tipo": "wordmark-vertical",
+      "cor": "grafite",
+      "usar_sobre": [
+        "amarelo",
+        "branco"
+      ],
+      "evitar_sobre": [
+        "grafite"
+      ],
+      "uso": "Vertical grafite — story 9:16, lockup."
+    },
+    {
+      "arquivo": "selo-14anos-1.png",
+      "slug": "selo-14anos-1",
+      "ext": "png",
+      "size_kb": 103.9,
+      "dims": {
+        "w": 4167,
+        "h": 4167
+      },
+      "path_plugin": "assets/oficial/selo-14anos-1.png",
+      "path_host": "oficial/selo-14anos-1.png",
+      "tipo": "selo-aniversario",
+      "cor": "amarelo + grafite",
+      "usar_sobre": [
+        "grafite",
+        "branco"
+      ],
+      "evitar_sobre": [],
+      "uso": "Selo de 14 anos da marca (variante 1). USO TEMPORAL — só durante 2024/2025."
+    },
+    {
+      "arquivo": "selo-14anos-2.png",
+      "slug": "selo-14anos-2",
+      "ext": "png",
+      "size_kb": 104.8,
+      "dims": {
+        "w": 4167,
+        "h": 4167
+      },
+      "path_plugin": "assets/oficial/selo-14anos-2.png",
+      "path_host": "oficial/selo-14anos-2.png",
+      "tipo": "selo-aniversario",
+      "cor": "amarelo + grafite",
+      "usar_sobre": [
+        "grafite",
+        "branco"
+      ],
+      "evitar_sobre": [],
+      "uso": "Variante 2."
+    },
+    {
+      "arquivo": "selo-14anos-3.png",
+      "slug": "selo-14anos-3",
+      "ext": "png",
+      "size_kb": 105.0,
+      "dims": {
+        "w": 4167,
+        "h": 4167
+      },
+      "path_plugin": "assets/oficial/selo-14anos-3.png",
+      "path_host": "oficial/selo-14anos-3.png",
+      "tipo": "selo-aniversario",
+      "cor": "amarelo + grafite",
+      "usar_sobre": [
+        "grafite",
+        "branco"
+      ],
+      "evitar_sobre": [],
+      "uso": "Variante 3."
+    },
+    {
+      "arquivo": "selo-14anos-4.png",
+      "slug": "selo-14anos-4",
+      "ext": "png",
+      "size_kb": 103.3,
+      "dims": {
+        "w": 4167,
+        "h": 4167
+      },
+      "path_plugin": "assets/oficial/selo-14anos-4.png",
+      "path_host": "oficial/selo-14anos-4.png",
+      "tipo": "selo-aniversario",
+      "cor": "amarelo + grafite",
+      "usar_sobre": [
+        "grafite",
+        "branco"
+      ],
+      "evitar_sobre": [],
+      "uso": "Variante 4."
+    },
+    {
+      "arquivo": "selo-branco.png",
+      "slug": "selo-branco",
+      "ext": "png",
+      "size_kb": 102.4,
+      "dims": {
+        "w": 1757,
+        "h": 1788
+      },
+      "path_plugin": "assets/oficial/selo-branco.png",
+      "path_host": "oficial/selo-branco.png",
+      "tipo": "selo-circular",
+      "cor": "branco",
+      "usar_sobre": [
+        "grafite"
+      ],
+      "evitar_sobre": [
+        "branco"
+      ],
+      "uso": "Selo branco sobre fundo escuro."
+    },
+    {
+      "arquivo": "selo-cor.png",
+      "slug": "selo-cor",
+      "ext": "png",
+      "size_kb": 114.5,
+      "dims": {
+        "w": 1758,
+        "h": 1788
+      },
+      "path_plugin": "assets/oficial/selo-cor.png",
+      "path_host": "oficial/selo-cor.png",
+      "tipo": "selo-circular",
+      "cor": "amarelo",
+      "usar_sobre": [
+        "grafite"
+      ],
+      "evitar_sobre": [
+        "amarelo"
+      ],
+      "uso": "Selo redondo c/ 'DOMINE A GESTÃO DO SEU NEGÓCIO · SOFTWARE PARA GESTÃO' em texto curvo. Sobre fundo escuro."
+    },
+    {
+      "arquivo": "selo-grafite.png",
+      "slug": "selo-grafite",
+      "ext": "png",
+      "size_kb": 114.2,
+      "dims": {
+        "w": 1758,
+        "h": 1788
+      },
+      "path_plugin": "assets/oficial/selo-grafite.png",
+      "path_host": "oficial/selo-grafite.png",
+      "tipo": "selo-circular",
+      "cor": "grafite",
+      "usar_sobre": [
+        "amarelo",
+        "soft",
+        "branco",
+        "claro"
+      ],
+      "evitar_sobre": [
+        "grafite"
+      ],
+      "uso": "Mais comum. Selo grafite no canto sup-dir de CTAs (Dicas Carrossel slide 9)."
+    },
+    {
+      "arquivo": "submarca-industria.png",
+      "slug": "submarca-industria",
+      "ext": "png",
+      "size_kb": 11.2,
+      "dims": {
+        "w": 520,
+        "h": 67
+      },
+      "path_plugin": "assets/oficial/submarca-industria.png",
+      "path_host": "oficial/submarca-industria.png",
+      "tipo": "submarca",
+      "cor": "varia (PNG e SVG)",
+      "usar_sobre": [
+        "amarelo",
+        "grafite"
+      ],
+      "evitar_sobre": [],
+      "uso": "Lockup vertical 'INDÚSTRIA MOBILE' — bottom-bar de cards de vertical Indústria."
+    },
+    {
+      "arquivo": "submarca-industria.svg",
+      "slug": "submarca-industria",
+      "ext": "svg",
+      "size_kb": 4.8,
+      "dims": null,
+      "path_plugin": "assets/oficial/submarca-industria.svg",
+      "path_host": "oficial/submarca-industria.svg",
+      "tipo": "submarca",
+      "cor": "varia (PNG e SVG)",
+      "usar_sobre": [
+        "amarelo",
+        "grafite"
+      ],
+      "evitar_sobre": [],
+      "uso": "Lockup vertical 'INDÚSTRIA MOBILE' — bottom-bar de cards de vertical Indústria."
+    },
+    {
+      "arquivo": "submarca-moda.png",
+      "slug": "submarca-moda",
+      "ext": "png",
+      "size_kb": 10.2,
+      "dims": {
+        "w": 459,
+        "h": 67
+      },
+      "path_plugin": "assets/oficial/submarca-moda.png",
+      "path_host": "oficial/submarca-moda.png",
+      "tipo": "submarca",
+      "cor": "varia",
+      "usar_sobre": [
+        "amarelo",
+        "grafite"
+      ],
+      "evitar_sobre": [],
+      "uso": "Lockup 'MODA MANAGER' — bottom-bar Moda."
+    },
+    {
+      "arquivo": "submarca-moda.svg",
+      "slug": "submarca-moda",
+      "ext": "svg",
+      "size_kb": 3.2,
+      "dims": null,
+      "path_plugin": "assets/oficial/submarca-moda.svg",
+      "path_host": "oficial/submarca-moda.svg",
+      "tipo": "submarca",
+      "cor": "varia",
+      "usar_sobre": [
+        "amarelo",
+        "grafite"
+      ],
+      "evitar_sobre": [],
+      "uso": "Lockup 'MODA MANAGER' — bottom-bar Moda."
+    },
+    {
+      "arquivo": "submarca-pdv.png",
+      "slug": "submarca-pdv",
+      "ext": "png",
+      "size_kb": 9.8,
+      "dims": {
+        "w": 434,
+        "h": 67
+      },
+      "path_plugin": "assets/oficial/submarca-pdv.png",
+      "path_host": "oficial/submarca-pdv.png",
+      "tipo": "submarca",
+      "cor": "varia",
+      "usar_sobre": [
+        "amarelo",
+        "grafite"
+      ],
+      "evitar_sobre": [],
+      "uso": "Lockup 'PDV ECOMMERCE'."
+    },
+    {
+      "arquivo": "submarca-pdv.svg",
+      "slug": "submarca-pdv",
+      "ext": "svg",
+      "size_kb": 2.7,
+      "dims": null,
+      "path_plugin": "assets/oficial/submarca-pdv.svg",
+      "path_host": "oficial/submarca-pdv.svg",
+      "tipo": "submarca",
+      "cor": "varia",
+      "usar_sobre": [
+        "amarelo",
+        "grafite"
+      ],
+      "evitar_sobre": [],
+      "uso": "Lockup 'PDV ECOMMERCE'."
+    },
+    {
+      "arquivo": "submarca-textil.png",
+      "slug": "submarca-textil",
+      "ext": "png",
+      "size_kb": 9.9,
+      "dims": {
+        "w": 468,
+        "h": 66
+      },
+      "path_plugin": "assets/oficial/submarca-textil.png",
+      "path_host": "oficial/submarca-textil.png",
+      "tipo": "submarca",
+      "cor": "varia",
+      "usar_sobre": [
+        "amarelo",
+        "grafite"
+      ],
+      "evitar_sobre": [],
+      "uso": "Lockup 'TÊXTIL'."
+    },
+    {
+      "arquivo": "submarca-textil.svg",
+      "slug": "submarca-textil",
+      "ext": "svg",
+      "size_kb": 3.7,
+      "dims": null,
+      "path_plugin": "assets/oficial/submarca-textil.svg",
+      "path_host": "oficial/submarca-textil.svg",
+      "tipo": "submarca",
+      "cor": "varia",
+      "usar_sobre": [
+        "amarelo",
+        "grafite"
+      ],
+      "evitar_sobre": [],
+      "uso": "Lockup 'TÊXTIL'."
+    },
+    {
+      "arquivo": "submarca-varejo.png",
+      "slug": "submarca-varejo",
+      "ext": "png",
+      "size_kb": 10.7,
+      "dims": {
+        "w": 482,
+        "h": 67
+      },
+      "path_plugin": "assets/oficial/submarca-varejo.png",
+      "path_host": "oficial/submarca-varejo.png",
+      "tipo": "submarca",
+      "cor": "varia",
+      "usar_sobre": [
+        "amarelo",
+        "grafite"
+      ],
+      "evitar_sobre": [],
+      "uso": "Lockup 'VAREJO TÊXTIL' — bottom-bar Varejo."
+    },
+    {
+      "arquivo": "submarca-varejo.svg",
+      "slug": "submarca-varejo",
+      "ext": "svg",
+      "size_kb": 3.8,
+      "dims": null,
+      "path_plugin": "assets/oficial/submarca-varejo.svg",
+      "path_host": "oficial/submarca-varejo.svg",
+      "tipo": "submarca",
+      "cor": "varia",
+      "usar_sobre": [
+        "amarelo",
+        "grafite"
+      ],
+      "evitar_sobre": [],
+      "uso": "Lockup 'VAREJO TÊXTIL' — bottom-bar Varejo."
+    },
+    {
+      "arquivo": "tagline-horizontal-cor.png",
+      "slug": "tagline-horizontal-cor",
+      "ext": "png",
+      "size_kb": 34.2,
+      "dims": {
+        "w": 2885,
+        "h": 352
+      },
+      "path_plugin": "assets/oficial/tagline-horizontal-cor.png",
+      "path_host": "oficial/tagline-horizontal-cor.png",
+      "tipo": "tagline",
+      "cor": "amarelo + grafite",
+      "usar_sobre": [
+        "branco",
+        "grafite"
+      ],
+      "evitar_sobre": [
+        "amarelo"
+      ],
+      "uso": "Tagline horizontal — embaixo da logo principal."
+    },
+    {
+      "arquivo": "tagline-principal-cor.png",
+      "slug": "tagline-principal-cor",
+      "ext": "png",
+      "size_kb": 39.6,
+      "dims": {
+        "w": 2401,
+        "h": 609
+      },
+      "path_plugin": "assets/oficial/tagline-principal-cor.png",
+      "path_host": "oficial/tagline-principal-cor.png",
+      "tipo": "tagline",
+      "cor": "amarelo + grafite",
+      "usar_sobre": [
+        "branco",
+        "grafite"
+      ],
+      "evitar_sobre": [
+        "amarelo"
+      ],
+      "uso": "Tagline ao lado da logo."
+    },
+    {
+      "arquivo": "tagline-vertical-cor.png",
+      "slug": "tagline-vertical-cor",
+      "ext": "png",
+      "size_kb": 48.1,
+      "dims": {
+        "w": 2463,
+        "h": 1000
+      },
+      "path_plugin": "assets/oficial/tagline-vertical-cor.png",
+      "path_host": "oficial/tagline-vertical-cor.png",
+      "tipo": "tagline",
+      "cor": "amarelo + grafite",
+      "usar_sobre": [
+        "branco",
+        "grafite"
+      ],
+      "evitar_sobre": [
+        "amarelo"
+      ],
+      "uso": "Tagline empilhada — story 9:16."
+    }
+  ],
+  "icones": [
+    {
+      "arquivo": "icone-01-relogio.png",
+      "slug": "icone-01-relogio",
+      "dims": {
+        "w": 293,
+        "h": 294
+      },
+      "size_kb": 11.3,
+      "path_plugin": "assets/icones/icone-01-relogio.png",
+      "path_host": "icones/icone-01-relogio.png",
+      "uso": "Relógio analógico — uso: tempo, prazo, urgência."
+    },
+    {
+      "arquivo": "icone-02-cracha.png",
+      "slug": "icone-02-cracha",
+      "dims": {
+        "w": 251,
+        "h": 315
+      },
+      "size_kb": 8.2,
+      "path_plugin": "assets/icones/icone-02-cracha.png",
+      "path_host": "icones/icone-02-cracha.png",
+      "uso": "Crachá ID — uso: identificação, equipe, funcionário."
+    },
+    {
+      "arquivo": "icone-03-maleta.png",
+      "slug": "icone-03-maleta",
+      "dims": {
+        "w": 294,
+        "h": 293
+      },
+      "size_kb": 4.6,
+      "path_plugin": "assets/icones/icone-03-maleta.png",
+      "path_host": "icones/icone-03-maleta.png",
+      "uso": "Maleta de negócios — uso: empresa, profissional, executivo."
+    },
+    {
+      "arquivo": "icone-04-banco.png",
+      "slug": "icone-04-banco",
+      "dims": {
+        "w": 315,
+        "h": 315
+      },
+      "size_kb": 6.6,
+      "path_plugin": "assets/icones/icone-04-banco.png",
+      "path_host": "icones/icone-04-banco.png",
+      "uso": "Prédio banco — uso: financeiro, banco, instituição."
+    },
+    {
+      "arquivo": "icone-05-arquivo.png",
+      "slug": "icone-05-arquivo",
+      "dims": {
+        "w": 251,
+        "h": 294
+      },
+      "size_kb": 4.6,
+      "path_plugin": "assets/icones/icone-05-arquivo.png",
+      "path_host": "icones/icone-05-arquivo.png",
+      "uso": "Arquivo/pasta — uso: documentos, armazenamento."
+    },
+    {
+      "arquivo": "icone-06-prancheta-check.png",
+      "slug": "icone-06-prancheta-check",
+      "dims": {
+        "w": 251,
+        "h": 314
+      },
+      "size_kb": 6.0,
+      "path_plugin": "assets/icones/icone-06-prancheta-check.png",
+      "path_host": "icones/icone-06-prancheta-check.png",
+      "uso": "Prancheta com check — uso: tarefa concluída, validação."
+    },
+    {
+      "arquivo": "icone-07-calculadora.png",
+      "slug": "icone-07-calculadora",
+      "dims": {
+        "w": 272,
+        "h": 294
+      },
+      "size_kb": 6.0,
+      "path_plugin": "assets/icones/icone-07-calculadora.png",
+      "path_host": "icones/icone-07-calculadora.png",
+      "uso": "Calculadora — uso: cálculo, contas, finanças."
+    },
+    {
+      "arquivo": "icone-08-luminaria.png",
+      "slug": "icone-08-luminaria",
+      "dims": {
+        "w": 294,
+        "h": 293
+      },
+      "size_kb": 5.8,
+      "path_plugin": "assets/icones/icone-08-luminaria.png",
+      "path_host": "icones/icone-08-luminaria.png",
+      "uso": "Lâmpada/luminária — uso: ideia, inovação, insight."
+    },
+    {
+      "arquivo": "icone-09-megafone.png",
+      "slug": "icone-09-megafone",
+      "dims": {
+        "w": 294,
+        "h": 294
+      },
+      "size_kb": 5.9,
+      "path_plugin": "assets/icones/icone-09-megafone.png",
+      "path_host": "icones/icone-09-megafone.png",
+      "uso": "Megafone — uso: anúncio, comunicação, marketing."
+    },
+    {
+      "arquivo": "icone-10-podio-trofeu.png",
+      "slug": "icone-10-podio-trofeu",
+      "dims": {
+        "w": 293,
+        "h": 293
+      },
+      "size_kb": 5.8,
+      "path_plugin": "assets/icones/icone-10-podio-trofeu.png",
+      "path_host": "icones/icone-10-podio-trofeu.png",
+      "uso": "Pódio + troféu — uso: ranking, conquista, top performance."
+    },
+    {
+      "arquivo": "icone-11-grafico-linha.png",
+      "slug": "icone-11-grafico-linha",
+      "dims": {
+        "w": 293,
+        "h": 294
+      },
+      "size_kb": 3.9,
+      "path_plugin": "assets/icones/icone-11-grafico-linha.png",
+      "path_host": "icones/icone-11-grafico-linha.png",
+      "uso": "Gráfico de linha (neutro) — uso: tendência, métrica."
+    },
+    {
+      "arquivo": "icone-12-grafico-linha-subindo.png",
+      "slug": "icone-12-grafico-linha-subindo",
+      "dims": {
+        "w": 294,
+        "h": 294
+      },
+      "size_kb": 4.4,
+      "path_plugin": "assets/icones/icone-12-grafico-linha-subindo.png",
+      "path_host": "icones/icone-12-grafico-linha-subindo.png",
+      "uso": "Gráfico de linha SUBINDO — uso: crescimento, lucro."
+    },
+    {
+      "arquivo": "icone-13-grafico-linha-caindo.png",
+      "slug": "icone-13-grafico-linha-caindo",
+      "dims": {
+        "w": 294,
+        "h": 294
+      },
+      "size_kb": 4.5,
+      "path_plugin": "assets/icones/icone-13-grafico-linha-caindo.png",
+      "path_host": "icones/icone-13-grafico-linha-caindo.png",
+      "uso": "Gráfico de linha CAINDO — uso: queda, prejuízo (cuidado: voz Doma não atacar)."
+    },
+    {
+      "arquivo": "icone-14-barras-seta-cima.png",
+      "slug": "icone-14-barras-seta-cima",
+      "dims": {
+        "w": 272,
+        "h": 272
+      },
+      "size_kb": 3.9,
+      "path_plugin": "assets/icones/icone-14-barras-seta-cima.png",
+      "path_host": "icones/icone-14-barras-seta-cima.png",
+      "uso": "Barras + seta pra cima — uso: alta, crescimento."
+    },
+    {
+      "arquivo": "icone-15-xadrez-cavalo.png",
+      "slug": "icone-15-xadrez-cavalo",
+      "dims": {
+        "w": 273,
+        "h": 315
+      },
+      "size_kb": 10.8,
+      "path_plugin": "assets/icones/icone-15-xadrez-cavalo.png",
+      "path_host": "icones/icone-15-xadrez-cavalo.png",
+      "uso": "Cavalo de xadrez — uso: estratégia, plano."
+    },
+    {
+      "arquivo": "icone-16-documento-cifrao.png",
+      "slug": "icone-16-documento-cifrao",
+      "dims": {
+        "w": 251,
+        "h": 293
+      },
+      "size_kb": 6.5,
+      "path_plugin": "assets/icones/icone-16-documento-cifrao.png",
+      "path_host": "icones/icone-16-documento-cifrao.png",
+      "uso": "Documento com cifrão — uso: nota fiscal, fatura."
+    },
+    {
+      "arquivo": "icone-17-prancheta-cifrao.png",
+      "slug": "icone-17-prancheta-cifrao",
+      "dims": {
+        "w": 251,
+        "h": 315
+      },
+      "size_kb": 7.9,
+      "path_plugin": "assets/icones/icone-17-prancheta-cifrao.png",
+      "path_host": "icones/icone-17-prancheta-cifrao.png",
+      "uso": "Prancheta + cifrão — uso: orçamento, custo."
+    },
+    {
+      "arquivo": "icone-18-etiqueta-preco.png",
+      "slug": "icone-18-etiqueta-preco",
+      "dims": {
+        "w": 314,
+        "h": 315
+      },
+      "size_kb": 11.8,
+      "path_plugin": "assets/icones/icone-18-etiqueta-preco.png",
+      "path_host": "icones/icone-18-etiqueta-preco.png",
+      "uso": "Etiqueta de preço — uso: precificação, promo."
+    },
+    {
+      "arquivo": "icone-19-chat.png",
+      "slug": "icone-19-chat",
+      "dims": {
+        "w": 314,
+        "h": 314
+      },
+      "size_kb": 6.0,
+      "path_plugin": "assets/icones/icone-19-chat.png",
+      "path_host": "icones/icone-19-chat.png",
+      "uso": "Balão de chat — uso: atendimento, conversa, suporte."
+    },
+    {
+      "arquivo": "icone-20-documento-busca.png",
+      "slug": "icone-20-documento-busca",
+      "dims": {
+        "w": 303,
+        "h": 314
+      },
+      "size_kb": 9.9,
+      "path_plugin": "assets/icones/icone-20-documento-busca.png",
+      "path_host": "icones/icone-20-documento-busca.png",
+      "uso": "Documento + lupa — uso: análise documental, auditoria."
+    },
+    {
+      "arquivo": "icone-21-alvo-flecha.png",
+      "slug": "icone-21-alvo-flecha",
+      "dims": {
+        "w": 314,
+        "h": 314
+      },
+      "size_kb": 17.8,
+      "path_plugin": "assets/icones/icone-21-alvo-flecha.png",
+      "path_host": "icones/icone-21-alvo-flecha.png",
+      "uso": "Alvo + flecha — uso: meta, objetivo, foco."
+    },
+    {
+      "arquivo": "icone-22-cartao-credito.png",
+      "slug": "icone-22-cartao-credito",
+      "dims": {
+        "w": 315,
+        "h": 251
+      },
+      "size_kb": 3.5,
+      "path_plugin": "assets/icones/icone-22-cartao-credito.png",
+      "path_host": "icones/icone-22-cartao-credito.png",
+      "uso": "Cartão de crédito — uso: pagamento, taxa, financeiro."
+    },
+    {
+      "arquivo": "icone-23-check-circulo.png",
+      "slug": "icone-23-check-circulo",
+      "dims": {
+        "w": 314,
+        "h": 315
+      },
+      "size_kb": 13.8,
+      "path_plugin": "assets/icones/icone-23-check-circulo.png",
+      "path_host": "icones/icone-23-check-circulo.png",
+      "uso": "Check em círculo — uso: ok, validado, aprovado."
+    },
+    {
+      "arquivo": "icone-24-bandeira-montanha.png",
+      "slug": "icone-24-bandeira-montanha",
+      "dims": {
+        "w": 315,
+        "h": 294
+      },
+      "size_kb": 6.6,
+      "path_plugin": "assets/icones/icone-24-bandeira-montanha.png",
+      "path_host": "icones/icone-24-bandeira-montanha.png",
+      "uso": "Bandeira no topo da montanha — uso: meta atingida."
+    },
+    {
+      "arquivo": "icone-25-pessoa-balao.png",
+      "slug": "icone-25-pessoa-balao",
+      "dims": {
+        "w": 314,
+        "h": 314
+      },
+      "size_kb": 7.1,
+      "path_plugin": "assets/icones/icone-25-pessoa-balao.png",
+      "path_host": "icones/icone-25-pessoa-balao.png",
+      "uso": "Pessoa com balão de fala — uso: cliente, opinião."
+    },
+    {
+      "arquivo": "icone-26-globo.png",
+      "slug": "icone-26-globo",
+      "dims": {
+        "w": 294,
+        "h": 294
+      },
+      "size_kb": 15.5,
+      "path_plugin": "assets/icones/icone-26-globo.png",
+      "path_host": "icones/icone-26-globo.png",
+      "uso": "Globo terrestre — uso: alcance, nacional, internet."
+    },
+    {
+      "arquivo": "icone-27-maleta-negocios.png",
+      "slug": "icone-27-maleta-negocios",
+      "dims": {
+        "w": 294,
+        "h": 294
+      },
+      "size_kb": 8.0,
+      "path_plugin": "assets/icones/icone-27-maleta-negocios.png",
+      "path_host": "icones/icone-27-maleta-negocios.png",
+      "uso": "Maleta + crescimento — uso: negócio, empresa."
+    },
+    {
+      "arquivo": "icone-28-organograma.png",
+      "slug": "icone-28-organograma",
+      "dims": {
+        "w": 315,
+        "h": 315
+      },
+      "size_kb": 5.6,
+      "path_plugin": "assets/icones/icone-28-organograma.png",
+      "path_host": "icones/icone-28-organograma.png",
+      "uso": "Organograma — uso: estrutura, hierarquia, equipe."
+    },
+    {
+      "arquivo": "icone-29-apresentacao.png",
+      "slug": "icone-29-apresentacao",
+      "dims": {
+        "w": 315,
+        "h": 293
+      },
+      "size_kb": 4.2,
+      "path_plugin": "assets/icones/icone-29-apresentacao.png",
+      "path_host": "icones/icone-29-apresentacao.png",
+      "uso": "Tela de apresentação — uso: pitch, treinamento."
+    },
+    {
+      "arquivo": "icone-30-documento.png",
+      "slug": "icone-30-documento",
+      "dims": {
+        "w": 251,
+        "h": 294
+      },
+      "size_kb": 6.5,
+      "path_plugin": "assets/icones/icone-30-documento.png",
+      "path_host": "icones/icone-30-documento.png",
+      "uso": "Documento simples — uso: relatório, papel."
+    },
+    {
+      "arquivo": "icone-31-gravata.png",
+      "slug": "icone-31-gravata",
+      "dims": {
+        "w": 209,
+        "h": 314
+      },
+      "size_kb": 5.5,
+      "path_plugin": "assets/icones/icone-31-gravata.png",
+      "path_host": "icones/icone-31-gravata.png",
+      "uso": "Gravata — uso: profissional, formal (cuidado: público B2B)."
+    },
+    {
+      "arquivo": "icone-32-lampada-cifrao.png",
+      "slug": "icone-32-lampada-cifrao",
+      "dims": {
+        "w": 252,
+        "h": 315
+      },
+      "size_kb": 13.0,
+      "path_plugin": "assets/icones/icone-32-lampada-cifrao.png",
+      "path_host": "icones/icone-32-lampada-cifrao.png",
+      "uso": "Lâmpada + cifrão — uso: ideia que gera dinheiro."
+    },
+    {
+      "arquivo": "icone-33-pessoa-apresentando.png",
+      "slug": "icone-33-pessoa-apresentando",
+      "dims": {
+        "w": 303,
+        "h": 315
+      },
+      "size_kb": 8.0,
+      "path_plugin": "assets/icones/icone-33-pessoa-apresentando.png",
+      "path_host": "icones/icone-33-pessoa-apresentando.png",
+      "uso": "Pessoa apresentando — uso: palestra, treinamento."
+    },
+    {
+      "arquivo": "icone-34-barras-crescimento.png",
+      "slug": "icone-34-barras-crescimento",
+      "dims": {
+        "w": 315,
+        "h": 293
+      },
+      "size_kb": 5.5,
+      "path_plugin": "assets/icones/icone-34-barras-crescimento.png",
+      "path_host": "icones/icone-34-barras-crescimento.png",
+      "uso": "Barras crescentes — uso: receita subindo, evolução."
+    },
+    {
+      "arquivo": "icone-35-barras-queda.png",
+      "slug": "icone-35-barras-queda",
+      "dims": {
+        "w": 315,
+        "h": 293
+      },
+      "size_kb": 5.7,
+      "path_plugin": "assets/icones/icone-35-barras-queda.png",
+      "path_host": "icones/icone-35-barras-queda.png",
+      "uso": "Barras descendo — uso: queda (idem 13: cuidado)."
+    },
+    {
+      "arquivo": "icone-36-planta-broto.png",
+      "slug": "icone-36-planta-broto",
+      "dims": {
+        "w": 272,
+        "h": 315
+      },
+      "size_kb": 11.7,
+      "path_plugin": "assets/icones/icone-36-planta-broto.png",
+      "path_host": "icones/icone-36-planta-broto.png",
+      "uso": "Planta/broto — uso: crescimento orgânico, nascendo."
+    },
+    {
+      "arquivo": "icone-37-escudo-cifrao.png",
+      "slug": "icone-37-escudo-cifrao",
+      "dims": {
+        "w": 272,
+        "h": 315
+      },
+      "size_kb": 11.6,
+      "path_plugin": "assets/icones/icone-37-escudo-cifrao.png",
+      "path_host": "icones/icone-37-escudo-cifrao.png",
+      "uso": "Escudo com cifrão — uso: segurança financeira."
+    },
+    {
+      "arquivo": "icone-38-megafone-anuncio.png",
+      "slug": "icone-38-megafone-anuncio",
+      "dims": {
+        "w": 315,
+        "h": 315
+      },
+      "size_kb": 8.9,
+      "path_plugin": "assets/icones/icone-38-megafone-anuncio.png",
+      "path_host": "icones/icone-38-megafone-anuncio.png",
+      "uso": "Megafone variante — uso: divulgação."
+    },
+    {
+      "arquivo": "icone-39-projetor.png",
+      "slug": "icone-39-projetor",
+      "dims": {
+        "w": 315,
+        "h": 315
+      },
+      "size_kb": 5.1,
+      "path_plugin": "assets/icones/icone-39-projetor.png",
+      "path_host": "icones/icone-39-projetor.png",
+      "uso": "Projetor — uso: projeção, planejamento."
+    },
+    {
+      "arquivo": "icone-40-barras-pequeno.png",
+      "slug": "icone-40-barras-pequeno",
+      "dims": {
+        "w": 315,
+        "h": 272
+      },
+      "size_kb": 3.1,
+      "path_plugin": "assets/icones/icone-40-barras-pequeno.png",
+      "path_host": "icones/icone-40-barras-pequeno.png",
+      "uso": "Barras pequenas — uso: dado/indicador genérico."
+    },
+    {
+      "arquivo": "icone-41-trofeu.png",
+      "slug": "icone-41-trofeu",
+      "dims": {
+        "w": 314,
+        "h": 314
+      },
+      "size_kb": 11.0,
+      "path_plugin": "assets/icones/icone-41-trofeu.png",
+      "path_host": "icones/icone-41-trofeu.png",
+      "uso": "Troféu — uso: prêmio, conquista."
+    },
+    {
+      "arquivo": "icone-42-alvo-publico.png",
+      "slug": "icone-42-alvo-publico",
+      "dims": {
+        "w": 314,
+        "h": 314
+      },
+      "size_kb": 16.8,
+      "path_plugin": "assets/icones/icone-42-alvo-publico.png",
+      "path_host": "icones/icone-42-alvo-publico.png",
+      "uso": "Alvo com pessoa — uso: público-alvo, persona."
+    },
+    {
+      "arquivo": "icone-43-lupa-analise.png",
+      "slug": "icone-43-lupa-analise",
+      "dims": {
+        "w": 315,
+        "h": 314
+      },
+      "size_kb": 13.4,
+      "path_plugin": "assets/icones/icone-43-lupa-analise.png",
+      "path_host": "icones/icone-43-lupa-analise.png",
+      "uso": "Lupa de análise — uso: investigação, pesquisa."
+    },
+    {
+      "arquivo": "icone-44-calendario.png",
+      "slug": "icone-44-calendario",
+      "dims": {
+        "w": 315,
+        "h": 314
+      },
+      "size_kb": 4.8,
+      "path_plugin": "assets/icones/icone-44-calendario.png",
+      "path_host": "icones/icone-44-calendario.png",
+      "uso": "Calendário — uso: data, prazo, agendamento."
+    },
+    {
+      "arquivo": "icone-45-cursor-clique.png",
+      "slug": "icone-45-cursor-clique",
+      "dims": {
+        "w": 315,
+        "h": 314
+      },
+      "size_kb": 17.6,
+      "path_plugin": "assets/icones/icone-45-cursor-clique.png",
+      "path_host": "icones/icone-45-cursor-clique.png",
+      "uso": "Cursor com clique — uso: ação digital, e-commerce."
+    },
+    {
+      "arquivo": "icone-46-compartilhar.png",
+      "slug": "icone-46-compartilhar",
+      "dims": {
+        "w": 294,
+        "h": 315
+      },
+      "size_kb": 12.1,
+      "path_plugin": "assets/icones/icone-46-compartilhar.png",
+      "path_host": "icones/icone-46-compartilhar.png",
+      "uso": "Ícone compartilhar — uso: redes sociais, share."
+    },
+    {
+      "arquivo": "icone-47-binoculos.png",
+      "slug": "icone-47-binoculos",
+      "dims": {
+        "w": 314,
+        "h": 272
+      },
+      "size_kb": 14.1,
+      "path_plugin": "assets/icones/icone-47-binoculos.png",
+      "path_host": "icones/icone-47-binoculos.png",
+      "uso": "Binóculos — uso: visão, futuro, prospecção."
+    },
+    {
+      "arquivo": "icone-48-guarda-chuva.png",
+      "slug": "icone-48-guarda-chuva",
+      "dims": {
+        "w": 315,
+        "h": 314
+      },
+      "size_kb": 11.7,
+      "path_plugin": "assets/icones/icone-48-guarda-chuva.png",
+      "path_host": "icones/icone-48-guarda-chuva.png",
+      "uso": "Guarda-chuva — uso: proteção, seguro, prevenção."
+    },
+    {
+      "arquivo": "icone-49-grafico-linha-ponto.png",
+      "slug": "icone-49-grafico-linha-ponto",
+      "dims": {
+        "w": 315,
+        "h": 315
+      },
+      "size_kb": 9.2,
+      "path_plugin": "assets/icones/icone-49-grafico-linha-ponto.png",
+      "path_host": "icones/icone-49-grafico-linha-ponto.png",
+      "uso": "Gráfico de pontos — uso: dado, série temporal."
+    },
+    {
+      "arquivo": "icone-50-jornal.png",
+      "slug": "icone-50-jornal",
+      "dims": {
+        "w": 315,
+        "h": 294
+      },
+      "size_kb": 5.8,
+      "path_plugin": "assets/icones/icone-50-jornal.png",
+      "path_host": "icones/icone-50-jornal.png",
+      "uso": "Jornal/notícia — uso: notícia, comunicado, divulgação."
+    }
+  ],
+  "fontes": [
+    {
+      "arquivo": "TTLakes-Black.ttf",
+      "slug": "TTLakes-Black",
+      "size_kb": 135.1,
+      "path_plugin": "assets/fontes/TTLakes-Black.ttf",
+      "peso": 900,
+      "uso": "Título gigante (fontSize 78+), número grande de header."
+    },
+    {
+      "arquivo": "TTLakes-Bold.ttf",
+      "slug": "TTLakes-Bold",
+      "size_kb": 127.3,
+      "path_plugin": "assets/fontes/TTLakes-Bold.ttf",
+      "peso": 700,
+      "uso": "Palavra-chave dentro de frase, badge, sub-card."
+    },
+    {
+      "arquivo": "TTLakes-DemiBold.ttf",
+      "slug": "TTLakes-DemiBold",
+      "size_kb": 123.1,
+      "path_plugin": "assets/fontes/TTLakes-DemiBold.ttf",
+      "peso": 600,
+      "uso": "Kicker / legenda pequena. NÃO usar como bold em corpo (vira pesado demais)."
+    },
+    {
+      "arquivo": "TTLakes-ExtraBold.ttf",
+      "slug": "TTLakes-ExtraBold",
+      "size_kb": 126.7,
+      "path_plugin": "assets/fontes/TTLakes-ExtraBold.ttf",
+      "peso": 800,
+      "uso": "Título principal, palavra-chave de impacto."
+    },
+    {
+      "arquivo": "TTLakes-Medium.ttf",
+      "slug": "TTLakes-Medium",
+      "size_kb": 123.5,
+      "path_plugin": "assets/fontes/TTLakes-Medium.ttf",
+      "peso": 500,
+      "uso": "Variante média — raramente usada."
+    },
+    {
+      "arquivo": "TTLakes-Regular.ttf",
+      "slug": "TTLakes-Regular",
+      "size_kb": 121.2,
+      "path_plugin": "assets/fontes/TTLakes-Regular.ttf",
+      "peso": 400,
+      "uso": "Corpo de texto — DEFAULT. Sem bold."
+    }
+  ]
+}

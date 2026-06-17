@@ -33,8 +33,12 @@
     "auto-rules-learn": "scripts/auto-rules-learn.sh",
     "validate": "scripts/validate.sh",
     "lint-voz": "scripts/lint-voz.sh",
+    "lint-copy": "scripts/lint-copy.sh",
     "check-all": "scripts/check-all.sh",
-    "discover-models": "scripts/discover-models.sh"
+    "discover-models": "scripts/discover-models.sh",
+    "cron-discover": "scripts/cron-discover.sh",
+    "build-catalog": "scripts/build-catalog.py",
+    "extract-from-pdf": "scripts/extract-from-pdf.sh"
   },
   "embedded_subskills": [
     "skills/marketing-doma/subskills/frase-pilulas",

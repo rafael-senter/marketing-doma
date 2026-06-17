@@ -64,3 +64,47 @@ html, body { margin: 0; padding: 0; height: 100%; font-family: system-ui, -apple
 .preview { background: #F8F8F6; }
 .preview .md { white-space: pre-wrap; font-family: 'SF Mono', Menlo, Consolas, monospace; font-size: 11px; line-height: 1.5; max-height: 600px; overflow-y: auto; }
 @media (max-width: 800px) { .new-post-form { grid-template-columns: 1fr; } }
+
+/* Assets Panel */
+.assets-panel { display: flex; flex-direction: column; gap: 16px; }
+.assets-toolbar { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+.assets-tabs { display: flex; gap: 4px; }
+.assets-tabs button { padding: 6px 14px; border: 1px solid #1F1F1F; background: #FFF; border-radius: 999px; cursor: pointer; font-size: 12px; font-weight: 700; }
+.assets-tabs button.on { background: #1F1F1F; color: #F8DD6B; }
+.assets-search { flex: 1; min-width: 200px; padding: 8px 12px; border: 1px solid #1F1F1F; border-radius: 6px; font-size: 13px; }
+
+.assets-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; }
+.asset-card { background: #FFF; border: 1px solid #1F1F1F; border-radius: 8px; padding: 12px; display: flex; flex-direction: column; gap: 8px; }
+.asset-preview { background: #F4BB35; border-radius: 6px; padding: 12px; min-height: 100px; display: flex; align-items: center; justify-content: center; }
+.asset-preview img { max-width: 100%; max-height: 80px; object-fit: contain; }
+.asset-icones .asset-preview { background: #FFF; border: 1px dashed #ddd; }
+.asset-preview-font { background: #F8F8F6; flex-direction: column; }
+.asset-preview-font span { font-size: 56px; color: #1F1F1F; font-family: 'TT Lakes', sans-serif; line-height: 1; }
+.asset-preview-font small { font-size: 11px; opacity: 0.6; margin-top: 4px; }
+.asset-meta { display: flex; flex-direction: column; gap: 4px; font-size: 11px; }
+.asset-name { font-family: 'SF Mono', Menlo, Consolas, monospace; font-size: 11px; font-weight: 700; word-break: break-all; }
+.asset-tag, .asset-cor { display: inline-block; padding: 2px 6px; background: #F8DD6B; border-radius: 4px; font-size: 10px; width: fit-content; }
+.asset-cor { background: #EFEFEE; }
+.asset-meta small { opacity: 0.5; font-size: 10px; }
+.asset-uso { margin: 4px 0; font-size: 12px; line-height: 1.4; }
+.asset-fundos { font-size: 10px; color: #1F1F1F; }
+.asset-fundos.asset-evitar { color: #EF4639; }
+.asset-path { font-size: 10px; padding: 4px 6px; background: #F8F8F6; border-radius: 4px; word-break: break-all; }
+
+/* Render Preview */
+.render-preview { display: flex; flex-direction: column; gap: 16px; }
+.rp-toolbar { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+.rp-toolbar h3 { margin: 0; font-size: 16px; }
+.rp-toolbar code { background: #F8DD6B; padding: 2px 6px; border-radius: 4px; font-size: 12px; }
+.rp-search { flex: 1; min-width: 200px; padding: 8px 12px; border: 1px solid #1F1F1F; border-radius: 6px; font-size: 13px; }
+.rp-stats { font-size: 12px; opacity: 0.7; }
+.rp-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px; }
+.rp-card { background: #FFF; border: 1px solid #1F1F1F; border-radius: 8px; padding: 8px; cursor: pointer; transition: transform 0.1s; }
+.rp-card:hover { transform: scale(1.03); }
+.rp-card img { width: 100%; height: 200px; object-fit: contain; background: #F4BB35; border-radius: 4px; }
+.rp-id { font-size: 10px; font-family: 'SF Mono', Menlo, Consolas, monospace; margin-top: 6px; word-break: break-all; text-align: center; }
+.rp-zoom { position: fixed; inset: 0; background: rgba(0,0,0,0.85); display: flex; align-items: center; justify-content: center; z-index: 999; cursor: pointer; }
+.rp-zoom-content { max-width: 90vw; max-height: 90vh; display: flex; flex-direction: column; gap: 12px; cursor: default; }
+.rp-zoom-content img { max-width: 100%; max-height: 80vh; object-fit: contain; }
+.rp-zoom-meta { display: flex; justify-content: space-between; align-items: center; color: #FFF; }
+.rp-zoom-meta button { padding: 8px 16px; background: #FFF; color: #1F1F1F; border: none; border-radius: 6px; cursor: pointer; font-weight: 700; }
