@@ -45,9 +45,21 @@ echo "==> Smoke test CLI"
 node bin/marketing-doma.js version
 node bin/marketing-doma.js help >/dev/null
 
-# Publica
-echo "==> npm publish --access public"
-npm publish --access public
+# Publica — npm registry exige 2FA pra publicar. Aceita OTP via env ou flag.
+OTP="${NPM_OTP:-${2:-}}"
+if [ -z "$OTP" ]; then
+  echo ""
+  echo "==> npm exige 2FA. Abra app autenticador (Google Authenticator/Authy/etc) e digite OTP:"
+  read -r -p "OTP (6 dígitos): " OTP
+fi
+
+if [ -z "$OTP" ]; then
+  echo "✗ OTP vazio. Abortando."
+  exit 1
+fi
+
+echo "==> npm publish --access public --otp=******"
+npm publish --access public --otp="$OTP"
 
 V=$(node -p "require('./package.json').version")
 echo ""

@@ -9,9 +9,9 @@
 1. **Claude Code** — a IA da Anthropic (CLI no terminal).
 2. **Node.js** — necessário pro Remotion (a "máquina" que gera as artes).
 3. **Python 3** — pra medições automáticas (compare render vs modelo).
-4. **O projeto Doma** — esse repositório, com o plugin já dentro.
+4. **CLI `marketing-doma`** — instala o plugin no Claude Code com 1 comando.
 
-Depois é só rodar 1 comando e estar pronto para criar posts.
+Depois é só rodar `/marketing-doma-setup` em cada projeto e estar pronto para criar posts.
 
 ---
 
@@ -89,48 +89,53 @@ python3 --version
 
 ---
 
-## 4. Baixar o projeto Doma
+## 4. Instalar o plugin (via npm — 1 comando)
 
 ```bash
-mkdir -p ~/projetos-doma
-cd ~/projetos-doma
-git clone <URL-do-repositorio-que-o-patrick-mandar> patrick
-cd patrick
+npm install -g marketing-doma-cli
+marketing-doma install
 ```
-*Se você não tem `git`, instale primeiro:*
-- macOS: já vem.
-- Linux: `sudo apt install -y git`
-- Windows: https://git-scm.com
+
+O `marketing-doma install` baixa o plugin direto do GitHub/GitLab + registra automaticamente no Claude Code.
+
+### Atualizar quando sair versão nova
+
+```bash
+marketing-doma update
+```
+
+### Ver versão instalada / status
+
+```bash
+marketing-doma status
+```
+
+### Outros comandos do CLI
+
+| Comando | O que faz |
+|---|---|
+| `marketing-doma install` | Instala plugin pela 1ª vez. |
+| `marketing-doma update` | Atualiza para última versão. |
+| `marketing-doma status` | Mostra versão local + remota + saúde. |
+| `marketing-doma uninstall` | Remove plugin (mantém CLI). |
+| `marketing-doma help` | Ajuda. |
 
 ---
 
-## 5. Instalar o plugin globalmente
+## 5. Rodar o setup do projeto Remotion (1× por pasta de trabalho)
 
-Rode 1 vez (script idempotente — pode rodar de novo se reinstalar):
+Em **qualquer pasta** onde vai criar posts:
+
 ```bash
-bash .claude/plugins/marketing-doma/scripts/install-globally.sh
-```
-
-O que faz:
-- Cria symlink `~/.claude/plugins/marketing-doma` → este diretório do plugin.
-- Registra em `~/.claude/plugins/known_marketplaces.json` e `installed_plugins.json`.
-
-**Edições no plugin (em qualquer caminho) refletem em todos os projetos automaticamente** (symlink).
-
-Reinicie o Claude Code (saia + entre):
-```bash
-exit
+cd ~/minha-pasta-de-trabalho
 claude
 ```
 
-Comandos `/marketing-doma`, `/marketing-doma-setup`, `/new-post`, etc. agora estão disponíveis.
-
-## 6. Rodar o setup do projeto Remotion
-
-No Claude Code, digite:
+No Claude Code:
 ```
-/marketing-doma-setup
+/marketing-doma:marketing-doma-setup
 ```
+
 A IA vai:
 1. Instalar o Remotion automaticamente.
 2. Instalar dependências do Python (Pillow, numpy, scipy).
@@ -143,7 +148,7 @@ Aguarde finalizar (pode levar 2-5 min na primeira vez).
 
 ## 6. Criar seu primeiro post
 
-Dentro do Claude Code, digite:
+Dentro do Claude Code:
 ```
 /marketing-doma
 ```
@@ -162,8 +167,8 @@ A IA vai te perguntar:
 ## 7. Onde ficam os arquivos prontos
 
 - **PNGs renderizados:** `remotion-doma/out/<id>.png`
-- **Planos de cada post:** `doma-brand/PADROES/POST-<nome>-plano.md` (a IA cria)
-- **Regras aprendidas:** `.claude/plugins/marketing-doma/knowledge-base/live-rules/` (a IA grava sozinha quando descobre algo novo)
+- **Planos de cada post:** `templates/planos/POST-<nome>-plano.md` (a IA cria)
+- **Regras aprendidas:** `knowledge-base/live-rules/` dentro do plugin (a IA grava sozinha quando descobre algo novo)
 
 ---
 
@@ -172,14 +177,48 @@ A IA vai te perguntar:
 ### "comando não encontrado: claude"
 Feche e abra o terminal de novo. Se persistir: pergunte ao Patrick.
 
-### "Cannot find module 'remotion'"
-Rode `/marketing-doma-setup` de novo.
+### "comando não encontrado: marketing-doma"
+O `npm install -g` falhou ou o PATH não foi atualizado. Reinicie o terminal. Se persistir:
+```bash
+npm install -g marketing-doma-cli --force
+```
 
-### "min-release-age" bloqueando instalação
-Já está resolvido — tem `.npmrc` local no `remotion-doma/`. Se aparecer mesmo assim: avise o Patrick.
+### "Cannot find module 'remotion'"
+Rode `/marketing-doma-setup` de novo na pasta do projeto.
+
+### `min-release-age` bloqueando instalação do CLI
+Se você tem `~/.npmrc` com `min-release-age=7` (proteção Shai-Hulud), versões muito novas do CLI são bloqueadas. Força:
+```bash
+npm install -g marketing-doma-cli --min-release-age=0
+```
 
 ### Render demora muito
 Normal na primeira vez (compila a fonte). Próximos renders são rápidos (~5 s/slide).
+
+---
+
+## 🛠️ Modo dev (clone + install.sh)
+
+Se você é **dev** e quer mexer no plugin (alterar componentes, regras, scripts), instale via clone direto:
+
+```bash
+git clone <URL-do-repositório> ~/plugins/marketing-doma
+cd ~/plugins/marketing-doma
+bash install.sh
+```
+
+O `install.sh`:
+- Cria symlink `~/.claude/plugins/marketing-doma` → fonte clonada.
+- Registra em `~/.claude/plugins/installed_plugins.json` + `known_marketplaces.json`.
+- Habilita em `~/.claude/settings.json`.
+
+Edições no clone refletem instantaneamente (symlink). Pra atualizar: `git pull` na pasta clonada.
+
+Flags:
+```bash
+bash install.sh --dry-run    # mostra o que faria
+bash install.sh --uninstall  # remove tudo
+```
 
 ---
 

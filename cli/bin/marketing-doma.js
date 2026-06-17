@@ -21,7 +21,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const os = require('node:os');
 
-const REPO_URL = 'https://gitlab.com/valem_grupo/marketing-doma.git';
+const REPO_URL = 'https://github.com/rafael-senter/marketing-doma.git';
 const PLUGIN_DIR = path.join(os.homedir(), '.local', 'share', 'marketing-doma');
 const CLAUDE_SYMLINK = path.join(os.homedir(), '.claude', 'plugins', 'marketing-doma');
 const CLI_VERSION = require('../package.json').version;

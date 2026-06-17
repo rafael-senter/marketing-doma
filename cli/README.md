@@ -1,6 +1,6 @@
 # marketing-doma-cli
 
-CLI Node.js wrapper do plugin Claude Code [`marketing-doma`](https://gitlab.com/valem_grupo/marketing-doma).
+CLI Node.js wrapper do plugin Claude Code [`marketing-doma`](https://github.com/rafael-senter/marketing-doma).
 
 Pacote npm pequeno (~5 KB). Faz `git clone` + `git pull` do plugin real. Plugin continua versionado no GitLab.
 
@@ -63,7 +63,7 @@ Resultado: equipe roda 1 comando (`marketing-doma update`) pra ter última vers�
 
 ## Repo do plugin
 
-https://gitlab.com/valem_grupo/marketing-doma
+https://github.com/rafael-senter/marketing-doma
 
 ## Licença
 

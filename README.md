@@ -11,22 +11,7 @@ Plugin do Marketing da Doma para [Claude Code](https://claude.com/claude-code) �
 - **Auto-melhoria** — toda regra/padrão novo descoberto em runtime vira arquivo em `knowledge-base/live-rules/`.
 - **Setup automático** — `/marketing-doma-setup` instala Remotion + deps + hook auto-start do studio.
 
-## Documentação
-
-- **[INSTALL.md](INSTALL.md)** — instalação passo-a-passo para usuário leigo.
-- **[SETUP.md](SETUP.md)** — setup técnico (dev).
-- **[CLAUDE.md](CLAUDE.md)** — regras de marca + protocolo + auto-melhoria.
-- **[docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)** — diagrama de fluxo completo + camadas.
-- **[knowledge-base/](knowledge-base/)** — voz Doma + design system + RULES + 17 fichas + asset-index + live-rules.
-
-## Para quem é
-
-- **Pessoa de marketing leiga** → usa só comandos `/marketing-doma` e `/marketing-doma-setup`.
-- **Patrick / dev** → mantém e evolui sub-skills, regras e templates.
-
-## Instalação — 2 caminhos
-
-### 🟢 Caminho A (recomendado para usuário leigo) — via `npm`
+## Instalação (via npm)
 
 ```bash
 # 1× só:
@@ -36,59 +21,34 @@ marketing-doma install
 # Sempre que tiver versão nova:
 marketing-doma update
 
-# Ver versão / saúde da instalação:
+# Ver versão / saúde:
 marketing-doma status
 ```
 
-CLI faz `git clone` do plugin em `~/.local/share/marketing-doma`, roda `install.sh` automaticamente, registra no Claude Code global. Atualizações via `git pull` transparente. Detalhes em [`cli/README.md`](cli/README.md).
-
-### 🔧 Caminho B (dev / quem quer mexer no código)
-
-Clone o plugin em qualquer pasta e rode `install.sh`:
+Ou sem instalar global, via `npx`:
 
 ```bash
-git clone git@gitlab.com:valem_grupo/marketing-doma.git ~/plugins/marketing-doma
-cd ~/plugins/marketing-doma
-bash install.sh
+npx marketing-doma-cli install
+npx marketing-doma-cli update
 ```
 
-O `install.sh` faz:
-- Symlink `~/.claude/plugins/marketing-doma` → fonte clonada.
-- Registra em `~/.claude/plugins/installed_plugins.json` + `known_marketplaces.json`.
-- Habilita `enabledPlugins['marketing-doma@marketing-doma'] = True` em `~/.claude/settings.json`.
+Pré-requisitos: Node.js ≥ 18, Python 3.10+, git, [Claude Code CLI](https://claude.com/claude-code). Detalhes em [INSTALL.md](INSTALL.md).
 
-Flags:
-```bash
-bash install.sh --dry-run    # mostra o que faria
-bash install.sh --uninstall  # remove tudo
-```
+## Uso
 
-**Atualizações** chegam via `git pull` na pasta clonada — symlink reflete automaticamente.
-
-### Etapa 2 (1× por projeto) — preparar projeto de trabalho
-
-Em **qualquer pasta** que vai criar posts (não precisa ser perto do plugin):
+Em **qualquer pasta** que vai criar posts:
 
 ```bash
-cd ~/qualquer/pasta-de-trabalho
+cd ~/minha-pasta-de-trabalho
 claude
 ```
 
 No Claude Code:
-```
-/marketing-doma:marketing-doma-setup
-```
-
-Cria `remotion-doma/` + `CLAUDE.md` + `README.md` + `.gitignore` + venv Python + hook auto-start.
-
-### Uso
 
 ```
-/marketing-doma            # fluxo guiado
-/marketing-doma:new-post   # atalho
+/marketing-doma:marketing-doma-setup   # 1ª vez no projeto — instala Remotion + venv
+/marketing-doma                         # cria peça nova (fluxo guiado)
 ```
-
-Ver [`INSTALL.md`](./INSTALL.md) (passo-a-passo leigo) ou [`SETUP.md`](./SETUP.md) (técnico).
 
 ## Comandos disponíveis
 
@@ -103,12 +63,27 @@ Ver [`INSTALL.md`](./INSTALL.md) (passo-a-passo leigo) ou [`SETUP.md`](./SETUP.m
 | `/audit-post` | Comparar render vs modelo |
 | `/publish-checklist` | Check-list final pré-publicar |
 
+## Documentação
+
+- **[INSTALL.md](INSTALL.md)** — instalação passo-a-passo + pré-requisitos + modo dev (clone manual).
+- **[SETUP.md](SETUP.md)** — setup técnico (dev).
+- **[CLAUDE.md](CLAUDE.md)** — regras de marca + protocolo + auto-melhoria.
+- **[docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)** — diagrama de fluxo completo + camadas.
+- **[knowledge-base/](knowledge-base/)** — voz Doma + design system + RULES + 17 fichas + asset-index + live-rules.
+- **[cli/README.md](cli/README.md)** — referência do CLI Node.js.
+
+## Para quem é
+
+- **Pessoa de marketing leiga** → usa só comandos `/marketing-doma` e `/marketing-doma-setup`.
+- **Patrick / dev** → mantém e evolui sub-skills, regras e templates.
+
 ## Visão estrutural
 
 ```
 .claude/plugins/marketing-doma/
 ├── plugin.json                   manifest
 ├── CLAUDE.md                     regras + auto-melhoria
+├── cli/                          CLI Node.js (publicado no npm)
 ├── commands/                     slash commands
 ├── agents/                       subagentes
 ├── skills/marketing-doma/        master + 15 subskills
@@ -118,15 +93,6 @@ Ver [`INSTALL.md`](./INSTALL.md) (passo-a-passo leigo) ou [`SETUP.md`](./SETUP.m
 └── assets/                       logos, ícones, fontes
 ```
 
-## Versionamento
-
-Plugin tem **git próprio** (sub-repo) — fica em `.claude/plugins/marketing-doma/.git/`. Independente do projeto host.
-
-```bash
-cd .claude/plugins/marketing-doma
-git status
-```
-
 ## Licença
 
-MIT. Compartilhável com a equipe.
+MIT.
