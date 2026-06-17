@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+# pre-commit — roda validate.sh antes de cada commit no sub-repo do plugin.
+# Instalação: configurar core.hooksPath ou copiar pra .git/hooks/pre-commit.
+
+set -e
+DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+bash "$DIR/scripts/validate.sh"

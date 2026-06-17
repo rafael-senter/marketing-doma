@@ -7,7 +7,7 @@ description: Card único com frase entre aspas em card branco + badge circular p
 
 **Componente:** `../../../../templates/components/inimigo-em-comum/InimigoComum.tsx`
 **IDs:** `padrao-inimigo-244`, `padrao-inimigo-252`
-**Ficha:** `../../../knowledge-base/padroes/inimigo-em-comum.md`
+**Ficha:** `../../../../knowledge-base/padroes/inimigo-em-comum.md`
 
 ## Padrão visual
 - Fundo manga + **watermark "DOMa" GIGANTE** (width ~175%, sangra canto sup-esq — só "DO" visível).

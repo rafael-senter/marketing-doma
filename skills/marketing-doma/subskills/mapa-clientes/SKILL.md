@@ -7,7 +7,7 @@ description: Card único com mapa do Brasil + selo "X% de clientes" + legenda. E
 
 **Componente:** `../../../../templates/components/mapa-de-clientes/MapaClientes.tsx`
 **ID Still:** `padrao-mapa-clientes`
-**Ficha completa:** `../../../knowledge-base/padroes/mapa-clientes.md`
+**Ficha completa:** `../../../../knowledge-base/padroes/mapa-clientes.md`
 
 ## Padrão visual
 - Fundo amber + watermark sutil.

@@ -10,7 +10,7 @@ description: Card foto + frase forte sobreposta. Variante 265 = foto + card. Var
 - `../../../../templates/components/narrativa/Narrativa272.tsx` (modo 272 — moedas 3D)
 
 **IDs:** `padrao-narrativa-265`, `padrao-narrativa-272`
-**Ficha:** `../../../knowledge-base/padroes/narrativa.md`
+**Ficha:** `../../../../knowledge-base/padroes/narrativa.md`
 
 ## Padrão visual
 - **265:** foto + card amber translúcido + frase com **bold no contraste** ("Estoque cheio **e caixa vazio?**").

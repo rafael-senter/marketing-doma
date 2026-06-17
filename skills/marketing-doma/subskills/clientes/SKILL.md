@@ -7,7 +7,7 @@ description: Card "novo cliente" — foto da loja + pílula com cidade + texto "
 
 **Componente:** `../../../../templates/components/clientes/Clientes.tsx`
 **IDs:** `padrao-clientes`, `padrao-clientes-2`
-**Ficha:** `../../../knowledge-base/padroes/clientes.md`
+**Ficha:** `../../../../knowledge-base/padroes/clientes.md`
 
 ## Padrão visual
 - Fundo manga + watermark "DOMa" outline (técnica de 2 CSS masks, RULES §18).

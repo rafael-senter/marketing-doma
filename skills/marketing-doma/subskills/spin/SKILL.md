@@ -10,7 +10,7 @@ description: Carrossel SPIN (Situação → Problema → Implicação → Necess
 - `SpinMiolo` — perguntas (`→ pergunta` cada)
 - `SpinCta` — fecho + bordão Doma
 
-**Ficha:** `../../../knowledge-base/padroes/spin.md`
+**Ficha:** `../../../../knowledge-base/padroes/spin.md`
 
 ## Padrão visual
 - 6 slides estrutura: capa + 4 miolos (S/P/I/N) + CTA.

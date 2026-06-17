@@ -11,7 +11,7 @@ description: Carrossel numerado de "erros comuns / dicas" — 1 capa + N miolos 
 - `DicasMioloCompact` — variante com header 28% (raramente usada — preferir densificar conteúdo)
 - `DicasCta` — slide final
 
-**Ficha:** `../../../knowledge-base/padroes/dicas.md` (POST 246), `dicas-otica.md` (133), `dicas-trento.md` (193).
+**Ficha:** `../../../../knowledge-base/padroes/dicas.md` (POST 246), `dicas-otica.md` (133), `dicas-trento.md` (193).
 
 ## Padrão visual
 

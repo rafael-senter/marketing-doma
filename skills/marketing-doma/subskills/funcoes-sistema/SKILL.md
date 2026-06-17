@@ -6,7 +6,7 @@ description: Card de funcionalidade do ERP — mockup fotorrealista (mão + iPho
 # Funções do Sistema
 
 **Componente:** `../../../../templates/components/funcoes-sistema/FuncoesSistema.tsx` (flexível com slots opcionais)
-**Ficha:** `../../../knowledge-base/padroes/funcoes-sistema.md`
+**Ficha:** `../../../../knowledge-base/padroes/funcoes-sistema.md`
 
 ## Padrão visual
 - **Base fotorrealista** (mão + iPhone com tela do ERP, OU laptop com dashboard) gerada via **nanobanana-skill** a partir da tela do ERP extraída do modelo → salva em `public/oficial/_func<NNN>-base.png`.

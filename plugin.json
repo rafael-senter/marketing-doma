@@ -25,11 +25,14 @@
   ],
   "scripts": {
     "start-remotion": "scripts/start-remotion.sh",
+    "sync-components": "scripts/sync-components.sh",
     "new-post": "scripts/new-post.sh",
     "render-batch": "scripts/render-batch.sh",
     "compare-all": "scripts/compare-all.sh",
     "install-deps": "scripts/install-deps.sh",
-    "auto-rules-learn": "scripts/auto-rules-learn.sh"
+    "auto-rules-learn": "scripts/auto-rules-learn.sh",
+    "validate": "scripts/validate.sh",
+    "discover-models": "scripts/discover-models.sh"
   },
   "embedded_subskills": [
     "skills/marketing-doma/subskills/frase-pilulas",

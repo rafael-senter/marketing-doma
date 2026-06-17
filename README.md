@@ -11,6 +11,14 @@ Plugin do Marketing da Doma para [Claude Code](https://claude.com/claude-code) �
 - **Auto-melhoria** — toda regra/padrão novo descoberto em runtime vira arquivo em `knowledge-base/live-rules/`.
 - **Setup automático** — `/marketing-doma-setup` instala Remotion + deps + hook auto-start do studio.
 
+## Documentação
+
+- **[INSTALL.md](INSTALL.md)** — instalação passo-a-passo para usuário leigo.
+- **[SETUP.md](SETUP.md)** — setup técnico (dev).
+- **[CLAUDE.md](CLAUDE.md)** — regras de marca + protocolo + auto-melhoria.
+- **[docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)** — diagrama de fluxo completo + camadas.
+- **[knowledge-base/](knowledge-base/)** — voz Doma + design system + RULES + 17 fichas + asset-index + live-rules.
+
 ## Para quem é
 
 - **Pessoa de marketing leiga** → usa só comandos `/marketing-doma` e `/marketing-doma-setup`.

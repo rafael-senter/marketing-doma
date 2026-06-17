@@ -9,7 +9,7 @@ description: Cards "produtividade" — foto + título topo + sub-card escuro EMB
 - `../../../../templates/components/produtividade/Produtividade270.tsx` — foto-card + sub-card baked (modelo principal)
 - `../../../../templates/components/produtividade/Produtividade277.tsx` + `Produtividade254.tsx` — variantes (selo, operário nanobanana)
 
-**Ficha:** `../../../knowledge-base/padroes/produtividade.md`
+**Ficha:** `../../../../knowledge-base/padroes/produtividade.md`
 
 ## Padrão visual (270)
 - Fundo manga + watermark sutil.

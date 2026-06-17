@@ -56,12 +56,12 @@ Cada peça é validada com o Patrick antes de seguir.
 | 3 | Inimigo em Comum | 244, 252 | card | ✅ 244 89.7% · 252 90.6% (badge seta ↘; quebras de linha hardcoded p/ bater wrap do modelo; ficha inimigo-em-comum.md) |
 | 4 | Narrativa | 265, 272 | card | ✅ 265 95% (foto+card+selo) · 272 86.6% (moedas 3D extraídas via rembg) |
 | 5 | Produtividade | 254, 270, 277 | card | ✅ 3/3 (270 89% [card re-extraído W78.2% → pílula "tempo parado." com ponto completo] · 277 91% · 254 foto operário nanobanana + SENAI extraído) |
-| 6 | Funções do Sistema | 127, 201, 207, 248, 266, 273 | card | ✅ 6/6 (nanobanana: tela ERP extraída do modelo → mockup phone/laptop fotorrealista + overlays Remotion medidos. Componente flexível `funcoes-sistema/FuncoesSistema.tsx`) |
-| 7 | Doma | 115, 178, 257, 271 | card | ✅ 4/4 (178/271 code-only tipográficos; 115 phone+menu e 257 notas R$ via nanobanana; `doma-institucional/DomaInstitucional.tsx`) |
+| 6 | Funções do Sistema | 127, 201, 207, 248, 266, 273 | card | ✅ 6/6 (nanobanana: tela ERP extraída do modelo → mockup phone/laptop fotorrealista + overlays Remotion medidos. Componente flexível `templates/components/funcoes-sistema/FuncoesSistema.tsx`) |
+| 7 | Doma | 115, 178, 257, 271 | card | ✅ 4/4 (178/271 code-only tipográficos; 115 phone+menu e 257 notas R$ via nanobanana; `templates/components/doma-institucional/DomaInstitucional.tsx`) |
 | 8 | Dicas/margem de lucro | 246 (9 slides) | carrossel | ✅ 9 slides (sistema numerado ERROS COMUNS; capa 89% · miolo 86-91% · CTA 82%; ficha dicas.md) |
-| 9 | Dicas/ótica | 133 (9 slides) | carrossel | ✅ 9 slides (s5 95% · s7 98% · miolo 85-91% · capa 83% [fotos re-extraídas no rect do modelo]; fotos vitrine extraídas+pílulas soft re-tipadas; `dicas-otica/Otica.tsx`) |
-| 10 | Dicas/Trento | 193 (8 slides) | carrossel | ✅ 8 slides (87-94%; watermark bg extraído + fotos históricas/produtos recortadas; slides 1/6/8 puro-Doma; `dicas-trento/Trento.tsx`) |
-| 11 | Doma/Carrossel clientes | 205 (8 slides) | carrossel | ✅ 8 slides (miolo 93-94% logos extraídos+card recortado · capa 88% [fonte 58 → 6 linhas, texto inf 4 linhas, logo 70] · fecho 93%; `doma-carrossel-clientes/CarrosselClientes.tsx`) |
+| 9 | Dicas/ótica | 133 (9 slides) | carrossel | ✅ 9 slides (s5 95% · s7 98% · miolo 85-91% · capa 83% [fotos re-extraídas no rect do modelo]; fotos vitrine extraídas+pílulas soft re-tipadas; `templates/components/dicas-otica/Otica.tsx`) |
+| 10 | Dicas/Trento | 193 (8 slides) | carrossel | ✅ 8 slides (87-94%; watermark bg extraído + fotos históricas/produtos recortadas; slides 1/6/8 puro-Doma; `templates/components/dicas-trento/Trento.tsx`) |
+| 11 | Doma/Carrossel clientes | 205 (8 slides) | carrossel | ✅ 8 slides (miolo 93-94% logos extraídos+card recortado · capa 88% [fonte 58 → 6 linhas, texto inf 4 linhas, logo 70] · fecho 93%; `templates/components/doma-carrossel-clientes/CarrosselClientes.tsx`) |
 | 12 | SPIN | 243 (6) + 251 (6) | carrossel | ✅ 12 slides (capa ~91% · miolo ~92% · CTA ~86%; ficha spin.md; 3 templates parametrizados) |
 
 **Total:** ~14 peças-modelo (algumas com múltiplos slides) → ~69 imagens.

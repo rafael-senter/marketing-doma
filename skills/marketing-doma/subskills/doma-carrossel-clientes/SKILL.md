@@ -10,7 +10,7 @@ description: Carrossel institucional de clientes — capa + N cards com logo de 
 - `ClientesMiolo` — slides 2-N ({card, texto}) — logo+card recortados do modelo
 - `ClientesFecho` — slide final
 
-**Ficha:** `../../../knowledge-base/padroes/doma-carrossel-clientes.md`
+**Ficha:** `../../../../knowledge-base/padroes/doma-carrossel-clientes.md`
 
 ## Padrão visual
 

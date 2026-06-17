@@ -7,7 +7,7 @@ description: Card único com frase forte distribuída em pílulas amarelas torta
 
 **Componente:** `../../../../templates/components/frase-em-pilulas/FrasePilulas.tsx`
 **ID Still:** `padrao-frase-pilulas`
-**Ficha completa:** `../../../knowledge-base/padroes/frase-pilulas.md`
+**Ficha completa:** `../../../../knowledge-base/padroes/frase-pilulas.md`
 
 ## Padrão visual
 - Fundo manga `#F4BB35`.

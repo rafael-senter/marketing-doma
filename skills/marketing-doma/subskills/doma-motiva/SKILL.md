@@ -7,7 +7,7 @@ description: Card único motivacional — foto de fundo + card amarelo translúc
 
 **Componente:** `../../../../templates/components/doma-motiva/DomaMotiva.tsx`
 **IDs:** `padrao-motiva-242`, `padrao-motiva-250`
-**Ficha:** `../../../knowledge-base/padroes/doma-motiva.md`
+**Ficha:** `../../../../knowledge-base/padroes/doma-motiva.md`
 
 ## Padrão visual
 - **Foto full-bleed** OR foto + área amber.

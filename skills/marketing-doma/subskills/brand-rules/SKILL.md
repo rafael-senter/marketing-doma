@@ -10,7 +10,7 @@ Carrega/centraliza tudo que TODA peça deve respeitar, independente da categoria
 ## ⚠️ Logo
 
 - Marca é **DOMa** — D-O-M maiúsculos + "a" minúsculo na mesma altura. O "ponto" entre M e "a" é a **perna do M cortada** (NÃO pontuação).
-- 🛑 **NUNCA digitar** como assinatura/título: `DOMa`, `DOM.a`, `DOMA`, `Doma` — em peça, SEMPRE arquivo de logo (`../../../assets/logos/`).
+- 🛑 **NUNCA digitar** como assinatura/título: `DOMa`, `DOM.a`, `DOMA`, `Doma` — em peça, SEMPRE arquivo de logo (`../../../../assets/logos/`).
 - **`DOM.a` NÃO EXISTE** — em lugar nenhum.
 - **Em prosa / texto corrido** (citar a empresa numa frase): escrever **"Doma"** (inicial maiúscula, resto minúsculo). Sem bold/destaque.
 - **Caixa-alta "DOMA"**: SÓ em lockup visual de arte ("SEMANAÇO DOMA"), NUNCA em prosa.
@@ -44,7 +44,7 @@ Carrega/centraliza tudo que TODA peça deve respeitar, independente da categoria
 
 ## Fonte
 
-- **TT Lakes oficial** — fonte de verdade em `../../../assets/fontes/` (sincronizada pro host via `scripts/sync-components.sh`).
+- **TT Lakes oficial** — fonte de verdade em `../../../../assets/fontes/` (sincronizada pro host via `scripts/sync-components.sh`).
 - Corpo regular (400). Palavra-chave bold (700-800). Kicker SemiBold (600), não 700.
 - Cap-height medida do modelo → ajustar `fontSize` (não chutar).
 - Quando largura não bate mas altura sim → adicionar **letterSpacing**, NÃO aumentar fontSize.
@@ -60,7 +60,7 @@ Carrega/centraliza tudo que TODA peça deve respeitar, independente da categoria
   ```
 - Render scale 1 = franja sub-pixel = "texto torto/tremido".
 
-## Voz (resumo — ver `../../knowledge-base/identidade/voz-sigadoma.md` completo)
+## Voz (resumo — ver `../../../../knowledge-base/identidade/voz-sigadoma.md` completo)
 
 **3 tons:** provocativo (perguntas 2ª pessoa), explicativo (didático), motivacional (pés no chão).
 
