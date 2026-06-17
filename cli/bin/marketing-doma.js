@@ -96,11 +96,11 @@ function pluginVersion() {
 
 function remoteVersion() {
   const r = sh(
-    `git ls-remote --tags ${REPO_URL} 'v*' | awk '{print $2}' | sed 's|refs/tags/||' | sort -V | tail -1`,
+    `git ls-remote --tags ${REPO_URL} 'v*' | awk '{print $2}' | sed 's|refs/tags/||; s|\\^{}||' | sort -V -u | tail -1`,
     { silent: true, allowFail: true }
   );
   if (!r.ok) return null;
-  return r.stdout.trim().replace(/^v/, '') || null;
+  return r.stdout.trim().replace(/^v/, '').replace(/\^\{\}$/, '') || null;
 }
 
 function cmdInstall() {
