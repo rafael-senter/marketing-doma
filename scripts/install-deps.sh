@@ -87,7 +87,7 @@ bash "$PLUGIN_DIR/scripts/sync-components.sh"
 # 5. Settings hook auto-start
 echo "==> 5/6 Hook auto-start em .claude/settings.json LOCAL"
 mkdir -p "$PROJECT_ROOT/.claude"
-HOOK_CMD='bash .claude/plugins/marketing-doma/scripts/start-remotion.sh &'
+HOOK_CMD='bash ~/.claude/plugins/marketing-doma/scripts/start-remotion.sh &'
 
 if [ ! -f "$SETTINGS" ]; then
   inst "criando .claude/settings.json"
