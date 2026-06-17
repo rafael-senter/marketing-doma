@@ -30,7 +30,7 @@ export default function AssetsPanel() {
     <div className="assets-panel">
       <div className="assets-toolbar">
         <div className="assets-tabs">
-          {['oficial', 'icones', 'fontes'].map(s => (
+          {['oficial', 'icones', 'fontes', 'bases-nanobanana', 'bases-nanobanana-transparente', 'fotos', 'grafismos', 'cards-clientes'].map(s => (
             <button key={s} className={sub === s ? 'on' : ''} onClick={() => setSub(s)}>
               {s} ({catalog[s]?.length || 0})
             </button>

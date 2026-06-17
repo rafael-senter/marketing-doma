@@ -145,6 +145,59 @@ FONTES_META = {
     "TTLakes-Black": {"peso": 900, "uso": "Título gigante (fontSize 78+), número grande de header."},
 }
 
+# ─── Bases nanobanana — base fotorrealista de cada POST 127/201/207/248/266/273/115/257 ──
+
+BASES_NANOBANANA_META = {
+    "_func127-base": {
+        "post": "POST 127", "categoria": "funcoes-sistema",
+        "device": "mão+iPhone", "tela": "dashboard ERP Doma",
+        "uso": "Base fotorrealista do POST 127 — feature de dashboard mobile. Reusar clonando p/ feature similar.",
+        "reusar_em": "outras peças com tema 'mobile ERP'"
+    },
+    "_func201-base": {
+        "post": "POST 201", "categoria": "funcoes-sistema",
+        "device": "mão+iPhone", "tela": "WhatsApp + ERP",
+        "uso": "Base do POST 201 — atendimento via WhatsApp integrado. Visual de chat sobreposto.",
+        "reusar_em": "peças sobre integração WhatsApp/atendimento"
+    },
+    "_func207-base": {
+        "post": "POST 207", "categoria": "funcoes-sistema",
+        "device": "mão+iPhone", "tela": "tela ERP",
+        "uso": "Base do POST 207 — feature mobile genérica.",
+        "reusar_em": "peças mobile ERP"
+    },
+    "_func248-base": {
+        "post": "POST 248", "categoria": "funcoes-sistema",
+        "device": "laptop", "tela": "dashboard financeiro",
+        "uso": "Base do POST 248 — feature desktop. Laptop 3D.",
+        "reusar_em": "peças desktop/dashboard"
+    },
+    "_func266-base": {
+        "post": "POST 266", "categoria": "funcoes-sistema",
+        "device": "mão+iPhone", "tela": "tela ERP",
+        "uso": "Base do POST 266.",
+        "reusar_em": "peças mobile ERP"
+    },
+    "_func273-base": {
+        "post": "POST 273", "categoria": "funcoes-sistema",
+        "device": "laptop", "tela": "dashboard ERP",
+        "uso": "Base do POST 273 — laptop com dashboard.",
+        "reusar_em": "peças desktop ERP"
+    },
+    "_doma115-base": {
+        "post": "POST 115", "categoria": "doma-institucional",
+        "device": "phone", "tela": "menu Doma (institucional)",
+        "uso": "Base do POST 115 — institucional com phone + menu app Doma.",
+        "reusar_em": "peças institucionais mobile"
+    },
+    "_doma257-base": {
+        "post": "POST 257", "categoria": "doma-institucional",
+        "device": "notas R$", "tela": "notas de dinheiro fotorrealistas",
+        "uso": "Base do POST 257 — institucional com notas R$ (tema financeiro). Sem device.",
+        "reusar_em": "peças com tema dinheiro/lucro/financeiro"
+    },
+}
+
 # ─── Builder ─────────────────────────────────────────────────────────────
 
 def get_dims(path):
@@ -155,7 +208,7 @@ def get_dims(path):
         return None
 
 def build():
-    catalog = {"oficial": [], "icones": [], "fontes": []}
+    catalog = {"oficial": [], "icones": [], "fontes": [], "bases-nanobanana": [], "bases-nanobanana-transparente": [], "fotos": [], "grafismos": [], "cards-clientes": []}
 
     # OFICIAL
     for f in sorted((ASSETS / "oficial").iterdir()):
@@ -188,6 +241,114 @@ def build():
             "uso": ICONES_META.get(slug, "(adicionar em ICONES_META)")
         }
         catalog["icones"].append(item)
+
+    # BASES NANOBANANA
+    bases_dir = ASSETS / "bases-nanobanana"
+    if bases_dir.exists():
+        for f in sorted(bases_dir.iterdir()):
+            if f.suffix != ".png": continue
+            slug = f.stem
+            meta = BASES_NANOBANANA_META.get(slug, {"post": "?", "categoria": "?", "uso": "(adicionar em BASES_NANOBANANA_META)"})
+            item = {
+                "arquivo": f.name,
+                "slug": slug,
+                "dims": get_dims(f),
+                "size_kb": round(f.stat().st_size / 1024, 1),
+                "path_plugin": f"assets/bases-nanobanana/{f.name}",
+                "path_host": f"oficial/{f.name}",  # vai pra public/oficial/ no host
+                **meta
+            }
+            catalog["bases-nanobanana"].append(item)
+
+    # BASES NANOBANANA TRANSPARENTE (rembg) — pareadas com bases-nanobanana
+    transp_dir = ASSETS / "bases-nanobanana-transparente"
+    if transp_dir.exists():
+        for f in sorted(transp_dir.iterdir()):
+            if f.suffix != ".png": continue
+            slug = f.stem  # ex: _func127-base-transp
+            base_slug = slug.replace("-transp", "")
+            meta = BASES_NANOBANANA_META.get(base_slug, {"post": "?", "categoria": "?"})
+            item = {
+                "arquivo": f.name,
+                "slug": slug,
+                "dims": get_dims(f),
+                "size_kb": round(f.stat().st_size / 1024, 1),
+                "path_plugin": f"assets/bases-nanobanana-transparente/{f.name}",
+                "path_host": f"oficial/{f.name}",
+                "post": meta.get("post"),
+                "categoria": meta.get("categoria"),
+                "device": meta.get("device"),
+                "tela": meta.get("tela"),
+                "uso": f"Versão TRANSPARENTE de _{base_slug}.png (rembg). Use sobre fundo diferente de amber.",
+                "fundo": "transparente",
+                "par_com": f"{base_slug}.png"
+            }
+            catalog["bases-nanobanana-transparente"].append(item)
+
+    # FOTOS reutilizáveis
+    fotos_dir = ASSETS / "fotos"
+    fotos_meta = {
+        "_teste-foto-cliente": {"tema": "loja-cliente", "uso": "Foto vitrine/fachada de loja Flairar (Teixeira de Freitas/BA). REUSAR pra peças cliente novo."},
+        "_teste-foto-cliente2": {"tema": "loja-cliente", "uso": "Foto Essence Glamour (Jaraguá do Sul/SC). REUSAR pra peças cliente novo."},
+        "_teste-motiva-242": {"tema": "motivacional-242", "uso": "Foto motivacional POST 242 — pessoa/cena de trabalho."},
+        "_teste-motiva-250": {"tema": "motivacional-250", "uso": "Foto motivacional POST 250 — virada/crescimento."},
+        "_teste-narr-265": {"tema": "narrativa-estoque", "uso": "Foto narrativa POST 265 — estoque cheio/loja."},
+        "_teste-prod-270": {"tema": "fabrica", "uso": "Foto fábrica POST 270 — operação industrial. Reusar pra peças indústria."},
+        "_teste-prod-277": {"tema": "fabrica-2", "uso": "Foto fábrica POST 277 — variante."},
+        "_teste-spin-foto": {"tema": "spin-243", "uso": "Foto capa SPIN POST 243 — empresário/gestor."},
+        "_teste-spin251-foto": {"tema": "spin-251", "uso": "Foto capa SPIN POST 251."},
+        "_prod254-foto": {"tema": "fabrica-3", "uso": "Foto POST 254 — operário (nanobanana + SENAI)."},
+        "_prod270-foto": {"tema": "fabrica-card", "uso": "Foto card POST 270 — versão re-extraída com pílula 'tempo parado.'"},
+    }
+    if fotos_dir.exists():
+        for f in sorted(fotos_dir.iterdir()):
+            if f.suffix not in (".jpg", ".png"): continue
+            slug = f.stem
+            meta = fotos_meta.get(slug, {"tema": "?", "uso": "(adicionar em fotos_meta)"})
+            catalog["fotos"].append({
+                "arquivo": f.name, "slug": slug,
+                "dims": get_dims(f), "size_kb": round(f.stat().st_size / 1024, 1),
+                "path_plugin": f"assets/fotos/{f.name}", "path_host": f"oficial/{f.name}",
+                **meta
+            })
+
+    # GRAFISMOS extraídos
+    graf_dir = ASSETS / "grafismos"
+    graf_meta = {
+        "_193-bg": {"tipo": "watermark-bg", "uso": "Watermark 'DOMa' tom-sobre-tom extraído de slide puro-texto do POST 193 (Trento). Background full-bleed reusable pra qualquer carrossel com fundo amber + watermark."},
+        "_205-graf1": {"tipo": "grafismo-capa", "uso": "Grafismo capa POST 205 — soft amber-on-amber decorativo. Pode reusar como capa institucional."},
+        "_205-graf8": {"tipo": "grafismo-fecho", "uso": "Grafismo fecho POST 205 — decorativo p/ slide final."},
+        "_narr272-fg": {"tipo": "produto-cutout", "uso": "Moedas 3D em foreground (rembg) do POST 272 narrativa. REUSAR em peças tema dinheiro/lucro/$."},
+        "_dicas246-icones": {"tipo": "icones-tema", "uso": "Cifrão + gráfico cadente line-art (extraído POST 246 margem de lucro). Reusar em capas Dicas com tema financeiro/margem/gestão (já usado em gestao-financeira)."},
+    }
+    if graf_dir.exists():
+        for f in sorted(graf_dir.iterdir()):
+            if f.suffix not in (".png", ".jpg"): continue
+            slug = f.stem
+            meta = graf_meta.get(slug, {"tipo": "?", "uso": "(adicionar em graf_meta)"})
+            catalog["grafismos"].append({
+                "arquivo": f.name, "slug": slug,
+                "dims": get_dims(f), "size_kb": round(f.stat().st_size / 1024, 1),
+                "path_plugin": f"assets/grafismos/{f.name}", "path_host": f"oficial/{f.name}",
+                **meta
+            })
+
+    # CARDS de cliente baked (POST 205)
+    cards_dir = ASSETS / "cards-clientes"
+    if cards_dir.exists():
+        for f in sorted(cards_dir.iterdir()):
+            if f.suffix != ".png": continue
+            slug = f.stem
+            # extrair número do card (cardN)
+            num = slug.replace("_205-card", "")
+            catalog["cards-clientes"].append({
+                "arquivo": f.name, "slug": slug,
+                "dims": get_dims(f), "size_kb": round(f.stat().st_size / 1024, 1),
+                "path_plugin": f"assets/cards-clientes/{f.name}", "path_host": f"oficial/{f.name}",
+                "post": "POST 205", "card_num": num,
+                "uso": f"Card cliente #{num} recortado do POST 205 (logo+cor+cantos baked). NÃO reutilizar para OUTROS clientes — cada cliente tem cor própria.",
+                "warning": "específico por cliente — recortar do modelo do cliente próprio."
+            })
 
     # FONTES
     for f in sorted((ASSETS / "fontes").iterdir()):
@@ -245,6 +406,24 @@ def build():
     md.append("- ❌ Kicker em 700 (manual diz 600 SemiBold).\n")
     (ASSETS / "fontes" / "README.md").write_text("\n".join(md) + "\n")
     print(f"✅ assets/fontes/README.md")
+
+    # README bases-nanobanana
+    if catalog["bases-nanobanana"]:
+        md = ["# Catálogo — `assets/bases-nanobanana/`\n",
+              "Bases fotorrealistas geradas via [nanobanana-skill](../../knowledge-base/) (Gemini Imagen).\n",
+              "Cada base = device (mão+iPhone / laptop / produto) + tela do ERP Doma. Overlays Remotion vetoriais por cima (texto nunca baked).\n\n",
+              "**Reuso:** clonar pra peça similar trocando overlays — base NÃO é editável trivialmente (regerar via nanobanana se precisar mudar device/tela).\n\n",
+              "| Arquivo | POST | Categoria | Device | Tela | Dims | Tamanho | Reusar em |",
+              "|---|---|---|---|---|---|---|---|"]
+        for it in catalog["bases-nanobanana"]:
+            dims = f"{it['dims']['w']}×{it['dims']['h']}" if it.get('dims') else '?'
+            md.append(f"| `{it['arquivo']}` | {it.get('post','?')} | {it.get('categoria','?')} | {it.get('device','?')} | {it.get('tela','?')} | {dims} | {it['size_kb']} KB | {it.get('reusar_em','?')} |")
+        md.append("\n## Como usar\n")
+        md.append("Em `FuncoesSistemaProps` (ou `Doma115`/`Doma257`):\n")
+        md.append("```tsx\n<FuncoesSistema base='oficial/_func127-base.png' ... />\n```\n")
+        md.append("Sync via `scripts/sync-components.sh` copia plugin → host (`remotion-doma/public/oficial/`).\n")
+        (bases_dir / "README.md").write_text("\n".join(md) + "\n")
+        print(f"✅ assets/bases-nanobanana/README.md")
 
 if __name__ == "__main__":
     build()

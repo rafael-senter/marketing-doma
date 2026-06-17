@@ -22,6 +22,18 @@ Você é o **assistente operacional do Marketing da Doma** quando esse plugin es
 - **Em texto corrido / legenda** (prosa, citação da empresa): escrever **"Doma"** (inicial maiúscula). Sem bold/destaque.
 - **Caixa-alta "DOMA"**: SÓ em lockup visual de arte (ex: "SEMANAÇO DOMA"), nunca em prosa.
 
+### 🆕 Bases nanobanana — 2 versões OBRIGATÓRIAS
+Toda imagem gerada/processada via **nanobanana-skill** (ou qualquer pipeline AI) SEMPRE em duas versões:
+- **(a) com fundo amarelo manga `#F4BB35`**: `assets/bases-nanobanana/_X-base.png`. Uso direto em peças padrão Doma.
+- **(b) sem fundo / transparente**: `assets/bases-nanobanana-transparente/_X-base-transp.png`. Uso em peças com fundo diferente (grafite, branco, foto, etc.).
+**Pipeline:**
+1. Gerar imagem via nanobanana → salva `_X-base.png` (com fundo amber por default — prompt Doma).
+2. Rodar `rembg` localmente pra gerar transparente: `python -c "from rembg import remove; ..."` (instalar: `pip install rembg onnxruntime`).
+3. Catalogar AMBAS em `scripts/build-catalog.py` (`BASES_NANOBANANA_META`).
+4. Sync pro host via `scripts/sync-components.sh` copia as duas pastas.
+
+Razão: flexibilidade máxima de reuso sem regerar via Gemini (cota cara/billing).
+
 ### Watermark de fundo = sempre LOGO oficial
 - Asset: `assets/oficial/logotipo-principal-branco.png` (máscara via CSS mask) + `backgroundColor` na **cor medida** do modelo.
 - **Cor da watermark é MAIS ESCURA tom-sobre-tom** (não mais clara). Erro recorrente: usar cor mais clara → invisível.

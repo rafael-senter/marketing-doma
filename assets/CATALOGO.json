@@ -1283,5 +1283,593 @@
       "peso": 400,
       "uso": "Corpo de texto — DEFAULT. Sem bold."
     }
+  ],
+  "bases-nanobanana": [
+    {
+      "arquivo": "_doma115-base.png",
+      "slug": "_doma115-base",
+      "dims": {
+        "w": 1856,
+        "h": 2304
+      },
+      "size_kb": 3810.7,
+      "path_plugin": "assets/bases-nanobanana/_doma115-base.png",
+      "path_host": "oficial/_doma115-base.png",
+      "post": "POST 115",
+      "categoria": "doma-institucional",
+      "device": "phone",
+      "tela": "menu Doma (institucional)",
+      "uso": "Base do POST 115 — institucional com phone + menu app Doma.",
+      "reusar_em": "peças institucionais mobile"
+    },
+    {
+      "arquivo": "_doma257-base.png",
+      "slug": "_doma257-base",
+      "dims": {
+        "w": 1856,
+        "h": 2304
+      },
+      "size_kb": 5143.6,
+      "path_plugin": "assets/bases-nanobanana/_doma257-base.png",
+      "path_host": "oficial/_doma257-base.png",
+      "post": "POST 257",
+      "categoria": "doma-institucional",
+      "device": "notas R$",
+      "tela": "notas de dinheiro fotorrealistas",
+      "uso": "Base do POST 257 — institucional com notas R$ (tema financeiro). Sem device.",
+      "reusar_em": "peças com tema dinheiro/lucro/financeiro"
+    },
+    {
+      "arquivo": "_func127-base.png",
+      "slug": "_func127-base",
+      "dims": {
+        "w": 1856,
+        "h": 2304
+      },
+      "size_kb": 3520.2,
+      "path_plugin": "assets/bases-nanobanana/_func127-base.png",
+      "path_host": "oficial/_func127-base.png",
+      "post": "POST 127",
+      "categoria": "funcoes-sistema",
+      "device": "mão+iPhone",
+      "tela": "dashboard ERP Doma",
+      "uso": "Base fotorrealista do POST 127 — feature de dashboard mobile. Reusar clonando p/ feature similar.",
+      "reusar_em": "outras peças com tema 'mobile ERP'"
+    },
+    {
+      "arquivo": "_func201-base.png",
+      "slug": "_func201-base",
+      "dims": {
+        "w": 1856,
+        "h": 2304
+      },
+      "size_kb": 3773.5,
+      "path_plugin": "assets/bases-nanobanana/_func201-base.png",
+      "path_host": "oficial/_func201-base.png",
+      "post": "POST 201",
+      "categoria": "funcoes-sistema",
+      "device": "mão+iPhone",
+      "tela": "WhatsApp + ERP",
+      "uso": "Base do POST 201 — atendimento via WhatsApp integrado. Visual de chat sobreposto.",
+      "reusar_em": "peças sobre integração WhatsApp/atendimento"
+    },
+    {
+      "arquivo": "_func207-base.png",
+      "slug": "_func207-base",
+      "dims": {
+        "w": 1856,
+        "h": 2304
+      },
+      "size_kb": 3434.0,
+      "path_plugin": "assets/bases-nanobanana/_func207-base.png",
+      "path_host": "oficial/_func207-base.png",
+      "post": "POST 207",
+      "categoria": "funcoes-sistema",
+      "device": "mão+iPhone",
+      "tela": "tela ERP",
+      "uso": "Base do POST 207 — feature mobile genérica.",
+      "reusar_em": "peças mobile ERP"
+    },
+    {
+      "arquivo": "_func248-base.png",
+      "slug": "_func248-base",
+      "dims": {
+        "w": 1856,
+        "h": 2304
+      },
+      "size_kb": 3794.1,
+      "path_plugin": "assets/bases-nanobanana/_func248-base.png",
+      "path_host": "oficial/_func248-base.png",
+      "post": "POST 248",
+      "categoria": "funcoes-sistema",
+      "device": "laptop",
+      "tela": "dashboard financeiro",
+      "uso": "Base do POST 248 — feature desktop. Laptop 3D.",
+      "reusar_em": "peças desktop/dashboard"
+    },
+    {
+      "arquivo": "_func266-base.png",
+      "slug": "_func266-base",
+      "dims": {
+        "w": 1856,
+        "h": 2304
+      },
+      "size_kb": 3524.2,
+      "path_plugin": "assets/bases-nanobanana/_func266-base.png",
+      "path_host": "oficial/_func266-base.png",
+      "post": "POST 266",
+      "categoria": "funcoes-sistema",
+      "device": "mão+iPhone",
+      "tela": "tela ERP",
+      "uso": "Base do POST 266.",
+      "reusar_em": "peças mobile ERP"
+    },
+    {
+      "arquivo": "_func273-base.png",
+      "slug": "_func273-base",
+      "dims": {
+        "w": 1856,
+        "h": 2304
+      },
+      "size_kb": 3367.1,
+      "path_plugin": "assets/bases-nanobanana/_func273-base.png",
+      "path_host": "oficial/_func273-base.png",
+      "post": "POST 273",
+      "categoria": "funcoes-sistema",
+      "device": "laptop",
+      "tela": "dashboard ERP",
+      "uso": "Base do POST 273 — laptop com dashboard.",
+      "reusar_em": "peças desktop ERP"
+    }
+  ],
+  "bases-nanobanana-transparente": [
+    {
+      "arquivo": "_doma115-base-transp.png",
+      "slug": "_doma115-base-transp",
+      "dims": {
+        "w": 1856,
+        "h": 2304
+      },
+      "size_kb": 2207.9,
+      "path_plugin": "assets/bases-nanobanana-transparente/_doma115-base-transp.png",
+      "path_host": "oficial/_doma115-base-transp.png",
+      "post": "POST 115",
+      "categoria": "doma-institucional",
+      "device": "phone",
+      "tela": "menu Doma (institucional)",
+      "uso": "Versão TRANSPARENTE de __doma115-base.png (rembg). Use sobre fundo diferente de amber.",
+      "fundo": "transparente",
+      "par_com": "_doma115-base.png"
+    },
+    {
+      "arquivo": "_doma257-base-transp.png",
+      "slug": "_doma257-base-transp",
+      "dims": {
+        "w": 1856,
+        "h": 2304
+      },
+      "size_kb": 2714.6,
+      "path_plugin": "assets/bases-nanobanana-transparente/_doma257-base-transp.png",
+      "path_host": "oficial/_doma257-base-transp.png",
+      "post": "POST 257",
+      "categoria": "doma-institucional",
+      "device": "notas R$",
+      "tela": "notas de dinheiro fotorrealistas",
+      "uso": "Versão TRANSPARENTE de __doma257-base.png (rembg). Use sobre fundo diferente de amber.",
+      "fundo": "transparente",
+      "par_com": "_doma257-base.png"
+    },
+    {
+      "arquivo": "_func127-base-transp.png",
+      "slug": "_func127-base-transp",
+      "dims": {
+        "w": 1856,
+        "h": 2304
+      },
+      "size_kb": 1635.0,
+      "path_plugin": "assets/bases-nanobanana-transparente/_func127-base-transp.png",
+      "path_host": "oficial/_func127-base-transp.png",
+      "post": "POST 127",
+      "categoria": "funcoes-sistema",
+      "device": "mão+iPhone",
+      "tela": "dashboard ERP Doma",
+      "uso": "Versão TRANSPARENTE de __func127-base.png (rembg). Use sobre fundo diferente de amber.",
+      "fundo": "transparente",
+      "par_com": "_func127-base.png"
+    },
+    {
+      "arquivo": "_func201-base-transp.png",
+      "slug": "_func201-base-transp",
+      "dims": {
+        "w": 1856,
+        "h": 2304
+      },
+      "size_kb": 1351.5,
+      "path_plugin": "assets/bases-nanobanana-transparente/_func201-base-transp.png",
+      "path_host": "oficial/_func201-base-transp.png",
+      "post": "POST 201",
+      "categoria": "funcoes-sistema",
+      "device": "mão+iPhone",
+      "tela": "WhatsApp + ERP",
+      "uso": "Versão TRANSPARENTE de __func201-base.png (rembg). Use sobre fundo diferente de amber.",
+      "fundo": "transparente",
+      "par_com": "_func201-base.png"
+    },
+    {
+      "arquivo": "_func207-base-transp.png",
+      "slug": "_func207-base-transp",
+      "dims": {
+        "w": 1856,
+        "h": 2304
+      },
+      "size_kb": 1250.2,
+      "path_plugin": "assets/bases-nanobanana-transparente/_func207-base-transp.png",
+      "path_host": "oficial/_func207-base-transp.png",
+      "post": "POST 207",
+      "categoria": "funcoes-sistema",
+      "device": "mão+iPhone",
+      "tela": "tela ERP",
+      "uso": "Versão TRANSPARENTE de __func207-base.png (rembg). Use sobre fundo diferente de amber.",
+      "fundo": "transparente",
+      "par_com": "_func207-base.png"
+    },
+    {
+      "arquivo": "_func248-base-transp.png",
+      "slug": "_func248-base-transp",
+      "dims": {
+        "w": 1856,
+        "h": 2304
+      },
+      "size_kb": 1689.9,
+      "path_plugin": "assets/bases-nanobanana-transparente/_func248-base-transp.png",
+      "path_host": "oficial/_func248-base-transp.png",
+      "post": "POST 248",
+      "categoria": "funcoes-sistema",
+      "device": "laptop",
+      "tela": "dashboard financeiro",
+      "uso": "Versão TRANSPARENTE de __func248-base.png (rembg). Use sobre fundo diferente de amber.",
+      "fundo": "transparente",
+      "par_com": "_func248-base.png"
+    },
+    {
+      "arquivo": "_func266-base-transp.png",
+      "slug": "_func266-base-transp",
+      "dims": {
+        "w": 1856,
+        "h": 2304
+      },
+      "size_kb": 1255.6,
+      "path_plugin": "assets/bases-nanobanana-transparente/_func266-base-transp.png",
+      "path_host": "oficial/_func266-base-transp.png",
+      "post": "POST 266",
+      "categoria": "funcoes-sistema",
+      "device": "mão+iPhone",
+      "tela": "tela ERP",
+      "uso": "Versão TRANSPARENTE de __func266-base.png (rembg). Use sobre fundo diferente de amber.",
+      "fundo": "transparente",
+      "par_com": "_func266-base.png"
+    },
+    {
+      "arquivo": "_func273-base-transp.png",
+      "slug": "_func273-base-transp",
+      "dims": {
+        "w": 1856,
+        "h": 2304
+      },
+      "size_kb": 1467.7,
+      "path_plugin": "assets/bases-nanobanana-transparente/_func273-base-transp.png",
+      "path_host": "oficial/_func273-base-transp.png",
+      "post": "POST 273",
+      "categoria": "funcoes-sistema",
+      "device": "laptop",
+      "tela": "dashboard ERP",
+      "uso": "Versão TRANSPARENTE de __func273-base.png (rembg). Use sobre fundo diferente de amber.",
+      "fundo": "transparente",
+      "par_com": "_func273-base.png"
+    }
+  ],
+  "fotos": [
+    {
+      "arquivo": "_prod254-foto.jpg",
+      "slug": "_prod254-foto",
+      "dims": {
+        "w": 1856,
+        "h": 2304
+      },
+      "size_kb": 362.6,
+      "path_plugin": "assets/fotos/_prod254-foto.jpg",
+      "path_host": "oficial/_prod254-foto.jpg",
+      "tema": "fabrica-3",
+      "uso": "Foto POST 254 — operário (nanobanana + SENAI)."
+    },
+    {
+      "arquivo": "_prod270-foto.jpg",
+      "slug": "_prod270-foto",
+      "dims": {
+        "w": 845,
+        "h": 698
+      },
+      "size_kb": 281.1,
+      "path_plugin": "assets/fotos/_prod270-foto.jpg",
+      "path_host": "oficial/_prod270-foto.jpg",
+      "tema": "fabrica-card",
+      "uso": "Foto card POST 270 — versão re-extraída com pílula 'tempo parado.'"
+    },
+    {
+      "arquivo": "_teste-foto-cliente.jpg",
+      "slug": "_teste-foto-cliente",
+      "dims": {
+        "w": 942,
+        "h": 744
+      },
+      "size_kb": 188.5,
+      "path_plugin": "assets/fotos/_teste-foto-cliente.jpg",
+      "path_host": "oficial/_teste-foto-cliente.jpg",
+      "tema": "loja-cliente",
+      "uso": "Foto vitrine/fachada de loja Flairar (Teixeira de Freitas/BA). REUSAR pra peças cliente novo."
+    },
+    {
+      "arquivo": "_teste-foto-cliente2.jpg",
+      "slug": "_teste-foto-cliente2",
+      "dims": {
+        "w": 942,
+        "h": 744
+      },
+      "size_kb": 155.6,
+      "path_plugin": "assets/fotos/_teste-foto-cliente2.jpg",
+      "path_host": "oficial/_teste-foto-cliente2.jpg",
+      "tema": "loja-cliente",
+      "uso": "Foto Essence Glamour (Jaraguá do Sul/SC). REUSAR pra peças cliente novo."
+    },
+    {
+      "arquivo": "_teste-motiva-242.jpg",
+      "slug": "_teste-motiva-242",
+      "dims": {
+        "w": 1080,
+        "h": 1350
+      },
+      "size_kb": 1657.1,
+      "path_plugin": "assets/fotos/_teste-motiva-242.jpg",
+      "path_host": "oficial/_teste-motiva-242.jpg",
+      "tema": "motivacional-242",
+      "uso": "Foto motivacional POST 242 — pessoa/cena de trabalho."
+    },
+    {
+      "arquivo": "_teste-motiva-250.jpg",
+      "slug": "_teste-motiva-250",
+      "dims": {
+        "w": 1080,
+        "h": 1350
+      },
+      "size_kb": 1912.7,
+      "path_plugin": "assets/fotos/_teste-motiva-250.jpg",
+      "path_host": "oficial/_teste-motiva-250.jpg",
+      "tema": "motivacional-250",
+      "uso": "Foto motivacional POST 250 — virada/crescimento."
+    },
+    {
+      "arquivo": "_teste-narr-265.jpg",
+      "slug": "_teste-narr-265",
+      "dims": {
+        "w": 1080,
+        "h": 1350
+      },
+      "size_kb": 1929.1,
+      "path_plugin": "assets/fotos/_teste-narr-265.jpg",
+      "path_host": "oficial/_teste-narr-265.jpg",
+      "tema": "narrativa-estoque",
+      "uso": "Foto narrativa POST 265 — estoque cheio/loja."
+    },
+    {
+      "arquivo": "_teste-prod-270.jpg",
+      "slug": "_teste-prod-270",
+      "dims": {
+        "w": 1080,
+        "h": 1350
+      },
+      "size_kb": 1052.2,
+      "path_plugin": "assets/fotos/_teste-prod-270.jpg",
+      "path_host": "oficial/_teste-prod-270.jpg",
+      "tema": "fabrica",
+      "uso": "Foto fábrica POST 270 — operação industrial. Reusar pra peças indústria."
+    },
+    {
+      "arquivo": "_teste-prod-277.jpg",
+      "slug": "_teste-prod-277",
+      "dims": {
+        "w": 1080,
+        "h": 1350
+      },
+      "size_kb": 1860.4,
+      "path_plugin": "assets/fotos/_teste-prod-277.jpg",
+      "path_host": "oficial/_teste-prod-277.jpg",
+      "tema": "fabrica-2",
+      "uso": "Foto fábrica POST 277 — variante."
+    },
+    {
+      "arquivo": "_teste-spin-foto.jpg",
+      "slug": "_teste-spin-foto",
+      "dims": {
+        "w": 1080,
+        "h": 729
+      },
+      "size_kb": 144.8,
+      "path_plugin": "assets/fotos/_teste-spin-foto.jpg",
+      "path_host": "oficial/_teste-spin-foto.jpg",
+      "tema": "spin-243",
+      "uso": "Foto capa SPIN POST 243 — empresário/gestor."
+    },
+    {
+      "arquivo": "_teste-spin251-foto.jpg",
+      "slug": "_teste-spin251-foto",
+      "dims": {
+        "w": 1080,
+        "h": 729
+      },
+      "size_kb": 154.4,
+      "path_plugin": "assets/fotos/_teste-spin251-foto.jpg",
+      "path_host": "oficial/_teste-spin251-foto.jpg",
+      "tema": "spin-251",
+      "uso": "Foto capa SPIN POST 251."
+    }
+  ],
+  "grafismos": [
+    {
+      "arquivo": "_193-bg.png",
+      "slug": "_193-bg",
+      "dims": {
+        "w": 1080,
+        "h": 1350
+      },
+      "size_kb": 21.8,
+      "path_plugin": "assets/grafismos/_193-bg.png",
+      "path_host": "oficial/_193-bg.png",
+      "tipo": "watermark-bg",
+      "uso": "Watermark 'DOMa' tom-sobre-tom extraído de slide puro-texto do POST 193 (Trento). Background full-bleed reusable pra qualquer carrossel com fundo amber + watermark."
+    },
+    {
+      "arquivo": "_205-graf1.png",
+      "slug": "_205-graf1",
+      "dims": {
+        "w": 1080,
+        "h": 1350
+      },
+      "size_kb": 15.9,
+      "path_plugin": "assets/grafismos/_205-graf1.png",
+      "path_host": "oficial/_205-graf1.png",
+      "tipo": "grafismo-capa",
+      "uso": "Grafismo capa POST 205 — soft amber-on-amber decorativo. Pode reusar como capa institucional."
+    },
+    {
+      "arquivo": "_205-graf8.png",
+      "slug": "_205-graf8",
+      "dims": {
+        "w": 1080,
+        "h": 1350
+      },
+      "size_kb": 16.6,
+      "path_plugin": "assets/grafismos/_205-graf8.png",
+      "path_host": "oficial/_205-graf8.png",
+      "tipo": "grafismo-fecho",
+      "uso": "Grafismo fecho POST 205 — decorativo p/ slide final."
+    },
+    {
+      "arquivo": "_dicas246-icones.png",
+      "slug": "_dicas246-icones",
+      "dims": {
+        "w": 554,
+        "h": 569
+      },
+      "size_kb": 47.6,
+      "path_plugin": "assets/grafismos/_dicas246-icones.png",
+      "path_host": "oficial/_dicas246-icones.png",
+      "tipo": "icones-tema",
+      "uso": "Cifrão + gráfico cadente line-art (extraído POST 246 margem de lucro). Reusar em capas Dicas com tema financeiro/margem/gestão (já usado em gestao-financeira)."
+    },
+    {
+      "arquivo": "_narr272-fg.png",
+      "slug": "_narr272-fg",
+      "dims": {
+        "w": 1080,
+        "h": 1350
+      },
+      "size_kb": 249.2,
+      "path_plugin": "assets/grafismos/_narr272-fg.png",
+      "path_host": "oficial/_narr272-fg.png",
+      "tipo": "produto-cutout",
+      "uso": "Moedas 3D em foreground (rembg) do POST 272 narrativa. REUSAR em peças tema dinheiro/lucro/$."
+    }
+  ],
+  "cards-clientes": [
+    {
+      "arquivo": "_205-card2.png",
+      "slug": "_205-card2",
+      "dims": {
+        "w": 876,
+        "h": 576
+      },
+      "size_kb": 58.0,
+      "path_plugin": "assets/cards-clientes/_205-card2.png",
+      "path_host": "oficial/_205-card2.png",
+      "post": "POST 205",
+      "card_num": "2",
+      "uso": "Card cliente #2 recortado do POST 205 (logo+cor+cantos baked). NÃO reutilizar para OUTROS clientes — cada cliente tem cor própria.",
+      "warning": "específico por cliente — recortar do modelo do cliente próprio."
+    },
+    {
+      "arquivo": "_205-card3.png",
+      "slug": "_205-card3",
+      "dims": {
+        "w": 876,
+        "h": 576
+      },
+      "size_kb": 316.4,
+      "path_plugin": "assets/cards-clientes/_205-card3.png",
+      "path_host": "oficial/_205-card3.png",
+      "post": "POST 205",
+      "card_num": "3",
+      "uso": "Card cliente #3 recortado do POST 205 (logo+cor+cantos baked). NÃO reutilizar para OUTROS clientes — cada cliente tem cor própria.",
+      "warning": "específico por cliente — recortar do modelo do cliente próprio."
+    },
+    {
+      "arquivo": "_205-card4.png",
+      "slug": "_205-card4",
+      "dims": {
+        "w": 876,
+        "h": 576
+      },
+      "size_kb": 58.7,
+      "path_plugin": "assets/cards-clientes/_205-card4.png",
+      "path_host": "oficial/_205-card4.png",
+      "post": "POST 205",
+      "card_num": "4",
+      "uso": "Card cliente #4 recortado do POST 205 (logo+cor+cantos baked). NÃO reutilizar para OUTROS clientes — cada cliente tem cor própria.",
+      "warning": "específico por cliente — recortar do modelo do cliente próprio."
+    },
+    {
+      "arquivo": "_205-card5.png",
+      "slug": "_205-card5",
+      "dims": {
+        "w": 876,
+        "h": 576
+      },
+      "size_kb": 81.7,
+      "path_plugin": "assets/cards-clientes/_205-card5.png",
+      "path_host": "oficial/_205-card5.png",
+      "post": "POST 205",
+      "card_num": "5",
+      "uso": "Card cliente #5 recortado do POST 205 (logo+cor+cantos baked). NÃO reutilizar para OUTROS clientes — cada cliente tem cor própria.",
+      "warning": "específico por cliente — recortar do modelo do cliente próprio."
+    },
+    {
+      "arquivo": "_205-card6.png",
+      "slug": "_205-card6",
+      "dims": {
+        "w": 876,
+        "h": 576
+      },
+      "size_kb": 72.4,
+      "path_plugin": "assets/cards-clientes/_205-card6.png",
+      "path_host": "oficial/_205-card6.png",
+      "post": "POST 205",
+      "card_num": "6",
+      "uso": "Card cliente #6 recortado do POST 205 (logo+cor+cantos baked). NÃO reutilizar para OUTROS clientes — cada cliente tem cor própria.",
+      "warning": "específico por cliente — recortar do modelo do cliente próprio."
+    },
+    {
+      "arquivo": "_205-card7.png",
+      "slug": "_205-card7",
+      "dims": {
+        "w": 876,
+        "h": 576
+      },
+      "size_kb": 71.3,
+      "path_plugin": "assets/cards-clientes/_205-card7.png",
+      "path_host": "oficial/_205-card7.png",
+      "post": "POST 205",
+      "card_num": "7",
+      "uso": "Card cliente #7 recortado do POST 205 (logo+cor+cantos baked). NÃO reutilizar para OUTROS clientes — cada cliente tem cor própria.",
+      "warning": "específico por cliente — recortar do modelo do cliente próprio."
+    }
   ]
 }

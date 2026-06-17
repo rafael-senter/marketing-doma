@@ -52,6 +52,21 @@ cp -u "$PLUGIN_DIR/assets/oficial/"*.png "$HOST_REMOTION/public/oficial/" 2>/dev
 cp -u "$PLUGIN_DIR/assets/oficial/"*.svg "$HOST_REMOTION/public/oficial/" 2>/dev/null || true
 cp -u "$PLUGIN_DIR/assets/icones/"*     "$HOST_REMOTION/public/icones/"  2>/dev/null || true
 cp -u "$PLUGIN_DIR/assets/fontes/"*     "$HOST_REMOTION/public/fontes/"  2>/dev/null || true
+# Bases nanobanana (com fundo amber) — vão pra public/oficial/
+if [ -d "$PLUGIN_DIR/assets/bases-nanobanana" ]; then
+  cp -u "$PLUGIN_DIR/assets/bases-nanobanana/"*.png "$HOST_REMOTION/public/oficial/" 2>/dev/null || true
+fi
+# Bases nanobanana transparente (rembg) — também vão pra public/oficial/
+if [ -d "$PLUGIN_DIR/assets/bases-nanobanana-transparente" ]; then
+  cp -u "$PLUGIN_DIR/assets/bases-nanobanana-transparente/"*.png "$HOST_REMOTION/public/oficial/" 2>/dev/null || true
+fi
+# Fotos reutilizáveis + grafismos + cards-clientes (sync mas só plugin → host)
+for sub in fotos grafismos cards-clientes; do
+  if [ -d "$PLUGIN_DIR/assets/$sub" ]; then
+    cp -u "$PLUGIN_DIR/assets/$sub/"*.png "$HOST_REMOTION/public/oficial/" 2>/dev/null || true
+    cp -u "$PLUGIN_DIR/assets/$sub/"*.jpg "$HOST_REMOTION/public/oficial/" 2>/dev/null || true
+  fi
+done
 
 # 4. .npmrc local (override min-release-age global)
 echo "[4/4] .npmrc local (min-release-age=0)"
