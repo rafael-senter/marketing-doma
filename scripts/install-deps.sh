@@ -14,8 +14,8 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PLUGIN_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
-PROJECT_ROOT="$(cd "$PLUGIN_DIR/../../.." && pwd)"
-HOST_REMOTION="$PROJECT_ROOT/remotion-doma"
+source "$SCRIPT_DIR/_detect-project.sh"
+detect_project_root "$@" || exit 1
 VENV="$PROJECT_ROOT/.venv-instagram"
 SETTINGS="$PROJECT_ROOT/.claude/settings.json"
 
@@ -36,6 +36,12 @@ echo "==> 2/6 Remotion"
 if [ ! -d "$HOST_REMOTION" ]; then
   inst "criando projeto Remotion em $HOST_REMOTION"
   (cd "$PROJECT_ROOT" && npx --yes create-video@latest remotion-doma --template=blank) || fail "create-video falhou"
+fi
+# Copiar render-still.sh do template do plugin pro host (idempotente)
+if [ -f "$PLUGIN_DIR/templates/render-still.sh" ] && [ ! -f "$HOST_REMOTION/render-still.sh" ]; then
+  cp "$PLUGIN_DIR/templates/render-still.sh" "$HOST_REMOTION/render-still.sh"
+  chmod +x "$HOST_REMOTION/render-still.sh"
+  inst "render-still.sh copiado pro host"
 fi
 # .npmrc local
 if [ ! -f "$HOST_REMOTION/.npmrc" ] || ! grep -q "min-release-age=0" "$HOST_REMOTION/.npmrc"; then

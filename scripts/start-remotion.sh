@@ -5,12 +5,12 @@
 
 set -euo pipefail
 
-# Detectar raiz do projeto a partir da localização do script
+# Detectar raiz do projeto (CWD-aware, suporta plugin global via symlink)
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PLUGIN_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
-# 4 níveis: plugins/<name>/scripts → projeto-raiz
-PROJECT_ROOT="$(cd "$PLUGIN_DIR/../../.." && pwd)"
-REMOTION_DIR="$PROJECT_ROOT/remotion-doma"
+source "$SCRIPT_DIR/_detect-project.sh"
+detect_project_root "$@" 2>/dev/null || exit 0  # exit silencioso (hook auto-start)
+REMOTION_DIR="$HOST_REMOTION"
 PORT=3010
 
 # Não fazer nada se remotion-doma não existe (setup ainda não rodou)

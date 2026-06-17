@@ -10,7 +10,8 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PLUGIN_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
-PROJECT_ROOT="$(cd "$PLUGIN_DIR/../../.." && pwd)"
+source "$SCRIPT_DIR/_detect-project.sh"
+detect_project_root "$@" || exit 1
 VENV_PY="$PROJECT_ROOT/.venv-instagram/bin/python"
 COMPARE_PY="$PROJECT_ROOT/.claude/skills/layout-mapper/scripts/compare.py"
 

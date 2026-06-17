@@ -10,13 +10,10 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PLUGIN_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
-PROJECT_ROOT="$(cd "$PLUGIN_DIR/../../.." && pwd)"
-HOST="$PROJECT_ROOT/remotion-doma"
-
-if [ ! -f "$HOST/render-still.sh" ]; then
-  echo "[ERRO] $HOST/render-still.sh não existe. Rode /marketing-doma-setup."
-  exit 1
-fi
+source "$SCRIPT_DIR/_detect-project.sh"
+detect_project_root "$@" || exit 1
+require_host_remotion || exit 1
+HOST="$HOST_REMOTION"
 
 # Modo range: $1 = prefix, $2 = N (apenas se $2 for número)
 IDS=()

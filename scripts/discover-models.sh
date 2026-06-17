@@ -11,7 +11,8 @@ set -uo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PLUGIN_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
-PROJECT_ROOT="$(cd "$PLUGIN_DIR/../../.." && pwd)"
+source "$SCRIPT_DIR/_detect-project.sh"
+detect_project_root "$@" || exit 1
 
 MODELS_DIR="$PROJECT_ROOT/doma-brand/tipos-de-posts/tipos de posts"
 FICHAS_DIR="$PLUGIN_DIR/knowledge-base/padroes"

@@ -15,8 +15,8 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PLUGIN_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
-PROJECT_ROOT="$(cd "$PLUGIN_DIR/../../.." && pwd)"
-HOST_REMOTION="$PROJECT_ROOT/remotion-doma"
+source "$SCRIPT_DIR/_detect-project.sh"
+detect_project_root "$@" || exit 1
 
 if [ ! -d "$HOST_REMOTION" ]; then
   echo "[ERRO] remotion-doma não existe em $PROJECT_ROOT. Rode /marketing-doma-setup primeiro."
