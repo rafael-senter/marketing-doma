@@ -1,86 +1,209 @@
 #!/usr/bin/env bash
-# install-globally.sh — instala plugin marketing-doma globalmente no Claude Code via symlink.
+# marketing-doma :: install-globally.sh
+# Instalador portável COMPLETO. Roda 1x após clonar o plugin.
 #
-# Cria symlink ~/.claude/plugins/marketing-doma → este diretório do plugin.
-# Edição é COMPARTILHADA: mexer no plugin (em qualquer caminho) propaga global.
+# Default: instala TUDO sem perguntar.
 #
-# Idempotente. Roda em cada máquina nova que clonar o plugin.
+# Uso:
+#   bash install-globally.sh                 # instala TUDO (recomendado)
+#   bash install-globally.sh --dry-run       # mostra o que faria, sem mudar
+#   bash install-globally.sh --uninstall     # remove symlinks + entries
+#   bash install-globally.sh --help
+#
+# O que faz:
+#   1. Symlink ~/.claude/plugins/marketing-doma → este diretório do plugin
+#   2. Symlink cache redundante ~/.claude/plugins/cache/marketing-doma/marketing-doma/<v>/
+#   3. Habilita plugin em ~/.claude/settings.json (enabledPlugins)
+#   4. Registra em ~/.claude/plugins/installed_plugins.json
+#   5. Registra fonte em ~/.claude/plugins/known_marketplaces.json
+#
+# 🛑 POLÍTICA INCREMENTAL — NUNCA SUBSTITUI
+# - settings.json: apenas ADICIONA chaves (enabledPlugins['marketing-doma@marketing-doma']=True)
+# - JSON registries: apenas ADICIONA entries. Outros plugins intactos.
+# - Backup automático settings.json.bak.<timestamp> antes de cada mudança.
+# - Idempotente: rodar 2x não duplica nada.
 
-set -euo pipefail
+set -e
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-PLUGIN_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
-GLOBAL_DIR="$HOME/.claude/plugins"
-TARGET="$GLOBAL_DIR/marketing-doma"
-VERSION=$(grep '"version"' "$PLUGIN_DIR/plugin.json" | head -1 | sed 's/.*"\([0-9.]*\)".*/\1/')
+REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+CLAUDE_DIR="$HOME/.claude"
+PLUGINS_DIR="$CLAUDE_DIR/plugins"
+SETTINGS="$CLAUDE_DIR/settings.json"
+REGISTRY="$PLUGINS_DIR/installed_plugins.json"
+MARKETPLACES="$PLUGINS_DIR/known_marketplaces.json"
+PLUGIN_LINK="$PLUGINS_DIR/marketing-doma"
+VERSION=$(grep '"version"' "$REPO_DIR/plugin.json" | head -1 | sed 's/.*"\([0-9.]*\)".*/\1/')
+CACHE_LINK="$PLUGINS_DIR/cache/marketing-doma/marketing-doma/$VERSION"
 
-echo "==> Plugin marketing-doma v$VERSION"
-echo "    Fonte: $PLUGIN_DIR"
-echo "    Global: $TARGET"
-echo ""
+DRY_RUN=0
+UNINSTALL=0
+for arg in "$@"; do
+  case "$arg" in
+    --dry-run|-n) DRY_RUN=1 ;;
+    --uninstall) UNINSTALL=1 ;;
+    --help|-h) sed -n '2,30p' "$0"; exit 0 ;;
+    *) echo "Flag desconhecida: $arg"; exit 2 ;;
+  esac
+done
 
-# 1. Garantir pasta global
-mkdir -p "$GLOBAL_DIR"
+log() { echo "  $*"; }
+step() { echo ""; echo "▸ $*"; }
+run() { if [ "$DRY_RUN" -eq 1 ]; then echo "  [dry-run] $*"; else eval "$*"; fi; }
 
-# 2. Criar/atualizar symlink
-if [ -L "$TARGET" ]; then
-  CURRENT="$(readlink "$TARGET")"
-  if [ "$CURRENT" = "$PLUGIN_DIR" ]; then
-    echo "[OK] Symlink já aponta pra $PLUGIN_DIR"
-  else
-    echo "[REPLACE] Symlink apontava pra $CURRENT — atualizando."
-    rm "$TARGET"
-    ln -sfn "$PLUGIN_DIR" "$TARGET"
+# ============= UNINSTALL =============
+if [ "$UNINSTALL" -eq 1 ]; then
+  echo "marketing-doma :: uninstall"
+  [ -L "$PLUGIN_LINK" ] && { run "rm '$PLUGIN_LINK'"; log "✓ removido $PLUGIN_LINK"; }
+  [ -L "$CACHE_LINK" ] && { run "rm '$CACHE_LINK'"; log "✓ removido $CACHE_LINK"; }
+  if [ "$DRY_RUN" -eq 0 ]; then
+    python3 - <<PYEOF
+import json, pathlib
+for p in [pathlib.Path("$SETTINGS"), pathlib.Path("$REGISTRY"), pathlib.Path("$MARKETPLACES")]:
+    if not p.exists(): continue
+    d = json.loads(p.read_text())
+    if 'enabledPlugins' in d:
+        d['enabledPlugins'].pop('marketing-doma@marketing-doma', None)
+    if 'plugins' in d:
+        d['plugins'].pop('marketing-doma@marketing-doma', None)
+    if 'marketing-doma' in d:
+        d.pop('marketing-doma', None)
+    p.write_text(json.dumps(d, indent=2) + chr(10))
+print("settings + registry + marketplaces limpos")
+PYEOF
   fi
-elif [ -d "$TARGET" ]; then
-  echo "[ERRO] $TARGET existe como diretório real (não symlink). Renomear ou remover manualmente."
-  exit 1
-else
-  ln -sfn "$PLUGIN_DIR" "$TARGET"
-  echo "[OK] Symlink criado: $TARGET → $PLUGIN_DIR"
+  echo "✓ Desinstalado. Reinicie Claude Code."
+  exit 0
 fi
 
-# 3. Registrar em known_marketplaces.json
-KMP="$HOME/.claude/plugins/known_marketplaces.json"
-[ ! -f "$KMP" ] && echo "{}" > "$KMP"
+# ============= PRE-FLIGHT =============
+echo "marketing-doma :: install v$VERSION (completo)"
+echo "Repo:     $REPO_DIR"
+echo "Claude:   $CLAUDE_DIR"
+echo "Modo:     $([ "$DRY_RUN" -eq 1 ] && echo 'dry-run (nada será gravado)' || echo 'aplica TUDO')"
+echo "Politica: INCREMENTAL (nunca substitui — preserva outros plugins)"
+echo ""
 
-python3 - <<PY
-import json
-p = "$KMP"
-with open(p) as f: data = json.load(f)
-data['marketing-doma'] = {
-    "source": {"source": "directory", "path": "$TARGET"},
-    "installLocation": "$TARGET",
-    "lastUpdated": "$(date -u +%Y-%m-%dT%H:%M:%S.000Z)"
+if [ ! -d "$CLAUDE_DIR" ]; then
+  echo "❌ Claude Code não detectado em $CLAUDE_DIR"
+  echo "   Instale primeiro: https://claude.com/code"
+  exit 2
+fi
+
+if ! command -v python3 >/dev/null 2>&1; then
+  echo "❌ python3 ausente (necessário pra editar settings.json com segurança)"
+  exit 2
+fi
+
+run "mkdir -p '$PLUGINS_DIR' '$(dirname "$CACHE_LINK")'"
+
+# ============= 1. SYMLINKS =============
+step "1. Symlinks do plugin"
+
+create_symlink() {
+  local dst="$1" src="$2" label="$3"
+  if [ -L "$dst" ] && [ "$(readlink "$dst")" = "$src" ]; then
+    log "✓ $label já correto (skip)"
+  elif [ -e "$dst" ] || [ -L "$dst" ]; then
+    local bak="$dst.bak.$(date -Iseconds | tr ':' '-')"
+    run "mv '$dst' '$bak'"
+    log "⚠ existente movido para $bak"
+    run "ln -s '$src' '$dst'"
+    log "✓ $label criado"
+  else
+    run "ln -s '$src' '$dst'"
+    log "✓ $label criado"
+  fi
 }
-with open(p, 'w') as f: json.dump(data, f, indent=4)
-print("[OK] known_marketplaces.json atualizado")
-PY
 
-# 4. Registrar em installed_plugins.json
-IPJ="$HOME/.claude/plugins/installed_plugins.json"
-[ ! -f "$IPJ" ] && echo '{"version":2,"plugins":{}}' > "$IPJ"
+create_symlink "$PLUGIN_LINK" "$REPO_DIR" "plugin → repo"
+create_symlink "$CACHE_LINK" "$REPO_DIR" "cache → repo (redundância)"
 
-python3 - <<PY
-import json
-p = "$IPJ"
-with open(p) as f: data = json.load(f)
-data.setdefault('plugins', {})
-data['plugins']['marketing-doma@marketing-doma'] = [{
+# ============= 2. SETTINGS.JSON — enabledPlugins =============
+step "2. settings.json — habilitar plugin"
+
+if [ ! -f "$SETTINGS" ]; then
+  run "echo '{}' > '$SETTINGS'"
+  log "settings.json criado vazio"
+fi
+
+if [ "$DRY_RUN" -eq 0 ]; then
+  cp "$SETTINGS" "$SETTINGS.bak.$(date -Iseconds | tr ':' '-')"
+  python3 - <<PYEOF
+import json, pathlib
+p = pathlib.Path("$SETTINGS")
+d = json.loads(p.read_text())
+ep = d.setdefault('enabledPlugins', {})
+already = ep.get('marketing-doma@marketing-doma') == True
+ep['marketing-doma@marketing-doma'] = True
+p.write_text(json.dumps(d, indent=2) + chr(10))
+print(f"  {'⊝' if already else '✓'} marketing-doma@marketing-doma habilitado" + (' (já estava)' if already else ''))
+PYEOF
+else
+  log "[dry-run] habilitaria marketing-doma@marketing-doma em enabledPlugins"
+fi
+
+# ============= 3. installed_plugins.json =============
+step "3. installed_plugins.json"
+
+if [ ! -f "$REGISTRY" ]; then
+  run "echo '{\"version\":2,\"plugins\":{}}' > '$REGISTRY'"
+fi
+
+if [ "$DRY_RUN" -eq 0 ]; then
+  cp "$REGISTRY" "$REGISTRY.bak.$(date -Iseconds | tr ':' '-')"
+  python3 - <<PYEOF
+import json, pathlib, datetime
+p = pathlib.Path("$REGISTRY")
+d = json.loads(p.read_text())
+d.setdefault('plugins', {})
+now = datetime.datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%S.000Z")
+d['plugins']['marketing-doma@marketing-doma'] = [{
     "scope": "user",
-    "installPath": "$TARGET",
+    "installPath": "$PLUGIN_LINK",
     "version": "$VERSION",
-    "installedAt": "$(date -u +%Y-%m-%dT%H:%M:%S.000Z)",
-    "lastUpdated": "$(date -u +%Y-%m-%dT%H:%M:%S.000Z)"
+    "installedAt": now,
+    "lastUpdated": now
 }]
-with open(p, 'w') as f: json.dump(data, f, indent=2)
-print("[OK] installed_plugins.json atualizado")
-PY
+p.write_text(json.dumps(d, indent=2) + chr(10))
+print("  ✓ marketing-doma@marketing-doma registrado")
+PYEOF
+else
+  log "[dry-run] registraria em plugins.marketing-doma@marketing-doma"
+fi
 
+# ============= 4. known_marketplaces.json =============
+step "4. known_marketplaces.json"
+
+if [ ! -f "$MARKETPLACES" ]; then
+  run "echo '{}' > '$MARKETPLACES'"
+fi
+
+if [ "$DRY_RUN" -eq 0 ]; then
+  cp "$MARKETPLACES" "$MARKETPLACES.bak.$(date -Iseconds | tr ':' '-')"
+  python3 - <<PYEOF
+import json, pathlib, datetime
+p = pathlib.Path("$MARKETPLACES")
+d = json.loads(p.read_text())
+now = datetime.datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%S.000Z")
+d['marketing-doma'] = {
+    "source": {"source": "directory", "path": "$PLUGIN_LINK"},
+    "installLocation": "$PLUGIN_LINK",
+    "lastUpdated": now
+}
+p.write_text(json.dumps(d, indent=2) + chr(10))
+print("  ✓ marketing-doma registrado como marketplace local")
+PYEOF
+fi
+
+# ============= DONE =============
 echo ""
-echo "🎉 Plugin instalado globalmente. Reinicie o Claude Code:"
-echo "   1. Saia da sessão atual"
-echo "   2. Entre de novo (\`claude\`)"
-echo "   3. Teste: /marketing-doma"
+echo "🎉 Plugin marketing-doma v$VERSION instalado globalmente."
 echo ""
-echo "Edições no plugin (em qualquer caminho) refletem global automaticamente (symlink)."
+echo "Próximos passos:"
+echo "  1. Saia da sessão atual: exit"
+echo "  2. Entre novamente: claude"
+echo "  3. Teste: /marketing-doma"
+echo ""
+echo "Edições no plugin (em qualquer caminho do symlink) refletem global automaticamente."
+echo ""
+echo "Desinstalar: bash $0 --uninstall"
