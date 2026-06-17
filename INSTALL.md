@@ -1,273 +1,215 @@
-# INSTALAÇÃO — passo-a-passo para pessoa do marketing (sem precisar saber programar)
+# INSTALAÇÃO — passo-a-passo (sem precisar saber programar)
 
-> Este guia é para quem **nunca usou terminal** ou **nunca rodou IA**. Siga em ordem; se travar em algum passo, peça ajuda ao dev/Patrick.
-
----
-
-## ✅ O que você vai instalar
-
-1. **Claude Code** — a IA da Anthropic (CLI no terminal).
-2. **Node.js** — necessário pro Remotion (a "máquina" que gera as artes).
-3. **Python 3** — pra medições automáticas (compare render vs modelo).
-4. **CLI `marketing-doma`** — instala o plugin no Claude Code com 1 comando.
-
-Depois é só rodar `/marketing-doma-setup` em cada projeto e estar pronto para criar posts.
+> Guia para quem **nunca usou terminal**. Siga em ordem; se travar, peça ajuda ao dev.
 
 ---
 
-## 1. Instalar Claude Code
+## Resumo do que vai acontecer
 
-### macOS / Linux
-1. Abra o **Terminal** (no Mac: Cmd+Espaço → "Terminal"; no Linux: já sabe).
-2. Cole o comando:
-   ```bash
-   curl -fsSL https://claude.ai/install.sh | sh
-   ```
-3. Quando terminar, feche e abra o Terminal de novo.
-4. Teste digitando:
-   ```bash
-   claude --version
-   ```
-   Deve aparecer um número (ex.: `1.0.x`).
-
-### Windows
-Siga as instruções em https://docs.claude.com/claude-code — tem versão para Windows também.
-
-### Faça login
-Rode:
-```bash
-claude
-```
-Vai abrir o navegador e pedir login na Anthropic. Faça login com a conta que o Patrick mandou.
+1. Instalar **Node.js** (única coisa manual — 1 minuto).
+2. Rodar **2 comandos** no terminal. CLI cuida do resto (Claude Code, git, Python, plugin, tudo).
+3. Pronto pra criar posts.
 
 ---
 
-## 2. Instalar Node.js (versão LTS)
+## 1. Instalar Node.js
 
 ### macOS
+
 ```bash
 brew install node
 ```
-*(se não tem Homebrew, instale primeiro: https://brew.sh)*
+*(se não tem Homebrew: https://brew.sh)*
+
+Ou baixar instalador: https://nodejs.org → versão **LTS** → instalar com defaults.
 
 ### Linux (Ubuntu/Debian)
+
 ```bash
 curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo bash -
 sudo apt install -y nodejs
 ```
 
 ### Windows
-Baixe o instalador em https://nodejs.org → versão **LTS**.
 
-Teste:
+Baixar instalador: https://nodejs.org → versão **LTS** → next-next-finish.
+
+### Verificar
+
+Abrir terminal (PowerShell no Windows, Terminal no Mac/Linux):
+
 ```bash
 node --version
 ```
-Deve mostrar `v20.x.x` ou maior.
+
+Deve mostrar `v18.x.x` ou maior.
 
 ---
 
-## 3. Instalar Python 3.10+
+## 2. Instalar o plugin (2 comandos)
 
-### macOS
-```bash
-brew install python@3.11
-```
-
-### Linux
-```bash
-sudo apt install -y python3 python3-venv python3-pip
-```
-
-### Windows
-https://www.python.org/downloads/ → versão 3.11 ou maior. **Marque "Add to PATH"** na instalação.
-
----
-
-## ⚠️ Windows: instale Git Bash (essencial)
-
-O plugin usa scripts `bash` (Linux/Mac nativo). No Windows você precisa de **Git Bash** (vem com Git for Windows). Sem isso, scripts de setup, sync e render não funcionam.
-
-### Instalar Git for Windows (Git Bash incluído)
-
-1. Baixe: https://git-scm.com/download/win
-2. Instale com defaults — Git Bash fica disponível no menu iniciar.
-3. **Abra o "Git Bash"** (não o PowerShell ou CMD) pra rodar tudo abaixo.
-
-### Verificar dentro do Git Bash
-
-```bash
-bash --version
-git --version
-node --version
-python --version
-```
-
-Se algum falhar, rode `winget install ...` no PowerShell (admin):
-```powershell
-winget install Git.Git
-winget install OpenJS.NodeJS.LTS
-winget install Python.Python.3.11
-```
-
-Depois feche e reabra o Git Bash. Continue todos os passos abaixo **dentro do Git Bash**.
-
-### Por que não WSL?
-
-WSL2 também funciona e é mais robusto, mas consome ~2 GB RAM extra. Em **PCs fracos** (≤8 GB RAM), Git Bash é mais leve e suficiente. Remotion oficialmente suporta Windows nativo (Chromium baixa automaticamente).
-
-Teste:
-```bash
-python3 --version
-```
-
----
-
-## 4. Instalar o plugin (via npm — 1 comando)
+No mesmo terminal:
 
 ```bash
 npm install -g marketing-doma-cli
 marketing-doma install
 ```
 
-O `marketing-doma install` baixa o plugin direto do GitHub + registra automaticamente no Claude Code.
+`marketing-doma install` vai:
 
-### Não sabe se tem tudo instalado? Pergunte ao CLI:
+1. Detectar tudo que falta (Claude Code, git, bash via Git for Windows, Python).
+2. Perguntar: **"Instalar automaticamente? [Y/n]"** — responda `y` (ou só enter).
+3. Instalar tudo via `apt` / `brew` / `winget` conforme seu OS. Vai pedir senha de admin algumas vezes.
+4. Baixar o plugin do GitHub e registrar no Claude Code.
 
-```bash
-marketing-doma doctor
-```
-
-Mostra:
-- ✓ ou ✗ pra cada dependência (Node.js, Python, Claude Code CLI, git, bash).
-- Versão instalada de cada.
-- **Comando exato** pra instalar cada faltante (detecta seu OS: Ubuntu, macOS, Windows).
-
-### Instalar pré-requisitos automaticamente
-
-Se algo faltar, em vez de copiar os comandos manualmente:
-
-```bash
-marketing-doma install-deps
-```
-
-Tenta instalar todos os faltantes via `apt`/`brew`/`winget` (vai pedir sua senha de admin). Best-effort — verifica de novo depois com `marketing-doma doctor`.
-
-### Atualizar quando sair versão nova
-
-```bash
-marketing-doma update
-```
-
-### Ver versão instalada / status
+### Conferir tudo
 
 ```bash
 marketing-doma status
 ```
 
-### Outros comandos do CLI
-
-| Comando | O que faz |
-|---|---|
-| `marketing-doma install` | Instala plugin pela 1ª vez. |
-| `marketing-doma update` | Atualiza para última versão. |
-| `marketing-doma status` | Mostra versão local + remota + saúde. |
-| `marketing-doma uninstall` | Remove plugin (mantém CLI). |
-| `marketing-doma help` | Ajuda. |
+Mostra ✓ pra cada coisa instalada e versão.
 
 ---
 
-## 5. Rodar o setup do projeto Remotion (1× por pasta de trabalho)
+## Windows: PowerShell ou CMD funcionam normal
+
+**Você NÃO precisa abrir "Git Bash"** — abre PowerShell ou CMD direto. CLI usa `bash.exe` internamente (do Git for Windows, que ele mesmo instala via `winget install Git.Git`).
+
+WSL2 também funciona se já tem instalado. Em PCs fracos (≤8 GB RAM), nativo é mais leve.
+
+---
+
+## 3. Rodar o setup do projeto Remotion (1× por pasta de trabalho)
 
 Em **qualquer pasta** onde vai criar posts:
 
 ```bash
-cd ~/minha-pasta-de-trabalho
+cd ~/minha-pasta-de-trabalho     # Linux/Mac
+# ou no Windows PowerShell:
+cd $env:USERPROFILE\Desktop\minha-pasta
+```
+
+⚠️ **Pasta SEM espaços** no nome (use `minha-pasta` em vez de `minha pasta`).
+
+Abrir Claude Code:
+
+```bash
 claude
 ```
 
-No Claude Code:
+Dentro do Claude Code, digitar:
+
 ```
 /marketing-doma:marketing-doma-setup
 ```
 
-A IA vai:
-1. Instalar o Remotion automaticamente.
-2. Instalar dependências do Python (Pillow, numpy, scipy).
-3. Criar o **hook de auto-start** — toda vez que abrir o Claude no projeto, o studio do Remotion já liga sozinho.
-4. Validar tudo e mostrar ✅ ou ❌.
+CLI vai:
 
-Aguarde finalizar (pode levar 2-5 min na primeira vez).
+1. Instalar Remotion (~600 MB de dependências, ~3 min na 1ª vez).
+2. Criar venv Python com Pillow/numpy/scipy.
+3. Configurar hook auto-start do studio Remotion.
+4. Smoke test render pra validar.
+
+Pronto.
 
 ---
 
-## 6. Criar seu primeiro post
+## 4. Criar primeiro post
 
 Dentro do Claude Code:
+
 ```
 /marketing-doma
 ```
 
-A IA vai te perguntar:
-1. **Que tipo de post?** (menu com 14 tipos — Dicas, SPIN, Doma Motiva, etc.)
-2. **Você já tem o conteúdo, ou quer fazer brainstorm?**
-3. **Cada slide** — título, corpo, CTA — ela pergunta um por um.
-4. Renderiza e mostra os PNGs em `remotion-doma/out/`.
-5. Pergunta se aprova ou se quer ajustar algo.
+Responde perguntas em português:
+1. Que tipo de post? (Dicas, SPIN, Doma Motiva, Inimigo em Comum, etc — 14 tipos).
+2. Já tem o conteúdo, ou quer brainstorm?
+3. Slide por slide: título, corpo, CTA.
 
-**Não precisa saber programação.** Você só responde perguntas em português.
+CLI renderiza e mostra os PNGs em `remotion-doma/out/<id>.png`.
 
 ---
 
-## 7. Onde ficam os arquivos prontos
+## 5. Atualizar quando sair versão nova
 
-- **PNGs renderizados:** `remotion-doma/out/<id>.png`
-- **Planos de cada post:** `templates/planos/POST-<nome>-plano.md` (a IA cria)
-- **Regras aprendidas:** `knowledge-base/live-rules/` dentro do plugin (a IA grava sozinha quando descobre algo novo)
+```bash
+marketing-doma update
+```
+
+Sobrescreve com versão nova do GitHub, **preservando suas live-rules e planos**.
+
+---
+
+## 6. Enviar melhorias pro dev (export)
+
+Quando o dev pedir, rode em qualquer pasta:
+
+```bash
+cd ~/Desktop     # ou onde quiser
+marketing-doma export
+```
+
+Gera arquivo `marketing-doma-export-YYYY-MM-DD.tar.gz` na pasta atual. Pega esse arquivo e:
+- Copia pro pendrive,
+- Manda por WhatsApp/Email/Drive,
+- Ou roda direto dentro da pasta do pendrive: `cd /caminho/pendrive && marketing-doma export`.
+
+Dev pega, integra, publica nova versão. Cliente roda `marketing-doma update` pra receber.
 
 ---
 
 ## ❓ Problemas comuns
 
 ### "comando não encontrado: claude"
-Feche e abra o terminal de novo. Se persistir: pergunte ao Patrick.
+
+CLI deveria ter instalado. Se não:
+```bash
+marketing-doma install-deps
+```
+
+Ou manual: `curl -fsSL https://claude.ai/install.sh | sh`
 
 ### "comando não encontrado: marketing-doma"
-O `npm install -g` falhou ou o PATH não foi atualizado. Reinicie o terminal. Se persistir:
+
+`npm install -g` falhou ou PATH não foi atualizado. Reinicie o terminal. Se persistir:
 ```bash
 npm install -g marketing-doma-cli --force
 ```
 
 ### "Cannot find module 'remotion'"
-Rode `/marketing-doma-setup` de novo na pasta do projeto.
 
-### `min-release-age` bloqueando instalação do CLI
-Se você tem `~/.npmrc` com `min-release-age=7` (proteção Shai-Hulud), versões muito novas do CLI são bloqueadas. Força:
+Rode `/marketing-doma:marketing-doma-setup` de novo na pasta do projeto.
+
+### `min-release-age` bloqueando instalação
+
+Se você tem `~/.npmrc` com `min-release-age=7` (proteção de segurança), versões muito novas do CLI são bloqueadas. Força:
 ```bash
 npm install -g marketing-doma-cli --min-release-age=0
 ```
 
+### Studio Remotion em branco em http://localhost:3010
+
+Provável: pasta tem espaços no caminho. Renomeie e rode setup de novo.
+
 ### Render demora muito
-Normal na primeira vez (compila a fonte). Próximos renders são rápidos (~5 s/slide).
+
+Normal na 1ª vez (compila a fonte). Próximos renders ~5 s/slide.
 
 ---
 
-## 🛠️ Modo dev (clone + install.sh)
+## Modo dev (clone direto do GitHub)
 
-Se você é **dev** e quer mexer no plugin (alterar componentes, regras, scripts), instale via clone direto:
+Se você é **dev** e quer mexer no source:
 
 ```bash
-git clone <URL-do-repositório> ~/plugins/marketing-doma
+git clone https://github.com/rafael-senter/marketing-doma.git ~/plugins/marketing-doma
 cd ~/plugins/marketing-doma
 bash install.sh
 ```
 
-O `install.sh`:
-- Cria symlink `~/.claude/plugins/marketing-doma` → fonte clonada.
-- Registra em `~/.claude/plugins/installed_plugins.json` + `known_marketplaces.json`.
-- Habilita em `~/.claude/settings.json`.
-
-Edições no clone refletem instantaneamente (symlink). Pra atualizar: `git pull` na pasta clonada.
+Edições no clone refletem instantaneamente (symlink no Claude Code global). Pra atualizar: `git pull` na pasta clonada.
 
 Flags:
 ```bash
@@ -279,4 +221,4 @@ bash install.sh --uninstall  # remove tudo
 
 ## 🆘 Suporte
 
-Trave em qualquer passo → fale com o Patrick. Manda **prints do erro** + qual passo estava.
+Trave em qualquer passo → fale com o dev. Manda **prints do erro** + qual passo estava.

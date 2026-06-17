@@ -16,28 +16,42 @@ Setup detalhado pra desenvolvedor. Para usuário leigo em Claude Code, ver [`INS
 
 ---
 
-## Estrutura de instalação
+## Estrutura de instalação (via CLI npm)
 
 ```
-projetos-doma/patrick/                          ← projeto host
-├── .claude/
-│   ├── settings.json                           ← hook auto-start (criado pelo setup)
-│   └── plugins/
-│       └── marketing-doma/                     ← este plugin (git próprio)
-│           ├── .git/
-│           ├── plugin.json
-│           ├── CLAUDE.md
-│           ├── README.md
-│           ├── INSTALL.md
-│           ├── SETUP.md  ← VOCÊ ESTÁ AQUI
-│           └── ...
-├── remotion-doma/                              ← projeto Remotion (instalado pelo setup)
+~/.local/share/marketing-doma/                  ← clone do GitHub (CLI gerencia)
+├── .git/
+├── plugin.json
+├── CLAUDE.md, README.md, INSTALL.md, SETUP.md
+├── cli/                                        ← código do CLI npm
+├── commands/, agents/, skills/                 ← Claude Code skills
+├── templates/, knowledge-base/, assets/        ← regras + componentes + assets
+└── scripts/                                    ← bash helpers
+
+~/.claude/plugins/marketing-doma                ← symlink → ~/.local/share/marketing-doma/
+
+<qualquer-pasta-de-trabalho>/                   ← projeto host onde cria posts
+├── .claude/settings.json                       ← hook auto-start (criado pelo /marketing-doma:marketing-doma-setup)
+├── remotion-doma/                              ← projeto Remotion (criado pelo setup)
 │   ├── package.json
 │   ├── .npmrc (min-release-age=0)
-│   └── ...
+│   ├── render-still.sh                         ← anti-franja (scale 2 + Lanczos)
+│   ├── src/                                    ← componentes sync do plugin
+│   ├── public/                                 ← assets sync (logos/icones/fontes)
+│   └── out/<id>.png                            ← renders
 ├── .venv-instagram/                            ← Python venv (criado pelo setup)
-└── doma-brand/                                 ← assets de marca (já existe no repo)
+├── CLAUDE.md, README.md, .gitignore            ← criados pelo setup
+└── <seu trabalho>                              ← .md, scripts, etc
 ```
+
+### Estrutura do source (dev — fonte de verdade)
+
+```
+/home/rafael/projetos/projetos-doma/patrick/.claude/plugins/marketing-doma/    ← source do dev
+└── .git/   → remote origin = github.com/rafael-senter/marketing-doma
+```
+
+Dev edita aqui, faz `git push origin main vX.Y.Z`. CLI npm clona do GitHub.
 
 ---
 
@@ -50,42 +64,58 @@ projetos-doma/patrick/                          ← projeto host
 3. **Cria venv Python** se `.venv-instagram/` não existe:
    - `python3 -m venv .venv-instagram`
    - `.venv-instagram/bin/pip install Pillow numpy scipy`
-4. **Cria/atualiza `.claude/settings.json` LOCAL** (não global!) com hook `SessionStart` que roda `scripts/start-remotion.sh`:
+4. **Cria/atualiza `.claude/settings.json` LOCAL** (não global!) com hook `SessionStart` que roda `scripts/start-remotion.sh` — formato schema atual do Claude Code (aninhado):
    ```json
    {
      "hooks": {
-       "SessionStart": [{
-         "type": "command",
-         "command": "bash .claude/plugins/marketing-doma/scripts/start-remotion.sh &"
-       }]
+       "SessionStart": [
+         {
+           "hooks": [
+             {
+               "type": "command",
+               "command": "bash ~/.claude/plugins/marketing-doma/scripts/start-remotion.sh &",
+               "timeout": 5
+             }
+           ]
+         }
+       ]
      }
    }
    ```
+   ⚠️ Schema antigo (sem o aninhamento `hooks: [...]`) causa erro `"Expected array, but received undefined"`.
 5. **Valida**: roda um still de smoke test, confirma que o studio sobe na porta 3010.
 
 ---
 
-## Versionamento do plugin
+## Versionamento + distribuição
 
-O plugin tem **git próprio** (sub-repo) — `git init` é feito uma vez:
-```bash
-cd .claude/plugins/marketing-doma
-git init
-git add .
-git commit -m "feat: initial plugin scaffold"
-```
+### Source (dev)
 
-Para distribuir:
-```bash
-# Patrick faz:
-cd .claude/plugins/marketing-doma
-git remote add origin git@github.com:doma/marketing-doma-plugin.git
-git push -u origin main
+Plugin tem git próprio em `patrick/.claude/plugins/marketing-doma/`:
+- Remote: https://github.com/rafael-senter/marketing-doma (público)
+- Branch: main
 
-# Equipe faz:
-cd <projeto>/.claude/plugins/
-git clone git@github.com:doma/marketing-doma-plugin.git marketing-doma
-```
+### CLI npm
+
+CLI wrapper publicado em https://www.npmjs.com/package/marketing-doma-cli (`marketing-doma-cli`). Faz `git clone --depth 1` do GitHub em `~/.local/share/marketing-doma/` e cria symlink em `~/.claude/plugins/marketing-doma`.
+
+### Fluxo de release
+
+| O que mudou | Comando |
+|---|---|
+| `templates/`, `knowledge-base/`, `agents/`, `commands/`, `skills/`, `assets/`, `scripts/` | bump em 3 manifests + `git push origin main vX.Y.Z` |
+| `cli/bin/marketing-doma.js`, `cli/package.json` | bump em 4 manifests + `git push` + `bash scripts/publish-cli.sh` |
+
+Plugin-only: equipe roda `marketing-doma update` e tem versão nova (não toca npm).
+CLI: equipe roda `npm install -g marketing-doma-cli@latest`.
+
+Detalhes em `CLAUDE.md` do projeto host (seção 7).
+
+### Estratégia cliente sem git
+
+Cliente final (marketing) **não usa git localmente**. Edita arquivos do plugin direto e gera live-rules em runtime. Dev coleta via `marketing-doma export` → tarball → integra no source GitHub.
+
+Update no cliente é **force-overwrite** (`git fetch + reset --hard origin/main + clean -fd`), preservando `knowledge-base/live-rules/` e `templates/planos/` via stash temporário.
 
 ---
 

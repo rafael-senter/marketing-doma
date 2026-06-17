@@ -173,7 +173,16 @@ Diagrama do fluxo completo e responsabilidades de cada camada.
 
 ## 📦 Distribuição
 
-- Sub-repo git próprio em `.claude/plugins/marketing-doma/.git/`.
-- Remote GitLab: `git@gitlab.com:valem_grupo/marketing-doma.git`.
-- Equipe clona com `git clone <remote> .claude/plugins/marketing-doma`.
-- `/marketing-doma-setup` configura tudo no projeto host.
+### Source (dev)
+- Git próprio em `patrick/.claude/plugins/marketing-doma/.git/`.
+- Remote: https://github.com/rafael-senter/marketing-doma (público).
+
+### CLI npm (cliente / equipe)
+- Pacote: https://www.npmjs.com/package/marketing-doma-cli
+- Instalação 1×: `npm install -g marketing-doma-cli && marketing-doma install`.
+- CLI faz `git clone --depth 1` do GitHub em `~/.local/share/marketing-doma/` + symlink em `~/.claude/plugins/marketing-doma`.
+- Updates: `marketing-doma update` faz force-overwrite preservando `live-rules/` e `planos/`.
+- Export pra dev: `marketing-doma export` empacota edições do cliente em tarball.
+
+### Setup do projeto Remotion
+- `/marketing-doma:marketing-doma-setup` configura projeto host (qualquer pasta de trabalho): instala Remotion, venv Python, hook auto-start, smoke test.

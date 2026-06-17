@@ -24,7 +24,7 @@ Abre em http://localhost:5174.
 
 ```bash
 npm run build
-# dist/ tem HTML+JS+CSS estático — pode hospedar em GitLab Pages.
+# dist/ tem HTML+JS+CSS estático — pode hospedar em GitHub Pages, Vercel, Netlify ou similar.
 ```
 
 ## O que aparece

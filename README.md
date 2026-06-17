@@ -105,7 +105,7 @@ Depois o cliente roda `marketing-doma update` pra receber a versão revisada.
 | **git** | 2.30+ | `git --version` |
 | **bash** | 4+ | `bash --version` |
 
-**Sistema**: Linux / macOS / Windows. Windows: via **Git Bash** (Git for Windows) ou WSL2.
+**Sistema**: Linux / macOS / Windows nativo (PowerShell, CMD, ou Git Bash — CLI usa internamente o `bash.exe` do Git for Windows, instalado automaticamente se faltar).
 **Disco por projeto**: ~800 MB (plugin ~30 MB + Remotion `node_modules` ~600 MB + venv Python ~150 MB).
 **⚠️ Path do projeto SEM espaços**: webpack do Remotion quebra com espaços no caminho. Use `meu-projeto/` em vez de `meu projeto/`. Setup bloqueia com mensagem clara se detectar.
 
