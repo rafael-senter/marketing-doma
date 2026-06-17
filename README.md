@@ -24,19 +24,55 @@ Plugin do Marketing da Doma para [Claude Code](https://claude.com/claude-code) �
 - **Pessoa de marketing leiga** → usa só comandos `/marketing-doma` e `/marketing-doma-setup`.
 - **Patrick / dev** → mantém e evolui sub-skills, regras e templates.
 
-## Instalação rápida
+## Instalação — 2 etapas claras
 
-Ver [`INSTALL.md`](./INSTALL.md) (passo-a-passo p/ leigo) ou [`SETUP.md`](./SETUP.md) (técnico).
+### Etapa 1 (1×) — instalar o plugin no Claude Code GLOBAL
+
+Clone o plugin em **qualquer pasta** (recomendado: separado dos projetos):
 
 ```bash
-# Resumo:
-cd projetos-doma/patrick                              # ou seu projeto
-# (Claude Code deve detectar o plugin em .claude/plugins/marketing-doma/)
-# Rodar uma vez:
-/marketing-doma-setup
-# Depois usar:
-/marketing-doma
+git clone git@gitlab.com:valem_grupo/marketing-doma.git ~/plugins/marketing-doma
+cd ~/plugins/marketing-doma
+bash install.sh
 ```
+
+O `install.sh` faz:
+- Symlink `~/.claude/plugins/marketing-doma` → fonte clonada.
+- Registra em `~/.claude/plugins/installed_plugins.json` + `known_marketplaces.json`.
+- Habilita `enabledPlugins['marketing-doma@marketing-doma'] = True` em `~/.claude/settings.json`.
+
+Flags:
+```bash
+bash install.sh --dry-run    # mostra o que faria
+bash install.sh --uninstall  # remove tudo
+```
+
+**Atualizações** chegam via `git pull` na pasta clonada — symlink reflete automaticamente.
+
+### Etapa 2 (1× por projeto) — preparar projeto de trabalho
+
+Em **qualquer pasta** que vai criar posts (não precisa ser perto do plugin):
+
+```bash
+cd ~/qualquer/pasta-de-trabalho
+claude
+```
+
+No Claude Code:
+```
+/marketing-doma:marketing-doma-setup
+```
+
+Cria `remotion-doma/` + `CLAUDE.md` + `README.md` + `.gitignore` + venv Python + hook auto-start.
+
+### Uso
+
+```
+/marketing-doma            # fluxo guiado
+/marketing-doma:new-post   # atalho
+```
+
+Ver [`INSTALL.md`](./INSTALL.md) (passo-a-passo leigo) ou [`SETUP.md`](./SETUP.md) (técnico).
 
 ## Comandos disponíveis
 

@@ -8,12 +8,14 @@
 **Frase clichê do empresário:** "<aspas>" (vai no card branco principal)
 **Consequência/reflexão:** ... (vai no card soft secundário)
 
-## 2. Cores (fixas)
-- Fundo: `#F4BB35` manga
-- Watermark "DOMa" GIGANTE topo (175% width, sangra canto sup-esq): `#F2B02C` (mais ESCURA que fundo `#F4BB35` — tom-sobre-tom). ⚠️ NÃO usar `#F5C24A` (mais clara = invisível, proibida — regra fixa do componente).
+## 2. Cores (MEDIDAS POST 244 — específicas desta categoria)
+- **Fundo: `#F5C24A`** (mais CLARO que o manga padrão — Inimigo em Comum INVERTE o padrão das outras categorias).
+- **Watermark "DOMa" GIGANTE** topo (175% width, sangra canto sup-esq): `#F4BB35` (manga padrão — MAIS ESCURA que o fundo desta categoria).
 - Card branco: `#FFFFFF`
 - Badge circular preto: `#1F1F1F`
 - Card soft: `#F8DD6B`
+
+⚠️ NÃO confundir com paleta de Dicas/SPIN (fundo `#F4BB35` + watermark `#F2B02C` escura). Aqui é INVERSO.
 
 ## 3. Estrutura (slide único — card)
 - **Card branco** L9% T22.2% W81.9% H24.2% raio 34 — frase entre aspas curvas, **bold no remate**.

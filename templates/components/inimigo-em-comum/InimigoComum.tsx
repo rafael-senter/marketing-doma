@@ -7,9 +7,14 @@ import {LogoDoma, TextoRico} from '../../../components';
  * Layout FIXO (só o texto varia): fundo manga + watermark "DOMa" gigante (CSS mask) +
  * card BRANCO (frase com aspas, centralizada, fim em **bold**) + badge circular preto com
  * seta ↘ + card SOFT amarelo (texto secundário centralizado) + logo DOMa no rodapé.
- * Medições: card branco L9% T22.2% W81.9% H24.2%; badge Ø119 centro (283,714); fundo #F4BB35.
+ * Medições: card branco L9% T22.2% W81.9% H24.2%; badge Ø119 centro (283,714).
+ * ⚠️ CORES MEDIDAS DO MODELO POST 244 (pixel exato, jun/2026):
+ *   - fundo: #F5C24A (mais CLARO — não é o manga padrão #F4BB35).
+ *   - watermark: #F4BB35 (manga padrão, MAIS ESCURO que o fundo desta categoria).
+ *   Inimigo em Comum INVERTE o padrão "fundo manga + watermark mais escura": aqui fundo
+ *   é mais claro que outras categorias E watermark = manga padrão.
  */
-const C = {fundo: '#F4BB35', watermark: '#F2B02C', branco: '#FFFFFF', soft: '#F8DD6B', grafite: '#1F1F1F'};
+const C = {fundo: '#F5C24A', watermark: '#F4BB35', branco: '#FFFFFF', soft: '#F8DD6B', grafite: '#1F1F1F'};
 const F = brand.fontes.titulo;
 const maskUrl = `url(${staticFile('oficial/logotipo-principal-branco.png')})`;
 
