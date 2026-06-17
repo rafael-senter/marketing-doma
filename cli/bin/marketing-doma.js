@@ -194,6 +194,62 @@ function cmdInstall() {
   log(c('cyan', '  marketing-doma update'));
 }
 
+// Pastas dentro do clone que NUNCA podem ser sobrescritas pelo update
+// (são geradas em runtime pelo uso real do cliente — auto-melhoria, planos locais).
+const PRESERVED_DIRS = [
+  'knowledge-base/live-rules',
+  'templates/planos',
+];
+
+function preserveBeforeReset() {
+  // Move pastas preservadas pra /tmp antes do reset --hard
+  const stash = path.join(os.tmpdir(), `marketing-doma-preserve-${process.pid}`);
+  fs.mkdirSync(stash, { recursive: true });
+  const saved = [];
+  for (const rel of PRESERVED_DIRS) {
+    const src = path.join(PLUGIN_DIR, rel);
+    if (!fs.existsSync(src)) continue;
+    const dst = path.join(stash, rel);
+    fs.mkdirSync(path.dirname(dst), { recursive: true });
+    fs.renameSync(src, dst);
+    saved.push(rel);
+  }
+  return { stash, saved };
+}
+
+function restoreAfterReset({ stash, saved }) {
+  // Restaura pastas preservadas por cima do clone fresh
+  for (const rel of saved) {
+    const src = path.join(stash, rel);
+    const dst = path.join(PLUGIN_DIR, rel);
+    if (!fs.existsSync(src)) continue;
+    // Se o reset já criou a pasta (vazia ou com arquivos novos), mergeia preservando o do cliente
+    if (fs.existsSync(dst)) {
+      mergeDir(src, dst);
+    } else {
+      fs.mkdirSync(path.dirname(dst), { recursive: true });
+      fs.renameSync(src, dst);
+    }
+  }
+  // Limpa stash
+  try { fs.rmSync(stash, { recursive: true, force: true }); } catch {}
+}
+
+function mergeDir(srcDir, dstDir) {
+  // Copia arquivos de srcDir pra dstDir SEM sobrescrever — preserva edits do cliente.
+  // Se conflito de nome: cliente vence (manter arquivo do clone) e o do remoto é descartado.
+  for (const entry of fs.readdirSync(srcDir, { withFileTypes: true })) {
+    const src = path.join(srcDir, entry.name);
+    const dst = path.join(dstDir, entry.name);
+    if (entry.isDirectory()) {
+      if (!fs.existsSync(dst)) fs.mkdirSync(dst, { recursive: true });
+      mergeDir(src, dst);
+    } else if (!fs.existsSync(dst)) {
+      fs.copyFileSync(src, dst);
+    }
+  }
+}
+
 function cmdUpdate() {
   header('marketing-doma update');
   checkPrereqs();
@@ -208,29 +264,52 @@ function cmdUpdate() {
   info(`Versão atual: ${before || 'desconhecida'}`);
 
   info('Buscando atualizações no GitHub...');
-  const pullResult = sh(`cd ${PLUGIN_DIR} && git fetch --tags origin main && git pull --ff-only origin main`, {
-    allowFail: true,
-  });
-
-  if (!pullResult.ok) {
-    warn('git pull falhou — possível conflito local. Forçando reset?');
-    fail('Conflito em ' + PLUGIN_DIR + '. Investigue manualmente (git status) ou rode `marketing-doma uninstall && marketing-doma install`.');
+  // 1. Fetch tudo
+  const fetchResult = sh(`cd "${PLUGIN_DIR}" && git fetch --tags origin main`, { allowFail: true });
+  if (!fetchResult.ok) {
+    fail('Falha ao buscar GitHub. Sem conexão? Repo público?');
   }
+
+  // 2. Verifica se há mudanças
+  const localSha = sh(`cd "${PLUGIN_DIR}" && git rev-parse HEAD`, { silent: true, allowFail: true }).stdout.trim();
+  const remoteSha = sh(`cd "${PLUGIN_DIR}" && git rev-parse origin/main`, { silent: true, allowFail: true }).stdout.trim();
+  if (localSha === remoteSha) {
+    ok(`Já está na última versão (${before}).`);
+    return;
+  }
+
+  // 3. Preserva pastas com dados do cliente
+  info('Preservando dados locais (live-rules, planos do cliente)...');
+  const preserved = preserveBeforeReset();
+  if (preserved.saved.length) {
+    ok(`Preservado: ${preserved.saved.join(', ')}`);
+  }
+
+  // 4. Force-overwrite — descarta TUDO local (commits, edits, untracked não preservado)
+  info('Aplicando atualização (sobrescreve modificações locais não-preservadas)...');
+  const resetResult = sh(`cd "${PLUGIN_DIR}" && git reset --hard origin/main && git clean -fd`, { allowFail: true });
+  if (!resetResult.ok) {
+    // Restaura antes de falhar
+    restoreAfterReset(preserved);
+    fail('Falha ao aplicar atualização. Tente: marketing-doma uninstall && marketing-doma install');
+  }
+
+  // 5. Restaura dados preservados
+  restoreAfterReset(preserved);
 
   const after = pluginVersion();
-  if (before === after) {
-    ok(`Já está na última versão (${after}).`);
-  } else {
-    ok(`Atualizado: ${before} → ${after}`);
-  }
+  ok(`Atualizado: ${before} → ${after}`);
 
-  // Re-rodar install.sh é seguro (idempotente) — garante symlink + settings.json corretos.
-  info('Re-rodando install.sh (idempotente)');
-  sh(`bash ${PLUGIN_DIR}/install.sh`);
+  // 6. Re-rodar install.sh é seguro (idempotente)
+  info('Re-aplicando registry Claude Code (install.sh idempotente)...');
+  sh(`bash "${PLUGIN_DIR}/install.sh"`);
   ok('install.sh OK');
 
   log('');
   log(c('green', '🎉 Plugin atualizado!'));
+  log('');
+  log(c('gray', 'Live-rules e planos do cliente preservados.'));
+  log(c('gray', 'Pra exportar suas edições/melhorias pro dev: ' + c('cyan', 'marketing-doma export')));
 }
 
 function cmdStatus() {
@@ -329,6 +408,71 @@ function cmdUninstall() {
 
   log('');
   log('CLI continua instalado. Para remover: ' + c('cyan', 'npm uninstall -g marketing-doma-cli'));
+}
+
+function cmdExport() {
+  header('marketing-doma export — empacotar edições do cliente pro dev');
+
+  if (!fs.existsSync(PLUGIN_DIR)) {
+    fail('Plugin não está instalado.');
+  }
+
+  // Detecta:
+  // - Arquivos novos (untracked) — live-rules, planos, fotos, novos clients
+  // - Arquivos modificados (vs HEAD do git) — edits em componentes/regras
+  const statusResult = sh(`cd "${PLUGIN_DIR}" && git status --porcelain=v1`, { silent: true, allowFail: true });
+  if (!statusResult.ok) {
+    fail('Falha ao consultar git status do plugin.');
+  }
+
+  const changes = statusResult.stdout
+    .split('\n')
+    .map(l => l.trim())
+    .filter(Boolean);
+
+  if (changes.length === 0) {
+    ok('Nenhuma edição local pra exportar.');
+    info('O cliente não fez modificações desde o último install/update.');
+    return;
+  }
+
+  log(`  Mudanças detectadas: ${c('cyan', changes.length)} arquivo(s)`);
+  for (const c2 of changes.slice(0, 10)) {
+    log(`    ${c('gray', c2)}`);
+  }
+  if (changes.length > 10) {
+    log(`    ${c('gray', `... +${changes.length - 10} mais`)}`);
+  }
+  log('');
+
+  // Gera tarball com:
+  // - knowledge-base/live-rules/
+  // - templates/planos/
+  // - knowledge-base/ (qualquer .md modificado)
+  // - templates/components/ (qualquer .tsx modificado)
+  // - assets/ (qualquer arquivo novo — fotos clientes, logos)
+  const now = new Date().toISOString().replace(/[:.]/g, '-').slice(0, 19);
+  const outPath = path.join(process.cwd(), `marketing-doma-export-${now}.tar.gz`);
+
+  info(`Gerando ${outPath}...`);
+  const tarResult = sh(
+    `cd "${PLUGIN_DIR}" && git status --porcelain=v1 | awk '{print $2}' | tar -czf "${outPath}" -T -`,
+    { allowFail: true }
+  );
+
+  if (!tarResult.ok || !fs.existsSync(outPath)) {
+    fail('Falha ao gerar tarball.');
+  }
+
+  const stats = fs.statSync(outPath);
+  ok(`Tarball gerado: ${outPath} (${Math.round(stats.size / 1024)} KB)`);
+
+  log('');
+  log(c('bold', 'Próximos passos:'));
+  log(`  1. Copie ${c('cyan', path.basename(outPath))} pra pendrive.`);
+  log(`  2. No computador do dev, rode no source do plugin:`);
+  log(`     ${c('cyan', `tar -xzf ${path.basename(outPath)} -C /caminho/source/plugin/`)}`);
+  log(`  3. Dev revisa, integra, commita, publica nova versão.`);
 }
 
 function cmdVersion() {
@@ -504,8 +648,9 @@ ${c('bold', 'marketing-doma')} — CLI do plugin Claude Code
 
 ${c('bold', 'Comandos:')}
   ${c('cyan', 'install')}      Instala plugin. Verifica pré-requisitos e oferece instalar faltantes.
-  ${c('cyan', 'update')}       Atualiza plugin (git pull no GitHub).
+  ${c('cyan', 'update')}       Atualiza plugin (sobrescreve do GitHub, preservando live-rules/planos).
   ${c('cyan', 'status')}       Versão local vs remota + saúde da instalação + pré-requisitos.
+  ${c('cyan', 'export')}       Empacota edições locais (live-rules, planos, edits) em tarball pro dev.
   ${c('cyan', 'install-deps')} Instala pré-requisitos faltantes (sudo/admin) — chamado automático pelo install.
   ${c('cyan', 'uninstall')}    Remove plugin (mantém este CLI).
   ${c('cyan', 'version')}      Mostra versão do CLI + plugin.
@@ -535,6 +680,9 @@ function main() {
     case 'install-deps':
     case 'deps':
       return cmdInstallDeps();
+    case 'export':
+    case 'pack':
+      return cmdExport();
     case 'install':
     case 'i':
       return cmdInstall();
