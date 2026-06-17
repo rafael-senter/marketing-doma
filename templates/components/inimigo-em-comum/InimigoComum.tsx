@@ -39,7 +39,7 @@ export const InimigoComum: React.FC<InimigoComumProps> = ({principal, secundario
     <div style={{position: 'absolute', left: '9%', top: '22.2%', width: '81.9%', height: '24.2%',
       background: C.branco, borderRadius: 34, boxShadow: '0 8px 28px #00000022', zIndex: 2,
       display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '0 56px', boxSizing: 'border-box'}}>
-      <TextoRico style={{color: C.grafite, fontSize: 58, fontWeight: 400, lineHeight: 1.18, textAlign: 'center', display: 'block'}}>
+      <TextoRico style={{color: C.grafite, fontSize: 46, fontWeight: 400, lineHeight: 1.22, textAlign: 'center', display: 'block'}}>
         {principal}
       </TextoRico>
     </div>
@@ -51,11 +51,11 @@ export const InimigoComum: React.FC<InimigoComumProps> = ({principal, secundario
       <SetaDiagonal />
     </div>
 
-    {/* card SOFT — texto secundário centralizado */}
+    {/* card SOFT — texto secundário centralizado de verdade (sem paddingLeft que empurrava texto pra direita) */}
     <div style={{position: 'absolute', left: '16%', top: '54%', width: '68%', height: '24%',
       background: C.soft, borderRadius: 30, zIndex: 1,
-      display: 'flex', alignItems: 'center', justifyContent: 'center', paddingLeft: 130, boxSizing: 'border-box'}}>
-      <TextoRico style={{color: C.grafite, fontSize: 42, fontWeight: 400, lineHeight: 1.3, textAlign: 'center', display: 'block', maxWidth: 480}}>
+      display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '0 40px', boxSizing: 'border-box'}}>
+      <TextoRico style={{color: C.grafite, fontSize: 38, fontWeight: 400, lineHeight: 1.3, textAlign: 'center', display: 'block'}}>
         {secundario}
       </TextoRico>
     </div>
