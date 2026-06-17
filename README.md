@@ -32,7 +32,59 @@ npx marketing-doma-cli install
 npx marketing-doma-cli update
 ```
 
-Pré-requisitos: Node.js ≥ 18, Python 3.10+, git, [Claude Code CLI](https://claude.com/claude-code). Detalhes em [INSTALL.md](INSTALL.md).
+## Pré-requisitos
+
+| Item | Versão mínima | Verifica |
+|---|---|---|
+| **Claude Code CLI** | qualquer atual | `claude --version` |
+| **Node.js** | 18 LTS (recomendado 20+) | `node --version` |
+| **npm** | 9+ | `npm --version` |
+| **Python** | 3.10 (recomendado 3.11+) | `python3 --version` |
+| **git** | 2.30+ | `git --version` |
+| **bash** | 4+ | `bash --version` |
+
+**Sistema**: Linux / macOS (testado Ubuntu). Windows via WSL2.
+**Disco por projeto**: ~800 MB (plugin ~30 MB + Remotion `node_modules` ~600 MB + venv Python ~150 MB).
+
+### Instalar pré-requisitos
+
+#### Ubuntu / Debian
+
+```bash
+# 1. Claude Code CLI
+curl -fsSL https://claude.ai/install.sh | sh
+
+# 2. Node.js LTS (20.x)
+curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo bash -
+sudo apt install -y nodejs
+
+# 3. Python 3 + venv
+sudo apt install -y python3 python3-venv python3-pip
+
+# 4. git + bash (geralmente já vêm)
+sudo apt install -y git bash
+```
+
+#### macOS
+
+```bash
+# 1. Homebrew (se não tiver): https://brew.sh
+# 2. Claude Code CLI
+curl -fsSL https://claude.ai/install.sh | sh
+# 3. Node.js LTS
+brew install node
+# 4. Python 3
+brew install python@3.11
+# 5. git
+brew install git
+```
+
+#### Windows
+
+WSL2 com Ubuntu (recomendado) — usar os comandos do Ubuntu acima.
+Ou nativo: instalar [Node.js](https://nodejs.org) LTS + [Python](https://www.python.org/downloads/) 3.11+ + [Git for Windows](https://git-scm.com).
+
+Detalhes passo-a-passo em [INSTALL.md](INSTALL.md).
 
 ## Uso
 
@@ -76,6 +128,44 @@ No Claude Code:
 
 - **Pessoa de marketing leiga em Claude Code** → usa só comandos `/marketing-doma` e `/marketing-doma-setup`.
 - **Patrick / dev** → mantém e evolui sub-skills, regras e templates.
+
+## Para o dev (release futuro)
+
+Existem **2 camadas versionáveis** independentes:
+
+| O que mudou | Comando | Quem propaga |
+|---|---|---|
+| **Plugin** (`templates/`, `knowledge-base/`, `agents/`, `commands/`, `skills/`, `assets/`, `scripts/`) | bump em `plugin.json`, `.claude-plugin/plugin.json`, `.claude-plugin/marketplace.json` + commit + `git push origin main vX.Y.Z` | Equipe roda `marketing-doma update` → `git pull` puxa. **Não republicar npm.** |
+| **CLI** (`cli/bin/marketing-doma.js`, `cli/package.json`, `cli/README.md`) | bump em `cli/package.json` + commit + `git push` + `bash scripts/publish-cli.sh` | Equipe roda `npm install -g marketing-doma-cli@latest` (raro). |
+
+### Atalho pra release de plugin (mais comum)
+
+```bash
+cd ~/.local/share/marketing-doma   # ou pasta clonada
+# editar arquivos
+sed -i 's/"version": "0.1.X"/"version": "0.1.Y"/g' plugin.json .claude-plugin/plugin.json .claude-plugin/marketplace.json
+bash scripts/check-all.sh
+git add -A
+git commit -m "feat(v0.1.Y): <mudanças>"
+git tag -a v0.1.Y -m "Release v0.1.Y"
+git push origin main v0.1.Y
+```
+
+Pronto. Equipe roda `marketing-doma update` e tem v0.1.Y.
+
+### Atalho pra release de CLI (raro)
+
+Quando mudar `cli/bin/marketing-doma.js` (lógica de install/update/status):
+
+```bash
+cd ~/.local/share/marketing-doma
+# editar cli/
+sed -i 's/"version": "0.1.X"/"version": "0.1.Y"/g' cli/package.json
+git add -A && git commit -m "feat(cli v0.1.Y): <mudanças>" && git tag v0.1.Y && git push origin main v0.1.Y
+bash scripts/publish-cli.sh    # publica no npm (requer NPM token granular com Bypass 2FA)
+```
+
+Detalhes em [cli/README.md](cli/README.md). Token npm em `.env` do projeto host (`npm_key="npm_..."`).
 
 ## Visão estrutural
 
