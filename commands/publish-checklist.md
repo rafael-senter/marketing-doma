@@ -1,4 +1,5 @@
 ---
+name: publish-checklist
 description: "Checklist final pré-publicar — confere render OK, validador-marca OK, copy revisada, hashtags, dimensões, formato. Útil pra última conferência antes do marketing postar."
 ---
 

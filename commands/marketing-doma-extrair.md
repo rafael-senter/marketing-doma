@@ -1,4 +1,5 @@
 ---
+name: marketing-doma-extrair
 description: "Guia interativo de extração de assets do manual PDF da Doma. Mostra páginas, pede coordenadas, extrai região, sugere nome + cor, atualiza catálogo, sync host. Fluxo conversacional pra leigo."
 ---
 

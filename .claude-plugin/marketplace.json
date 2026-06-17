@@ -1,0 +1,18 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "marketing-doma",
+  "description": "Marketplace local do plugin marketing-doma — geração de posts/carrosséis/stories da marca Doma no Remotion seguindo design system real (12 categorias), voz institucional, regras de marca.",
+  "owner": {
+    "name": "rafael",
+    "email": "rafaelsenterr@gmail.com"
+  },
+  "plugins": [
+    {
+      "name": "marketing-doma",
+      "description": "UX guiada para marketing leigo criar peças Doma. 18 sub-skills (12 categorias + brand-rules + novo-post + asset-ingester + auto-optimizer + ...), 4 agentes (ghostwriter, validador-marca, editor, render-orchestrator), 20 scripts (wizard-cliente, render-batch, sync, fetch-cliente-asset, extract-paleta, render-from-plano), 144 assets catalogados (logos, ícones, fontes, bases nanobanana 4 BGs, fotos, grafismos, cards-clientes), Web UI 9 tabs.",
+      "source": "./",
+      "category": "marketing",
+      "version": "0.1.6"
+    }
+  ]
+}

@@ -104,13 +104,24 @@ cd patrick
 
 ---
 
-## 5. Rodar o setup do plugin
+## 5. Instalar o plugin no Claude Code
 
 Dentro da pasta do projeto:
 ```bash
 claude
 ```
-Quando entrar no Claude Code, digite:
+
+No Claude Code, instalar o plugin local via marketplace:
+```
+/plugin marketplace add ./.claude/plugins/marketing-doma
+/plugin install marketing-doma
+```
+
+Reinicie a sessão Claude Code (sair + entrar) pra carregar comandos.
+
+## 6. Rodar o setup do plugin
+
+No Claude Code, digite:
 ```
 /marketing-doma-setup
 ```

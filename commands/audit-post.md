@@ -1,4 +1,5 @@
 ---
+name: audit-post
 description: "Compara render vs modelo via layout-mapper compare.py — devolve fidelidade SSIM + % pixels iguais + MAE. Para batch, passar CSV."
 ---
 

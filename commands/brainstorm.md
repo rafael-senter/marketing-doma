@@ -1,4 +1,5 @@
 ---
+name: brainstorm
 description: "Brainstorm de copy — invoca o agente ghostwriter-doma com a pauta dada e devolve 3 ângulos (provocativo, explicativo, motivacional) na voz Doma. Use quando o usuário tem pauta mas não tem o conteúdo escrito."
 ---
 

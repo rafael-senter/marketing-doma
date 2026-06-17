@@ -1,4 +1,5 @@
 ---
+name: marketing-doma
 description: "Marketing Doma — fluxo guiado de criação de post/carrossel/story (UX leiga). Pergunta tipo de post, conteúdo (ou brainstorm), gera plano medido, renderiza, audita e ajuda a publicar."
 ---
 

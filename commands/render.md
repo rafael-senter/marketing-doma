@@ -1,4 +1,5 @@
 ---
+name: render
 description: "Atalho para renderizar 1 ou N stills via render-still.sh (scale 2 → Lanczos, anti-franja). Aceita ID único ou range (prefix + N)."
 ---
 

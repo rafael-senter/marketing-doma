@@ -1,4 +1,5 @@
 ---
+name: new-post
 description: "Atalho — cria post novo SEM fluxo guiado. Usa scripts/new-post.sh para gerar plano + Still snippet da categoria escolhida. Para fluxo guiado completo (perguntas), use /marketing-doma."
 ---
 

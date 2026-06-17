@@ -1,4 +1,5 @@
 ---
+name: marketing-doma-setup
 description: "Setup inicial do plugin marketing-doma — instala Remotion, deps Python (Pillow/numpy/scipy), cria hook auto-start do studio em .claude/settings.json LOCAL, valida ambiente e mostra checklist."
 ---
 

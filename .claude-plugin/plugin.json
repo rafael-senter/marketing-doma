@@ -1,0 +1,47 @@
+{
+  "name": "marketing-doma",
+  "version": "0.1.6",
+  "description": "Plugin do Marketing Doma — geração de posts/carrosséis/stories no Remotion seguindo design system real (12 categorias mapeadas), voz institucional @sigadoma, regras de marca (DOMa logo, watermark tom-sobre-tom medida, cores por bloco, TT Lakes oficial). Skill master /marketing-doma guia leigo passo-a-passo. 18 sub-skills, 4 agentes, 9 commands, 20 scripts, 144 assets catalogados, Web UI 9 tabs.",
+  "author": {
+    "name": "rafael",
+    "email": "rafaelsenterr@gmail.com"
+  },
+  "license": "MIT",
+  "skills": [
+    "./skills/marketing-doma",
+    "./skills/marketing-doma/subskills/frase-pilulas",
+    "./skills/marketing-doma/subskills/mapa-clientes",
+    "./skills/marketing-doma/subskills/certo-e-errado",
+    "./skills/marketing-doma/subskills/clientes",
+    "./skills/marketing-doma/subskills/doma-motiva",
+    "./skills/marketing-doma/subskills/inimigo-em-comum",
+    "./skills/marketing-doma/subskills/narrativa",
+    "./skills/marketing-doma/subskills/produtividade",
+    "./skills/marketing-doma/subskills/funcoes-sistema",
+    "./skills/marketing-doma/subskills/doma-institucional",
+    "./skills/marketing-doma/subskills/dicas-carrossel",
+    "./skills/marketing-doma/subskills/doma-carrossel-clientes",
+    "./skills/marketing-doma/subskills/spin",
+    "./skills/marketing-doma/subskills/novo-post-from-scratch",
+    "./skills/marketing-doma/subskills/brand-rules",
+    "./skills/marketing-doma/subskills/asset-ingester",
+    "./skills/marketing-doma/subskills/auto-optimizer"
+  ],
+  "commands": [
+    "./commands/marketing-doma.md",
+    "./commands/marketing-doma-setup.md",
+    "./commands/marketing-doma-extrair.md",
+    "./commands/new-post.md",
+    "./commands/new-carrossel.md",
+    "./commands/brainstorm.md",
+    "./commands/render.md",
+    "./commands/audit-post.md",
+    "./commands/publish-checklist.md"
+  ],
+  "agents": [
+    "./agents/ghostwriter-doma.md",
+    "./agents/validador-marca.md",
+    "./agents/editor-conteudo.md",
+    "./agents/render-orchestrator.md"
+  ]
+}

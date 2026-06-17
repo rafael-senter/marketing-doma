@@ -1,4 +1,5 @@
 ---
+name: new-carrossel
 description: "Atalho específico para carrossel (categorias: dicas-carrossel, spin, doma-carrossel-clientes). Gera scaffold de N slides + snippets de Still + plano lista de slides."
 ---
 
