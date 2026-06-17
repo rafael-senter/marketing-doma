@@ -23,6 +23,8 @@ Thumbs.db
 # Secrets
 .env.local
 .env
+.npmrc
+cli/.npmrc
 
 # IDE
 .vscode/
