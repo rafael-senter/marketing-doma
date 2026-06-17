@@ -87,7 +87,7 @@ bash "$PLUGIN_DIR/scripts/sync-components.sh"
 # 5. Settings hook auto-start
 echo "==> 5/6 Hook auto-start em .claude/settings.json LOCAL"
 mkdir -p "$PROJECT_ROOT/.claude"
-HOOK_CMD='bash .claude/plugins/marketing-doma/scripts/start-remotion.sh &'
+HOOK_CMD='bash ~/.claude/plugins/marketing-doma/scripts/start-remotion.sh &'
 
 if [ ! -f "$SETTINGS" ]; then
   inst "criando .claude/settings.json"
@@ -119,6 +119,12 @@ else
   }
 EOF
   fi
+fi
+
+# 5.5 CLAUDE.md no host (aponta pro plugin)
+if [ ! -f "$PROJECT_ROOT/CLAUDE.md" ] && [ -f "$PLUGIN_DIR/templates/host-CLAUDE.md" ]; then
+  cp "$PLUGIN_DIR/templates/host-CLAUDE.md" "$PROJECT_ROOT/CLAUDE.md"
+  ok "CLAUDE.md criado no host (aponta pro plugin)"
 fi
 
 # 6. Smoke test
