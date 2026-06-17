@@ -1,0 +1,32 @@
+# Plugin marketing-doma — gitignore
+
+# Locais
+node_modules/
+.venv/
+.venv-*/
+__pycache__/
+*.pyc
+
+# Build outputs
+out/
+dist/
+build/
+*.log
+.cache/
+
+# OS
+.DS_Store
+Thumbs.db
+*.swp
+*~
+
+# Secrets
+.env.local
+.env
+
+# IDE
+.vscode/
+.idea/
+
+# Live rules — NÃO ignorar; são versionadas pro time aprender junto
+!knowledge-base/live-rules/

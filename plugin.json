@@ -1,0 +1,55 @@
+{
+  "name": "marketing-doma",
+  "version": "0.1.0",
+  "description": "Plugin do Marketing da Doma — geração de posts/carrosséis/stories no Remotion seguindo o design system real (12 categorias mapeadas), voz institucional (@sigadoma), regras de marca (DOMa logo, watermark tom-sobre-tom medida, cores por bloco, TT Lakes oficial). Skill master /marketing-doma guia leigo por fluxo passo-a-passo (categoria → conteúdo ou brainstorm → plano medido → render → audit comparativo → publish). 14 sub-skills (1 por tipo de post + brand-rules + novo-post-from-scratch). 4 agentes (ghostwriter, validador-marca, editor-conteudo, render-orchestrator). Auto-melhoria: live-rules grava padrões novos descobertos em runtime + ficha da categoria atualizada. Setup via /marketing-doma-setup instala Remotion + deps + hook settings.json local de auto-start do studio.",
+  "author": "Doma / Patrick",
+  "license": "MIT",
+  "skills": [
+    "skills/marketing-doma"
+  ],
+  "commands": [
+    "commands/marketing-doma.md",
+    "commands/marketing-doma-setup.md",
+    "commands/new-post.md",
+    "commands/new-carrossel.md",
+    "commands/brainstorm.md",
+    "commands/render.md",
+    "commands/audit-post.md",
+    "commands/publish-checklist.md"
+  ],
+  "agents": [
+    "agents/ghostwriter-doma.md",
+    "agents/validador-marca.md",
+    "agents/editor-conteudo.md",
+    "agents/render-orchestrator.md"
+  ],
+  "scripts": {
+    "start-remotion": "scripts/start-remotion.sh",
+    "new-post": "scripts/new-post.sh",
+    "render-batch": "scripts/render-batch.sh",
+    "compare-all": "scripts/compare-all.sh",
+    "install-deps": "scripts/install-deps.sh",
+    "auto-rules-learn": "scripts/auto-rules-learn.sh"
+  },
+  "embedded_subskills": [
+    "skills/marketing-doma/subskills/frase-pilulas",
+    "skills/marketing-doma/subskills/mapa-clientes",
+    "skills/marketing-doma/subskills/certo-e-errado",
+    "skills/marketing-doma/subskills/clientes",
+    "skills/marketing-doma/subskills/doma-motiva",
+    "skills/marketing-doma/subskills/inimigo-em-comum",
+    "skills/marketing-doma/subskills/narrativa",
+    "skills/marketing-doma/subskills/produtividade",
+    "skills/marketing-doma/subskills/funcoes-sistema",
+    "skills/marketing-doma/subskills/doma-institucional",
+    "skills/marketing-doma/subskills/dicas-carrossel",
+    "skills/marketing-doma/subskills/doma-carrossel-clientes",
+    "skills/marketing-doma/subskills/spin",
+    "skills/marketing-doma/subskills/novo-post-from-scratch",
+    "skills/marketing-doma/subskills/brand-rules"
+  ],
+  "depends_on": {
+    "remotion": "4.0.479",
+    "python": ">=3.10 (Pillow, numpy, scipy)"
+  }
+}
