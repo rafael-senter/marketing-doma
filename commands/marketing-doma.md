@@ -1,96 +1,63 @@
 ---
 name: marketing-doma
-description: "Marketing Doma — fluxo guiado de criação de post/carrossel/story (UX leiga). Pergunta tipo de post, conteúdo (ou brainstorm), gera plano medido, renderiza, audita e ajuda a publicar."
+description: "Marketing Doma — fluxo guiado de criação de post/carrossel/story. Pergunta tipo de post, conteúdo (ou brainstorm), gera plano medido, renderiza, audita."
 ---
 
-# `/marketing-doma` — fluxo principal guiado
+# `/marketing-doma:marketing-doma` — criar peça nova
 
-Skill MASTER do plugin `marketing-doma`. Conduz pessoa leiga pelo processo completo de criação de uma peça nova de marketing da Doma, **sem precisar saber programar**.
+**Fluxo direto. Cada passo abaixo é UMA pergunta ao usuário OU UMA ação. Sem desvio.**
 
-## Fluxo
+## Pré-check (silencioso, 1 comando)
 
-### Passo 1 — Tipo de post
-Apresentar menu (use `AskUserQuestion`):
-
-```
-Que tipo de post você quer criar?
-
-📌 Cards únicos (1 imagem):
-1. Frase em Pílulas — frase forte em caixas amarelas tortas
-2. Mapa de Clientes — mapa do Brasil + selo % de cobertura
-3. Certo e Errado — 2 cards X/✓ contrapostos
-4. Clientes — foto + nome + cidade + "agora faz parte do time"
-5. Doma Motiva — frase motivacional sobre foto
-6. Inimigo em Comum — frase entre aspas + reflexão
-7. Narrativa — foto + frase forte (estoque cheio / caixa vazio)
-8. Produtividade — foto + sub-card escuro com frase
-9. Funções do Sistema — mockup ERP + texto + balões
-10. Doma Institucional — frame tipográfico ou device + ERP
-
-📚 Carrosséis (múltiplos slides):
-11. Dicas (numerado, 9 slides) — erros comuns sobre um tema
-12. Doma / Carrossel Clientes — capa + logos de cliente + fecho
-13. SPIN — perguntas Provocativas → Implicação → Necessidade
-14. Outro tipo — categoria nova (vai criar do zero seguindo protocolo)
+```bash
+test -d "$(pwd)/remotion-doma" || { echo "⚠️  Rode primeiro: /marketing-doma:marketing-doma-setup"; exit 0; }
 ```
 
-### Passo 2 — Conteúdo ou brainstorm
-Pergunta: **"Você já tem o conteúdo, ou quer brainstorm?"**
+Se falhou: avisar e parar.
 
-- **Já tem** → pergunta cada campo (título, corpo dos miolos, CTA) e vai compondo o plano.
-- **Brainstorm** → invocar agent `ghostwriter-doma` com a pauta + 3 ângulos na voz Doma. Volta com sugestões; o usuário escolhe ou pede ajuste.
+## Passo 1 — perguntar tipo de post
 
-### Passo 3 — Carregar sub-skill da categoria
-Cada categoria tem sub-skill em `skills/marketing-doma/subskills/<categoria>/SKILL.md` com:
-- Padrão de cores medido.
-- Estrutura slide-a-slide.
-- Componente Remotion validado em `templates/components/`.
-- Voz/tom adequado.
+`AskUserQuestion` com 14 opções:
 
-### Passo 4 — Gerar plano + validar
-- Compor `templates/planos/POST-<nome>-plano.md`.
-- Mostrar plano completo ao usuário (capa, miolos, CTA com cores, voz, faixa ARRASTA).
-- Pedir aprovação.
+📌 Cards: 1) Frase em Pílulas · 2) Mapa Clientes · 3) Certo e Errado · 4) Cliente Novo · 5) Doma Motiva · 6) Inimigo em Comum · 7) Narrativa · 8) Produtividade · 9) Funções do Sistema · 10) Doma Institucional
 
-### Passo 5 — Codar + renderizar
-- Adicionar Stills no `remotion-doma/src/Root.tsx` (snippet em `templates/Root.tsx.snippet`).
-- Rodar `bash remotion-doma/render-still.sh <id>` para cada slide.
-- Mostrar PNGs renderizados.
+📚 Carrosséis: 11) Dicas (9 slides) · 12) Carrossel Clientes (8 slides) · 13) SPIN (6 slides)
 
-### Passo 6 — Audit comparativo
-- Se há modelo direto (recriação): rodar `layout-mapper compare.py --modelo X --render Y`.
-- Mostrar fidelidade (SSIM + pixels iguais) e o que melhorar.
+🆕 14) Categoria nova (protocolo from-scratch)
 
-### Passo 7 — Iterar ou aprovar
-- Se aprovado: rodar `/publish-checklist`.
-- Se ajustar: refazer passo do conteúdo OU do plano.
+## Passo 2 — perguntar conteúdo
 
-## Sub-agentes invocáveis (Task tool)
-- `ghostwriter-doma` — escreve copy na voz Doma.
-- `validador-marca` — checa regras de marca antes de renderizar.
-- `editor-conteudo` — revisa copy (bordão Doma, sem julgar, vocabulário).
-- `render-orchestrator` — render em batch + audit.
+`AskUserQuestion`:
+1. Já tenho copy pronta
+2. Quero brainstorm (invocar agent `ghostwriter-doma`)
 
-## Princípios
-- **Leigo first**: cada pergunta é em português direto. Sem jargão técnico.
-- **Auto-melhoria**: ao descobrir padrão novo, gravar em `knowledge-base/live-rules/`.
-- **Reuso máximo**: sempre verificar se há template/componente já validado.
-- **Validar antes de renderizar**: rodar `validador-marca` em todo plano antes de codar.
+## Passo 3 — gerar plano
 
-## Exemplo de invocação
+Rodar `bash ~/.claude/plugins/marketing-doma/scripts/new-post.sh <categoria> <nome>`.
 
-```
-/marketing-doma
-```
+Resultado: `templates/planos/POST-<nome>-plano.md` + snippet em `/tmp/<nome>-still-snippet.tsx`.
 
-Ou com tema direto:
-```
-/marketing-doma quero um carrossel sobre gestão de estoque
-```
+## Passo 4 — preencher plano (interativo)
 
----
+Editar `templates/planos/POST-<nome>-plano.md` substituindo `<preencher>` com respostas do usuário.
 
-**Referências:**
-- `CLAUDE.md` do plugin — regras de marca + auto-melhoria.
-- `knowledge-base/identidade/voz-sigadoma.md` — voz institucional.
-- `knowledge-base/padroes/INDICE.md` — 12 categorias mapeadas.
+## Passo 5 — validar (silencioso)
+
+Invocar agent `validador-marca` no plano. Se BLOQUEIA: mostrar ao usuário + parar.
+
+## Passo 6 — colar snippet + render
+
+1. Adicionar Still no `remotion-doma/src/Root.tsx` (cat snippet, anexar antes do `</>` final).
+2. Rodar `bash ~/.claude/plugins/marketing-doma/scripts/sync-components.sh`.
+3. Rodar `bash remotion-doma/render-still.sh <nome>-N` para cada slide.
+
+## Passo 7 — mostrar resultado
+
+Listar PNGs em `remotion-doma/out/<nome>-*.png` + perguntar se aprova.
+
+## Anti-padrões
+
+- ❌ Ler arquivos do plugin antes de cada passo.
+- ❌ Inspecionar Root.tsx, components.tsx etc.
+- ❌ Validar cores/voz fora do agent `validador-marca`.
+- ❌ Pedir ao usuário pra escolher entre componentes Remotion (escolhe categoria, plugin sabe o resto).
