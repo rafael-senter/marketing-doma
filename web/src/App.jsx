@@ -1,7 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import manifest from '@plugin/plugin.json';
+import LintCopyPanel from './LintCopyPanel.jsx';
+import NewPostForm from './NewPostForm.jsx';
 
-const SECTIONS = ['categorias', 'agentes', 'commands', 'scripts'];
+const SECTIONS = ['categorias', 'agentes', 'commands', 'scripts', 'new-post', 'lint-copy'];
 
 export default function App() {
   const [tab, setTab] = useState('categorias');
@@ -36,6 +38,15 @@ export default function App() {
         ))}
       </nav>
 
+      {tab === 'lint-copy' ? (
+        <main className="lint-copy-wrap">
+          <LintCopyPanel />
+        </main>
+      ) : tab === 'new-post' ? (
+        <main className="lint-copy-wrap">
+          <NewPostForm />
+        </main>
+      ) : (
       <main className="grid">
         <aside className="list">
           {tab === 'categorias' && categorias.map(c => (
@@ -62,6 +73,7 @@ export default function App() {
           )}
         </section>
       </main>
+      )}
 
       <footer className="ft">
         <span>{categorias.length} categorias · {agentes.length} agentes · {commands.length} commands · {scripts.length} scripts</span>
