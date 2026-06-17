@@ -7,7 +7,7 @@
 Carrossel numerado de "erros comuns / dicas". Canvas 1080×1350. 3 templates:
 
 ## 1) `DicasCapa` (slide 1)
-- Fundo **manga** `#F4BB35` + **watermark "DOMa" gigante** no topo (CSS mask, cor `#F5C24A` tom-sobre-tom, top 4%, width 100%).
+- Fundo **manga** `#F4BB35` + **watermark "DOMa" gigante** no topo (CSS mask, cor `#F2B02C` MAIS ESCURA tom-sobre-tom, top 4%, width 100% — ⚠️ NÃO usar `#F5C24A` (mais clara = invisível)).
 - **Ícones line-art** (grandes, pretos) — **EXTRAÍDOS do modelo** via recorte+transparência
   (numpy: pixels escuros → alpha; resto transparente). Salvos em `public/oficial/_dicas{POST}-icones.png`.
   ⚠️ Recortar SÓ os ícones (limitar x até ~70% p/ NÃO capturar o subtítulo do modelo — senão duplica).

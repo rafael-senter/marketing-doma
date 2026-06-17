@@ -1,16 +1,17 @@
-# Plano — POST {{NOME}}
+# Plano — POST financas-bagunca
 
 > Categoria: inimigo-em-comum (modelos POST 244/252)
-> Criado: {{DATA}}
+> Criado: 2026-06-17
 > Componente: `templates/components/inimigo-em-comum/InimigoComum.tsx`
 
 ## 1. Tema
-**Frase clichê do empresário:** "<aspas>" (vai no card branco principal)
-**Consequência/reflexão:** ... (vai no card soft secundário)
+Inimigo = desorganização financeira da PME (conta pessoal misturada, lucro no achismo).
+**Frase clichê do empresário:** "Tá tudo na minha cabeça. Eu sei de cor quanto a minha empresa lucra de verdade." (card branco)
+**Consequência/reflexão:** Quando a conta pessoal e a da empresa viram uma só, o lucro se perde no meio do caminho. (card soft)
 
 ## 2. Cores (fixas)
 - Fundo: `#F4BB35` manga
-- Watermark "DOMa" GIGANTE topo (175% width, sangra canto sup-esq): `#F2B02C` (mais ESCURA que fundo `#F4BB35` — tom-sobre-tom). ⚠️ NÃO usar `#F5C24A` (mais clara = invisível, proibida — regra fixa do componente).
+- Watermark "DOMa" GIGANTE topo (175% width, sangra canto sup-esq): `#F2B02C` (mais ESCURA que fundo — tom-sobre-tom, conforme componente).
 - Card branco: `#FFFFFF`
 - Badge circular preto: `#1F1F1F`
 - Card soft: `#F8DD6B`
@@ -29,8 +30,8 @@ Texto centralizado é frágil — usar `\n` explícito:
 ## 5. Conteúdo
 
 ```ts
-principal: '"Linha 1\nLinha 2 (regular)... **e\nremate em bold.**"'
-secundario: 'Linha 1\nLinha 2\nLinha 3.'
+principal: '"Tá tudo na minha cabeça.\nEu sei de cor quanto a minha\nempresa **lucra de verdade.**"'
+secundario: 'Quando a conta pessoal e a da\nempresa viram uma só, o lucro\nse perde no meio do caminho.'
 ```
 
 ## 6. Voz
@@ -39,5 +40,5 @@ secundario: 'Linha 1\nLinha 2\nLinha 3.'
 ## 7. Validação + render + audit
 - [ ] `validador-marca`.
 - [ ] Snippet colado.
-- [ ] `bash render-still.sh {{NOME}}`.
+- [ ] `bash render-still.sh financas-bagunca`.
 - [ ] Compare contra POST 244 ou 252.
