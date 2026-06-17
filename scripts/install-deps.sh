@@ -31,25 +31,39 @@ command -v python3 >/dev/null || fail "python3 não encontrado. Instale Python 3
 command -v claude >/dev/null || skip "claude CLI não encontrado (não bloqueia — você já está dentro dele se está rodando isto)."
 ok "node $(node --version), python $(python3 --version | awk '{print $2}')"
 
-# 2. Remotion
+# 2. Remotion — montar manual do template do plugin (sem create-video interativo)
 echo "==> 2/6 Remotion"
+TPL="$PLUGIN_DIR/templates/remotion-init"
+[ ! -d "$TPL" ] && fail "template em $TPL não encontrado"
+
 if [ ! -d "$HOST_REMOTION" ]; then
-  inst "criando projeto Remotion em $HOST_REMOTION"
-  (cd "$PROJECT_ROOT" && npx --yes create-video@latest remotion-doma --template=blank) || fail "create-video falhou"
+  inst "criando projeto Remotion em $HOST_REMOTION (template manual)"
+  mkdir -p "$HOST_REMOTION/src"
+  cp "$TPL/package.json"        "$HOST_REMOTION/package.json"
+  cp "$TPL/tsconfig.json"       "$HOST_REMOTION/tsconfig.json"
+  cp "$TPL/remotion.config.ts"  "$HOST_REMOTION/remotion.config.ts"
+  cp "$TPL/.npmrc"              "$HOST_REMOTION/.npmrc"
+  cp "$TPL/src/index.ts"        "$HOST_REMOTION/src/index.ts"
+  cp "$TPL/src/Root.tsx"        "$HOST_REMOTION/src/Root.tsx"
+  ok "template Remotion copiado"
 fi
-# Copiar render-still.sh do template do plugin pro host (idempotente)
-if [ -f "$PLUGIN_DIR/templates/render-still.sh" ] && [ ! -f "$HOST_REMOTION/render-still.sh" ]; then
-  cp "$PLUGIN_DIR/templates/render-still.sh" "$HOST_REMOTION/render-still.sh"
-  chmod +x "$HOST_REMOTION/render-still.sh"
-  inst "render-still.sh copiado pro host"
-fi
-# .npmrc local
+
+# .npmrc local (idempotente)
 if [ ! -f "$HOST_REMOTION/.npmrc" ] || ! grep -q "min-release-age=0" "$HOST_REMOTION/.npmrc"; then
   inst "criando .npmrc local (override min-release-age global)"
   echo "min-release-age=0" > "$HOST_REMOTION/.npmrc"
 fi
+
+# render-still.sh anti-franja
+if [ -f "$PLUGIN_DIR/templates/render-still.sh" ] && [ ! -f "$HOST_REMOTION/render-still.sh" ]; then
+  cp "$PLUGIN_DIR/templates/render-still.sh" "$HOST_REMOTION/render-still.sh"
+  chmod +x "$HOST_REMOTION/render-still.sh"
+  ok "render-still.sh copiado pro host"
+fi
+
+# npm i
 if [ ! -d "$HOST_REMOTION/node_modules" ]; then
-  inst "instalando deps do Remotion (npm i)"
+  inst "instalando deps Remotion (npm i — ~2min na 1ª vez)"
   (cd "$HOST_REMOTION" && npm i --no-fund --no-audit) || fail "npm i falhou"
 else
   ok "node_modules já existem em $HOST_REMOTION"
