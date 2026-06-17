@@ -1,6 +1,6 @@
 # Padrão de Post — "Dicas Carrossel / Ótica" (Doma)
 
-> ✅ **POST 133 RECRIADO (9 slides)** — `remotion-doma/src/v2/categorias/dicas-otica/Otica.tsx`.
+> ✅ **POST 133 RECRIADO (9 slides)** — `../../templates/components/dicas-otica/Otica.tsx`.
 > Modelo: `tipos-de-posts/.../Dicas Carrossel/ótica/POST 133 *.png`.
 > Fidelidade: s5 95% · s7 98% · miolos 85-91% · capa 83%. Teto baixo em capa = fotos.
 

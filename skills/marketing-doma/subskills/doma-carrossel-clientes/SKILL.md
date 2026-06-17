@@ -5,7 +5,7 @@ description: Carrossel institucional de clientes — capa + N cards com logo de 
 
 # Doma / Carrossel Clientes
 
-**Componente:** `remotion-doma/src/v2/categorias/doma-carrossel-clientes/CarrosselClientes.tsx`
+**Componente:** `../../../../templates/components/doma-carrossel-clientes/CarrosselClientes.tsx`
 - `ClientesCapa` — slide 1 (institucional + grafismos + frase)
 - `ClientesMiolo` — slides 2-N ({card, texto}) — logo+card recortados do modelo
 - `ClientesFecho` — slide final

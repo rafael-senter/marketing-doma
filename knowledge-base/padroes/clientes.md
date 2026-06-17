@@ -1,6 +1,6 @@
 # Ficha medida — Padrão "Cliente Novo" (LAYOUT CLIENTE NOVO)
 
-> ✅ **RECRIADO ~90% (SSIM 0.89) — visualmente ~95%+.** `remotion-doma/src/v2/categorias/clientes/Clientes.tsx`.
+> ✅ **RECRIADO ~90% (SSIM 0.89) — visualmente ~95%+.** `../../templates/components/clientes/Clientes.tsx`.
 > 2 variantes validadas (Flairar/Teixeira de Freitas-BA · Essence Glamour/Jaraguá do Sul-SC).
 > Medido via skill `layout-mapper` (docling OCR p/ posições de texto) + numpy (blocos/cores).
 

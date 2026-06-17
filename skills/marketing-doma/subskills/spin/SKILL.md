@@ -5,7 +5,7 @@ description: Carrossel SPIN (Situação → Problema → Implicação → Necess
 
 # SPIN
 
-**Componente:** `remotion-doma/src/v2/categorias/spin/Spin.tsx`
+**Componente:** `../../../../templates/components/spin/Spin.tsx`
 - `SpinCapa` — hook + foto + frase em pílulas
 - `SpinMiolo` — perguntas (`→ pergunta` cada)
 - `SpinCta` — fecho + bordão Doma

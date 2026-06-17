@@ -6,8 +6,8 @@ description: Cards "produtividade" — foto + título topo + sub-card escuro EMB
 # Produtividade
 
 **Componentes:**
-- `Produtividade270.tsx` — foto-card + sub-card baked (modelo principal)
-- `Produtividade277.tsx`, `Produtividade254.tsx` — variantes (selo, operário nanobanana)
+- `../../../../templates/components/produtividade/Produtividade270.tsx` — foto-card + sub-card baked (modelo principal)
+- `../../../../templates/components/produtividade/Produtividade277.tsx` + `Produtividade254.tsx` — variantes (selo, operário nanobanana)
 
 **Ficha:** `../../../knowledge-base/padroes/produtividade.md`
 

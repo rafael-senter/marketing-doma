@@ -1,6 +1,6 @@
 # Padrão de Post — "Doma Motiva" (Doma)
 
-> ✅ **RECRIADO v2 — 242: 93.1% · 250: 95.7%** — `remotion-doma/src/v2/categorias/doma-motiva/DomaMotiva.tsx`.
+> ✅ **RECRIADO v2 — 242: 93.1% · 250: 95.7%** — `../../templates/components/doma-motiva/DomaMotiva.tsx`.
 > Modelos: `tipos-de-posts/.../Doma Motiva/POST 242.png` e `POST 250.png`.
 
 Medido com `layout-mapper` + numpy. Canvas 1080×1350.

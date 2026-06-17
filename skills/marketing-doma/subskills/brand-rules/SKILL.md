@@ -44,7 +44,7 @@ Carrega/centraliza tudo que TODA peça deve respeitar, independente da categoria
 
 ## Fonte
 
-- **TT Lakes oficial** (em `../../../assets/fontes/` ou `remotion-doma/public/fontes/`).
+- **TT Lakes oficial** — fonte de verdade em `../../../assets/fontes/` (sincronizada pro host via `scripts/sync-components.sh`).
 - Corpo regular (400). Palavra-chave bold (700-800). Kicker SemiBold (600), não 700.
 - Cap-height medida do modelo → ajustar `fontSize` (não chutar).
 - Quando largura não bate mas altura sim → adicionar **letterSpacing**, NÃO aumentar fontSize.

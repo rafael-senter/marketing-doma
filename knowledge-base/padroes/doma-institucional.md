@@ -1,6 +1,6 @@
 # Padrão de Post — "Doma (institucional)" (Doma)
 
-> ✅ **POST 115, 178, 257, 271 RECRIADOS (4/4)** — `remotion-doma/src/v2/categorias/doma-institucional/DomaInstitucional.tsx`.
+> ✅ **POST 115, 178, 257, 271 RECRIADOS (4/4)** — `../../templates/components/doma-institucional/DomaInstitucional.tsx`.
 > Modelos: `tipos-de-posts/.../Doma/POST *.png`.
 
 Cards institucionais da marca. Canvas 1080×1350. Cores: manga `#F4BB35` · soft `#F8DD6B` ·

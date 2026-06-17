@@ -6,8 +6,8 @@ description: Card foto + frase forte sobreposta. Variante 265 = foto + card. Var
 # Narrativa
 
 **Componentes:**
-- `remotion-doma/src/v2/categorias/narrativa/Narrativa.tsx` (modo 265 — card)
-- `remotion-doma/src/v2/categorias/narrativa/Narrativa272.tsx` (modo 272 — moedas 3D)
+- `../../../../templates/components/narrativa/Narrativa.tsx` (modo 265 — card)
+- `../../../../templates/components/narrativa/Narrativa272.tsx` (modo 272 — moedas 3D)
 
 **IDs:** `padrao-narrativa-265`, `padrao-narrativa-272`
 **Ficha:** `../../../knowledge-base/padroes/narrativa.md`

@@ -1,6 +1,6 @@
 # Padrão de Post — "Doma / Carrossel Clientes" (Doma)
 
-> ✅ **POST 205 RECRIADO (8 slides)** — `remotion-doma/src/v2/categorias/doma-carrossel-clientes/CarrosselClientes.tsx`.
+> ✅ **POST 205 RECRIADO (8 slides)** — `../../templates/components/doma-carrossel-clientes/CarrosselClientes.tsx`.
 > Modelo: `tipos-de-posts/.../Doma/Carrossel clientes/POST 205 *.png`.
 > Fidelidade: miolos 93-94% · capa 88% · fecho 93%.
 

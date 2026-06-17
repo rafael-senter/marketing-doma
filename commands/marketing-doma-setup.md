@@ -39,6 +39,18 @@ fi
 .venv-instagram/bin/pip install --quiet Pillow numpy scipy
 ```
 
+### 3.5. Sincroniza componentes plugin → host
+```bash
+bash .claude/plugins/marketing-doma/scripts/sync-components.sh
+```
+Copia (cp -u — idempotente):
+- `templates/components/*/<Componente>.tsx` → `remotion-doma/src/v2/categorias/<cat>/`
+- `templates/components/_base/{theme.ts, components.tsx}` → `remotion-doma/src/`
+- `assets/oficial|icones|fontes/*` → `remotion-doma/public/`
+- Garante `.npmrc` local com `min-release-age=0`.
+
+⚠️ **Fonte de verdade é o PLUGIN.** Toda edição vai no plugin; sync propaga pro host. Editar direto no host = perde no próximo sync.
+
 ### 4. Cria/atualiza `.claude/settings.json` LOCAL com hook auto-start
 > ⚠️ Local do projeto (`.claude/settings.json`), NÃO global (`~/.claude/settings.json`).
 

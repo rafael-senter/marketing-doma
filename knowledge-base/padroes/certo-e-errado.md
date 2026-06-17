@@ -1,6 +1,6 @@
 # Padrão de Post — "Certo e Errado" (Doma)
 
-> ✅ **RECRIADO na v2 (~96-97%)** — `remotion-doma/src/v2/CertoErrado.tsx`. Refeito com as técnicas
+> ✅ **RECRIADO na v2 (~96-97%)** — `../../templates/components/CertoErrado.tsx`. Refeito com as técnicas
 > da Frase em Pílulas. Validação: cards ±1px, badges (496/928, cy434) exatos, logo cx50%, wm contraste 2.72 vs 2.67.
 >
 > **Detalhes-chave da recriação (cada um foi um erro corrigido):**

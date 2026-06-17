@@ -5,7 +5,7 @@ description: Card único com frase entre aspas em card branco + badge circular p
 
 # Inimigo em Comum
 
-**Componente:** `remotion-doma/src/v2/categorias/inimigo-em-comum/InimigoComum.tsx`
+**Componente:** `../../../../templates/components/inimigo-em-comum/InimigoComum.tsx`
 **IDs:** `padrao-inimigo-244`, `padrao-inimigo-252`
 **Ficha:** `../../../knowledge-base/padroes/inimigo-em-comum.md`
 

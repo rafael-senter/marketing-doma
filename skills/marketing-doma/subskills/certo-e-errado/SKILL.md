@@ -5,7 +5,7 @@ description: 2 cards contrapostos com ícones X (errado) e ✓ (certo) — frase
 
 # Certo e Errado
 
-**Componente:** `remotion-doma/src/v2/categorias/certo-e-errado/CertoErrado.tsx`
+**Componente:** `../../../../templates/components/certo-e-errado/CertoErrado.tsx`
 **IDs:** `padrao-certoerrado-247`, `padrao-certoerrado-256`
 **Ficha:** `../../../knowledge-base/padroes/certo-e-errado.md`
 

@@ -5,7 +5,7 @@ description: Card único motivacional — foto de fundo + card amarelo translúc
 
 # Doma Motiva
 
-**Componente:** `remotion-doma/src/v2/categorias/doma-motiva/DomaMotiva.tsx`
+**Componente:** `../../../../templates/components/doma-motiva/DomaMotiva.tsx`
 **IDs:** `padrao-motiva-242`, `padrao-motiva-250`
 **Ficha:** `../../../knowledge-base/padroes/doma-motiva.md`
 

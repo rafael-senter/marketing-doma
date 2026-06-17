@@ -5,7 +5,7 @@ description: Card único com frase forte distribuída em pílulas amarelas torta
 
 # Frase em Pílulas
 
-**Componente:** `remotion-doma/src/v2/categorias/frase-em-pilulas/FrasePilulas.tsx`
+**Componente:** `../../../../templates/components/frase-em-pilulas/FrasePilulas.tsx`
 **ID Still:** `padrao-frase-pilulas`
 **Ficha completa:** `../../../knowledge-base/padroes/frase-pilulas.md`
 

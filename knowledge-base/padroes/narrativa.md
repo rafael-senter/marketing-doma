@@ -1,6 +1,6 @@
 # Padrão de Post — "Narrativa" (Doma)
 
-> ✅ **RECRIADO v2 — 265: 95% · 272: 86.6%**. Componentes em `remotion-doma/src/v2/categorias/narrativa/`.
+> ✅ **RECRIADO v2 — 265: 95% · 272: 86.6%**. Componentes em `../../templates/components/narrativa/`.
 > A categoria tem 2 MODOS bem diferentes (não é "mesmo layout, só texto"):
 
 ## Modo CARD (POST 265) — `Narrativa.tsx`

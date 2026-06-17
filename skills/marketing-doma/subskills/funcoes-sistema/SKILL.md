@@ -5,7 +5,7 @@ description: Card de funcionalidade do ERP — mockup fotorrealista (mão + iPho
 
 # Funções do Sistema
 
-**Componente:** `remotion-doma/src/v2/categorias/funcoes-sistema/FuncoesSistema.tsx` (flexível com slots opcionais)
+**Componente:** `../../../../templates/components/funcoes-sistema/FuncoesSistema.tsx` (flexível com slots opcionais)
 **Ficha:** `../../../knowledge-base/padroes/funcoes-sistema.md`
 
 ## Padrão visual

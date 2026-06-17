@@ -5,7 +5,7 @@ description: Cards institucionais da marca — 2 sub-tipos. (a) Tipográficos co
 
 # Doma Institucional
 
-**Componente:** `remotion-doma/src/v2/categorias/doma-institucional/DomaInstitucional.tsx`
+**Componente:** `../../../../templates/components/doma-institucional/DomaInstitucional.tsx`
 **Variantes:** `Doma178`, `Doma271`, `Doma115`, `Doma257`
 **Ficha:** `../../../knowledge-base/padroes/doma-institucional.md`
 

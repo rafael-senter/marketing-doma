@@ -1,6 +1,6 @@
 # Padrão de Post — "Dicas Carrossel / Trento" (Doma)
 
-> ✅ **POST 193 RECRIADO (8 slides)** — `remotion-doma/src/v2/categorias/dicas-trento/Trento.tsx`.
+> ✅ **POST 193 RECRIADO (8 slides)** — `../../templates/components/dicas-trento/Trento.tsx`.
 > Modelo: `tipos-de-posts/.../Dicas Carrossel/Trento/POST 193 *.png`.
 > Fidelidade: 87-94% (todos os slides). Storytelling Peccin/Trento.
 

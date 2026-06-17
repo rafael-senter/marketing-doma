@@ -5,7 +5,7 @@ description: Carrossel numerado de "erros comuns / dicas" — 1 capa + N miolos 
 
 # Dicas Carrossel
 
-**Componente:** `remotion-doma/src/v2/categorias/dicas/Dicas.tsx`
+**Componente:** `../../../../templates/components/dicas/Dicas.tsx`
 - `DicasCapa` — slide 1
 - `DicasMiolo` — slides 2-N (props `headerHeight`, `numeroSize`, `tituloSize` opcionais com defaults 36.5/200/50)
 - `DicasMioloCompact` — variante com header 28% (raramente usada — preferir densificar conteúdo)

@@ -5,7 +5,7 @@ description: Card "novo cliente" — foto da loja + pílula com cidade + texto "
 
 # Cliente Novo
 
-**Componente:** `remotion-doma/src/v2/categorias/clientes/Clientes.tsx`
+**Componente:** `../../../../templates/components/clientes/Clientes.tsx`
 **IDs:** `padrao-clientes`, `padrao-clientes-2`
 **Ficha:** `../../../knowledge-base/padroes/clientes.md`
 

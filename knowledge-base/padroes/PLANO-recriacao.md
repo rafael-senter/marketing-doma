@@ -4,7 +4,7 @@ Recriar TODOS os posts-modelo de `doma-brand/tipos-de-posts/tipos de posts/`, um
 detalhe por detalhe (estrutura, ângulos, tamanho, fundo, cores), com máxima precisão.
 Método obrigatório: `doma-brand/PADROES/RULES-recriacao.md` (medir→codar→validar, render
 por `render-still.sh`). Cada peça pronta vira ficha em `PADROES/<categoria>.md` + componente
-em `remotion-doma/src/padroes/`.
+em `../../templates/components/`.
 
 **Fluxo por peça:** (1) medir o modelo por pixel; (2) codar com os números; (3) renderizar
 (scale2+Lanczos); (4) comparar lado a lado; (5) iterar até ~95%+; (6) documentar a ficha.
@@ -16,7 +16,7 @@ Cada peça é validada com o Patrick antes de seguir.
 
 ### Organização v1 / v2 (definida com o Patrick)
 - **v1** (`remotion-doma/src/v1/`) = tentativas AUTOMÁTICAS antigas (lotes 1-3, modelos, etc.) — NÃO ficaram boas. ARQUIVADAS (não renderizam; Root antigo preservado em `v1/RootV1.tsx`).
-- **v2** (`remotion-doma/src/v2/`) = peças MANUAIS, feitas uma por uma com medição (RULES). É o que vale. `Root.tsx` registra SÓ a v2.
+- **v2** (`../../templates/components/`) = peças MANUAIS, feitas uma por uma com medição (RULES). É o que vale. `Root.tsx` registra SÓ a v2.
 - **Infra** (raiz `src/`): `theme.ts`, `components.tsx`, `Root.tsx`.
 
 ### ✅ Na v2 (prontos, validados)
@@ -87,7 +87,7 @@ ensina algo reaproveitável. Ao terminar cada uma, registrar em DOIS níveis:
      método de medir ângulo, tingir asset, ordem de z-index) → vira regra GERAL numerada;
    - registrar o ERRO cometido + a CORREÇÃO, para nunca repetir (como já feito §8-14).
 
-3. **Componentes/utilitários reusáveis** → extrair para `remotion-doma/src/padroes/` ou
+3. **Componentes/utilitários reusáveis** → extrair para `../../templates/components/` ou
    `components.tsx` quando um elemento aparecer em 2+ categorias (ex.: badge SEMANAÇO,
    selo, balão de chat, pílula, watermark-tingida) → componente parametrizado.
 

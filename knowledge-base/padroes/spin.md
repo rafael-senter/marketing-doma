@@ -2,7 +2,7 @@
 
 > ✅ **RECRIADO v2 — POST 243 (6 slides) + POST 251 (6 slides) = 12 slides.**
 > Fidelidade: capas ~91-92% · miolos ~92% · CTA ~86% (selo+texto). Componente único:
-> `remotion-doma/src/v2/categorias/spin/Spin.tsx` (3 sub-componentes parametrizados).
+> `../../templates/components/spin/Spin.tsx` (3 sub-componentes parametrizados).
 
 Carrossel de perguntas no método SPIN. Canvas 1080×1350. Os DOIS posts (243/251) usam
 EXATAMENTE o mesmo sistema de templates — só muda o conteúdo (texto) e a foto da capa.

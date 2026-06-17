@@ -11,7 +11,7 @@ Fonte: `doma-brand/tipos-de-posts/tipos de posts/Mapa de Clientes/MODELO - mapa 
 (cópia do original `instagram-sigadoma/images/sigadoma_DSdIG_FkuI4_2.jpg`)
 Método: medição por pixel (PIL/numpy), amostragem direta. Nenhuma interpretação visual de cor.
 
-> ✅ **REVISADO na v2 (~95-96%)** — `remotion-doma/src/v2/MapaClientes.tsx`. Correções da revisão (cada uma foi medida):
+> ✅ **REVISADO na v2 (~95-96%)** — `../../templates/components/MapaClientes.tsx`. Correções da revisão (cada uma foi medida):
 > - **MAPA estava pequeno**: SVG renderizava ~816×851 (o `meet` encolhia). Medido no modelo o mapa é **892×932px** (bbox canvas x[77,969] y[108,1040]). Fix: `width=892 height=932 left=12 top=43` dentro do card. Centro bate (cx≈523, cy≈583).
 > - **DF é CINZA**, não amarelo (quadradinho em Goiás, #C8D5CB medido). Removido de PRESENTES → **16 estados amarelos** (a legenda diz "17 estados" mas só 16 são pintados — texto fixo do post, reproduzido fiel).
 > - **Rótulos = posição MEDIDA** de cada um (centro do texto no modelo → viewBox via `vx=(px-77)/1.4552, vy=(py-109)/1.4552`). PE/AL/ES/RJ ficam **À DIREITA, FORA do estado** (litoral estreito) — exatamente como no modelo. Tamanho uniforme (cap ~10px, fontSize 11 no viewBox). NÃO seguir "sempre sobre o estado" aqui — o modelo desloca os 4 pequenos.
@@ -111,10 +111,10 @@ Método: medição por pixel (PIL/numpy), amostragem direta. Nenhuma interpreta�
 | Card branco 949×1014, cantos retos | **Código** (div/retângulo). |
 | Selo pill (borda dourada, 2 textos, pesos diferentes) | **Código** (rounded-rect + texto Kanit). |
 | Legenda 2 linhas centralizada preta | **Código** (texto Kanit bold). |
-| **Mapa do Brasil (estados amarelo/cinza + rótulos)** | **SVG vetorial real** — RESOLVIDO com `@svg-maps/brazil` (27 paths por sigla, viewBox 613×639). Pintado choropleth em código: presente=#F4BC34, ausente=#D0D0D0, borda branca, rótulo #1F1F1F. Paths em `remotion-doma/src/padroes/mapaBrasil.ts`. |
+| **Mapa do Brasil (estados amarelo/cinza + rótulos)** | **SVG vetorial real** — RESOLVIDO com `@svg-maps/brazil` (27 paths por sigla, viewBox 613×639). Pintado choropleth em código: presente=#F4BC34, ausente=#D0D0D0, borda branca, rótulo #1F1F1F. Paths em `../../templates/components/mapaBrasil.ts`. |
 
 ## STATUS DA RECRIAÇÃO — ~93% (validado por medição visual)
-Componente: `remotion-doma/src/padroes/MapaClientes.tsx`. Render: `./render-still.sh padrao-mapa-clientes`.
+Componente: `../../templates/components/MapaClientes.tsx`. Render: `./render-still.sh padrao-mapa-clientes`.
 - ✅ Mapa choropleth com os 17 estados certos (PA,MT,MS,GO,DF,BA,PI,CE,PE,AL,MG,ES,SP,RJ,PR,SC,RS), bordas brancas.
 - ✅ Card branco, selo pill "+93% DE CLIENTES", legenda 2 linhas centralizada.
 - ✅ Centroides REAIS dos rótulos (calculados via svgpathtools — bbox de cada path).

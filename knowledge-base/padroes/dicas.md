@@ -1,7 +1,7 @@
 # Padrão de Post — "Dicas Carrossel" (Doma)
 
 > ✅ **POST 246 (margem de lucro, 9 slides) RECRIADO.** 133 (ótica) e 193 (Trento) usam o
-> MESMO sistema (só muda texto + ícones da capa). Componente: `remotion-doma/src/v2/categorias/dicas/Dicas.tsx`.
+> MESMO sistema (só muda texto + ícones da capa). Componente: `../../templates/components/dicas/Dicas.tsx`.
 > Fidelidade 246: capa 89% · miolos 86-91% · CTA 82% (SSIM puxado por texto; visual fiel).
 
 Carrossel numerado de "erros comuns / dicas". Canvas 1080×1350. 3 templates:

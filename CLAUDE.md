@@ -99,6 +99,23 @@ Equipe revisa periodicamente as `live-rules/` e promove pras RULES gerais (`know
 
 ---
 
+## 🗺️ Glossário de caminhos (importante)
+
+| Caminho | Significa | Onde |
+|---|---|---|
+| `templates/components/<categoria>/<Componente>.tsx` | **fonte de verdade** dos componentes Remotion | DENTRO do plugin |
+| `assets/oficial/`, `assets/icones/`, `assets/fontes/` | fonte de verdade dos assets (logos, ícones, fontes) | DENTRO do plugin |
+| `knowledge-base/identidade/`, `knowledge-base/padroes/` | docs (voz, design-system, RULES, fichas) | DENTRO do plugin |
+| `knowledge-base/live-rules/` | auto-melhoria (regras descobertas em runtime) | DENTRO do plugin |
+| `remotion-doma/src/v2/categorias/...` | **cópia working** sincronizada do plugin (host roda Remotion daqui) | FORA do plugin (host) |
+| `remotion-doma/render-still.sh` | script de render do host (scale 2 → Lanczos) | FORA do plugin (host) |
+| `remotion-doma/src/Root.tsx` | registry de Stills do host | FORA do plugin (host) |
+| `remotion-doma/public/oficial/`, `public/icones/`, `public/fontes/` | cópia sincronizada de assets | FORA do plugin (host) |
+
+**Regra**: editar SEMPRE no plugin (`templates/components/`, `assets/`). Rodar `scripts/sync-components.sh` pra propagar pro host. Nunca editar direto no host — perde no próximo sync.
+
+---
+
 ## 📚 Mapa do plugin (onde está cada coisa)
 
 ```

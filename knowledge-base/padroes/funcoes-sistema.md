@@ -1,7 +1,7 @@
 # Padrão de Post — "Funções do Sistema" (Doma)
 
 > ✅ **POST 127, 201, 207, 248, 266, 273 RECRIADOS (6/6)** — componente flexível
-> `remotion-doma/src/v2/categorias/funcoes-sistema/FuncoesSistema.tsx`.
+> `../../templates/components/funcoes-sistema/FuncoesSistema.tsx`.
 > Modelos: `tipos-de-posts/.../Doma/Funções do sistema/POST *.png`.
 
 Cards de feature do ERP. Canvas 1080×1350. Cores: manga `#F4BB35` · soft `#F7DC6B` ·

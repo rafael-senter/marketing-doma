@@ -2,7 +2,7 @@
 
 > 🟡 **270: 89.4% · 277: 91% feitos · 254 PENDENTE (logo SENAI).**
 > As 3 variantes têm layouts DIFERENTES (categoria de estilo livre). Componentes em
-> `remotion-doma/src/v2/categorias/produtividade/`.
+> `../../templates/components/produtividade/`.
 
 Canvas 1080×1350. Medido com `layout-mapper` + numpy. Foto de teste = modelo (em produção, foto real do Patrick → some o efeito de logo/selo duplicados).
 

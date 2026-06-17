@@ -1,6 +1,6 @@
 # Padrão de Post — "Inimigo em Comum" (Doma)
 
-> ✅ **RECRIADO v2 — 244: 89.7% · 252: 90.6%** — `remotion-doma/src/v2/categorias/inimigo-em-comum/InimigoComum.tsx`.
+> ✅ **RECRIADO v2 — 244: 89.7% · 252: 90.6%** — `../../templates/components/inimigo-em-comum/InimigoComum.tsx`.
 > Modelos: `tipos-de-posts/.../Inimigo em Comum/POST 244.png` e `POST 252.png`. Layout FIXO (só o texto varia).
 
 Canvas 1080×1350. Medido com `layout-mapper` + numpy.
