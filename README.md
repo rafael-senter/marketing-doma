@@ -32,6 +32,68 @@ marketing-doma export
 
 **Windows**: rode no **PowerShell** ou **CMD** normal. CLI cuida do resto (instala Git for Windows internamente se faltar, usa bash.exe sem você precisar abrir terminal diferente).
 
+## Como usar `marketing-doma export` (enviar melhorias pro dev)
+
+Quando o cliente (marketing) usa o plugin, gera melhorias em runtime: live-rules novas, planos de posts, edits em componentes, fotos novas de clientes. **Essas melhorias ficam só na máquina do cliente** — pra integrar de volta ao GitHub, o dev precisa exportá-las.
+
+### No computador do cliente
+
+Abrir terminal **em qualquer pasta** (ex: Desktop ou Downloads) e rodar:
+
+```bash
+marketing-doma export
+```
+
+CLI gera um arquivo `marketing-doma-export-YYYY-MM-DD.tar.gz` **na pasta onde você está no terminal** (o "current working directory").
+
+Exemplo Windows (PowerShell):
+```powershell
+cd $env:USERPROFILE\Desktop
+marketing-doma export
+# Arquivo criado em C:\Users\<seu-user>\Desktop\marketing-doma-export-...tar.gz
+```
+
+Exemplo Linux/macOS:
+```bash
+cd ~/Desktop
+marketing-doma export
+# Arquivo criado em ~/Desktop/marketing-doma-export-...tar.gz
+```
+
+### Levar pro dev
+
+Opção A — pendrive:
+1. Plugar pendrive.
+2. **Copiar** o `marketing-doma-export-*.tar.gz` da Desktop pro pendrive (arrastando no explorer normal).
+3. Levar pro dev.
+
+Opção B — direto no pendrive (pula a etapa de copiar):
+```bash
+# Linux/macOS:
+cd /media/usuario/PENDRIVE
+marketing-doma export
+
+# Windows:
+cd E:\         # ou letra do pendrive
+marketing-doma export
+```
+
+CLI gera o tarball direto no pendrive.
+
+Opção C — sem pendrive, via WhatsApp/Email/Drive:
+- Tarball costuma ser pequeno (poucos KB a MBs). Manda anexado.
+
+### No computador do dev (você)
+
+```bash
+cd /home/rafael/projetos/projetos-doma/patrick/.claude/plugins/marketing-doma
+tar -xzf ~/Downloads/marketing-doma-export-XXX.tar.gz
+git status   # ver o que o cliente mudou
+# revisar + integrar + commit + git push origin main vX.Y.Z
+```
+
+Depois o cliente roda `marketing-doma update` pra receber a versão revisada.
+
 ## Pré-requisitos
 
 | Item | Versão mínima | Verifica |
