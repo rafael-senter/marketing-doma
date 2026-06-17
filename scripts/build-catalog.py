@@ -320,6 +320,9 @@ def build():
         "_205-graf8": {"tipo": "grafismo-fecho", "uso": "Grafismo fecho POST 205 — decorativo p/ slide final."},
         "_narr272-fg": {"tipo": "produto-cutout", "uso": "Moedas 3D em foreground (rembg) do POST 272 narrativa. REUSAR em peças tema dinheiro/lucro/$."},
         "_dicas246-icones": {"tipo": "icones-tema", "uso": "Cifrão + gráfico cadente line-art (extraído POST 246 margem de lucro). Reusar em capas Dicas com tema financeiro/margem/gestão (já usado em gestao-financeira)."},
+        "simbolo-m-amarelo": {"tipo": "simbolo-m", "uso": "Símbolo M isolado extraído do manual pg 18 — grafismo derivado do M do logotipo (perna direita cortada = seta de crescimento). Cor amarelo manga. Usar em watermark gigante, app icon, marca d'água em peças com fundo escuro/branco."},
+        "simbolo-m-grafite": {"tipo": "simbolo-m", "uso": "Símbolo M grafite (variante recolorida do amarelo). Usar sobre fundo amarelo/branco/soft."},
+        "simbolo-m-branco": {"tipo": "simbolo-m", "uso": "Símbolo M branco (uso como CSS mask). Tingir com backgroundColor + WebkitMaskImage pra qualquer cor."},
     }
     if graf_dir.exists():
         for f in sorted(graf_dir.iterdir()):

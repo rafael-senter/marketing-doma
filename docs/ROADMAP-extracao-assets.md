@@ -149,7 +149,7 @@ Cron `cron-discover.sh` detecta PNG-modelo (em `doma-brand/tipos-de-posts/`) mas
 
 | Item | Status | Data | Notas |
 |---|---|---|---|
-| Símbolo M isolado | ⬜ TODO | — | Alta prioridade |
+| Símbolo M isolado | ✅ DONE | 2026-06-17 | Extraído pg 18 manual. 3 variantes em `assets/grafismos/simbolo-m-{amarelo,grafite,branco}.png` |
 | Selos institucionais (não-14anos) | ⬜ TODO | — | Média |
 | Grafismos corte diagonal SVG | ⬜ TODO | — | Média |
 | Mockups ERP | ⬜ TODO | — | Baixa — nanobanana cobre |

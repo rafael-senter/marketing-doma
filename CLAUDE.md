@@ -90,9 +90,24 @@ Skill master apresenta plano completo e pede aprovação.
 
 ---
 
+## 🆕 INGESTÃO DE NOVO ASSET (regra obrigatória)
+
+Quando usuário do marketing **envia/cola imagem** durante sessão:
+1. **Disparar** sub-skill `asset-ingester` automaticamente (não esperar usuário pedir).
+2. Identificar categoria (foto / logo / grafismo / mockup / ícone).
+3. Pedir metadata (nome/uso/fundo recomendado).
+4. Mover pra `assets/<cat>/` + atualizar `scripts/build-catalog.py` + rebuild + sync.
+5. Nunca aceitar asset sem catalogar.
+
+Se logo de cliente NOVO → asset-ingester gera também `_205-card<cliente>.png` baked automaticamente (canvas 1080×600, bg cor cliente, logo centralizado, raio 40).
+
 ## 🤖 AUTO-MELHORIA (regra-chave do plugin)
 
-**Toda vez** que o Claude descobre um padrão novo (medição que contraria ficha, cor errada detectada, voz ajustada, novo bullet, nova quebra de linha), **DOIS passos obrigatórios**:
+**2 caminhos disparam auto-melhoria:**
+1. **Manual** — Claude descobre padrão novo (medição contraria ficha, cor invertida, voz julgadora, etc.).
+2. **Automático via sub-skill `auto-optimizer`** — detecta 2+ erros corrigidos do mesmo tipo OU 3+ confirmações do mesmo padrão na sessão.
+
+**Toda vez** que dispara, **DOIS passos obrigatórios**:
 
 1. **Gravar nova regra** em `knowledge-base/live-rules/<YYYY-MM-DD>-<topic-slug>.md`:
    ```markdown

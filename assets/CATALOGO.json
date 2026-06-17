@@ -1778,6 +1778,45 @@
       "path_host": "oficial/_narr272-fg.png",
       "tipo": "produto-cutout",
       "uso": "Moedas 3D em foreground (rembg) do POST 272 narrativa. REUSAR em peças tema dinheiro/lucro/$."
+    },
+    {
+      "arquivo": "simbolo-m-amarelo.png",
+      "slug": "simbolo-m-amarelo",
+      "dims": {
+        "w": 356,
+        "h": 246
+      },
+      "size_kb": 2.8,
+      "path_plugin": "assets/grafismos/simbolo-m-amarelo.png",
+      "path_host": "oficial/simbolo-m-amarelo.png",
+      "tipo": "simbolo-m",
+      "uso": "Símbolo M isolado extraído do manual pg 18 — grafismo derivado do M do logotipo (perna direita cortada = seta de crescimento). Cor amarelo manga. Usar em watermark gigante, app icon, marca d'água em peças com fundo escuro/branco."
+    },
+    {
+      "arquivo": "simbolo-m-branco.png",
+      "slug": "simbolo-m-branco",
+      "dims": {
+        "w": 356,
+        "h": 246
+      },
+      "size_kb": 2.2,
+      "path_plugin": "assets/grafismos/simbolo-m-branco.png",
+      "path_host": "oficial/simbolo-m-branco.png",
+      "tipo": "simbolo-m",
+      "uso": "Símbolo M branco (uso como CSS mask). Tingir com backgroundColor + WebkitMaskImage pra qualquer cor."
+    },
+    {
+      "arquivo": "simbolo-m-grafite.png",
+      "slug": "simbolo-m-grafite",
+      "dims": {
+        "w": 356,
+        "h": 246
+      },
+      "size_kb": 2.2,
+      "path_plugin": "assets/grafismos/simbolo-m-grafite.png",
+      "path_host": "oficial/simbolo-m-grafite.png",
+      "tipo": "simbolo-m",
+      "uso": "Símbolo M grafite (variante recolorida do amarelo). Usar sobre fundo amarelo/branco/soft."
     }
   ],
   "cards-clientes": [

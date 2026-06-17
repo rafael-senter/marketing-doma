@@ -34,6 +34,8 @@ Skill auto-contida que gera posts/carrosséis/stories da Doma no Remotion seguin
 | "carrossel SPIN (perguntas → implicação → necessidade)" | `subskills/spin` |
 | "categoria nova / não bate com nenhum padrão" | `subskills/novo-post-from-scratch` |
 | "regras transversais de marca / voz / cor" | `subskills/brand-rules` |
+| **usuário cola/envia imagem nova** (foto cliente, logo, asset) | `subskills/asset-ingester` (automático) |
+| **detecta padrão repetido durante sessão** (2+ erros / 3+ confirmações) | `subskills/auto-optimizer` (META) |
 
 ## Sub-agentes invocáveis (Task tool)
 
