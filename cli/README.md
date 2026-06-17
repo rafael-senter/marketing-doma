@@ -27,7 +27,7 @@ npx marketing-doma-cli install
 | `marketing-doma version` | Versão do CLI + plugin. |
 | `marketing-doma help` | Ajuda. |
 
-## Fluxo típico (usuário leigo)
+## Fluxo típico (usuário leigo em Claude Code)
 
 ```bash
 # 1× só:

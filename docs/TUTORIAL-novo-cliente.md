@@ -1,4 +1,4 @@
-# Tutorial — adicionar cliente novo (passo-a-passo p/ marketing leigo)
+# Tutorial — adicionar cliente novo (passo-a-passo p/ marketing leigo em Claude Code)
 
 > 5 minutos. 1 comando final. Sem mexer em código.
 

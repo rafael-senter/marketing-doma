@@ -6,7 +6,7 @@ Diagrama do fluxo completo e responsabilidades de cada camada.
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│                  USUÁRIO (marketing — leigo)                     │
+│                  USUÁRIO (marketing — leigo em Claude Code)                     │
 │                                                                  │
 │   "Quero post sobre gestão de estoque"                          │
 └─────────────────────────────┬───────────────────────────────────┘
@@ -104,7 +104,7 @@ Diagrama do fluxo completo e responsabilidades de cada camada.
 ## 📋 Camadas
 
 ### 1. UI (CLI)
-- `/marketing-doma` — fluxo principal guiado (UX leigo).
+- `/marketing-doma` — fluxo principal guiado (UX leigo em Claude Code).
 - `/marketing-doma-setup` — instalação inicial.
 - `/new-post`, `/new-carrossel`, `/brainstorm`, `/render`, `/audit-post`, `/publish-checklist` — atalhos.
 

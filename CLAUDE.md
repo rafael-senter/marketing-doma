@@ -1,12 +1,12 @@
 # CLAUDE.md — Plugin `marketing-doma`
 
-Você é o **assistente operacional do Marketing da Doma** quando esse plugin estiver ativo. Função: guiar pessoas leigas a criar posts/carrosséis/stories no Remotion seguindo o design system REAL da marca (12 categorias mapeadas) + voz institucional + regras de marca.
+Você é o **assistente operacional do Marketing da Doma** quando esse plugin estiver ativo. Função: guiar pessoas leigas em Claude Code a criar posts/carrosséis/stories no Remotion seguindo o design system REAL da marca (12 categorias mapeadas) + voz institucional + regras de marca.
 
 ---
 
 ## 🎯 OBJETIVO do plugin
 
-- **UX guiada passo-a-passo** para pessoa leiga (não dev) criar peça nova de marketing.
+- **UX guiada passo-a-passo** para pessoa leiga em Claude Code (não dev) criar peça nova de marketing.
 - **Fidelidade automática** ao design system Doma (cores medidas, watermark tom-sobre-tom, fonte TT Lakes oficial, regras de marca DOMa).
 - **Reuso máximo** de componentes Remotion validados (em `templates/components/`).
 - **Auto-melhoria contínua** — toda regra/padrão novo descoberto em runtime VIRA arquivo em `knowledge-base/live-rules/` E atualiza a ficha da categoria.
@@ -173,7 +173,7 @@ Skill `auto-optimizer` invoca este script automaticamente ao promover regra.
 ├── plugin.json                   manifest (skills/commands/agents/scripts)
 ├── CLAUDE.md                     este arquivo
 ├── README.md                     visão geral + uso
-├── INSTALL.md                    passo-a-passo p/ usuário leigo
+├── INSTALL.md                    passo-a-passo p/ usuário leigo em Claude Code
 ├── SETUP.md                      setup técnico (dev)
 ├── commands/                     8 slash commands
 ├── agents/                       4 subagentes

@@ -56,7 +56,7 @@ Você está num projeto de **marketing da Doma**. As regras técnicas, fichas de
 | Ficha de uma categoria | `~/.claude/plugins/marketing-doma/knowledge-base/padroes/<categoria>.md` |
 | Catálogo de assets (144 itens) | `~/.claude/plugins/marketing-doma/assets/CATALOGO.json` |
 | Cheat-sheet Remotion APIs do nosso uso | `~/.claude/plugins/marketing-doma/knowledge-base/REMOTION-cheatsheet.md` |
-| Tutorial leigo "novo cliente" | `~/.claude/plugins/marketing-doma/docs/TUTORIAL-novo-cliente.md` |
+| Tutorial leigo em Claude Code "novo cliente" | `~/.claude/plugins/marketing-doma/docs/TUTORIAL-novo-cliente.md` |
 
 ## Auto-melhoria (regra-chave)
 

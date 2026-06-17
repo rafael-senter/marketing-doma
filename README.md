@@ -4,7 +4,7 @@ Plugin do Marketing da Doma para [Claude Code](https://claude.com/claude-code) �
 
 ## O que esse plugin faz
 
-- **Skill master `/marketing-doma`** — fluxo guiado passo-a-passo: leigo escolhe tipo de post, dá conteúdo (ou pede brainstorm), o plugin monta o plano medido, renderiza, audita vs modelo, e ajuda a publicar.
+- **Skill master `/marketing-doma`** — fluxo guiado passo-a-passo: leigo em Claude Code escolhe tipo de post, dá conteúdo (ou pede brainstorm), o plugin monta o plano medido, renderiza, audita vs modelo, e ajuda a publicar.
 - **14 sub-skills** — uma por tipo de post (Dicas, SPIN, Doma Motiva, Inimigo em Comum, Funções do Sistema, Carrossel de Clientes, etc.) + brand-rules + protocolo de post novo.
 - **4 agentes especialistas** — ghostwriter (voz Doma), validador de marca, editor de conteúdo, render orchestrator.
 - **Templates Remotion validados** — componentes `.tsx` prontos, copiados dos validados em produção.
@@ -74,7 +74,7 @@ No Claude Code:
 
 ## Para quem é
 
-- **Pessoa de marketing leiga** → usa só comandos `/marketing-doma` e `/marketing-doma-setup`.
+- **Pessoa de marketing leiga em Claude Code** → usa só comandos `/marketing-doma` e `/marketing-doma-setup`.
 - **Patrick / dev** → mantém e evolui sub-skills, regras e templates.
 
 ## Visão estrutural

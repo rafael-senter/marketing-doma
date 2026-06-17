@@ -1,6 +1,6 @@
 # SETUP — técnico (dev/Patrick)
 
-Setup detalhado pra desenvolvedor. Para usuário leigo, ver [`INSTALL.md`](./INSTALL.md).
+Setup detalhado pra desenvolvedor. Para usuário leigo em Claude Code, ver [`INSTALL.md`](./INSTALL.md).
 
 ---
 

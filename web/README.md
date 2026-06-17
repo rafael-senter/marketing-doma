@@ -8,7 +8,7 @@ Interface web mínima (Vite + React) que lê `plugin.json` + knowledge-base e mo
 
 ## Por que existe
 
-UX leigo no terminal funciona, mas algumas pessoas do marketing podem preferir browser. Esta web é **read-only** — apenas navega. Pra criar post, usa o terminal (`/marketing-doma`).
+UX leigo em Claude Code no terminal funciona, mas algumas pessoas do marketing podem preferir browser. Esta web é **read-only** — apenas navega. Pra criar post, usa o terminal (`/marketing-doma`).
 
 ## Como rodar
 
