@@ -103,25 +103,64 @@ function remoteVersion() {
   return r.stdout.trim().replace(/^v/, '').replace(/\^\{\}$/, '') || null;
 }
 
+function promptYesNo(question, defaultYes = true) {
+  // Síncrono via readline-sync style — usa /dev/tty pra evitar issues com pipes
+  try {
+    const def = defaultYes ? 'Y/n' : 'y/N';
+    process.stdout.write(`${question} [${def}] `);
+    const fd = process.stdin.isTTY ? 0 : fs.openSync('/dev/tty', 'r');
+    const buf = Buffer.alloc(8);
+    const n = fs.readSync(fd, buf, 0, buf.length, null);
+    if (!process.stdin.isTTY) fs.closeSync(fd);
+    const answer = buf.slice(0, n).toString('utf8').trim().toLowerCase();
+    if (answer === '') return defaultYes;
+    return answer.startsWith('y') || answer.startsWith('s');
+  } catch {
+    return defaultYes;
+  }
+}
+
+function missingDeps(osTag) {
+  const deps = depsTable();
+  // Bash no Windows nativo: ignorar — vem com Git Bash automaticamente quando git instalar
+  const filtered = osTag === 'windows' && !isGitBash()
+    ? deps.filter(d => d.name !== 'bash')
+    : deps;
+  return filtered.filter(d => {
+    const cmdName = osTag === 'windows' && !isGitBash() && d.altWindows ? d.altWindows : d.name;
+    return !which(cmdName);
+  });
+}
+
 function cmdInstall() {
   header('marketing-doma install');
   checkPrereqs();
 
   // Pré-check: verificar deps no PATH antes de prosseguir
   const osTag = detectOS();
-  const deps = depsTable();
-  const missing = deps.filter(d => {
-    const cmdName = osTag === 'windows' && !isGitBash() && d.altWindows ? d.altWindows : d.name;
-    return !which(cmdName);
-  });
+  const missing = missingDeps(osTag);
   if (missing.length > 0) {
     warn(`Pré-requisitos faltando: ${missing.map(d => d.name).join(', ')}`);
-    info('Rode `marketing-doma doctor` pra ver comandos pra instalar.');
-    info('Ou tente automático: `marketing-doma install-deps` (best-effort, pede sudo/admin).');
-    if (!process.env.MARKETING_DOMA_FORCE) {
-      log('');
-      log(c('yellow', 'Abortando. Use MARKETING_DOMA_FORCE=1 pra continuar mesmo assim.'));
-      process.exit(1);
+    log('');
+    if (process.env.MARKETING_DOMA_FORCE) {
+      log(c('yellow', 'MARKETING_DOMA_FORCE=1 setado — pulando install-deps.'));
+    } else {
+      const wantAuto = promptYesNo('Instalar automaticamente agora? (sudo/admin)', true);
+      if (wantAuto) {
+        cmdInstallDeps();
+        // Re-verifica
+        const stillMissing = missingDeps(osTag);
+        if (stillMissing.length > 0) {
+          warn(`Ainda faltam: ${stillMissing.map(d => d.name).join(', ')}`);
+          info('Instale manualmente (rode `marketing-doma doctor` pra ver comandos) e tente de novo.');
+          process.exit(1);
+        }
+        ok('Deps OK. Continuando install do plugin...');
+        log('');
+      } else {
+        info('Rode `marketing-doma doctor` pra ver comandos manuais.');
+        process.exit(1);
+      }
     }
   }
 
@@ -356,6 +395,11 @@ function cmdDoctor() {
   const missing = [];
 
   for (const d of deps) {
+    // Bash no Windows nativo (não Git Bash): pula — vem com Git Bash
+    if (d.name === 'bash' && osTag === 'windows' && !isGitBash()) {
+      log(`  ${c('gray', '·')} ${d.label.padEnd(20)} ${c('gray', '(vem com Git for Windows — não verificado)')}`);
+      continue;
+    }
     const cmdName = osTag === 'windows' && !isGitBash() && d.altWindows ? d.altWindows : d.name;
     const path = which(cmdName);
     if (!path) {
@@ -399,11 +443,7 @@ function cmdInstallDeps() {
     process.exit(1);
   }
 
-  const deps = depsTable();
-  const missing = deps.filter(d => {
-    const cmdName = osTag === 'windows' && !isGitBash() && d.altWindows ? d.altWindows : d.name;
-    return !which(cmdName);
-  });
+  const missing = missingDeps(osTag);
 
   if (missing.length === 0) {
     ok('Todas as dependências já instaladas.');
