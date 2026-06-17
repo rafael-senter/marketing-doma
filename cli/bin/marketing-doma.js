@@ -201,9 +201,20 @@ const PRESERVED_DIRS = [
   'templates/planos',
 ];
 
+function moveOrCopy(src, dst) {
+  // Tenta rename (atomic, rápido); se falhar EXDEV (cross-device), copia + remove.
+  try {
+    fs.renameSync(src, dst);
+  } catch (e) {
+    if (e.code !== 'EXDEV') throw e;
+    fs.cpSync(src, dst, { recursive: true });
+    fs.rmSync(src, { recursive: true, force: true });
+  }
+}
+
 function preserveBeforeReset() {
-  // Move pastas preservadas pra /tmp antes do reset --hard
-  const stash = path.join(os.tmpdir(), `marketing-doma-preserve-${process.pid}`);
+  // Stash dentro do próprio PLUGIN_DIR pra evitar cross-device link.
+  const stash = path.join(PLUGIN_DIR, `.marketing-doma-preserve-${process.pid}`);
   fs.mkdirSync(stash, { recursive: true });
   const saved = [];
   for (const rel of PRESERVED_DIRS) {
@@ -211,27 +222,25 @@ function preserveBeforeReset() {
     if (!fs.existsSync(src)) continue;
     const dst = path.join(stash, rel);
     fs.mkdirSync(path.dirname(dst), { recursive: true });
-    fs.renameSync(src, dst);
+    moveOrCopy(src, dst);
     saved.push(rel);
   }
   return { stash, saved };
 }
 
 function restoreAfterReset({ stash, saved }) {
-  // Restaura pastas preservadas por cima do clone fresh
   for (const rel of saved) {
     const src = path.join(stash, rel);
     const dst = path.join(PLUGIN_DIR, rel);
     if (!fs.existsSync(src)) continue;
-    // Se o reset já criou a pasta (vazia ou com arquivos novos), mergeia preservando o do cliente
     if (fs.existsSync(dst)) {
       mergeDir(src, dst);
+      fs.rmSync(src, { recursive: true, force: true });
     } else {
       fs.mkdirSync(path.dirname(dst), { recursive: true });
-      fs.renameSync(src, dst);
+      moveOrCopy(src, dst);
     }
   }
-  // Limpa stash
   try { fs.rmSync(stash, { recursive: true, force: true }); } catch {}
 }
 
