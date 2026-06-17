@@ -121,11 +121,16 @@ EOF
   fi
 fi
 
-# 5.5 CLAUDE.md no host (aponta pro plugin)
-if [ ! -f "$PROJECT_ROOT/CLAUDE.md" ] && [ -f "$PLUGIN_DIR/templates/host-CLAUDE.md" ]; then
-  cp "$PLUGIN_DIR/templates/host-CLAUDE.md" "$PROJECT_ROOT/CLAUDE.md"
-  ok "CLAUDE.md criado no host (aponta pro plugin)"
-fi
+# 5.5 Arquivos do host (CLAUDE.md + README.md + .gitignore) — só se não existir
+for src in host-CLAUDE.md host-README.md host-.gitignore; do
+  dst_name="${src#host-}"  # tira prefixo "host-"
+  [ "$dst_name" = ".gitignore" ] && dst_name=".gitignore"
+  dst="$PROJECT_ROOT/$dst_name"
+  if [ ! -f "$dst" ] && [ -f "$PLUGIN_DIR/templates/$src" ]; then
+    cp "$PLUGIN_DIR/templates/$src" "$dst"
+    ok "$dst_name criado no host"
+  fi
+done
 
 # 6. Smoke test
 echo "==> 6/6 Smoke test"

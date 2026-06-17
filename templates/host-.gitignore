@@ -1,0 +1,31 @@
+# Auto-gerado pelo marketing-doma:marketing-doma-setup
+# (renomear pra .gitignore — bash não copia arquivo iniciando com . direto)
+
+# Remotion
+remotion-doma/node_modules/
+remotion-doma/out/
+remotion-doma/.cache/
+remotion-doma/.turbo/
+
+# Python venv
+.venv-instagram/
+.venv/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.swp
+
+# Settings local (PODE versionar se time compartilha)
+# .claude/settings.json
+
+# Logs
+*.log
+/tmp/marketing-doma-*
+
+# Catálogo NÃO entra no host (fica no plugin)
+remotion-doma/public/CATALOGO.json
