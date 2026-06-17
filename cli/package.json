@@ -1,6 +1,6 @@
 {
   "name": "marketing-doma-cli",
-  "version": "0.1.23",
+  "version": "0.1.24",
   "description": "CLI instalador/atualizador do plugin marketing-doma para Claude Code. Wrapper Node que faz git clone + install.sh + git pull.",
   "bin": {
     "marketing-doma": "bin/marketing-doma.js"
