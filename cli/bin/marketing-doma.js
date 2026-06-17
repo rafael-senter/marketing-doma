@@ -232,38 +232,72 @@ function cmdUpdate() {
 function cmdStatus() {
   header('marketing-doma status');
 
-  log(`  CLI version (este script):  ${c('cyan', CLI_VERSION)}`);
+  // 1. Versões CLI + plugin
+  log(`  CLI version:                ${c('cyan', CLI_VERSION)}`);
 
   if (!fs.existsSync(PLUGIN_DIR)) {
     warn('Plugin NÃO instalado.');
     info('Rode `marketing-doma install`.');
-    return;
-  }
-
-  const local = pluginVersion();
-  log(`  Plugin local (${PLUGIN_DIR}):  ${c('cyan', local || '?')}`);
-
-  info('Verificando última versão no GitHub...');
-  const remote = remoteVersion();
-  if (!remote) {
-    warn('Não foi possível consultar GitHub (offline ou acesso negado).');
-    return;
-  }
-  log(`  Plugin remoto (GitHub):  ${c('cyan', remote)}`);
-
-  if (local && remote && local !== remote) {
-    warn(`Há atualização disponível: ${local} → ${remote}`);
-    info('Rode `marketing-doma update`.');
-  } else if (local === remote) {
-    ok('Plugin atualizado.');
-  }
-
-  // Symlink check
-  if (fs.existsSync(CLAUDE_SYMLINK)) {
-    const target = fs.realpathSync(CLAUDE_SYMLINK);
-    ok(`Symlink Claude Code: ${CLAUDE_SYMLINK} → ${target}`);
+    log('');
   } else {
-    warn(`Symlink ${CLAUDE_SYMLINK} não encontrado — install.sh não rodou ou foi removido.`);
+    const local = pluginVersion();
+    log(`  Plugin local:               ${c('cyan', local || '?')}  ${c('gray', PLUGIN_DIR)}`);
+
+    info('Verificando última versão no GitHub...');
+    const remote = remoteVersion();
+    if (remote) {
+      log(`  Plugin remoto (GitHub):     ${c('cyan', remote)}`);
+      if (local && remote && local !== remote) {
+        warn(`Há atualização disponível: ${local} → ${remote}`);
+        info('Rode `marketing-doma update`.');
+      } else if (local === remote) {
+        ok('Plugin atualizado.');
+      }
+    } else {
+      warn('Não foi possível consultar GitHub (offline ou acesso negado).');
+    }
+
+    if (fs.existsSync(CLAUDE_SYMLINK)) {
+      const target = fs.realpathSync(CLAUDE_SYMLINK);
+      ok(`Symlink Claude Code OK  ${c('gray', '→ ' + target)}`);
+    } else {
+      warn(`Symlink ${CLAUDE_SYMLINK} não encontrado — install.sh não rodou.`);
+    }
+  }
+
+  // 2. Pré-requisitos do sistema
+  log('');
+  log(c('bold', '── Pré-requisitos do sistema ──'));
+  const osTag = detectOS();
+  log(`  Sistema: ${c('cyan', osTag)} ${isGitBash() ? c('gray', '(Git Bash)') : ''}`);
+  log('');
+
+  const deps = depsTable();
+  const missing = [];
+
+  for (const d of deps) {
+    if (d.name === 'bash' && osTag === 'windows' && !isGitBash()) {
+      log(`  ${c('gray', '·')} ${d.label.padEnd(20)} ${c('gray', '(vem com Git for Windows)')}`);
+      continue;
+    }
+    const cmdName = osTag === 'windows' && !isGitBash() && d.altWindows ? d.altWindows : d.name;
+    const path = which(cmdName);
+    if (!path) {
+      log(`  ${c('red', '✗')} ${d.label.padEnd(20)} ${c('gray', 'não encontrado')}`);
+      missing.push(d.name);
+      continue;
+    }
+    const v = checkCmdVersion(cmdName);
+    log(`  ${c('green', '✓')} ${d.label.padEnd(20)} ${c('cyan', v || '?')}`);
+  }
+
+  log('');
+  if (missing.length === 0) {
+    ok('Todos os pré-requisitos OK.');
+  } else {
+    warn(`${missing.length} dep(s) faltando: ${missing.map(d => d).join(', ')}`);
+    info('Rode `marketing-doma install` (oferece instalar automaticamente).');
+    info('Ou veja comandos manuais: `marketing-doma install-deps --dry-run` (não implementado — use install-deps).');
   }
 }
 
@@ -384,54 +418,6 @@ function installCmdFor(depName, osTag) {
   return (cmds[depName] && cmds[depName][osTag]) || null;
 }
 
-function cmdDoctor() {
-  header('marketing-doma doctor — verificação de pré-requisitos');
-
-  const osTag = detectOS();
-  log(`  Sistema: ${c('cyan', osTag)} ${isGitBash() ? c('gray', '(Git Bash)') : ''}`);
-  log('');
-
-  const deps = depsTable();
-  const missing = [];
-
-  for (const d of deps) {
-    // Bash no Windows nativo (não Git Bash): pula — vem com Git Bash
-    if (d.name === 'bash' && osTag === 'windows' && !isGitBash()) {
-      log(`  ${c('gray', '·')} ${d.label.padEnd(20)} ${c('gray', '(vem com Git for Windows — não verificado)')}`);
-      continue;
-    }
-    const cmdName = osTag === 'windows' && !isGitBash() && d.altWindows ? d.altWindows : d.name;
-    const path = which(cmdName);
-    if (!path) {
-      log(`  ${c('red', '✗')} ${d.label.padEnd(20)} ${c('gray', 'não encontrado')}`);
-      missing.push(d.name);
-      continue;
-    }
-    const v = checkCmdVersion(cmdName);
-    log(`  ${c('green', '✓')} ${d.label.padEnd(20)} ${c('cyan', v || '(versão desconhecida)')} ${c('gray', path)}`);
-  }
-
-  log('');
-  if (missing.length === 0) {
-    ok('Todos os pré-requisitos OK. Rode `marketing-doma install`.');
-    return;
-  }
-
-  warn(`${missing.length} dependência(s) faltando:`);
-  log('');
-  log(c('bold', 'Comandos pra instalar:'));
-  for (const m of missing) {
-    const cmd = installCmdFor(m, osTag);
-    log(`  ${c('cyan', m)}:`);
-    if (cmd) log(`    ${cmd}`);
-    else log(`    ${c('gray', '(sem instalação automática conhecida — consulte docs)')}`);
-  }
-
-  log('');
-  log(`Após instalar, rode novamente: ${c('cyan', 'marketing-doma doctor')}`);
-  log(`Ou tente install automático (best-effort): ${c('cyan', 'marketing-doma install-deps')}`);
-}
-
 function cmdInstallDeps() {
   header('marketing-doma install-deps — instalação automática de pré-requisitos');
 
@@ -480,11 +466,10 @@ function cmdHelp() {
 ${c('bold', 'marketing-doma')} — CLI do plugin Claude Code
 
 ${c('bold', 'Comandos:')}
-  ${c('cyan', 'doctor')}       Verifica pré-requisitos (node, python, claude, git, bash) + comandos pra instalar.
-  ${c('cyan', 'install-deps')} Tenta instalar pré-requisitos faltantes automaticamente (sudo/admin).
-  ${c('cyan', 'install')}      Instala plugin (clone GitHub + registra no Claude Code).
+  ${c('cyan', 'install')}      Instala plugin. Verifica pré-requisitos e oferece instalar faltantes.
   ${c('cyan', 'update')}       Atualiza plugin (git pull no GitHub).
-  ${c('cyan', 'status')}       Mostra versão local vs remota + saúde da instalação.
+  ${c('cyan', 'status')}       Versão local vs remota + saúde da instalação + pré-requisitos.
+  ${c('cyan', 'install-deps')} Instala pré-requisitos faltantes (sudo/admin) — chamado automático pelo install.
   ${c('cyan', 'uninstall')}    Remove plugin (mantém este CLI).
   ${c('cyan', 'version')}      Mostra versão do CLI + plugin.
   ${c('cyan', 'help')}         Esta tela.
@@ -506,10 +491,10 @@ ${c('bold', 'Mais info:')}
 function main() {
   const cmd = (process.argv[2] || 'help').toLowerCase();
   switch (cmd) {
-    case 'doctor':
+    case 'doctor':       // alias retrocompat — mergeado em status
     case 'd':
     case 'check':
-      return cmdDoctor();
+      return cmdStatus();
     case 'install-deps':
     case 'deps':
       return cmdInstallDeps();
