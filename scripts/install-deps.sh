@@ -121,6 +121,12 @@ EOF
   fi
 fi
 
+# 5.5 CLAUDE.md no host (aponta pro plugin)
+if [ ! -f "$PROJECT_ROOT/CLAUDE.md" ] && [ -f "$PLUGIN_DIR/templates/host-CLAUDE.md" ]; then
+  cp "$PLUGIN_DIR/templates/host-CLAUDE.md" "$PROJECT_ROOT/CLAUDE.md"
+  ok "CLAUDE.md criado no host (aponta pro plugin)"
+fi
+
 # 6. Smoke test
 echo "==> 6/6 Smoke test"
 SMOKE_ID="padrao-frase-pilulas"
