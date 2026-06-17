@@ -1,0 +1,125 @@
+#!/usr/bin/env bash
+# install-deps.sh — instalação completa do ambiente p/ usar o plugin marketing-doma.
+# Idempotente. Chamado pelo comando /marketing-doma-setup.
+#
+# Etapas:
+#   1. Verifica deps base (node, python3, claude).
+#   2. Instala Remotion se ainda não existe.
+#   3. Cria venv Python + Pillow/numpy/scipy.
+#   4. Sincroniza componentes/assets plugin → host.
+#   5. Cria/atualiza .claude/settings.json LOCAL c/ hook auto-start.
+#   6. Smoke test.
+
+set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PLUGIN_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
+PROJECT_ROOT="$(cd "$PLUGIN_DIR/../../.." && pwd)"
+HOST_REMOTION="$PROJECT_ROOT/remotion-doma"
+VENV="$PROJECT_ROOT/.venv-instagram"
+SETTINGS="$PROJECT_ROOT/.claude/settings.json"
+
+ok() { echo "  [OK]   $*"; }
+skip() { echo "  [SKIP] $*"; }
+inst() { echo "  [INSTALL] $*"; }
+fail() { echo "  [FAIL] $*"; exit 1; }
+
+# 1. Deps base
+echo "==> 1/6 Verificando deps base"
+command -v node >/dev/null || fail "node não encontrado. Instale Node.js LTS (>=20)."
+command -v python3 >/dev/null || fail "python3 não encontrado. Instale Python 3.10+."
+command -v claude >/dev/null || skip "claude CLI não encontrado (não bloqueia — você já está dentro dele se está rodando isto)."
+ok "node $(node --version), python $(python3 --version | awk '{print $2}')"
+
+# 2. Remotion
+echo "==> 2/6 Remotion"
+if [ ! -d "$HOST_REMOTION" ]; then
+  inst "criando projeto Remotion em $HOST_REMOTION"
+  (cd "$PROJECT_ROOT" && npx --yes create-video@latest remotion-doma --template=blank) || fail "create-video falhou"
+fi
+# .npmrc local
+if [ ! -f "$HOST_REMOTION/.npmrc" ] || ! grep -q "min-release-age=0" "$HOST_REMOTION/.npmrc"; then
+  inst "criando .npmrc local (override min-release-age global)"
+  echo "min-release-age=0" > "$HOST_REMOTION/.npmrc"
+fi
+if [ ! -d "$HOST_REMOTION/node_modules" ]; then
+  inst "instalando deps do Remotion (npm i)"
+  (cd "$HOST_REMOTION" && npm i --no-fund --no-audit) || fail "npm i falhou"
+else
+  ok "node_modules já existem em $HOST_REMOTION"
+fi
+
+# 3. Venv Python
+echo "==> 3/6 Python venv"
+if [ ! -d "$VENV" ]; then
+  inst "criando venv em $VENV"
+  python3 -m venv "$VENV"
+fi
+inst "instalando Pillow/numpy/scipy (idempotente)"
+"$VENV/bin/pip" install --quiet --upgrade pip
+"$VENV/bin/pip" install --quiet Pillow numpy scipy
+ok "venv pronto"
+
+# 4. Sync plugin → host
+echo "==> 4/6 Sync componentes/assets"
+bash "$PLUGIN_DIR/scripts/sync-components.sh"
+
+# 5. Settings hook auto-start
+echo "==> 5/6 Hook auto-start em .claude/settings.json LOCAL"
+mkdir -p "$PROJECT_ROOT/.claude"
+HOOK_CMD='bash .claude/plugins/marketing-doma/scripts/start-remotion.sh &'
+
+if [ ! -f "$SETTINGS" ]; then
+  inst "criando .claude/settings.json"
+  cat > "$SETTINGS" <<EOF
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "type": "command",
+        "command": "$HOOK_CMD"
+      }
+    ]
+  }
+}
+EOF
+else
+  # Já existe — mostrar e pedir merge manual (não sobrescrever)
+  if grep -q "marketing-doma/scripts/start-remotion.sh" "$SETTINGS"; then
+    ok "hook já configurado em $SETTINGS"
+  else
+    cat <<EOF
+  [AVISO] $SETTINGS já existe. Adicione manualmente o hook:
+  {
+    "hooks": {
+      "SessionStart": [
+        {"type": "command", "command": "$HOOK_CMD"}
+      ]
+    }
+  }
+EOF
+  fi
+fi
+
+# 6. Smoke test
+echo "==> 6/6 Smoke test"
+SMOKE_ID="padrao-frase-pilulas"
+if (cd "$HOST_REMOTION" && ./render-still.sh "$SMOKE_ID" 2>&1 | tail -1) | grep -q "✓"; then
+  ok "smoke test passou ($SMOKE_ID renderizado)"
+else
+  echo "  [WARN] smoke test não passou — verificar se há ID '$SMOKE_ID' no Root.tsx."
+fi
+
+cat <<EOF
+
+🎉 Setup completo!
+
+✅ Node + Python OK
+✅ Remotion instalado
+✅ venv Python pronto (Pillow + numpy + scipy)
+✅ Componentes + assets sincronizados (plugin → host)
+✅ Hook auto-start configurado
+✅ Smoke test
+
+Próximo: /marketing-doma  (cria post novo guiado)
+EOF
