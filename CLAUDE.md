@@ -53,6 +53,11 @@ Razão: flexibilidade máxima de reuso sem regerar via Gemini (cota cara/billing
 - SEMPRE via `bash remotion-doma/render-still.sh <id>` (scale 2 → Lanczos).
 - Render scale 1 deixa franja sub-pixel = "texto torto/tremido".
 
+### Remotion API — quando mexer em componente
+- **Cheat-sheet rápido**: `knowledge-base/REMOTION-cheatsheet.md` (APIs do nosso uso).
+- **Detalhe profundo**: invocar skill `remotion-best-practices` (built-in Claude Code).
+- ❌ NÃO empacotamos repo `remotion-dev/remotion`: skills/agents lá são pra DEV INTERNO (build/release com bun), não pra criar peças. Análise documentada no cheat-sheet.
+
 ---
 
 ## 📋 PROTOCOLO obrigatório ANTES DE CRIAR POST NOVO
