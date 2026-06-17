@@ -4,8 +4,9 @@ import LintCopyPanel from './LintCopyPanel.jsx';
 import NewPostForm from './NewPostForm.jsx';
 import AssetsPanel from './AssetsPanel.jsx';
 import RenderPreview from './RenderPreview.jsx';
+import WizardClientePanel from './WizardClientePanel.jsx';
 
-const SECTIONS = ['categorias', 'agentes', 'commands', 'scripts', 'new-post', 'lint-copy', 'assets', 'renders'];
+const SECTIONS = ['categorias', 'agentes', 'commands', 'scripts', 'new-post', 'lint-copy', 'assets', 'renders', 'wizard-cliente'];
 
 export default function App() {
   const [tab, setTab] = useState('categorias');
@@ -55,6 +56,10 @@ export default function App() {
       ) : tab === 'renders' ? (
         <main className="lint-copy-wrap">
           <RenderPreview />
+        </main>
+      ) : tab === 'wizard-cliente' ? (
+        <main className="lint-copy-wrap">
+          <WizardClientePanel />
         </main>
       ) : (
       <main className="grid">

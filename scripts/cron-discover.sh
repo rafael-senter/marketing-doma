@@ -50,6 +50,27 @@ if [ "$NEW_COUNT" -gt 0 ]; then
 **Status:** 🟡 ação necessária ($NEW_COUNT modelos a categorizar)
 EOF
   echo "[discover] $NEW_COUNT modelos novos — relatório em $REPORT"
+
+  # Webhook Discord/Slack (opcional — se ENV var configurada)
+  if [ -n "${DOMA_WEBHOOK_URL:-}" ]; then
+    MSG="🟡 *Plugin marketing-doma — discover semanal*
+$NEW_COUNT modelos novos detectados em \`doma-brand/tipos-de-posts/\`.
+Relatório: \`$REPORT\`
+Próximo: \`discover-models.sh --suggest-fichas\` pra gerar stubs."
+    # Detectar Discord vs Slack pela URL
+    if [[ "$DOMA_WEBHOOK_URL" == *"discord.com"* ]]; then
+      curl -s -H 'Content-Type: application/json' \
+        -d "{\"content\":$(printf '%s' "$MSG" | jq -Rs .)}" \
+        "$DOMA_WEBHOOK_URL" > /dev/null && echo "[discover] webhook Discord enviado"
+    elif [[ "$DOMA_WEBHOOK_URL" == *"slack.com"* ]] || [[ "$DOMA_WEBHOOK_URL" == *"hooks.slack"* ]]; then
+      curl -s -H 'Content-Type: application/json' \
+        -d "{\"text\":$(printf '%s' "$MSG" | jq -Rs .)}" \
+        "$DOMA_WEBHOOK_URL" > /dev/null && echo "[discover] webhook Slack enviado"
+    else
+      echo "[discover] DOMA_WEBHOOK_URL não reconhecida (discord/slack)"
+    fi
+  fi
+
   exit 1
 else
   cat >> "$REPORT" <<EOF
