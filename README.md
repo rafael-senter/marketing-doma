@@ -45,6 +45,7 @@ npx marketing-doma-cli update
 
 **Sistema**: Linux / macOS (testado Ubuntu). Windows via WSL2.
 **Disco por projeto**: ~800 MB (plugin ~30 MB + Remotion `node_modules` ~600 MB + venv Python ~150 MB).
+**⚠️ Path do projeto SEM espaços**: webpack do Remotion quebra com espaços no caminho. Use `meu-projeto/` em vez de `meu projeto/`. Setup bloqueia com mensagem clara se detectar.
 
 ### Instalar pré-requisitos
 

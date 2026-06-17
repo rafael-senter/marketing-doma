@@ -24,6 +24,22 @@ skip() { echo "  [SKIP] $*"; }
 inst() { echo "  [INSTALL] $*"; }
 fail() { echo "  [FAIL] $*"; exit 1; }
 
+# 0. Validar path do projeto — Remotion/webpack quebra com espaços
+if echo "$PROJECT_ROOT" | grep -q ' '; then
+  echo ""
+  echo "  [FAIL] Caminho do projeto contém ESPAÇO(S):"
+  echo "         $PROJECT_ROOT"
+  echo ""
+  echo "  Remotion (webpack) NÃO suporta paths com espaços — gera erro de build"
+  echo "  e o studio fica em branco em http://localhost:3010."
+  echo ""
+  echo "  Solução: mova/renomeie a pasta sem espaços. Exemplos:"
+  echo "    'teste novo plugin' → 'teste-novo-plugin'"
+  echo "    'pasta com nome'    → 'pasta-com-nome'"
+  echo ""
+  fail "path com espaços rejeitado"
+fi
+
 # 1. Deps base
 echo "==> 1/6 Verificando deps base"
 command -v node >/dev/null || fail "node não encontrado. Instale Node.js LTS (>=20)."
