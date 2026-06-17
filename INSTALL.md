@@ -104,22 +104,28 @@ cd patrick
 
 ---
 
-## 5. Instalar o plugin no Claude Code
+## 5. Instalar o plugin globalmente
 
-Dentro da pasta do projeto:
+Rode 1 vez (script idempotente — pode rodar de novo se reinstalar):
 ```bash
+bash .claude/plugins/marketing-doma/scripts/install-globally.sh
+```
+
+O que faz:
+- Cria symlink `~/.claude/plugins/marketing-doma` → este diretório do plugin.
+- Registra em `~/.claude/plugins/known_marketplaces.json` e `installed_plugins.json`.
+
+**Edições no plugin (em qualquer caminho) refletem em todos os projetos automaticamente** (symlink).
+
+Reinicie o Claude Code (saia + entre):
+```bash
+exit
 claude
 ```
 
-No Claude Code, instalar o plugin local via marketplace:
-```
-/plugin marketplace add ./.claude/plugins/marketing-doma
-/plugin install marketing-doma
-```
+Comandos `/marketing-doma`, `/marketing-doma-setup`, `/new-post`, etc. agora estão disponíveis.
 
-Reinicie a sessão Claude Code (sair + entrar) pra carregar comandos.
-
-## 6. Rodar o setup do plugin
+## 6. Rodar o setup do projeto Remotion
 
 No Claude Code, digite:
 ```
