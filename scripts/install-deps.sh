@@ -141,6 +141,21 @@ else
   echo "  [WARN] smoke test não passou — verificar se há ID '$SMOKE_ID' no Root.tsx."
 fi
 
+# 7. Subir studio Remotion AGORA (não esperar próxima session)
+echo "==> 7/7 Subindo studio Remotion :3010 (background)"
+if (echo >/dev/tcp/127.0.0.1/3010) 2>/dev/null; then
+  ok "studio já está rodando em :3010"
+else
+  bash "$PLUGIN_DIR/scripts/start-remotion.sh" 2>/dev/null &
+  disown 2>/dev/null || true
+  sleep 2
+  if (echo >/dev/tcp/127.0.0.1/3010) 2>/dev/null; then
+    ok "studio subiu em http://localhost:3010"
+  else
+    echo "  [INFO] studio subindo em background — pode levar 10-30s. Log: /tmp/remotion-marketing-doma.log"
+  fi
+fi
+
 cat <<EOF
 
 🎉 Setup completo!
