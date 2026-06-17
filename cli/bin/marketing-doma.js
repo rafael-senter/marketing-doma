@@ -82,10 +82,26 @@ function sh(cmd, opts = {}) {
 }
 
 function checkPrereqs() {
+  // Soft-check usado por cmdUpdate (pressupõe que install rodou antes).
+  // Pra cmdInstall, NÃO chamar — usar missingDeps + install-deps inline.
   for (const cmd of ['git', 'bash']) {
-    const r = sh(`command -v ${cmd}`, { silent: true, allowFail: true });
-    if (!r.ok) fail(`${cmd} não encontrado. Instale ${cmd} antes de continuar.`);
+    const path = cmd === 'bash' ? findBash() : which(cmd);
+    if (!path) fail(`${cmd} não encontrado. Rode \`marketing-doma install\` primeiro pra instalar automaticamente.`);
   }
+}
+
+// Executa comando de install que NÃO depende de bash (importante no Windows
+// quando git/bash ainda não foram instalados). Usa cmd /c no Windows nativo,
+// /bin/sh no Unix.
+function runInstallCmd(cmd) {
+  if (process.platform === 'win32' && !findBash()) {
+    const r = spawnSync('cmd.exe', ['/c', cmd], {
+      stdio: 'inherit',
+      shell: false,
+    });
+    return { ok: r.status === 0 };
+  }
+  return sh(cmd, { allowFail: true });
 }
 
 function pluginVersion() {
@@ -138,7 +154,8 @@ function missingDeps(osTag) {
 
 function cmdInstall() {
   header('marketing-doma install');
-  checkPrereqs();
+  // NÃO chamar checkPrereqs() aqui — install é o ponto onde deps são instaladas.
+  // Catch-22 no Windows: git/bash são deps mas vem com Git for Windows que CLI instala.
 
   // Pré-check: verificar deps no PATH antes de prosseguir
   const osTag = detectOS();
@@ -632,7 +649,11 @@ function cmdInstallDeps() {
   log(c('yellow', '   Você verá prompts de senha. Verifique cada comando antes de aceitar.'));
   log('');
 
-  for (const d of missing) {
+  // Ordenar pra instalar git/bash PRIMEIRO no Windows (resto depende deles).
+  const order = ['git', 'bash', 'python3', 'claude', 'node', 'npm'];
+  const sorted = missing.slice().sort((a, b) => order.indexOf(a.name) - order.indexOf(b.name));
+
+  for (const d of sorted) {
     const cmd = installCmdFor(d.name, osTag);
     if (!cmd) {
       warn(`${d.name}: sem comando automático — instale manualmente.`);
@@ -640,7 +661,8 @@ function cmdInstallDeps() {
     }
     log(c('bold', `\n▸ Instalando ${d.label}:`));
     log(c('gray', `  $ ${cmd}`));
-    const r = sh(cmd, { allowFail: true });
+    // runInstallCmd usa cmd.exe no Windows se bash ainda falta (catch-22 git/bash).
+    const r = runInstallCmd(cmd);
     if (r.ok) ok(`${d.label} instalado.`);
     else warn(`${d.label}: install falhou. Tente manualmente: ${cmd}`);
   }
