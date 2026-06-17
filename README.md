@@ -38,7 +38,7 @@ npx marketing-doma-cli doctor
 npx marketing-doma-cli install
 ```
 
-**Windows nativo**: use o **Git Bash** (vem com [Git for Windows](https://git-scm.com/download/win)). Não use PowerShell ou CMD — scripts são bash. WSL também funciona mas consome mais RAM. Detalhes em [INSTALL.md](INSTALL.md).
+**Windows**: rode no **PowerShell** ou **CMD** normal. CLI cuida do resto (instala Git for Windows internamente se faltar, usa bash.exe sem você precisar abrir terminal diferente).
 
 ## Pré-requisitos
 
@@ -55,23 +55,24 @@ npx marketing-doma-cli install
 **Disco por projeto**: ~800 MB (plugin ~30 MB + Remotion `node_modules` ~600 MB + venv Python ~150 MB).
 **⚠️ Path do projeto SEM espaços**: webpack do Remotion quebra com espaços no caminho. Use `meu-projeto/` em vez de `meu projeto/`. Setup bloqueia com mensagem clara se detectar.
 
-### Instalar pré-requisitos
-
-**Caminho recomendado (todos OS)** — o CLI faz tudo automaticamente:
+### Instalação — 1 instrução, qualquer OS
 
 ```bash
 npm install -g marketing-doma-cli
 marketing-doma install
 ```
 
-`marketing-doma install` detecta o que falta, pergunta confirmação, e instala via `apt` / `dnf` / `pacman` / `brew` / `winget` conforme o OS. Vai pedir senha de admin (sudo no Linux/mac, UAC no Windows).
+Pronto. `marketing-doma install` detecta o que falta, pergunta confirmação, e instala via `apt` / `dnf` / `pacman` / `brew` / `winget` conforme o OS. Vai pedir senha de admin (sudo no Linux/mac, UAC no Windows).
 
-**Único pré-requisito manual:**
+**Único passo manual** (1×): ter **Node.js** instalado pra ter o `npm` (que vai instalar o CLI). Resto o CLI cuida.
 
-- **Linux / macOS**: ter `npm` instalado (pra rodar `npm install -g marketing-doma-cli`). Se faltar, instala Node.js LTS primeiro:
-  - Ubuntu/Debian: `curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo bash - && sudo apt install -y nodejs`
-  - macOS: `brew install node`
-- **Windows**: instalar [Git for Windows](https://git-scm.com/download/win) (Git Bash incluído) e abrir o **Git Bash** (não PowerShell/CMD). Depois `winget install OpenJS.NodeJS.LTS` se npm faltar.
+- Linux Ubuntu/Debian: `curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo bash - && sudo apt install -y nodejs`
+- macOS: `brew install node` (ou baixar de https://nodejs.org)
+- Windows: baixar instalador de https://nodejs.org → versão LTS → next-next-finish
+
+### Windows: PowerShell funciona normal
+
+Abra **PowerShell** ou **CMD** e rode os comandos. CLI detecta que falta bash (vem com Git for Windows) e instala via `winget install Git.Git` automaticamente. **Não precisa abrir Git Bash** — CLI usa o `bash.exe` direto do path interno do Git for Windows.
 
 ### Conferir o que está instalado
 

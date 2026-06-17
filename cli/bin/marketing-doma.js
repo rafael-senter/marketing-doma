@@ -66,7 +66,11 @@ function header(text) {
 }
 
 function sh(cmd, opts = {}) {
-  const result = spawnSync('bash', ['-c', cmd], {
+  // No Windows usa bash do Git for Windows se não está no PATH.
+  // No Linux/macOS usa 'bash' (sempre presente).
+  // Cache findBash() pra não procurar todo call.
+  if (!sh._bashPath) sh._bashPath = process.platform === 'win32' ? (findBash() || 'bash') : 'bash';
+  const result = spawnSync(sh._bashPath, ['-c', cmd], {
     stdio: opts.silent ? 'pipe' : 'inherit',
     encoding: 'utf8',
     ...opts,
@@ -122,11 +126,11 @@ function promptYesNo(question, defaultYes = true) {
 
 function missingDeps(osTag) {
   const deps = depsTable();
-  // Bash no Windows nativo: ignorar — vem com Git Bash automaticamente quando git instalar
-  const filtered = osTag === 'windows' && !isGitBash()
-    ? deps.filter(d => d.name !== 'bash')
-    : deps;
-  return filtered.filter(d => {
+  return deps.filter(d => {
+    // No Windows, 'bash' é checado via findBash() (que procura no Git for Windows também).
+    if (d.name === 'bash' && osTag === 'windows') {
+      return !findBash();
+    }
     const cmdName = osTag === 'windows' && !isGitBash() && d.altWindows ? d.altWindows : d.name;
     return !which(cmdName);
   });
@@ -276,8 +280,15 @@ function cmdStatus() {
   const missing = [];
 
   for (const d of deps) {
-    if (d.name === 'bash' && osTag === 'windows' && !isGitBash()) {
-      log(`  ${c('gray', '·')} ${d.label.padEnd(20)} ${c('gray', '(vem com Git for Windows)')}`);
+    // Bash no Windows: usa findBash() (procura no Git for Windows também).
+    if (d.name === 'bash' && osTag === 'windows') {
+      const bashPath = findBash();
+      if (!bashPath) {
+        log(`  ${c('red', '✗')} ${d.label.padEnd(20)} ${c('gray', 'não encontrado (precisa Git for Windows)')}`);
+        missing.push(d.name);
+      } else {
+        log(`  ${c('green', '✓')} ${d.label.padEnd(20)} ${c('gray', bashPath)}`);
+      }
       continue;
     }
     const cmdName = osTag === 'windows' && !isGitBash() && d.altWindows ? d.altWindows : d.name;
@@ -352,11 +363,37 @@ function isGitBash() {
 }
 
 function which(cmd) {
-  // Cross-platform "which": testa via spawnSync
+  // Cross-platform "which" — usa spawnSync direto pra evitar dependência circular com sh()/findBash().
+  // Linux/macOS: `command -v` via /bin/sh (sempre presente).
+  // Windows: `where.exe` (built-in, não precisa de bash).
   const isWin = process.platform === 'win32';
-  const checkCmd = isWin && !isGitBash() ? `where ${cmd}` : `command -v ${cmd}`;
-  const r = sh(checkCmd, { silent: true, allowFail: true });
-  return r.ok ? r.stdout.trim().split('\n')[0] : null;
+  const r = isWin
+    ? spawnSync('where.exe', [cmd], { encoding: 'utf8' })
+    : spawnSync('/bin/sh', ['-c', `command -v ${cmd}`], { encoding: 'utf8' });
+  if (r.status !== 0) return null;
+  return (r.stdout || '').trim().split('\n')[0] || null;
+}
+
+// Localiza bash.exe no Windows mesmo sem estar no PATH (vem com Git for Windows).
+// No Linux/macOS, retorna 'bash' (sempre no PATH).
+function findBash() {
+  if (process.platform !== 'win32') return 'bash';
+  // Tenta no PATH primeiro
+  const inPath = which('bash');
+  if (inPath) return inPath;
+  // Locais conhecidos do Git for Windows
+  const candidates = [
+    'C:\\Program Files\\Git\\bin\\bash.exe',
+    'C:\\Program Files (x86)\\Git\\bin\\bash.exe',
+    `${process.env.LOCALAPPDATA || ''}\\Programs\\Git\\bin\\bash.exe`,
+    `${process.env.ProgramW6432 || ''}\\Git\\bin\\bash.exe`,
+  ].filter(Boolean);
+  for (const p of candidates) {
+    try {
+      if (fs.existsSync(p)) return p;
+    } catch {}
+  }
+  return null;
 }
 
 function checkCmdVersion(cmd, args = '--version') {
@@ -398,7 +435,7 @@ function installCmdFor(depName, osTag) {
       'windows':      'winget install Git.Git',
     },
     'bash': {
-      'windows':      'winget install Git.Git  # (Git Bash vem com Git for Windows)',
+      'windows':      'winget install --id Git.Git --silent --accept-source-agreements --accept-package-agreements',
     },
     'python3': {
       'linux-debian': 'sudo apt install -y python3 python3-venv python3-pip',
