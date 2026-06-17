@@ -56,9 +56,16 @@ cp -u "$PLUGIN_DIR/assets/fontes/"*     "$HOST_REMOTION/public/fontes/"  2>/dev/
 if [ -d "$PLUGIN_DIR/assets/bases-nanobanana" ]; then
   cp -u "$PLUGIN_DIR/assets/bases-nanobanana/"*.png "$HOST_REMOTION/public/oficial/" 2>/dev/null || true
 fi
-# Bases nanobanana transparente (rembg) — também vão pra public/oficial/
-if [ -d "$PLUGIN_DIR/assets/bases-nanobanana-transparente" ]; then
-  cp -u "$PLUGIN_DIR/assets/bases-nanobanana-transparente/"*.png "$HOST_REMOTION/public/oficial/" 2>/dev/null || true
+# Bases nanobanana variantes BG (transparente + soft + grafite)
+for bg in transparente soft grafite; do
+  if [ -d "$PLUGIN_DIR/assets/bases-nanobanana-$bg" ]; then
+    cp -u "$PLUGIN_DIR/assets/bases-nanobanana-$bg/"*.png "$HOST_REMOTION/public/oficial/" 2>/dev/null || true
+  fi
+done
+# Blocks components
+if [ -d "$PLUGIN_DIR/templates/components/blocks" ]; then
+  mkdir -p "$HOST_REMOTION/src/v2/blocks"
+  cp -u "$PLUGIN_DIR/templates/components/blocks/"*.tsx "$HOST_REMOTION/src/v2/blocks/" 2>/dev/null || true
 fi
 # Fotos reutilizáveis + grafismos + cards-clientes (sync mas só plugin → host)
 for sub in fotos grafismos cards-clientes; do

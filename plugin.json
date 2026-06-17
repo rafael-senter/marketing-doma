@@ -1,6 +1,6 @@
 {
   "name": "marketing-doma",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Plugin do Marketing da Doma — geração de posts/carrosséis/stories no Remotion seguindo o design system real (12 categorias mapeadas), voz institucional (@sigadoma), regras de marca (DOMa logo, watermark tom-sobre-tom medida, cores por bloco, TT Lakes oficial). Skill master /marketing-doma guia leigo por fluxo passo-a-passo (categoria → conteúdo ou brainstorm → plano medido → render → audit comparativo → publish). 14 sub-skills (1 por tipo de post + brand-rules + novo-post-from-scratch). 4 agentes (ghostwriter, validador-marca, editor-conteudo, render-orchestrator). Auto-melhoria: live-rules grava padrões novos descobertos em runtime + ficha da categoria atualizada. Setup via /marketing-doma-setup instala Remotion + deps + hook settings.json local de auto-start do studio.",
   "author": "Doma / Patrick",
   "license": "MIT",
@@ -15,7 +15,8 @@
     "commands/brainstorm.md",
     "commands/render.md",
     "commands/audit-post.md",
-    "commands/publish-checklist.md"
+    "commands/publish-checklist.md",
+    "commands/marketing-doma-extrair.md"
   ],
   "agents": [
     "agents/ghostwriter-doma.md",
@@ -38,7 +39,9 @@
     "discover-models": "scripts/discover-models.sh",
     "cron-discover": "scripts/cron-discover.sh",
     "build-catalog": "scripts/build-catalog.py",
-    "extract-from-pdf": "scripts/extract-from-pdf.sh"
+    "extract-from-pdf": "scripts/extract-from-pdf.sh",
+    "auto-format-asset": "scripts/auto-format-asset.py",
+    "wizard-cliente": "scripts/wizard-cliente.py"
   },
   "embedded_subskills": [
     "skills/marketing-doma/subskills/frase-pilulas",

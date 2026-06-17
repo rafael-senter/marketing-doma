@@ -1568,6 +1568,298 @@
       "par_com": "_func273-base.png"
     }
   ],
+  "bases-nanobanana-soft": [
+    {
+      "arquivo": "_doma115-base-soft.png",
+      "slug": "_doma115-base-soft",
+      "dims": {
+        "w": 1856,
+        "h": 2304
+      },
+      "size_kb": 1955.4,
+      "path_plugin": "assets/bases-nanobanana-soft/_doma115-base-soft.png",
+      "path_host": "oficial/_doma115-base-soft.png",
+      "post": "POST 115",
+      "categoria": "doma-institucional",
+      "device": "phone",
+      "tela": "menu Doma (institucional)",
+      "fundo": "soft (#F8DD6B)",
+      "uso": "Versão BG soft de __doma115-base.png. Use sobre fundo soft ou peças não-padrão.",
+      "par_com": "_doma115-base.png"
+    },
+    {
+      "arquivo": "_doma257-base-soft.png",
+      "slug": "_doma257-base-soft",
+      "dims": {
+        "w": 1856,
+        "h": 2304
+      },
+      "size_kb": 2136.8,
+      "path_plugin": "assets/bases-nanobanana-soft/_doma257-base-soft.png",
+      "path_host": "oficial/_doma257-base-soft.png",
+      "post": "POST 257",
+      "categoria": "doma-institucional",
+      "device": "notas R$",
+      "tela": "notas de dinheiro fotorrealistas",
+      "fundo": "soft (#F8DD6B)",
+      "uso": "Versão BG soft de __doma257-base.png. Use sobre fundo soft ou peças não-padrão.",
+      "par_com": "_doma257-base.png"
+    },
+    {
+      "arquivo": "_func127-base-soft.png",
+      "slug": "_func127-base-soft",
+      "dims": {
+        "w": 1856,
+        "h": 2304
+      },
+      "size_kb": 1462.6,
+      "path_plugin": "assets/bases-nanobanana-soft/_func127-base-soft.png",
+      "path_host": "oficial/_func127-base-soft.png",
+      "post": "POST 127",
+      "categoria": "funcoes-sistema",
+      "device": "mão+iPhone",
+      "tela": "dashboard ERP Doma",
+      "fundo": "soft (#F8DD6B)",
+      "uso": "Versão BG soft de __func127-base.png. Use sobre fundo soft ou peças não-padrão.",
+      "par_com": "_func127-base.png"
+    },
+    {
+      "arquivo": "_func201-base-soft.png",
+      "slug": "_func201-base-soft",
+      "dims": {
+        "w": 1856,
+        "h": 2304
+      },
+      "size_kb": 1194.4,
+      "path_plugin": "assets/bases-nanobanana-soft/_func201-base-soft.png",
+      "path_host": "oficial/_func201-base-soft.png",
+      "post": "POST 201",
+      "categoria": "funcoes-sistema",
+      "device": "mão+iPhone",
+      "tela": "WhatsApp + ERP",
+      "fundo": "soft (#F8DD6B)",
+      "uso": "Versão BG soft de __func201-base.png. Use sobre fundo soft ou peças não-padrão.",
+      "par_com": "_func201-base.png"
+    },
+    {
+      "arquivo": "_func207-base-soft.png",
+      "slug": "_func207-base-soft",
+      "dims": {
+        "w": 1856,
+        "h": 2304
+      },
+      "size_kb": 1143.0,
+      "path_plugin": "assets/bases-nanobanana-soft/_func207-base-soft.png",
+      "path_host": "oficial/_func207-base-soft.png",
+      "post": "POST 207",
+      "categoria": "funcoes-sistema",
+      "device": "mão+iPhone",
+      "tela": "tela ERP",
+      "fundo": "soft (#F8DD6B)",
+      "uso": "Versão BG soft de __func207-base.png. Use sobre fundo soft ou peças não-padrão.",
+      "par_com": "_func207-base.png"
+    },
+    {
+      "arquivo": "_func248-base-soft.png",
+      "slug": "_func248-base-soft",
+      "dims": {
+        "w": 1856,
+        "h": 2304
+      },
+      "size_kb": 1527.6,
+      "path_plugin": "assets/bases-nanobanana-soft/_func248-base-soft.png",
+      "path_host": "oficial/_func248-base-soft.png",
+      "post": "POST 248",
+      "categoria": "funcoes-sistema",
+      "device": "laptop",
+      "tela": "dashboard financeiro",
+      "fundo": "soft (#F8DD6B)",
+      "uso": "Versão BG soft de __func248-base.png. Use sobre fundo soft ou peças não-padrão.",
+      "par_com": "_func248-base.png"
+    },
+    {
+      "arquivo": "_func266-base-soft.png",
+      "slug": "_func266-base-soft",
+      "dims": {
+        "w": 1856,
+        "h": 2304
+      },
+      "size_kb": 1137.9,
+      "path_plugin": "assets/bases-nanobanana-soft/_func266-base-soft.png",
+      "path_host": "oficial/_func266-base-soft.png",
+      "post": "POST 266",
+      "categoria": "funcoes-sistema",
+      "device": "mão+iPhone",
+      "tela": "tela ERP",
+      "fundo": "soft (#F8DD6B)",
+      "uso": "Versão BG soft de __func266-base.png. Use sobre fundo soft ou peças não-padrão.",
+      "par_com": "_func266-base.png"
+    },
+    {
+      "arquivo": "_func273-base-soft.png",
+      "slug": "_func273-base-soft",
+      "dims": {
+        "w": 1856,
+        "h": 2304
+      },
+      "size_kb": 1344.8,
+      "path_plugin": "assets/bases-nanobanana-soft/_func273-base-soft.png",
+      "path_host": "oficial/_func273-base-soft.png",
+      "post": "POST 273",
+      "categoria": "funcoes-sistema",
+      "device": "laptop",
+      "tela": "dashboard ERP",
+      "fundo": "soft (#F8DD6B)",
+      "uso": "Versão BG soft de __func273-base.png. Use sobre fundo soft ou peças não-padrão.",
+      "par_com": "_func273-base.png"
+    }
+  ],
+  "bases-nanobanana-grafite": [
+    {
+      "arquivo": "_doma115-base-grafite.png",
+      "slug": "_doma115-base-grafite",
+      "dims": {
+        "w": 1856,
+        "h": 2304
+      },
+      "size_kb": 1927.3,
+      "path_plugin": "assets/bases-nanobanana-grafite/_doma115-base-grafite.png",
+      "path_host": "oficial/_doma115-base-grafite.png",
+      "post": "POST 115",
+      "categoria": "doma-institucional",
+      "device": "phone",
+      "tela": "menu Doma (institucional)",
+      "fundo": "grafite (#1F1F1F)",
+      "uso": "Versão BG grafite de __doma115-base.png. Use sobre fundo grafite ou peças não-padrão.",
+      "par_com": "_doma115-base.png"
+    },
+    {
+      "arquivo": "_doma257-base-grafite.png",
+      "slug": "_doma257-base-grafite",
+      "dims": {
+        "w": 1856,
+        "h": 2304
+      },
+      "size_kb": 2052.2,
+      "path_plugin": "assets/bases-nanobanana-grafite/_doma257-base-grafite.png",
+      "path_host": "oficial/_doma257-base-grafite.png",
+      "post": "POST 257",
+      "categoria": "doma-institucional",
+      "device": "notas R$",
+      "tela": "notas de dinheiro fotorrealistas",
+      "fundo": "grafite (#1F1F1F)",
+      "uso": "Versão BG grafite de __doma257-base.png. Use sobre fundo grafite ou peças não-padrão.",
+      "par_com": "_doma257-base.png"
+    },
+    {
+      "arquivo": "_func127-base-grafite.png",
+      "slug": "_func127-base-grafite",
+      "dims": {
+        "w": 1856,
+        "h": 2304
+      },
+      "size_kb": 1425.5,
+      "path_plugin": "assets/bases-nanobanana-grafite/_func127-base-grafite.png",
+      "path_host": "oficial/_func127-base-grafite.png",
+      "post": "POST 127",
+      "categoria": "funcoes-sistema",
+      "device": "mão+iPhone",
+      "tela": "dashboard ERP Doma",
+      "fundo": "grafite (#1F1F1F)",
+      "uso": "Versão BG grafite de __func127-base.png. Use sobre fundo grafite ou peças não-padrão.",
+      "par_com": "_func127-base.png"
+    },
+    {
+      "arquivo": "_func201-base-grafite.png",
+      "slug": "_func201-base-grafite",
+      "dims": {
+        "w": 1856,
+        "h": 2304
+      },
+      "size_kb": 1173.6,
+      "path_plugin": "assets/bases-nanobanana-grafite/_func201-base-grafite.png",
+      "path_host": "oficial/_func201-base-grafite.png",
+      "post": "POST 201",
+      "categoria": "funcoes-sistema",
+      "device": "mão+iPhone",
+      "tela": "WhatsApp + ERP",
+      "fundo": "grafite (#1F1F1F)",
+      "uso": "Versão BG grafite de __func201-base.png. Use sobre fundo grafite ou peças não-padrão.",
+      "par_com": "_func201-base.png"
+    },
+    {
+      "arquivo": "_func207-base-grafite.png",
+      "slug": "_func207-base-grafite",
+      "dims": {
+        "w": 1856,
+        "h": 2304
+      },
+      "size_kb": 1131.7,
+      "path_plugin": "assets/bases-nanobanana-grafite/_func207-base-grafite.png",
+      "path_host": "oficial/_func207-base-grafite.png",
+      "post": "POST 207",
+      "categoria": "funcoes-sistema",
+      "device": "mão+iPhone",
+      "tela": "tela ERP",
+      "fundo": "grafite (#1F1F1F)",
+      "uso": "Versão BG grafite de __func207-base.png. Use sobre fundo grafite ou peças não-padrão.",
+      "par_com": "_func207-base.png"
+    },
+    {
+      "arquivo": "_func248-base-grafite.png",
+      "slug": "_func248-base-grafite",
+      "dims": {
+        "w": 1856,
+        "h": 2304
+      },
+      "size_kb": 1485.3,
+      "path_plugin": "assets/bases-nanobanana-grafite/_func248-base-grafite.png",
+      "path_host": "oficial/_func248-base-grafite.png",
+      "post": "POST 248",
+      "categoria": "funcoes-sistema",
+      "device": "laptop",
+      "tela": "dashboard financeiro",
+      "fundo": "grafite (#1F1F1F)",
+      "uso": "Versão BG grafite de __func248-base.png. Use sobre fundo grafite ou peças não-padrão.",
+      "par_com": "_func248-base.png"
+    },
+    {
+      "arquivo": "_func266-base-grafite.png",
+      "slug": "_func266-base-grafite",
+      "dims": {
+        "w": 1856,
+        "h": 2304
+      },
+      "size_kb": 1126.5,
+      "path_plugin": "assets/bases-nanobanana-grafite/_func266-base-grafite.png",
+      "path_host": "oficial/_func266-base-grafite.png",
+      "post": "POST 266",
+      "categoria": "funcoes-sistema",
+      "device": "mão+iPhone",
+      "tela": "tela ERP",
+      "fundo": "grafite (#1F1F1F)",
+      "uso": "Versão BG grafite de __func266-base.png. Use sobre fundo grafite ou peças não-padrão.",
+      "par_com": "_func266-base.png"
+    },
+    {
+      "arquivo": "_func273-base-grafite.png",
+      "slug": "_func273-base-grafite",
+      "dims": {
+        "w": 1856,
+        "h": 2304
+      },
+      "size_kb": 1326.7,
+      "path_plugin": "assets/bases-nanobanana-grafite/_func273-base-grafite.png",
+      "path_host": "oficial/_func273-base-grafite.png",
+      "post": "POST 273",
+      "categoria": "funcoes-sistema",
+      "device": "laptop",
+      "tela": "dashboard ERP",
+      "fundo": "grafite (#1F1F1F)",
+      "uso": "Versão BG grafite de __func273-base.png. Use sobre fundo grafite ou peças não-padrão.",
+      "par_com": "_func273-base.png"
+    }
+  ],
   "fotos": [
     {
       "arquivo": "_prod254-foto.jpg",

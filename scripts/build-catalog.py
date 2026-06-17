@@ -208,7 +208,7 @@ def get_dims(path):
         return None
 
 def build():
-    catalog = {"oficial": [], "icones": [], "fontes": [], "bases-nanobanana": [], "bases-nanobanana-transparente": [], "fotos": [], "grafismos": [], "cards-clientes": []}
+    catalog = {"oficial": [], "icones": [], "fontes": [], "bases-nanobanana": [], "bases-nanobanana-transparente": [], "bases-nanobanana-soft": [], "bases-nanobanana-grafite": [], "fotos": [], "grafismos": [], "cards-clientes": []}
 
     # OFICIAL
     for f in sorted((ASSETS / "oficial").iterdir()):
@@ -284,6 +284,27 @@ def build():
                 "par_com": f"{base_slug}.png"
             }
             catalog["bases-nanobanana-transparente"].append(item)
+
+    # BASES NANOBANANA SOFT + GRAFITE (variantes de BG)
+    for bg_variant, color_hex in [("soft", "#F8DD6B"), ("grafite", "#1F1F1F")]:
+        bg_dir = ASSETS / f"bases-nanobanana-{bg_variant}"
+        if bg_dir.exists():
+            for f in sorted(bg_dir.iterdir()):
+                if f.suffix != ".png": continue
+                slug = f.stem
+                base_slug = slug.replace(f"-{bg_variant}", "")
+                meta = BASES_NANOBANANA_META.get(base_slug, {"post": "?", "categoria": "?"})
+                catalog[f"bases-nanobanana-{bg_variant}"].append({
+                    "arquivo": f.name, "slug": slug,
+                    "dims": get_dims(f), "size_kb": round(f.stat().st_size / 1024, 1),
+                    "path_plugin": f"assets/bases-nanobanana-{bg_variant}/{f.name}",
+                    "path_host": f"oficial/{f.name}",
+                    "post": meta.get("post"), "categoria": meta.get("categoria"),
+                    "device": meta.get("device"), "tela": meta.get("tela"),
+                    "fundo": f"{bg_variant} ({color_hex})",
+                    "uso": f"Versão BG {bg_variant} de _{base_slug}.png. Use sobre fundo {bg_variant} ou peças não-padrão.",
+                    "par_com": f"{base_slug}.png"
+                })
 
     # FOTOS reutilizáveis
     fotos_dir = ASSETS / "fotos"
