@@ -9,7 +9,7 @@ import {LogoDoma, TextoRico} from '../../../components';
  * seta ↘ + card SOFT amarelo (texto secundário centralizado) + logo DOMa no rodapé.
  * Medições: card branco L9% T22.2% W81.9% H24.2%; badge Ø119 centro (283,714); fundo #F4BB35.
  */
-const C = {fundo: '#F4BB35', watermark: '#F5C24A', branco: '#FFFFFF', soft: '#F8DD6B', grafite: '#1F1F1F'};
+const C = {fundo: '#F4BB35', watermark: '#F2B02C', branco: '#FFFFFF', soft: '#F8DD6B', grafite: '#1F1F1F'};
 const F = brand.fontes.titulo;
 const maskUrl = `url(${staticFile('oficial/logotipo-principal-branco.png')})`;
 

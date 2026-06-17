@@ -6,7 +6,7 @@
 Canvas 1080×1350. Medido com `layout-mapper` + numpy.
 
 ## Template FIXO
-- **Fundo** manga `#F4BB35` + **watermark "DOMa" GIGANTE** (CSS mask `logotipo-principal-branco.png`, cor `#F5C24A` tom-sobre-tom, width ~175%, "DO" sangra o canto sup-esq). É o maior limitante de fidelidade (área grande).
+- **Fundo** manga `#F4BB35` + **watermark "DOMa" GIGANTE** (CSS mask `logotipo-principal-branco.png`, cor `#F2B02C` tom-sobre-tom MAIS ESCURA que o fundo — ⚠️ `#F5C24A` é mais clara = invisível, proibida —, width ~175%, "DO" sangra o canto sup-esq). É o maior limitante de fidelidade (área grande).
 - **Card BRANCO** `#FFFFFF`, L9% T22.2% W81.9% H24.2%, raio 34 — **frase principal entre aspas, centralizada, fim em bold** (fontSize ~58).
 - **Badge circular preto** `#1F1F1F` Ø119 (centro L26.2% T52.9%) com **seta ↘ branca grossa** (SVG strokeWidth 6.5).
 - **Card SOFT** `#F8DD6B`, L16% T54% W68% H24%, raio 30 — **texto secundário centralizado** (fontSize 40, maxWidth ~430 p/ quebrar em 3 linhas; paddingLeft 130 p/ não invadir o badge).
