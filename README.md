@@ -14,8 +14,14 @@ Plugin do Marketing da Doma para [Claude Code](https://claude.com/claude-code) �
 ## Instalação (via npm)
 
 ```bash
-# 1× só:
+# Pré-check: verifica se tudo tá instalado (Node, Python, Claude Code, git, bash):
 npm install -g marketing-doma-cli
+marketing-doma doctor
+
+# Instala automaticamente o que faltar (sudo/admin):
+marketing-doma install-deps
+
+# Instala o plugin:
 marketing-doma install
 
 # Sempre que tiver versão nova:
@@ -28,9 +34,11 @@ marketing-doma status
 Ou sem instalar global, via `npx`:
 
 ```bash
+npx marketing-doma-cli doctor
 npx marketing-doma-cli install
-npx marketing-doma-cli update
 ```
+
+**Windows nativo**: use o **Git Bash** (vem com [Git for Windows](https://git-scm.com/download/win)). Não use PowerShell ou CMD — scripts são bash. WSL também funciona mas consome mais RAM. Detalhes em [INSTALL.md](INSTALL.md).
 
 ## Pré-requisitos
 

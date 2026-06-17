@@ -82,6 +82,40 @@ sudo apt install -y python3 python3-venv python3-pip
 ### Windows
 https://www.python.org/downloads/ → versão 3.11 ou maior. **Marque "Add to PATH"** na instalação.
 
+---
+
+## ⚠️ Windows: instale Git Bash (essencial)
+
+O plugin usa scripts `bash` (Linux/Mac nativo). No Windows você precisa de **Git Bash** (vem com Git for Windows). Sem isso, scripts de setup, sync e render não funcionam.
+
+### Instalar Git for Windows (Git Bash incluído)
+
+1. Baixe: https://git-scm.com/download/win
+2. Instale com defaults — Git Bash fica disponível no menu iniciar.
+3. **Abra o "Git Bash"** (não o PowerShell ou CMD) pra rodar tudo abaixo.
+
+### Verificar dentro do Git Bash
+
+```bash
+bash --version
+git --version
+node --version
+python --version
+```
+
+Se algum falhar, rode `winget install ...` no PowerShell (admin):
+```powershell
+winget install Git.Git
+winget install OpenJS.NodeJS.LTS
+winget install Python.Python.3.11
+```
+
+Depois feche e reabra o Git Bash. Continue todos os passos abaixo **dentro do Git Bash**.
+
+### Por que não WSL?
+
+WSL2 também funciona e é mais robusto, mas consome ~2 GB RAM extra. Em **PCs fracos** (≤8 GB RAM), Git Bash é mais leve e suficiente. Remotion oficialmente suporta Windows nativo (Chromium baixa automaticamente).
+
 Teste:
 ```bash
 python3 --version
@@ -96,7 +130,28 @@ npm install -g marketing-doma-cli
 marketing-doma install
 ```
 
-O `marketing-doma install` baixa o plugin direto do GitHub/GitLab + registra automaticamente no Claude Code.
+O `marketing-doma install` baixa o plugin direto do GitHub + registra automaticamente no Claude Code.
+
+### Não sabe se tem tudo instalado? Pergunte ao CLI:
+
+```bash
+marketing-doma doctor
+```
+
+Mostra:
+- ✓ ou ✗ pra cada dependência (Node.js, Python, Claude Code CLI, git, bash).
+- Versão instalada de cada.
+- **Comando exato** pra instalar cada faltante (detecta seu OS: Ubuntu, macOS, Windows).
+
+### Instalar pré-requisitos automaticamente
+
+Se algo faltar, em vez de copiar os comandos manualmente:
+
+```bash
+marketing-doma install-deps
+```
+
+Tenta instalar todos os faltantes via `apt`/`brew`/`winget` (vai pedir sua senha de admin). Best-effort — verifica de novo depois com `marketing-doma doctor`.
 
 ### Atualizar quando sair versão nova
 

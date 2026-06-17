@@ -107,6 +107,24 @@ function cmdInstall() {
   header('marketing-doma install');
   checkPrereqs();
 
+  // Pré-check: verificar deps no PATH antes de prosseguir
+  const osTag = detectOS();
+  const deps = depsTable();
+  const missing = deps.filter(d => {
+    const cmdName = osTag === 'windows' && !isGitBash() && d.altWindows ? d.altWindows : d.name;
+    return !which(cmdName);
+  });
+  if (missing.length > 0) {
+    warn(`Pré-requisitos faltando: ${missing.map(d => d.name).join(', ')}`);
+    info('Rode `marketing-doma doctor` pra ver comandos pra instalar.');
+    info('Ou tente automático: `marketing-doma install-deps` (best-effort, pede sudo/admin).');
+    if (!process.env.MARKETING_DOMA_FORCE) {
+      log('');
+      log(c('yellow', 'Abortando. Use MARKETING_DOMA_FORCE=1 pra continuar mesmo assim.'));
+      process.exit(1);
+    }
+  }
+
   if (fs.existsSync(PLUGIN_DIR)) {
     warn(`Plugin já existe em ${PLUGIN_DIR}`);
     info('Rode `marketing-doma update` para atualizar ou `marketing-doma uninstall` para remover.');
@@ -236,11 +254,194 @@ function cmdVersion() {
   else log('plugin não instalado');
 }
 
+// === Detecção de OS + comandos por OS ===
+
+function detectOS() {
+  const p = process.platform;
+  if (p === 'linux') {
+    // Detecta distro
+    try {
+      const osRelease = fs.readFileSync('/etc/os-release', 'utf8');
+      if (/ID(_LIKE)?=.*(debian|ubuntu)/i.test(osRelease)) return 'linux-debian';
+      if (/ID(_LIKE)?=.*(fedora|rhel|centos)/i.test(osRelease)) return 'linux-fedora';
+      if (/ID(_LIKE)?=.*(arch)/i.test(osRelease)) return 'linux-arch';
+    } catch {}
+    return 'linux-other';
+  }
+  if (p === 'darwin') return 'macos';
+  if (p === 'win32') return 'windows';
+  return 'unknown';
+}
+
+function isGitBash() {
+  // Git Bash define MSYSTEM=MINGW64/MINGW32 e HOME no formato unix
+  return process.env.MSYSTEM && /MINGW/.test(process.env.MSYSTEM);
+}
+
+function which(cmd) {
+  // Cross-platform "which": testa via spawnSync
+  const isWin = process.platform === 'win32';
+  const checkCmd = isWin && !isGitBash() ? `where ${cmd}` : `command -v ${cmd}`;
+  const r = sh(checkCmd, { silent: true, allowFail: true });
+  return r.ok ? r.stdout.trim().split('\n')[0] : null;
+}
+
+function checkCmdVersion(cmd, args = '--version') {
+  const r = sh(`${cmd} ${args}`, { silent: true, allowFail: true });
+  if (!r.ok) return null;
+  // Extrai primeira linha + primeiro número Y.Y.Y
+  const line = r.stdout.split('\n')[0] || r.stderr.split('\n')[0] || '';
+  const m = line.match(/(\d+\.\d+(\.\d+)?)/);
+  return m ? m[1] : line.trim();
+}
+
+// Tabela de pré-requisitos + comandos de instalação por OS
+function depsTable() {
+  return [
+    { name: 'node', minVersion: '18', label: 'Node.js' },
+    { name: 'npm', minVersion: '9', label: 'npm' },
+    { name: 'git', minVersion: '2.30', label: 'git' },
+    { name: 'bash', minVersion: '4', label: 'bash' },
+    { name: 'python3', minVersion: '3.10', label: 'Python 3', altWindows: 'python' },
+    { name: 'claude', minVersion: null, label: 'Claude Code CLI' },
+  ];
+}
+
+function installCmdFor(depName, osTag) {
+  // Comandos canônicos por OS pra cada dep
+  const cmds = {
+    'node': {
+      'linux-debian': 'curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo bash - && sudo apt install -y nodejs',
+      'linux-fedora': 'curl -fsSL https://rpm.nodesource.com/setup_lts.x | sudo bash - && sudo dnf install -y nodejs',
+      'linux-arch':   'sudo pacman -S --noconfirm nodejs npm',
+      'macos':        'brew install node',
+      'windows':      'winget install OpenJS.NodeJS.LTS',
+    },
+    'git': {
+      'linux-debian': 'sudo apt install -y git',
+      'linux-fedora': 'sudo dnf install -y git',
+      'linux-arch':   'sudo pacman -S --noconfirm git',
+      'macos':        'brew install git',
+      'windows':      'winget install Git.Git',
+    },
+    'bash': {
+      'windows':      'winget install Git.Git  # (Git Bash vem com Git for Windows)',
+    },
+    'python3': {
+      'linux-debian': 'sudo apt install -y python3 python3-venv python3-pip',
+      'linux-fedora': 'sudo dnf install -y python3 python3-pip',
+      'linux-arch':   'sudo pacman -S --noconfirm python python-pip',
+      'macos':        'brew install python@3.11',
+      'windows':      'winget install Python.Python.3.11',
+    },
+    'claude': {
+      'linux-debian': 'curl -fsSL https://claude.ai/install.sh | sh',
+      'linux-fedora': 'curl -fsSL https://claude.ai/install.sh | sh',
+      'linux-arch':   'curl -fsSL https://claude.ai/install.sh | sh',
+      'macos':        'curl -fsSL https://claude.ai/install.sh | sh',
+      'windows':      '# Baixar de https://claude.com/claude-code (instalador Windows)',
+    },
+  };
+  return (cmds[depName] && cmds[depName][osTag]) || null;
+}
+
+function cmdDoctor() {
+  header('marketing-doma doctor — verificação de pré-requisitos');
+
+  const osTag = detectOS();
+  log(`  Sistema: ${c('cyan', osTag)} ${isGitBash() ? c('gray', '(Git Bash)') : ''}`);
+  log('');
+
+  const deps = depsTable();
+  const missing = [];
+
+  for (const d of deps) {
+    const cmdName = osTag === 'windows' && !isGitBash() && d.altWindows ? d.altWindows : d.name;
+    const path = which(cmdName);
+    if (!path) {
+      log(`  ${c('red', '✗')} ${d.label.padEnd(20)} ${c('gray', 'não encontrado')}`);
+      missing.push(d.name);
+      continue;
+    }
+    const v = checkCmdVersion(cmdName);
+    log(`  ${c('green', '✓')} ${d.label.padEnd(20)} ${c('cyan', v || '(versão desconhecida)')} ${c('gray', path)}`);
+  }
+
+  log('');
+  if (missing.length === 0) {
+    ok('Todos os pré-requisitos OK. Rode `marketing-doma install`.');
+    return;
+  }
+
+  warn(`${missing.length} dependência(s) faltando:`);
+  log('');
+  log(c('bold', 'Comandos pra instalar:'));
+  for (const m of missing) {
+    const cmd = installCmdFor(m, osTag);
+    log(`  ${c('cyan', m)}:`);
+    if (cmd) log(`    ${cmd}`);
+    else log(`    ${c('gray', '(sem instalação automática conhecida — consulte docs)')}`);
+  }
+
+  log('');
+  log(`Após instalar, rode novamente: ${c('cyan', 'marketing-doma doctor')}`);
+  log(`Ou tente install automático (best-effort): ${c('cyan', 'marketing-doma install-deps')}`);
+}
+
+function cmdInstallDeps() {
+  header('marketing-doma install-deps — instalação automática de pré-requisitos');
+
+  const osTag = detectOS();
+  log(`  Sistema: ${c('cyan', osTag)}`);
+
+  if (osTag === 'unknown' || osTag === 'linux-other') {
+    warn('Sistema não reconhecido. Use `marketing-doma doctor` pra ver comandos sugeridos.');
+    process.exit(1);
+  }
+
+  const deps = depsTable();
+  const missing = deps.filter(d => {
+    const cmdName = osTag === 'windows' && !isGitBash() && d.altWindows ? d.altWindows : d.name;
+    return !which(cmdName);
+  });
+
+  if (missing.length === 0) {
+    ok('Todas as dependências já instaladas.');
+    return;
+  }
+
+  warn(`${missing.length} dependência(s) faltando: ${missing.map(d => d.name).join(', ')}`);
+  log('');
+  log(c('yellow', '⚠️  ATENÇÃO: install-deps roda comandos com privilégio elevado (sudo/admin).'));
+  log(c('yellow', '   Você verá prompts de senha. Verifique cada comando antes de aceitar.'));
+  log('');
+
+  for (const d of missing) {
+    const cmd = installCmdFor(d.name, osTag);
+    if (!cmd) {
+      warn(`${d.name}: sem comando automático — instale manualmente.`);
+      continue;
+    }
+    log(c('bold', `\n▸ Instalando ${d.label}:`));
+    log(c('gray', `  $ ${cmd}`));
+    const r = sh(cmd, { allowFail: true });
+    if (r.ok) ok(`${d.label} instalado.`);
+    else warn(`${d.label}: install falhou. Tente manualmente: ${cmd}`);
+  }
+
+  log('');
+  log(c('green', '🎉 install-deps concluído.'));
+  log(`Verifique com: ${c('cyan', 'marketing-doma doctor')}`);
+  log(`Depois rode: ${c('cyan', 'marketing-doma install')}`);
+}
+
 function cmdHelp() {
   log(`
 ${c('bold', 'marketing-doma')} — CLI do plugin Claude Code
 
 ${c('bold', 'Comandos:')}
+  ${c('cyan', 'doctor')}       Verifica pré-requisitos (node, python, claude, git, bash) + comandos pra instalar.
+  ${c('cyan', 'install-deps')} Tenta instalar pré-requisitos faltantes automaticamente (sudo/admin).
   ${c('cyan', 'install')}      Instala plugin (clone GitHub + registra no Claude Code).
   ${c('cyan', 'update')}       Atualiza plugin (git pull no GitHub).
   ${c('cyan', 'status')}       Mostra versão local vs remota + saúde da instalação.
@@ -265,6 +466,13 @@ ${c('bold', 'Mais info:')}
 function main() {
   const cmd = (process.argv[2] || 'help').toLowerCase();
   switch (cmd) {
+    case 'doctor':
+    case 'd':
+    case 'check':
+      return cmdDoctor();
+    case 'install-deps':
+    case 'deps':
+      return cmdInstallDeps();
     case 'install':
     case 'i':
       return cmdInstall();
