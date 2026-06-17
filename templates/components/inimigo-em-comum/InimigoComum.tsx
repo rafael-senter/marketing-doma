@@ -8,13 +8,14 @@ import {LogoDoma, TextoRico} from '../../../components';
  * card BRANCO (frase com aspas, centralizada, fim em **bold**) + badge circular preto com
  * seta ↘ + card SOFT amarelo (texto secundário centralizado) + logo DOMa no rodapé.
  * Medições: card branco L9% T22.2% W81.9% H24.2%; badge Ø119 centro (283,714).
- * ⚠️ CORES MEDIDAS DO MODELO POST 244 (pixel exato, jun/2026):
- *   - fundo: #F5C24A (mais CLARO — não é o manga padrão #F4BB35).
- *   - watermark: #F4BB35 (manga padrão, MAIS ESCURO que o fundo desta categoria).
- *   Inimigo em Comum INVERTE o padrão "fundo manga + watermark mais escura": aqui fundo
- *   é mais claro que outras categorias E watermark = manga padrão.
+ * ⚠️ CORES MEDIDAS DOS MODELOS POST 244 + 252 (pixel exato, re-medido jun/2026):
+ *   - fundo: #F4BB35 (manga padrão, mais ESCURO).
+ *   - watermark: #F5C24A (mais CLARA que o fundo nesta categoria).
+ *   Inimigo em Comum INVERTE o padrão "watermark mais escura": aqui a watermark é
+ *   MAIS CLARA que o fundo (medido em ponto limpo nos 2 modelos oficiais — fundo
+ *   #F4BB35, watermark #F5C24A). Exceção documentada a RULES §9 só para esta categoria.
  */
-const C = {fundo: '#F5C24A', watermark: '#F4BB35', branco: '#FFFFFF', soft: '#F8DD6B', grafite: '#1F1F1F'};
+const C = {fundo: '#F4BB35', watermark: '#F5C24A', branco: '#FFFFFF', soft: '#F8DD6B', grafite: '#1F1F1F'};
 const F = brand.fontes.titulo;
 const maskUrl = `url(${staticFile('oficial/logotipo-principal-branco.png')})`;
 
@@ -44,7 +45,7 @@ export const InimigoComum: React.FC<InimigoComumProps> = ({principal, secundario
     <div style={{position: 'absolute', left: '9%', top: '22.2%', width: '81.9%', height: '24.2%',
       background: C.branco, borderRadius: 34, boxShadow: '0 8px 28px #00000022', zIndex: 2,
       display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '0 56px', boxSizing: 'border-box'}}>
-      <TextoRico style={{color: C.grafite, fontSize: 46, fontWeight: 400, lineHeight: 1.22, textAlign: 'center', display: 'block'}}>
+      <TextoRico style={{color: C.grafite, fontSize: 68, fontWeight: 400, lineHeight: 1.22, textAlign: 'center', display: 'block'}}>
         {principal}
       </TextoRico>
     </div>
@@ -60,7 +61,7 @@ export const InimigoComum: React.FC<InimigoComumProps> = ({principal, secundario
     <div style={{position: 'absolute', left: '16%', top: '54%', width: '68%', height: '24%',
       background: C.soft, borderRadius: 30, zIndex: 1,
       display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '0 40px', boxSizing: 'border-box'}}>
-      <TextoRico style={{color: C.grafite, fontSize: 38, fontWeight: 400, lineHeight: 1.3, textAlign: 'center', display: 'block'}}>
+      <TextoRico style={{color: C.grafite, fontSize: 42, fontWeight: 400, lineHeight: 1.3, textAlign: 'center', display: 'block'}}>
         {secundario}
       </TextoRico>
     </div>
