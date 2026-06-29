@@ -21,6 +21,14 @@ CLI_DIR="$PLUGIN_DIR/cli"
 
 cd "$CLI_DIR"
 
+LOCAL_V=$(node -p "require('./package.json').version")
+REMOTE_V=$(npm view marketing-doma-cli version 2>/dev/null || echo "")
+if [ -n "$REMOTE_V" ] && [ "$LOCAL_V" = "$REMOTE_V" ]; then
+  echo "✗ CLI local $LOCAL_V = npm publicado. Bump cli/package.json (ex.: 0.1.47) antes de publish."
+  exit 1
+fi
+echo "==> Publicar marketing-doma-cli@$LOCAL_V (npm atual: ${REMOTE_V:-?})"
+
 # Bump opcional
 case "${1:-}" in
   patch|minor|major)
