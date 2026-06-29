@@ -1,11 +1,14 @@
 {
   "name": "marketing-doma-cli",
-  "version": "0.1.44",
-  "description": "CLI instalador/atualizador do plugin marketing-doma para Claude Code. Download GitHub + setup Node — sem git, sem Python no fluxo marketing.",
+  "version": "0.1.45",
+  "description": "CLI local do projeto marketing-doma — npm install marketing-doma-cli (sem -g). Download tarball + setup .claude/.cursor/remotion-doma.",
   "bin": {
     "marketing-doma": "bin/marketing-doma.js"
   },
   "main": "bin/marketing-doma.js",
+  "scripts": {
+    "postinstall": "node postinstall.js"
+  },
   "type": "commonjs",
   "engines": {
     "node": ">=18"
@@ -16,6 +19,7 @@
   "files": [
     "bin/",
     "lib/",
+    "postinstall.js",
     "README.md"
   ],
   "keywords": [

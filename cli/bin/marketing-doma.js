@@ -229,6 +229,28 @@ function depPresent(d, osTag) {
   return !!which(cmdName);
 }
 
+function ensureHostPackageJson(root) {
+  const pkgPath = path.join(root, 'package.json');
+  let pkg = { name: 'marketing-doma-projeto', private: true, scripts: {}, devDependencies: {} };
+  if (fs.existsSync(pkgPath)) {
+    try { pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf8')); } catch {}
+  }
+  pkg.private = pkg.private !== false;
+  pkg.scripts = pkg.scripts || {};
+  pkg.devDependencies = pkg.devDependencies || {};
+  const domaScripts = {
+    'doma:install': 'marketing-doma install',
+    'doma:update': 'marketing-doma update',
+    'doma:status': 'marketing-doma status',
+    'doma:setup': 'node .claude/plugins/marketing-doma/scripts/lib/install-deps.mjs',
+    'doma:export': 'marketing-doma export',
+  };
+  Object.assign(pkg.scripts, domaScripts);
+  pkg.devDependencies['marketing-doma-cli'] = pkg.devDependencies['marketing-doma-cli'] || `^${CLI_VERSION}`;
+  if (!pkg.name) pkg.name = 'marketing-doma-projeto';
+  fs.writeFileSync(pkgPath, JSON.stringify(pkg, null, 2) + '\n');
+}
+
 function cmdInstall() {
   return (async () => {
     header('marketing-doma install');
@@ -237,7 +259,11 @@ function cmdInstall() {
 
     info(`Projeto: ${root}`);
     info(`Plugin:  ${pluginDir}`);
+    info('Modo:    100% local (sem npm -g, sem clone global)');
     log('');
+
+    ensureHostPackageJson(root);
+    ok('package.json — CLI local (npm install marketing-doma-cli nesta pasta)');
 
     if (fs.existsSync(path.join(pluginDir, 'plugin.json'))) {
       warn('Plugin já existe neste projeto.');
@@ -249,7 +275,7 @@ function cmdInstall() {
     }
 
     fs.mkdirSync(path.dirname(pluginDir), { recursive: true });
-    info('Baixando plugin do GitHub (sem git)...');
+    info('Baixando plugin do GitHub → .claude/plugins/marketing-doma/ (direto, sem git clone)...');
     await downloadPlugin(pluginDir);
     ok('Plugin baixado');
 
@@ -264,13 +290,15 @@ function cmdInstall() {
 
 function printNextSteps(root) {
   log('');
-  log('Próximos passos:');
+  log('Próximos passos (tudo nesta pasta — nada global):');
   log(c('cyan', `  cd "${root}"`));
   log('  Claude Code: claude → /marketing-doma');
-  log('  Cursor: abrir mesma pasta · ler CURSOR.md · "cria post Doma"');
+  log('  Cursor: ler CURSOR.md · "cria post Doma"');
   log('');
-  log('Atualizar: ' + c('cyan', 'marketing-doma update'));
-  log('Reparar setup: ' + c('cyan', '/marketing-doma-setup'));
+  log('Comandos locais (npm run):');
+  log(c('cyan', '  npm run doma:status'));
+  log(c('cyan', '  npm run doma:update'));
+  log('Reparar: ' + c('cyan', 'npm run doma:setup') + '  ou  /marketing-doma-setup');
 }
 
 // Pastas dentro do clone que NUNCA podem ser sobrescritas pelo update
@@ -496,7 +524,7 @@ function cmdUninstall() {
   }
   fs.rmSync(inst.dir, { recursive: true, force: true });
   ok('Plugin removido do projeto.');
-  log('CLI continua. Remover: ' + c('cyan', 'npm uninstall -g marketing-doma-cli'));
+  log('Plugin removido. CLI local: ' + c('cyan', 'npm uninstall marketing-doma-cli'));
 }
 
 function cmdCleanupLegacy() {
@@ -790,21 +818,22 @@ ${c('bold', 'Comandos:')}
   ${c('cyan', 'version')}      Mostra versão do CLI + plugin.
   ${c('cyan', 'help')}         Esta tela.
 
-${c('bold', 'Pré-requisitos manuais:')}
-  Node.js LTS · conta Anthropic · VS Code · extensão Claude Code
-  npm install -g marketing-doma-cli
+${c('bold', 'Instalação (100% local — só nesta pasta):')}
+  mkdir meu-projeto && cd meu-projeto
+  npm init -y
+  npm install marketing-doma-cli      ← local, NÃO usar -g
+  npm run doma:install                ← plugin + Remotion + .claude + .cursor
+  claude → /marketing-doma
 
-${c('bold', 'Automático (na pasta do projeto):')}
-  cd minha-pasta
-  marketing-doma install           (plugin + Remotion + IDE — tudo)
-  claude → /marketing-doma         (dia a dia)
-  /marketing-doma-setup            (opcional — reparar/re-sync)
+${c('bold', 'Onde fica cada coisa:')}
+  node_modules/marketing-doma-cli/    ← CLI (local)
+  .claude/plugins/marketing-doma/     ← plugin (tarball GitHub, sem clone)
+  .claude/settings.json               ← Claude Code
+  .cursor/hooks.json + rules/         ← Cursor
+  remotion-doma/                      ← renders
 
-${c('bold', 'Instala em:')}
-  <projeto>/.claude/plugins/marketing-doma/
-
-${c('bold', 'Limpar instalação antiga (legacy):')}
-  marketing-doma cleanup-legacy
+${c('bold', 'Limpar lixo antigo (~/.local/share, symlinks):')}
+  npm run doma:status  →  marketing-doma cleanup-legacy
 `);
 }
 

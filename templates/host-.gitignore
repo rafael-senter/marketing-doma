@@ -1,5 +1,7 @@
-# Auto-gerado pelo marketing-doma:marketing-doma-setup
-# (renomear pra .gitignore — bash não copia arquivo iniciando com . direto)
+# Auto-gerado pelo marketing-doma setup
+
+# CLI local
+node_modules/
 
 # Remotion
 remotion-doma/node_modules/

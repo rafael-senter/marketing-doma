@@ -52,6 +52,7 @@ async function remotePluginVersion() {
 }
 
 async function downloadPlugin(destDir) {
+  // Extrai tarball GitHub direto em destDir — sem git clone, sem ~/.local/share
   const tmp = fs.mkdtempSync(path.join(require('node:os').tmpdir(), 'mdoma-'));
   const tgz = path.join(tmp, 'plugin.tar.gz');
   const extractDir = path.join(tmp, 'extract');

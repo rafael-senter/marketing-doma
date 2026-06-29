@@ -16,10 +16,14 @@ Nada instala em `~/.claude/` ou `~/.cursor/` global — só neste projeto.
 ## Setup (1× por pasta)
 
 ```bash
-marketing-doma install
+npm init -y
+npm install marketing-doma-cli
+npm run doma:install
 ```
 
-Reparo: `/marketing-doma-setup` ou *"roda o setup marketing-doma"*.
+Plugin baixa **direto** em `.claude/plugins/marketing-doma/` — sem clone/symlink global.
+
+Reparo: `npm run doma:setup`
 
 ## Criar post
 

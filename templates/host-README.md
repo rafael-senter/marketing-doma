@@ -1,13 +1,13 @@
 # Projeto Marketing Doma
 
-Posts/carrosséis no Remotion — design system Doma.
+Tudo **local nesta pasta** — sem instalação global.
 
-**Tudo local neste projeto** — plugin em `.claude/plugins/marketing-doma/`.
-
-## Setup
+## Setup (1×)
 
 ```bash
-marketing-doma install
+npm init -y
+npm install marketing-doma-cli
+npm run doma:install
 ```
 
 ## Criar post
@@ -18,33 +18,22 @@ marketing-doma install
 
 Cursor: *"cria post Doma"*
 
+## Comandos
+
+```bash
+npm run doma:status
+npm run doma:update
+npm run doma:setup      # reparar
+npm run doma:export
+```
+
 ## Estrutura
 
 ```
 .
-├── .claude/
-│   ├── plugins/marketing-doma/
-│   └── settings.json
-├── .cursor/hooks.json
-├── remotion-doma/out/<id>.png
-└── CLAUDE.md
+├── package.json + node_modules/marketing-doma-cli/
+├── .claude/plugins/marketing-doma/
+├── .claude/settings.json
+├── .cursor/
+└── remotion-doma/out/
 ```
-
-## Atualizar plugin
-
-```bash
-marketing-doma update
-```
-
-## Studio Remotion
-
-Hook em `.claude/settings.json` e `.cursor/hooks.json` sobe :3010 ao abrir sessão.
-
-Manual:
-```bash
-cd remotion-doma && npx remotion studio --port 3010
-```
-
-## Advanced (opcional)
-
-Audit/recreate/wizard → `marketing-doma install-advanced`

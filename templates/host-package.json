@@ -1,0 +1,15 @@
+{
+  "name": "marketing-doma-projeto",
+  "private": true,
+  "description": "Posts Doma — tudo local nesta pasta (.claude, .cursor, remotion-doma)",
+  "scripts": {
+    "doma:install": "marketing-doma install",
+    "doma:update": "marketing-doma update",
+    "doma:status": "marketing-doma status",
+    "doma:setup": "node .claude/plugins/marketing-doma/scripts/lib/install-deps.mjs",
+    "doma:export": "marketing-doma export"
+  },
+  "devDependencies": {
+    "marketing-doma-cli": "^0.1.45"
+  }
+}

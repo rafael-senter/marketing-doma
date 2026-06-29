@@ -1,42 +1,45 @@
 # marketing-doma-cli
 
-CLI do plugin — **100% Node no fluxo marketing**.
+CLI **local do projeto** — instalar com `npm install marketing-doma-cli` (sem `-g`).
 
-## Requisitos manuais
-
-- Node.js ≥ 18 LTS
-- Conta Anthropic + VS Code/Cursor (+ extensão Claude Code se usar VS Code)
-- `npm install -g marketing-doma-cli`
-
-**Não precisa:** git · bash · Python (fluxo padrão)
-
-## Comandos
-
-| Comando | O que faz |
-|---|---|
-| `marketing-doma install` | Download + Remotion + sync + Claude/Cursor config |
-| `marketing-doma update` | Atualiza plugin (preserva live-rules/planos) + re-sync |
-| `marketing-doma install-advanced` | Python venv — audit, layout-mapper (opcional) |
-| `marketing-doma status` | Versões + saúde |
-| `marketing-doma export` | Tarball pro dev |
-| `marketing-doma cleanup-legacy` | Remove instalação antiga `~/.local/share/` |
-
-## Fluxo marketing
+## Fluxo equipe
 
 ```bash
-cd minha-pasta
-marketing-doma install
-claude → /marketing-doma          # criar peça
+mkdir marketing-doma && cd marketing-doma
+npm init -y
+npm install marketing-doma-cli
+npm run doma:install
 ```
 
-Cursor: mesma pasta → *"cria post Doma"* ou ler `CURSOR.md`.
+## O que `doma:install` faz
 
-Reparar setup: `/marketing-doma-setup` (idempotente).
+1. Baixa tarball GitHub → `.claude/plugins/marketing-doma/` (sem git clone)
+2. Cria `remotion-doma/` + npm i
+3. Configura `.claude/` + `.cursor/`
 
-## Fluxo dev (audit/recreate)
+Tudo **só nesta pasta**.
+
+## Scripts npm (gerados no `package.json` do projeto)
+
+| Script | Comando |
+|---|---|
+| `doma:install` | `marketing-doma install` |
+| `doma:update` | `marketing-doma update` |
+| `doma:status` | `marketing-doma status` |
+| `doma:setup` | re-sync Remotion + IDE |
+| `doma:export` | tarball pro dev |
+
+## Publicar no npm (dev)
 
 ```bash
-marketing-doma install-advanced
+bash scripts/publish-cli.sh
+```
+
+Equipe atualiza CLI local:
+
+```bash
+npm install marketing-doma-cli@latest
+npm run doma:update
 ```
 
 ## Licença

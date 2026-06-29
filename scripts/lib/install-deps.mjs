@@ -47,6 +47,11 @@ if (/\s/.test(PROJECT_ROOT)) {
   fail(`Caminho com espaços não suportado: ${PROJECT_ROOT}`);
 }
 
+console.log('==> 0/5 package.json (CLI local no projeto)');
+const { ensureHostPackage } = await import('./ensure-host-package.mjs');
+const pkgInfo = ensureHostPackage(PROJECT_ROOT);
+ok(`package.json ${pkgInfo.created ? 'criado' : 'OK'} — use npm run doma:install (sem npm -g)`);
+
 console.log('==> 1/5 Verificando Node.js');
 run('node', ['--version']);
 ok(`Node OK — projeto: ${PROJECT_ROOT}`);

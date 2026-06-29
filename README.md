@@ -11,52 +11,39 @@ Plugin do Marketing da Doma para [Claude Code](https://claude.com/claude-code) e
 - **Auto-melhoria** — toda regra/padrão novo descoberto em runtime vira arquivo em `knowledge-base/live-rules/`.
 - **Setup automático** — `marketing-doma install` baixa o plugin, cria Remotion, sync de componentes, configura Claude Code + Cursor e hook do studio :3010.
 
-## Instalação
+## Instalação (100% local — só na pasta do projeto)
 
-### Manual (1× por computador)
+Sem `npm -g`, sem clone global, sem symlinks em `~/.claude/`.
 
-1. **Node.js** LTS — https://nodejs.org
-2. **Conta Anthropic** com plano Claude Code ativo (Pro/Max/Team ou API)
-3. **VS Code** ou **Cursor** — https://code.visualstudio.com
-4. **Extensão Claude Code** no VS Code (Anthropic) — se usar Claude Code
-5. Abrir a **pasta de trabalho** (sem espaços no caminho — ex.: `marketing-doma`, não `marketing doma`)
-6. Terminal integrado: **`Ctrl + '`**
-7. Instalar o CLI:
-   ```bash
-   npm install -g marketing-doma-cli
-   ```
-
-### Automático (1× por pasta de projeto)
+### 1× por pasta
 
 ```bash
-marketing-doma install
+mkdir marketing-doma && cd marketing-doma
+npm init -y
+npm install marketing-doma-cli          # local — NÃO usar -g
+npm run doma:install                    # plugin + Remotion + IDE
 ```
 
-Faz tudo na pasta atual:
+`doma:install` extrai tarball GitHub **direto** em `.claude/plugins/marketing-doma/` — sem `git clone`.
 
-- Download do plugin → `.claude/plugins/marketing-doma/`
-- `remotion-doma/` + `npm i` (~2 min na 1ª vez)
-- Sync de componentes/assets
-- `.claude/settings.json` — `enabledPlugins` + hook Remotion
-- `.cursor/hooks.json` + `.cursor/rules/` — Cursor
-- `CURSOR.md` · `CLAUDE.md`
+### Pré-requisitos manuais
 
-**Não precisa:** git · bash · Python (fluxo padrão de marketing)
+Node.js LTS · conta Anthropic · VS Code/Cursor · pasta **sem espaços** no caminho
 
-**Dia a dia:**
+### Dia a dia
 
 | IDE | Como usar |
 |---|---|
 | **Claude Code** | `claude` → `/marketing-doma` |
-| **Cursor** | Chat: *"cria post Doma"* · ler `CURSOR.md` |
+| **Cursor** | *"cria post Doma"* · `CURSOR.md` |
 
 ```bash
-marketing-doma update    # versão nova (preserva live-rules/planos)
-marketing-doma status    # conferir instalação
-marketing-doma export    # enviar melhorias pro dev
+npm run doma:update    # versão nova
+npm run doma:status    # conferir
+npm run doma:export    # enviar melhorias pro dev
 ```
 
-Guia passo a passo: **[INSTALL.md](INSTALL.md)**
+Guia: **[INSTALL.md](INSTALL.md)**
 
 **Repo:** https://github.com/rafael-senter/marketing-doma *(privado até liberação para a equipe)*
 
@@ -106,10 +93,9 @@ Cliente roda `marketing-doma update`.
 
 | Item | Quem instala |
 |---|---|
-| Node.js ≥ 18 LTS | Manual |
-| Conta Anthropic + VS Code/Cursor | Manual |
-| `npm install -g marketing-doma-cli` | Manual |
-| Plugin + Remotion + IDE config | `marketing-doma install` |
+| Node.js ≥ 18 | Manual |
+| `npm install marketing-doma-cli` | **Local na pasta** (sem `-g`) |
+| Plugin + Remotion + IDE | `npm run doma:install` |
 | Python (audit/recreate) | `marketing-doma install-advanced` (opcional) |
 
 **Sistema:** Linux / macOS / Windows. **Disco por projeto:** ~800 MB.
