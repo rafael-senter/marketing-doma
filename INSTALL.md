@@ -1,224 +1,171 @@
-# INSTALAÇÃO — passo-a-passo (sem precisar saber programar)
+# Instalação — equipe de marketing
 
-> Guia para quem **nunca usou terminal**. Siga em ordem; se travar, peça ajuda ao dev.
+> Só a seção **"Você faz manualmente"** precisa de atenção. O resto roda com `marketing-doma install`.
 
----
-
-## Resumo do que vai acontecer
-
-1. Instalar **Node.js** (única coisa manual — 1 minuto).
-2. Rodar **2 comandos** no terminal. CLI cuida do resto (Claude Code, git, Python, plugin, tudo).
-3. Pronto pra criar posts.
+**Repositório:** https://github.com/rafael-senter/marketing-doma *(privado até liberação)*
 
 ---
 
-## 1. Instalar Node.js
+## Resumo
 
-### macOS
-
-```bash
-brew install node
-```
-*(se não tem Homebrew: https://brew.sh)*
-
-Ou baixar instalador: https://nodejs.org → versão **LTS** → instalar com defaults.
-
-### Linux (Ubuntu/Debian)
-
-```bash
-curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo bash -
-sudo apt install -y nodejs
-```
-
-### Windows
-
-Baixar instalador: https://nodejs.org → versão **LTS** → next-next-finish.
-
-### Verificar
-
-Abrir terminal (PowerShell no Windows, Terminal no Mac/Linux):
-
-```bash
-node --version
-```
-
-Deve mostrar `v18.x.x` ou maior.
+| Etapa | Quem faz |
+|---|---|
+| Node.js, VS Code/Cursor, conta Anthropic | **Você** (1×) |
+| `npm install -g marketing-doma-cli` | **Você** (1×) |
+| Plugin + Remotion + hooks Claude + Cursor | **`marketing-doma install`** |
+| Python (audit/recreate) | **Opcional** (`marketing-doma install-advanced`) |
+| Criar posts | **`/marketing-doma`** ou Cursor chat |
 
 ---
 
-## 2. Instalar o plugin (2 comandos)
+## Você faz manualmente (1× por computador)
 
-No mesmo terminal:
+### 1. Node.js LTS
+
+https://nodejs.org — instalador padrão. Verificar:
+
+```bash
+node --version   # v18+
+npm --version
+```
+
+### 2. Conta Anthropic
+
+Plano **Claude Pro/Max/Team** com Claude Code, ou API key configurada.
+
+### 3. VS Code ou Cursor
+
+https://code.visualstudio.com — ou Cursor com Third-party skills ON.
+
+### 4. Extensão Claude Code (se usar VS Code)
+
+VS Code → Extensões → **Claude Code** (Anthropic).
+
+### 5. Abrir pasta de trabalho
+
+**Arquivo → Abrir pasta…** — ex.: `Desktop/marketing-doma`
+
+⚠️ **Sem espaços** no caminho.
+
+### 6. Terminal integrado
+
+**`Ctrl + '`** (Windows/Linux) ou **`Cmd + '`** (macOS)
+
+### 7. CLI global
 
 ```bash
 npm install -g marketing-doma-cli
+```
+
+---
+
+## Automático — 1 comando por pasta
+
+```bash
 marketing-doma install
 ```
 
-`marketing-doma install` vai:
+Na pasta do projeto. Faz:
 
-1. Detectar tudo que falta (Claude Code, git, bash via Git for Windows, Python).
-2. Perguntar: **"Instalar automaticamente? [Y/n]"** — responda `y` (ou só enter).
-3. Instalar tudo via `apt` / `brew` / `winget` conforme seu OS. Vai pedir senha de admin algumas vezes.
-4. Baixar o plugin do GitHub e registrar no Claude Code.
+1. Download do plugin → `.claude/plugins/marketing-doma/`
+2. `remotion-doma/` + npm install (~2 min 1ª vez)
+3. Sync componentes/assets
+4. `.claude/settings.json` — plugin + hook studio :3010
+5. `.cursor/hooks.json` + rules + `CURSOR.md`
 
-### Conferir tudo
+Conferir:
 
 ```bash
 marketing-doma status
 ```
 
-Mostra ✓ pra cada coisa instalada e versão.
-
 ---
 
-## Windows: PowerShell ou CMD funcionam normal
+## Claude Code + Cursor
 
-**Você NÃO precisa abrir "Git Bash"** — abre PowerShell ou CMD direto. CLI usa `bash.exe` internamente (do Git for Windows, que ele mesmo instala via `winget install Git.Git`).
+| IDE | Config | Uso |
+|---|---|---|
+| **Claude Code** | `.claude/settings.json` | `/marketing-doma` |
+| **Cursor** | `.cursor/hooks.json` + rules | *"cria post Doma"* · `CURSOR.md` |
 
-WSL2 também funciona se já tem instalado. Em PCs fracos (≤8 GB RAM), nativo é mais leve.
-
----
-
-## 3. Rodar o setup do projeto Remotion (1× por pasta de trabalho)
-
-Em **qualquer pasta** onde vai criar posts:
-
-```bash
-cd ~/minha-pasta-de-trabalho     # Linux/Mac
-# ou no Windows PowerShell:
-cd $env:USERPROFILE\Desktop\minha-pasta
+```
+minha-pasta/
+├── .claude/plugins/marketing-doma/
+├── .claude/settings.json
+├── .cursor/hooks.json
+├── .cursor/rules/marketing-doma.mdc
+├── CURSOR.md
+└── remotion-doma/
 ```
 
-⚠️ **Pasta SEM espaços** no nome (use `minha-pasta` em vez de `minha pasta`).
+**Cursor:** Settings → Features → **Third-party skills** ON.
 
-Abrir Claude Code:
+---
+
+## Uso do dia a dia
+
+VS Code/Cursor → pasta aberta → terminal:
 
 ```bash
 claude
 ```
 
-Dentro do Claude Code, digitar:
-
-```
-/marketing-doma:marketing-doma-setup
-```
-
-CLI vai:
-
-1. Instalar Remotion (~600 MB de dependências, ~3 min na 1ª vez).
-2. Criar venv Python com Pillow/numpy/scipy.
-3. Configurar hook auto-start do studio Remotion.
-4. Smoke test render pra validar.
-
-Pronto.
-
----
-
-## 4. Criar primeiro post
-
-Dentro do Claude Code:
-
 ```
 /marketing-doma
 ```
 
-Responde perguntas em português:
-1. Que tipo de post? (Dicas, SPIN, Doma Motiva, Inimigo em Comum, etc — 14 tipos).
-2. Já tem o conteúdo, ou quer brainstorm?
-3. Slide por slide: título, corpo, CTA.
-
-CLI renderiza e mostra os PNGs em `remotion-doma/out/<id>.png`.
+Cursor: chat *"cria post Doma"* na mesma pasta.
 
 ---
 
-## 5. Atualizar quando sair versão nova
+## Reparar setup
+
+Se Remotion ou hooks falharem:
+
+```
+/marketing-doma-setup
+```
+
+Mesmo script do `install` — idempotente.
+
+---
+
+## Atualizar
 
 ```bash
 marketing-doma update
 ```
 
-Sobrescreve com versão nova do GitHub, **preservando suas live-rules e planos**.
+Preserva **live-rules** e **planos** locais.
 
 ---
 
-## 6. Enviar melhorias pro dev (export)
-
-Quando o dev pedir, rode em qualquer pasta:
+## Export pro dev
 
 ```bash
-cd ~/Desktop     # ou onde quiser
+cd ~/Desktop
 marketing-doma export
 ```
 
-Gera arquivo `marketing-doma-export-YYYY-MM-DD.tar.gz` na pasta atual. Pega esse arquivo e:
-- Copia pro pendrive,
-- Manda por WhatsApp/Email/Drive,
-- Ou roda direto dentro da pasta do pendrive: `cd /caminho/pendrive && marketing-doma export`.
+---
 
-Dev pega, integra, publica nova versão. Cliente roda `marketing-doma update` pra receber.
+## Problemas comuns
+
+| Erro | O que fazer |
+|---|---|
+| `/marketing-doma` não reconhecido | `marketing-doma status` → reiniciar Claude Code na pasta. **Não** copiar commands pra `~/.claude/commands/`. |
+| Legacy `~/.local/share/marketing-doma` | `marketing-doma cleanup-legacy` → `marketing-doma install` |
+| `marketing-doma` não encontrado | `npm install -g marketing-doma-cli` + reiniciar terminal |
+| `Cannot find module 'remotion'` | `/marketing-doma-setup` ou `marketing-doma install` de novo |
+| Studio em branco (:3010) | Pasta com espaço — renomear |
+| Clone falha | Repo privado — pedir acesso ao dev |
 
 ---
 
-## ❓ Problemas comuns
-
-### "comando não encontrado: claude"
-
-CLI deveria ter instalado. Se não:
-```bash
-marketing-doma install-deps
-```
-
-Ou manual: `curl -fsSL https://claude.ai/install.sh | sh`
-
-### "comando não encontrado: marketing-doma"
-
-`npm install -g` falhou ou PATH não foi atualizado. Reinicie o terminal. Se persistir:
-```bash
-npm install -g marketing-doma-cli --force
-```
-
-### "Cannot find module 'remotion'"
-
-Rode `/marketing-doma:marketing-doma-setup` de novo na pasta do projeto.
-
-### `min-release-age` bloqueando instalação
-
-Se você tem `~/.npmrc` com `min-release-age=7` (proteção de segurança), versões muito novas do CLI são bloqueadas. Força:
-```bash
-npm install -g marketing-doma-cli --min-release-age=0
-```
-
-### Studio Remotion em branco em http://localhost:3010
-
-Provável: pasta tem espaços no caminho. Renomeie e rode setup de novo.
-
-### Render demora muito
-
-Normal na 1ª vez (compila a fonte). Próximos renders ~5 s/slide.
-
----
-
-## Modo dev (clone direto do GitHub)
-
-Se você é **dev** e quer mexer no source:
+## Modo dev
 
 ```bash
-git clone https://github.com/rafael-senter/marketing-doma.git ~/plugins/marketing-doma
-cd ~/plugins/marketing-doma
-bash install.sh
+git clone https://github.com/rafael-senter/marketing-doma.git
+cd marketing-doma
+# symlink ou copiar pra .claude/plugins/ do projeto host
 ```
-
-Edições no clone refletem instantaneamente (symlink no Claude Code global). Pra atualizar: `git pull` na pasta clonada.
-
-Flags:
-```bash
-bash install.sh --dry-run    # mostra o que faria
-bash install.sh --uninstall  # remove tudo
-```
-
----
-
-## 🆘 Suporte
-
-Trave em qualquer passo → fale com o dev. Manda **prints do erro** + qual passo estava.

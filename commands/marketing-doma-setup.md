@@ -1,37 +1,37 @@
 ---
 name: marketing-doma-setup
-description: "Setup do plugin marketing-doma — instala Remotion no CWD do usuário, cria hook auto-start, sincroniza componentes/assets. Idempotente."
+description: "Reparar/re-sync — Remotion + IDE hooks. Idempotente (install já faz isso)."
 ---
 
-# `/marketing-doma:marketing-doma-setup`
+# `/marketing-doma-setup`
 
-**EXECUTAR DIRETO. NÃO inspecionar scripts antes. NÃO ler arquivos.**
+**Reparo ou re-sync.** O `marketing-doma install` já roda este setup. Use só se algo falhou ou após mudança manual.
 
-Rodar 1 comando:
+**EXECUTAR DIRETO:**
 
 ```bash
-bash ~/.claude/plugins/marketing-doma/scripts/install-deps.sh
+node .claude/plugins/marketing-doma/scripts/lib/install-deps.mjs
 ```
 
-(Caminho via symlink global — funciona em qualquer CWD.)
+Se plugin não existir → avisar: `marketing-doma install` primeiro.
 
-Script é **idempotente** (re-rodar não quebra nada) e **detecta CWD automaticamente** (`PROJECT_ROOT = $(pwd)`).
-
-Output esperado (~2 min na primeira vez por causa do `npm i`):
-- `==> 1/6 deps base` (node/python check)
-- `==> 2/6 Remotion` (template + npm i)
-- `==> 3/6 venv Python` (Pillow/numpy/scipy)
-- `==> 4/6 sync` (componentes + assets plugin → host)
-- `==> 5/6 hook auto-start` (.claude/settings.json local)
-- `==> 6/6 smoke test`
+Output (~2 min na 1ª vez):
+- `==> 1/5 Node.js`
+- `==> 2/5 Remotion`
+- `==> 3/5 Sync`
+- `==> 4/5 IDE config (Claude + Cursor)`
+- `==> 5/5 Python SKIP`
 - `🎉 Setup completo`
 
-Se falhar, ler stderr e propor fix específico. Caso contrário, falar "✅ pronto, rode `/marketing-doma` pra criar post".
+**Python (opcional):**
+```bash
+marketing-doma install-advanced
+```
 
-## Anti-padrões (não fazer)
+Se OK → "✅ pronto, rode `/marketing-doma`"
 
-- ❌ Ler `install-deps.sh` antes de rodar.
-- ❌ Inspecionar estrutura do plugin.
-- ❌ Validar deps manualmente (script já faz).
-- ❌ Rodar `npm i` ou criar diretórios manualmente.
-- ❌ Procurar plugin com `find ~/.claude` ou similar.
+## Anti-padrões
+
+- ❌ Rodar manualmente se `marketing-doma install` ainda não foi feito
+- ❌ Instalar Python pro fluxo padrão
+- ❌ Ler scripts antes de executar

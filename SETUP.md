@@ -9,39 +9,23 @@ Setup detalhado pra desenvolvedor. Para usuário leigo em Claude Code, ver [`INS
 | Stack | Versão | Por quê |
 |---|---|---|
 | Claude Code | latest | Harness do plugin |
-| Node.js | LTS (≥20) | Remotion runtime |
+| Node.js | LTS (≥18) | Remotion + sharp + CLI + setup |
 | Remotion | 4.0.479 | Geração PNG/MP4 |
-| Python | ≥3.10 | Medição (Pillow, numpy, scipy) |
-| Git | qualquer | Versionamento do plugin |
+| sharp | npm | Resize Lanczos pós-render (substitui Python/PIL) |
+| Python | opcional | `install-advanced` — layout-mapper, audit, wizard |
 
 ---
 
 ## Estrutura de instalação (via CLI npm)
 
 ```
-~/.local/share/marketing-doma/                  ← clone do GitHub (CLI gerencia)
-├── .git/
-├── plugin.json
-├── CLAUDE.md, README.md, INSTALL.md, SETUP.md
-├── cli/                                        ← código do CLI npm
-├── commands/, agents/, skills/                 ← Claude Code skills
-├── templates/, knowledge-base/, assets/        ← regras + componentes + assets
-└── scripts/                                    ← bash helpers
-
-~/.claude/plugins/marketing-doma                ← symlink → ~/.local/share/marketing-doma/
-
-<qualquer-pasta-de-trabalho>/                   ← projeto host onde cria posts
-├── .claude/settings.json                       ← hook auto-start (criado pelo /marketing-doma:marketing-doma-setup)
-├── remotion-doma/                              ← projeto Remotion (criado pelo setup)
-│   ├── package.json
-│   ├── .npmrc (min-release-age=0)
-│   ├── render-still.sh                         ← anti-franja (scale 2 + Lanczos)
-│   ├── src/                                    ← componentes sync do plugin
-│   ├── public/                                 ← assets sync (logos/icones/fontes)
-│   └── out/<id>.png                            ← renders
-├── .venv-instagram/                            ← Python venv (criado pelo setup)
-├── CLAUDE.md, README.md, .gitignore            ← criados pelo setup
-└── <seu trabalho>                              ← .md, scripts, etc
+<projeto-de-trabalho>/
+├── .claude/
+│   ├── plugins/marketing-doma/     ← clone do GitHub (marketing-doma install)
+│   └── settings.json             ← enabledPlugins + hook auto-start
+├── remotion-doma/                ← criado pelo /marketing-doma-setup
+├── .venv-instagram/              ← venv Python
+└── ...
 ```
 
 ### Estrutura do source (dev — fonte de verdade)
@@ -73,7 +57,7 @@ Dev edita aqui, faz `git push origin main vX.Y.Z`. CLI npm clona do GitHub.
            "hooks": [
              {
                "type": "command",
-               "command": "bash ~/.claude/plugins/marketing-doma/scripts/start-remotion.sh &",
+               "command": "node .claude/plugins/marketing-doma/scripts/lib/start-remotion.mjs",
                "timeout": 5
              }
            ]
@@ -92,12 +76,12 @@ Dev edita aqui, faz `git push origin main vX.Y.Z`. CLI npm clona do GitHub.
 ### Source (dev)
 
 Plugin tem git próprio em `patrick/.claude/plugins/marketing-doma/`:
-- Remote: https://github.com/rafael-senter/marketing-doma (público)
+- Remote: https://github.com/rafael-senter/marketing-doma (privado na equipe; público na instalação)
 - Branch: main
 
 ### CLI npm
 
-CLI wrapper publicado em https://www.npmjs.com/package/marketing-doma-cli (`marketing-doma-cli`). Faz `git clone --depth 1` do GitHub em `~/.local/share/marketing-doma/` e cria symlink em `~/.claude/plugins/marketing-doma`.
+CLI npm publicado em https://www.npmjs.com/package/marketing-doma-cli. Clona em `<projeto>/.claude/plugins/marketing-doma/` e habilita via `enabledPlugins` no settings.json **do projeto**.
 
 ### Fluxo de release
 

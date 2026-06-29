@@ -1,69 +1,43 @@
 # marketing-doma-cli
 
-CLI Node.js wrapper do plugin Claude Code [`marketing-doma`](https://github.com/rafael-senter/marketing-doma).
+CLI do plugin — **100% Node no fluxo marketing**.
 
-Pacote npm pequeno (~5 KB). Faz `git clone` + `git pull` do plugin real. Plugin continua versionado no GitHub.
+## Requisitos manuais
 
-## Instalar (uma vez só)
+- Node.js ≥ 18 LTS
+- Conta Anthropic + VS Code/Cursor (+ extensão Claude Code se usar VS Code)
+- `npm install -g marketing-doma-cli`
 
-```bash
-npm install -g marketing-doma-cli
-```
-
-Ou via `npx` sem instalar global:
-
-```bash
-npx marketing-doma-cli install
-```
+**Não precisa:** git · bash · Python (fluxo padrão)
 
 ## Comandos
 
 | Comando | O que faz |
 |---|---|
-| `marketing-doma install` | Clona o plugin do GitHub em `~/.local/share/marketing-doma` + roda `install.sh` (registra no Claude Code global). |
-| `marketing-doma update` | `git pull` no plugin clonado + re-roda `install.sh` (idempotente). |
-| `marketing-doma status` | Mostra versão do CLI, versão do plugin local, última versão no GitHub. |
-| `marketing-doma uninstall` | Remove plugin + symlinks. CLI continua. |
-| `marketing-doma version` | Versão do CLI + plugin. |
-| `marketing-doma help` | Ajuda. |
+| `marketing-doma install` | Download + Remotion + sync + Claude/Cursor config |
+| `marketing-doma update` | Atualiza plugin (preserva live-rules/planos) + re-sync |
+| `marketing-doma install-advanced` | Python venv — audit, layout-mapper (opcional) |
+| `marketing-doma status` | Versões + saúde |
+| `marketing-doma export` | Tarball pro dev |
+| `marketing-doma cleanup-legacy` | Remove instalação antiga `~/.local/share/` |
 
-## Fluxo típico (usuário leigo em Claude Code)
+## Fluxo marketing
 
 ```bash
-# 1× só:
-npm install -g marketing-doma-cli
+cd minha-pasta
 marketing-doma install
-
-# Sempre que tiver versão nova:
-marketing-doma update
+claude → /marketing-doma          # criar peça
 ```
 
-Depois, dentro de qualquer pasta:
+Cursor: mesma pasta → *"cria post Doma"* ou ler `CURSOR.md`.
+
+Reparar setup: `/marketing-doma-setup` (idempotente).
+
+## Fluxo dev (audit/recreate)
 
 ```bash
-claude
-# no Claude Code:
-/marketing-doma:marketing-doma-setup    # 1ª vez no projeto
-/marketing-doma                         # criar peça
+marketing-doma install-advanced
 ```
-
-## Como atualizações funcionam
-
-- **CLI**: só muda se o fluxo de install mudar. Atualiza com `npm install -g marketing-doma-cli@latest`.
-- **Plugin** (regras, templates, fichas, componentes): atualiza com `marketing-doma update`. Plugin vive no GitHub — `git push` lá no GitHub → próximo `update` puxa.
-
-Resultado: equipe roda 1 comando (`marketing-doma update`) pra ter última versão.
-
-## Requisitos
-
-- Node.js ≥ 18
-- git
-- bash
-- Claude Code instalado (CLI `claude`)
-
-## Repo do plugin
-
-https://github.com/rafael-senter/marketing-doma
 
 ## Licença
 

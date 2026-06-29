@@ -1,0 +1,18 @@
+---
+description: Setup marketing-doma — reparar Remotion + sync (install já faz isso)
+alwaysApply: false
+---
+
+# marketing-doma-setup — Cursor
+
+Rodar quando usuário pedir setup, reparo, ou `remotion-doma/` ausente:
+
+```bash
+node .claude/plugins/marketing-doma/scripts/lib/install-deps.mjs
+```
+
+Idempotente. **`marketing-doma install` já executa este script.**
+
+Depois: seguir regra `marketing-doma.mdc` para criar peças.
+
+Studio Remotion: http://localhost:3010 (hook sobe ao iniciar sessão).

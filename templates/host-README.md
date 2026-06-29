@@ -1,92 +1,50 @@
 # Projeto Marketing Doma
 
-Projeto local do marketing pra gerar posts/carrosséis no Remotion seguindo o design system Doma.
+Posts/carrosséis no Remotion — design system Doma.
 
-**Plugin global**: `~/.claude/plugins/marketing-doma/` (fonte de verdade).
+**Tudo local neste projeto** — plugin em `.claude/plugins/marketing-doma/`.
 
-## Como criar post
+## Setup
 
-No Claude Code, dentro deste diretório:
-
-```
-/marketing-doma:marketing-doma
+```bash
+marketing-doma install
 ```
 
-Wizard pergunta tipo de post, conteúdo, e gera tudo.
+## Criar post
 
-## Atalhos
+```
+/marketing-doma
+```
 
-| Comando | Função |
-|---|---|
-| `/marketing-doma:new-post <cat> <nome>` | Scaffold direto |
-| `/marketing-doma:brainstorm <pauta>` | 3 ângulos voz Doma |
-| `/marketing-doma:render <id>` | Render anti-franja |
-| `/marketing-doma:audit-post <id> <modelo>` | Fidelidade SSIM |
-| `/marketing-doma:publish-checklist` | Pré-publicar |
+Cursor: *"cria post Doma"*
 
-## Estrutura local
+## Estrutura
 
 ```
 .
-├── CLAUDE.md                ← mapa pro plugin + customizações
-├── README.md                ← você está aqui
-├── .gitignore
-├── .claude/settings.json    ← hook auto-start studio
-├── remotion-doma/           ← projeto Remotion
-│   ├── src/v2/categorias/   ← componentes (sync do plugin)
-│   ├── public/oficial/      ← assets (sync do plugin)
-│   ├── render-still.sh
-│   └── out/<id>.png         ← renders
-└── .venv-instagram/         ← venv Python (medições)
+├── .claude/
+│   ├── plugins/marketing-doma/
+│   └── settings.json
+├── .cursor/hooks.json
+├── remotion-doma/out/<id>.png
+└── CLAUDE.md
 ```
 
-## Sincronizar com plugin atualizado
+## Atualizar plugin
 
 ```bash
-cd ~/.claude/plugins/marketing-doma && git pull
-bash ~/.claude/plugins/marketing-doma/scripts/sync-components.sh
+marketing-doma update
 ```
 
 ## Studio Remotion
 
-Sobe automaticamente ao abrir Claude Code (hook em `.claude/settings.json`).
+Hook em `.claude/settings.json` e `.cursor/hooks.json` sobe :3010 ao abrir sessão.
 
 Manual:
 ```bash
 cd remotion-doma && npx remotion studio --port 3010
 ```
 
-## Render
+## Advanced (opcional)
 
-```bash
-bash remotion-doma/render-still.sh <id-do-still>
-```
-
-Saída em `remotion-doma/out/<id>.png` (1080×1350, scale 2 → Lanczos).
-
-## Adicionar cliente novo
-
-```bash
-python ~/.claude/plugins/marketing-doma/scripts/wizard-cliente.py
-```
-
-Ou via Web UI:
-```bash
-cd ~/.claude/plugins/marketing-doma/web && npm i && npm run dev
-```
-
-Detalhe: `~/.claude/plugins/marketing-doma/docs/TUTORIAL-novo-cliente.md`.
-
-## Documentação técnica
-
-Tudo no plugin. Não duplicar aqui.
-
-| Pra saber | Ler |
-|---|---|
-| Regras de marca completas | `~/.claude/plugins/marketing-doma/CLAUDE.md` |
-| Voz Doma institucional | `~/.claude/plugins/marketing-doma/knowledge-base/identidade/voz-sigadoma.md` |
-| Design system real (T1-T11) | `~/.claude/plugins/marketing-doma/knowledge-base/identidade/design-system.md` |
-| RULES §0-§18 | `~/.claude/plugins/marketing-doma/knowledge-base/padroes/RULES-recriacao.md` |
-| Fichas por categoria | `~/.claude/plugins/marketing-doma/knowledge-base/padroes/<cat>.md` |
-| Catálogo de assets | `~/.claude/plugins/marketing-doma/assets/CATALOGO.json` |
-| Cheat-sheet Remotion | `~/.claude/plugins/marketing-doma/knowledge-base/REMOTION-cheatsheet.md` |
+Audit/recreate/wizard → `marketing-doma install-advanced`

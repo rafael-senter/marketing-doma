@@ -3,8 +3,9 @@
  * marketing-doma CLI — wrapper Node.js do plugin Claude Code.
  *
  * Comandos:
- *   marketing-doma install         clone plugin + bash install.sh  (1ª vez)
- *   marketing-doma update          git pull no plugin              (atualizar)
+ *   marketing-doma install         download + Remotion + sync + IDE config
+ *   marketing-doma update          atualiza plugin + re-sync (preserva live-rules)
+ *   marketing-doma install-advanced  Python venv (audit/layout-mapper — opcional)
  *   marketing-doma status          mostra versão local + remota
  *   marketing-doma uninstall       bash install.sh --uninstall
  *   marketing-doma version         mostra versão deste CLI
@@ -22,9 +23,40 @@ const path = require('node:path');
 const os = require('node:os');
 
 const REPO_URL = 'https://github.com/rafael-senter/marketing-doma.git';
-const PLUGIN_DIR = path.join(os.homedir(), '.local', 'share', 'marketing-doma');
-const CLAUDE_SYMLINK = path.join(os.homedir(), '.claude', 'plugins', 'marketing-doma');
+const LEGACY_PLUGIN_DIR = path.join(os.homedir(), '.local', 'share', 'marketing-doma');
+const LEGACY_CLAUDE_SYMLINK = path.join(os.homedir(), '.claude', 'plugins', 'marketing-doma');
+const { downloadPlugin, remotePluginVersion } = require('../lib/download-plugin');
+const { enablePlugin, disablePlugin } = require('../lib/settings-enable-plugin');
 const CLI_VERSION = require('../package.json').version;
+
+function projectRoot() {
+  return process.env.MARKETING_DOMA_PROJECT || process.cwd();
+}
+
+function projectPluginDir(root = projectRoot()) {
+  return path.join(root, '.claude', 'plugins', 'marketing-doma');
+}
+
+function resolveInstall() {
+  const root = projectRoot();
+  const local = projectPluginDir(root);
+  const localOk = fs.existsSync(path.join(local, 'plugin.json'));
+  const legacyOk = fs.existsSync(path.join(LEGACY_PLUGIN_DIR, 'plugin.json'));
+
+  if (localOk) {
+    return { dir: local, root, mode: 'project', settings: path.join(root, '.claude', 'settings.json') };
+  }
+  if (legacyOk) {
+    return {
+      dir: LEGACY_PLUGIN_DIR,
+      root: null,
+      mode: 'legacy',
+      settings: path.join(os.homedir(), '.claude', 'settings.json'),
+      symlink: LEGACY_CLAUDE_SYMLINK,
+    };
+  }
+  return { dir: local, root, mode: 'project', settings: path.join(root, '.claude', 'settings.json') };
+}
 
 const COLORS = {
   reset: '\x1b[0m',
@@ -66,13 +98,12 @@ function header(text) {
 }
 
 function sh(cmd, opts = {}) {
-  // No Windows usa bash do Git for Windows se não está no PATH.
-  // No Linux/macOS usa 'bash' (sempre presente).
-  // Cache findBash() pra não procurar todo call.
   if (!sh._bashPath) sh._bashPath = process.platform === 'win32' ? (findBash() || 'bash') : 'bash';
-  const result = spawnSync(sh._bashPath, ['-c', cmd], {
+  const bash = sh._bashPath;
+  const result = spawnSync(bash, ['-lc', cmd], {
     stdio: opts.silent ? 'pipe' : 'inherit',
     encoding: 'utf8',
+    env: { ...process.env, ...(opts.env || {}) },
     ...opts,
   });
   if (result.status !== 0 && !opts.allowFail) {
@@ -81,13 +112,40 @@ function sh(cmd, opts = {}) {
   return { ok: result.status === 0, stdout: result.stdout || '', stderr: result.stderr || '' };
 }
 
-function checkPrereqs() {
-  // Soft-check usado por cmdUpdate (pressupõe que install rodou antes).
-  // Pra cmdInstall, NÃO chamar — usar missingDeps + install-deps inline.
-  for (const cmd of ['git', 'bash']) {
-    const path = cmd === 'bash' ? findBash() : which(cmd);
-    if (!path) fail(`${cmd} não encontrado. Rode \`marketing-doma install\` primeiro pra instalar automaticamente.`);
+function toBashPath(p) {
+  if (process.platform !== 'win32') return p.replace(/\\/g, '/');
+  const abs = path.resolve(p);
+  if (/^[A-Za-z]:/.test(abs)) {
+    return `/${abs[0].toLowerCase()}${abs.slice(2).replace(/\\/g, '/')}`;
   }
+  return abs.replace(/\\/g, '/');
+}
+
+function runInstallProject(pluginDir, root) {
+  const setup = path.join(pluginDir, 'scripts/lib/install-deps.mjs');
+  if (fs.existsSync(setup)) {
+    info('Configurando projeto (Remotion + IDE)...');
+    const r = spawnSync('node', [setup], {
+      stdio: 'inherit',
+      encoding: 'utf8',
+      cwd: root,
+      env: { ...process.env, MARKETING_DOMA_PROJECT: root },
+    });
+    if (r.status !== 0) fail('Setup do projeto falhou');
+    return;
+  }
+  const configure = path.join(pluginDir, 'scripts/lib/configure-ides.mjs');
+  if (fs.existsSync(configure)) {
+    const r = spawnSync('node', [configure, root], { stdio: 'inherit', encoding: 'utf8' });
+    if (r.status !== 0) fail('configure-ides falhou');
+  } else {
+    enablePlugin(path.join(root, '.claude', 'settings.json'));
+    ok(`enabledPlugins em ${path.join(root, '.claude', 'settings.json')}`);
+  }
+}
+
+function checkPrereqs() {
+  if (!which('node')) fail('node não encontrado.');
 }
 
 // Executa comando de install que NÃO depende de bash (importante no Windows
@@ -104,8 +162,8 @@ function runInstallCmd(cmd) {
   return sh(cmd, { allowFail: true });
 }
 
-function pluginVersion() {
-  const pluginJson = path.join(PLUGIN_DIR, 'plugin.json');
+function pluginVersion(pluginDir) {
+  const pluginJson = path.join(pluginDir || resolveInstall().dir, 'plugin.json');
   if (!fs.existsSync(pluginJson)) return null;
   try {
     return JSON.parse(fs.readFileSync(pluginJson, 'utf8')).version;
@@ -115,12 +173,12 @@ function pluginVersion() {
 }
 
 function remoteVersion() {
-  const r = sh(
-    `git ls-remote --tags ${REPO_URL} 'v*' | awk '{print $2}' | sed 's|refs/tags/||; s|\\^{}||' | sort -V -u | tail -1`,
-    { silent: true, allowFail: true }
-  );
-  if (!r.ok) return null;
-  return r.stdout.trim().replace(/^v/, '').replace(/\^\{\}$/, '') || null;
+  // sync wrapper — cmdStatus usa spawnSync; remote real é async em fetchRemoteVersion
+  return null;
+}
+
+async function fetchRemoteVersion() {
+  return remotePluginVersion();
 }
 
 function promptYesNo(question, defaultYes = true) {
@@ -141,74 +199,60 @@ function promptYesNo(question, defaultYes = true) {
 }
 
 function missingDeps(osTag) {
-  const deps = depsTable();
-  return deps.filter(d => {
-    // No Windows, 'bash' é checado via findBash() (que procura no Git for Windows também).
-    if (d.name === 'bash' && osTag === 'windows') {
-      return !findBash();
-    }
-    const cmdName = osTag === 'windows' && !isGitBash() && d.altWindows ? d.altWindows : d.name;
-    return !which(cmdName);
-  });
+  const deps = depsTable().filter(d => d.requiredForInstall);
+  return deps.filter(d => !depPresent(d, osTag));
+}
+
+function depPresent(d, osTag) {
+  if (d.name === 'bash' && osTag === 'windows') return !!findBash();
+  if (d.name === 'claude') return !!findClaude();
+  if (d.name === 'python3') return !!findPython();
+  const cmdName = osTag === 'windows' && !isGitBash() && d.altWindows ? d.altWindows : d.name;
+  return !!which(cmdName);
 }
 
 function cmdInstall() {
-  header('marketing-doma install');
-  // NÃO chamar checkPrereqs() aqui — install é o ponto onde deps são instaladas.
-  // Catch-22 no Windows: git/bash são deps mas vem com Git for Windows que CLI instala.
+  return (async () => {
+    header('marketing-doma install');
+    const root = projectRoot();
+    const pluginDir = projectPluginDir(root);
 
-  // Pré-check: verificar deps no PATH antes de prosseguir
-  const osTag = detectOS();
-  const missing = missingDeps(osTag);
-  if (missing.length > 0) {
-    warn(`Pré-requisitos faltando: ${missing.map(d => d.name).join(', ')}`);
+    info(`Projeto: ${root}`);
+    info(`Plugin:  ${pluginDir}`);
     log('');
-    if (process.env.MARKETING_DOMA_FORCE) {
-      log(c('yellow', 'MARKETING_DOMA_FORCE=1 setado — pulando install-deps.'));
-    } else {
-      const wantAuto = promptYesNo('Instalar automaticamente agora? (sudo/admin)', true);
-      if (wantAuto) {
-        cmdInstallDeps();
-        // Re-verifica
-        const stillMissing = missingDeps(osTag);
-        if (stillMissing.length > 0) {
-          warn(`Ainda faltam: ${stillMissing.map(d => d.name).join(', ')}`);
-          info('Instale manualmente (rode `marketing-doma doctor` pra ver comandos) e tente de novo.');
-          process.exit(1);
-        }
-        ok('Deps OK. Continuando install do plugin...');
-        log('');
-      } else {
-        info('Rode `marketing-doma doctor` pra ver comandos manuais.');
-        process.exit(1);
-      }
+
+    if (fs.existsSync(path.join(pluginDir, 'plugin.json'))) {
+      warn('Plugin já existe neste projeto.');
+      runInstallProject(pluginDir, root);
+      log('');
+      log(c('green', `🎉 Plugin marketing-doma ${pluginVersion(pluginDir) || ''} pronto!`));
+      printNextSteps(root);
+      return;
     }
-  }
 
-  if (fs.existsSync(PLUGIN_DIR)) {
-    warn(`Plugin já existe em ${PLUGIN_DIR}`);
-    info('Rode `marketing-doma update` para atualizar ou `marketing-doma uninstall` para remover.');
-    process.exit(0);
-  }
+    fs.mkdirSync(path.dirname(pluginDir), { recursive: true });
+    info('Baixando plugin do GitHub (sem git)...');
+    await downloadPlugin(pluginDir);
+    ok('Plugin baixado');
 
-  info(`Clonando plugin em ${PLUGIN_DIR}`);
-  fs.mkdirSync(path.dirname(PLUGIN_DIR), { recursive: true });
-  sh(`git clone --depth 1 ${REPO_URL} ${PLUGIN_DIR}`);
-  ok('Plugin clonado');
+    info('Registrando no projeto...');
+    runInstallProject(pluginDir, root);
 
-  info('Rodando install.sh (registra no Claude Code global)');
-  sh(`bash ${PLUGIN_DIR}/install.sh`);
-  ok('install.sh concluído');
+    log('');
+    log(c('green', `🎉 Plugin marketing-doma ${pluginVersion(pluginDir) || ''} instalado!`));
+    printNextSteps(root);
+  })();
+}
 
-  const v = pluginVersion();
+function printNextSteps(root) {
   log('');
-  log(c('green', `🎉 Plugin marketing-doma ${v || ''} instalado!`));
+  log('Próximos passos:');
+  log(c('cyan', `  cd "${root}"`));
+  log('  Claude Code: claude → /marketing-doma');
+  log('  Cursor: abrir mesma pasta · ler CURSOR.md · "cria post Doma"');
   log('');
-  log('Próximo passo: abrir Claude Code numa pasta de trabalho qualquer e rodar:');
-  log(c('cyan', '  /marketing-doma:marketing-doma-setup'));
-  log('');
-  log('Para atualizar futuramente:');
-  log(c('cyan', '  marketing-doma update'));
+  log('Atualizar: ' + c('cyan', 'marketing-doma update'));
+  log('Reparar setup: ' + c('cyan', '/marketing-doma-setup'));
 }
 
 // Pastas dentro do clone que NUNCA podem ser sobrescritas pelo update
@@ -229,13 +273,12 @@ function moveOrCopy(src, dst) {
   }
 }
 
-function preserveBeforeReset() {
-  // Stash dentro do próprio PLUGIN_DIR pra evitar cross-device link.
-  const stash = path.join(PLUGIN_DIR, `.marketing-doma-preserve-${process.pid}`);
+function preserveBeforeReset(pluginDir) {
+  const stash = path.join(pluginDir, `.marketing-doma-preserve-${process.pid}`);
   fs.mkdirSync(stash, { recursive: true });
   const saved = [];
   for (const rel of PRESERVED_DIRS) {
-    const src = path.join(PLUGIN_DIR, rel);
+    const src = path.join(pluginDir, rel);
     if (!fs.existsSync(src)) continue;
     const dst = path.join(stash, rel);
     fs.mkdirSync(path.dirname(dst), { recursive: true });
@@ -245,10 +288,10 @@ function preserveBeforeReset() {
   return { stash, saved };
 }
 
-function restoreAfterReset({ stash, saved }) {
+function restoreAfterReset(pluginDir, { stash, saved }) {
   for (const rel of saved) {
     const src = path.join(stash, rel);
-    const dst = path.join(PLUGIN_DIR, rel);
+    const dst = path.join(pluginDir, rel);
     if (!fs.existsSync(src)) continue;
     if (fs.existsSync(dst)) {
       mergeDir(src, dst);
@@ -277,235 +320,229 @@ function mergeDir(srcDir, dstDir) {
 }
 
 function cmdUpdate() {
-  header('marketing-doma update');
-  checkPrereqs();
+  return (async () => {
+    header('marketing-doma update');
+    checkPrereqs();
+    const inst = resolveInstall();
+    const root = inst.root || projectRoot();
 
-  if (!fs.existsSync(PLUGIN_DIR)) {
-    warn('Plugin não está instalado.');
-    info('Rode `marketing-doma install` primeiro.');
-    process.exit(1);
-  }
+    if (!fs.existsSync(path.join(inst.dir, 'plugin.json'))) {
+      warn('Plugin não instalado neste projeto.');
+      info('Rode `marketing-doma install` na pasta do projeto.');
+      process.exit(1);
+    }
 
-  const before = pluginVersion();
-  info(`Versão atual: ${before || 'desconhecida'}`);
+    const before = pluginVersion(inst.dir);
+    const remote = await fetchRemoteVersion();
+    info(`Versão local: ${before || '?'}`);
+    if (remote) info(`Versão GitHub: ${remote}`);
+    if (before && remote && before === remote) {
+      ok('Já está na última versão.');
+      info('Re-sincronizando Remotion + IDE...');
+      runInstallProject(inst.dir, root);
+      log('');
+      log(c('green', '🎉 Projeto sincronizado.'));
+      return;
+    }
 
-  info('Buscando atualizações no GitHub...');
-  // 1. Fetch tudo
-  const fetchResult = sh(`cd "${PLUGIN_DIR}" && git fetch --tags origin main`, { allowFail: true });
-  if (!fetchResult.ok) {
-    fail('Falha ao buscar GitHub. Sem conexão? Repo público?');
-  }
+    info('Preservando live-rules e planos...');
+    const preserved = preserveBeforeReset(inst.dir);
+    if (preserved.saved.length) ok(`Preservado: ${preserved.saved.join(', ')}`);
 
-  // 2. Verifica se há mudanças
-  const localSha = sh(`cd "${PLUGIN_DIR}" && git rev-parse HEAD`, { silent: true, allowFail: true }).stdout.trim();
-  const remoteSha = sh(`cd "${PLUGIN_DIR}" && git rev-parse origin/main`, { silent: true, allowFail: true }).stdout.trim();
-  if (localSha === remoteSha) {
-    ok(`Já está na última versão (${before}).`);
-    return;
-  }
+    info('Baixando versão nova...');
+    fs.rmSync(inst.dir, { recursive: true, force: true });
+    await downloadPlugin(inst.dir);
+    restoreAfterReset(inst.dir, preserved);
 
-  // 3. Preserva pastas com dados do cliente
-  info('Preservando dados locais (live-rules, planos do cliente)...');
-  const preserved = preserveBeforeReset();
-  if (preserved.saved.length) {
-    ok(`Preservado: ${preserved.saved.join(', ')}`);
-  }
+    const after = pluginVersion(inst.dir);
+    ok(`Atualizado: ${before} → ${after}`);
+    runInstallProject(inst.dir, root);
 
-  // 4. Force-overwrite — descarta TUDO local (commits, edits, untracked não preservado)
-  info('Aplicando atualização (sobrescreve modificações locais não-preservadas)...');
-  const resetResult = sh(`cd "${PLUGIN_DIR}" && git reset --hard origin/main && git clean -fd`, { allowFail: true });
-  if (!resetResult.ok) {
-    // Restaura antes de falhar
-    restoreAfterReset(preserved);
-    fail('Falha ao aplicar atualização. Tente: marketing-doma uninstall && marketing-doma install');
-  }
-
-  // 5. Restaura dados preservados
-  restoreAfterReset(preserved);
-
-  const after = pluginVersion();
-  ok(`Atualizado: ${before} → ${after}`);
-
-  // 6. Re-rodar install.sh é seguro (idempotente)
-  info('Re-aplicando registry Claude Code (install.sh idempotente)...');
-  sh(`bash "${PLUGIN_DIR}/install.sh"`);
-  ok('install.sh OK');
-
-  log('');
-  log(c('green', '🎉 Plugin atualizado!'));
-  log('');
-  log(c('gray', 'Live-rules e planos do cliente preservados.'));
-  log(c('gray', 'Pra exportar suas edições/melhorias pro dev: ' + c('cyan', 'marketing-doma export')));
+    log('');
+    log(c('green', '🎉 Plugin atualizado!'));
+    log('Remotion + componentes + IDE reconfigurados.');
+    log(c('gray', 'Export: ' + c('cyan', 'marketing-doma export')));
+  })();
 }
 
 function cmdStatus() {
-  header('marketing-doma status');
+  return (async () => {
+    header('marketing-doma status');
+    const inst = resolveInstall();
 
-  // 1. Versões CLI + plugin
-  log(`  CLI version:                ${c('cyan', CLI_VERSION)}`);
+    log(`  CLI version:                ${c('cyan', CLI_VERSION)}`);
+    log(`  Projeto (CWD):              ${c('gray', projectRoot())}`);
 
-  if (!fs.existsSync(PLUGIN_DIR)) {
-    warn('Plugin NÃO instalado.');
-    info('Rode `marketing-doma install`.');
+    if (!fs.existsSync(path.join(inst.dir, 'plugin.json'))) {
+      warn('Plugin NÃO instalado neste projeto.');
+      info('Rode `marketing-doma install` na pasta do projeto.');
+    } else {
+      const local = pluginVersion(inst.dir);
+      log(`  Plugin local:               ${c('cyan', local || '?')}`);
+      log(`  Caminho:                    ${c('gray', inst.dir)}`);
+
+      const remote = await fetchRemoteVersion();
+      if (remote) {
+        log(`  Plugin remoto (GitHub):     ${c('cyan', remote)}`);
+        if (local && remote !== local) {
+          warn(`Atualização disponível: ${local} → ${remote}`);
+          info('Rode `marketing-doma update`.');
+        } else ok('Plugin atualizado.');
+      }
+
+      if (inst.settings && fs.existsSync(inst.settings)) {
+        try {
+          const s = JSON.parse(fs.readFileSync(inst.settings, 'utf8'));
+          if (s.enabledPlugins?.['marketing-doma@marketing-doma']) ok('Claude Code: enabledPlugins OK');
+          else warn('Claude: rode marketing-doma install');
+        } catch { warn('Claude: settings.json inválido'); }
+      }
+      const cursorHooks = path.join(inst.root || projectRoot(), '.cursor/hooks.json');
+      const cursorRules = path.join(inst.root || projectRoot(), '.cursor/rules/marketing-doma.mdc');
+      if (fs.existsSync(cursorHooks)) ok('Cursor: hooks.json OK');
+      else info('Cursor: rode marketing-doma install');
+      if (fs.existsSync(cursorRules)) ok('Cursor: rules OK');
+
+      const venv = path.join(inst.root || projectRoot(), '.venv-instagram');
+      if (fs.existsSync(venv)) ok('Python advanced (.venv-instagram) instalado');
+      else info('Python advanced: não instalado (opcional — install-advanced)');
+    }
+
     log('');
+    log(c('bold', '── Stack ──'));
+    log(`  ${c('green', '✓')} Node.js (obrigatório)`);
+    const remotion = path.join(inst.root || projectRoot(), 'remotion-doma', 'node_modules');
+    log(`  ${fs.existsSync(remotion) ? c('green', '✓') : c('gray', '○')} Remotion (marketing-doma install)`);
+    log(`  ${findPython() ? c('green', '✓') : c('gray', '○')} Python (opcional — audit/recreate)`);
+    log(`  ${findClaude() ? c('green', '✓') : c('gray', '○')} claude CLI (opcional — extensão VS Code OK)`);
+
+    if (fs.existsSync(LEGACY_PLUGIN_DIR)) {
+      warn(`Legacy ${LEGACY_PLUGIN_DIR} — rode marketing-doma cleanup-legacy`);
+    }
+  })();
+}
+
+function cmdInstallAdvanced() {
+  header('marketing-doma install-advanced');
+  const inst = resolveInstall();
+  if (!fs.existsSync(path.join(inst.dir, 'plugin.json'))) {
+    fail('Plugin não instalado. Rode marketing-doma install primeiro.');
+  }
+  const adv = path.join(inst.dir, 'scripts/install-advanced.sh');
+  if (process.platform === 'win32') {
+    const bash = findBash();
+    if (!bash) fail('Git Bash necessário pro install-advanced no Windows.');
+    sh(`"${toBashPath(bash)}" "${toBashPath(adv)}"`, { env: { MARKETING_DOMA_PROJECT: inst.root || projectRoot() } });
   } else {
-    const local = pluginVersion();
-    log(`  Plugin local:               ${c('cyan', local || '?')}  ${c('gray', PLUGIN_DIR)}`);
-
-    info('Verificando última versão no GitHub...');
-    const remote = remoteVersion();
-    if (remote) {
-      log(`  Plugin remoto (GitHub):     ${c('cyan', remote)}`);
-      if (local && remote && local !== remote) {
-        warn(`Há atualização disponível: ${local} → ${remote}`);
-        info('Rode `marketing-doma update`.');
-      } else if (local === remote) {
-        ok('Plugin atualizado.');
-      }
-    } else {
-      warn('Não foi possível consultar GitHub (offline ou acesso negado).');
-    }
-
-    if (fs.existsSync(CLAUDE_SYMLINK)) {
-      const target = fs.realpathSync(CLAUDE_SYMLINK);
-      ok(`Symlink Claude Code OK  ${c('gray', '→ ' + target)}`);
-    } else {
-      warn(`Symlink ${CLAUDE_SYMLINK} não encontrado — install.sh não rodou.`);
-    }
+    sh(`bash "${adv}"`, { env: { MARKETING_DOMA_PROJECT: inst.root || projectRoot() } });
   }
-
-  // 2. Pré-requisitos do sistema
-  log('');
-  log(c('bold', '── Pré-requisitos do sistema ──'));
-  const osTag = detectOS();
-  log(`  Sistema: ${c('cyan', osTag)} ${isGitBash() ? c('gray', '(Git Bash)') : ''}`);
-  log('');
-
-  const deps = depsTable();
-  const missing = [];
-
-  for (const d of deps) {
-    // Bash no Windows: usa findBash() (procura no Git for Windows também).
-    if (d.name === 'bash' && osTag === 'windows') {
-      const bashPath = findBash();
-      if (!bashPath) {
-        log(`  ${c('red', '✗')} ${d.label.padEnd(20)} ${c('gray', 'não encontrado (precisa Git for Windows)')}`);
-        missing.push(d.name);
-      } else {
-        log(`  ${c('green', '✓')} ${d.label.padEnd(20)} ${c('gray', bashPath)}`);
-      }
-      continue;
-    }
-    const cmdName = osTag === 'windows' && !isGitBash() && d.altWindows ? d.altWindows : d.name;
-    const path = which(cmdName);
-    if (!path) {
-      log(`  ${c('red', '✗')} ${d.label.padEnd(20)} ${c('gray', 'não encontrado')}`);
-      missing.push(d.name);
-      continue;
-    }
-    const v = checkCmdVersion(cmdName);
-    log(`  ${c('green', '✓')} ${d.label.padEnd(20)} ${c('cyan', v || '?')}`);
-  }
-
-  log('');
-  if (missing.length === 0) {
-    ok('Todos os pré-requisitos OK.');
-  } else {
-    warn(`${missing.length} dep(s) faltando: ${missing.map(d => d).join(', ')}`);
-    info('Rode `marketing-doma install` (oferece instalar automaticamente).');
-    info('Ou veja comandos manuais: `marketing-doma install-deps --dry-run` (não implementado — use install-deps).');
-  }
+  ok('Advanced instalado.');
 }
 
 function cmdUninstall() {
   header('marketing-doma uninstall');
+  const inst = resolveInstall();
+  const root = inst.root || projectRoot();
 
-  if (!fs.existsSync(PLUGIN_DIR)) {
-    warn('Plugin não está instalado.');
+  if (!fs.existsSync(path.join(inst.dir, 'plugin.json'))) {
+    warn('Plugin não instalado.');
     process.exit(0);
   }
 
-  info('Rodando install.sh --uninstall (remove symlinks + settings)');
-  sh(`bash ${PLUGIN_DIR}/install.sh --uninstall`, { allowFail: true });
+  disablePlugin(path.join(root, '.claude', 'settings.json'));
+  const cursorHooks = path.join(root, '.cursor', 'hooks.json');
+  if (fs.existsSync(cursorHooks)) {
+    try {
+      const h = JSON.parse(fs.readFileSync(cursorHooks, 'utf8'));
+      if (h.hooks?.sessionStart) {
+        h.hooks.sessionStart = h.hooks.sessionStart.filter(
+          (x) => !(x.command || '').includes('start-remotion')
+        );
+        fs.writeFileSync(cursorHooks, JSON.stringify(h, null, 2) + '\n');
+      }
+    } catch {}
+  }
+  fs.rmSync(inst.dir, { recursive: true, force: true });
+  ok('Plugin removido do projeto.');
+  log('CLI continua. Remover: ' + c('cyan', 'npm uninstall -g marketing-doma-cli'));
+}
 
-  info(`Apagando ${PLUGIN_DIR}`);
-  fs.rmSync(PLUGIN_DIR, { recursive: true, force: true });
-  ok('Plugin removido.');
+function cmdCleanupLegacy() {
+  header('marketing-doma cleanup-legacy');
+  let removed = 0;
+  for (const p of [LEGACY_PLUGIN_DIR, LEGACY_CLAUDE_SYMLINK]) {
+    if (fs.existsSync(p)) {
+      fs.rmSync(p, { recursive: true, force: true });
+      ok(`Removido: ${p}`);
+      removed++;
+    }
+  }
+  const cacheDir = path.join(os.homedir(), '.claude', 'plugins', 'cache', 'marketing-doma');
+  if (fs.existsSync(cacheDir)) {
+    fs.rmSync(cacheDir, { recursive: true, force: true });
+    ok(`Removido cache legacy: ${cacheDir}`);
+    removed++;
+  }
+  if (!removed) ok('Nada legacy pra limpar.');
+}
 
-  log('');
-  log('CLI continua instalado. Para remover: ' + c('cyan', 'npm uninstall -g marketing-doma-cli'));
+function walkFiles(dir, base, out) {
+  if (!fs.existsSync(dir)) return;
+  for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
+    const full = path.join(dir, e.name);
+    const rel = path.join(base, e.name);
+    if (e.isDirectory()) walkFiles(full, rel, out);
+    else out.push(rel);
+  }
 }
 
 function cmdExport() {
-  header('marketing-doma export — empacotar edições do cliente pro dev');
+  header('marketing-doma export');
+  const inst = resolveInstall();
+  const pluginDir = inst.dir;
 
-  if (!fs.existsSync(PLUGIN_DIR)) {
-    fail('Plugin não está instalado.');
+  if (!fs.existsSync(path.join(pluginDir, 'plugin.json'))) {
+    fail('Plugin não instalado.');
   }
 
-  // Detecta:
-  // - Arquivos novos (untracked) — live-rules, planos, fotos, novos clients
-  // - Arquivos modificados (vs HEAD do git) — edits em componentes/regras
-  const statusResult = sh(`cd "${PLUGIN_DIR}" && git status --porcelain=v1`, { silent: true, allowFail: true });
-  if (!statusResult.ok) {
-    fail('Falha ao consultar git status do plugin.');
+  const files = [];
+  for (const rel of [...PRESERVED_DIRS, 'knowledge-base/padroes', 'templates/components']) {
+    walkFiles(path.join(pluginDir, rel), rel, files);
   }
 
-  const changes = statusResult.stdout
-    .split('\n')
-    .map(l => l.trim())
-    .filter(Boolean);
-
-  if (changes.length === 0) {
-    ok('Nenhuma edição local pra exportar.');
-    info('O cliente não fez modificações desde o último install/update.');
+  if (files.length === 0) {
+    ok('Nenhum arquivo local pra exportar.');
     return;
   }
 
-  log(`  Mudanças detectadas: ${c('cyan', changes.length)} arquivo(s)`);
-  for (const c2 of changes.slice(0, 10)) {
-    log(`    ${c('gray', c2)}`);
-  }
-  if (changes.length > 10) {
-    log(`    ${c('gray', `... +${changes.length - 10} mais`)}`);
-  }
-  log('');
-
-  // Gera tarball com:
-  // - knowledge-base/live-rules/
-  // - templates/planos/
-  // - knowledge-base/ (qualquer .md modificado)
-  // - templates/components/ (qualquer .tsx modificado)
-  // - assets/ (qualquer arquivo novo — fotos clientes, logos)
+  log(`  Arquivos: ${c('cyan', files.length)}`);
   const now = new Date().toISOString().replace(/[:.]/g, '-').slice(0, 19);
   const outPath = path.join(process.cwd(), `marketing-doma-export-${now}.tar.gz`);
 
-  info(`Gerando ${outPath}...`);
-  const tarResult = sh(
-    `cd "${PLUGIN_DIR}" && git status --porcelain=v1 | awk '{print $2}' | tar -czf "${outPath}" -T -`,
-    { allowFail: true }
-  );
-
-  if (!tarResult.ok || !fs.existsSync(outPath)) {
-    fail('Falha ao gerar tarball.');
+  if (fs.existsSync(path.join(pluginDir, '.git'))) {
+    const statusResult = sh(`cd "${toBashPath(pluginDir)}" && git status --porcelain=v1`, { silent: true, allowFail: true });
+    if (statusResult.ok && statusResult.stdout.trim()) {
+      sh(`cd "${toBashPath(pluginDir)}" && git status --porcelain=v1 | awk '{print $2}' | tar -czf "${toBashPath(outPath)}" -T -`, { allowFail: true });
+    }
   }
 
-  const stats = fs.statSync(outPath);
-  ok(`Tarball gerado: ${outPath} (${Math.round(stats.size / 1024)} KB)`);
+  if (!fs.existsSync(outPath)) {
+    const listFile = path.join(os.tmpdir(), `mdoma-export-${process.pid}.txt`);
+    fs.writeFileSync(listFile, files.map((f) => path.join(pluginDir, f)).join('\n'));
+    sh(`tar -czf "${toBashPath(outPath)}" -T "${toBashPath(listFile)}"`, { allowFail: true });
+    try { fs.unlinkSync(listFile); } catch {}
+  }
 
-  log('');
-  log(c('bold', 'Próximos passos:'));
-  log(`  1. Copie ${c('cyan', path.basename(outPath))} pra pendrive.`);
-  log(`  2. No computador do dev, rode no source do plugin:`);
-  log(`     ${c('cyan', `tar -xzf ${path.basename(outPath)} -C /caminho/source/plugin/`)}`);
-  log(`  3. Dev revisa, integra, commita, publica nova versão.`);
+  if (!fs.existsSync(outPath)) fail('Falha ao gerar tarball.');
+  ok(`Tarball: ${outPath} (${Math.round(fs.statSync(outPath).size / 1024)} KB)`);
 }
 
 function cmdVersion() {
   log(`marketing-doma-cli ${CLI_VERSION}`);
-  const v = pluginVersion();
-  if (v) log(`plugin ${v} (em ${PLUGIN_DIR})`);
-  else log('plugin não instalado');
+  const inst = resolveInstall();
+  const v = pluginVersion(inst.dir);
+  if (v) log(`plugin ${v} (${inst.mode}) em ${inst.dir}`);
+  else log('plugin não instalado neste projeto');
 }
 
 // === Detecção de OS + comandos por OS ===
@@ -533,35 +570,68 @@ function isGitBash() {
 }
 
 function which(cmd) {
-  // Cross-platform "which" — usa spawnSync direto pra evitar dependência circular com sh()/findBash().
-  // Linux/macOS: `command -v` via /bin/sh (sempre presente).
-  // Windows: `where.exe` (built-in, não precisa de bash).
   const isWin = process.platform === 'win32';
   const r = isWin
     ? spawnSync('where.exe', [cmd], { encoding: 'utf8' })
     : spawnSync('/bin/sh', ['-c', `command -v ${cmd}`], { encoding: 'utf8' });
   if (r.status !== 0) return null;
-  return (r.stdout || '').trim().split('\n')[0] || null;
+  const lines = (r.stdout || '').trim().split(/\r?\n/).filter(Boolean);
+  for (const line of lines) {
+    const p = line.trim();
+    if (isWin && isWindowsStoreStub(p)) continue;
+    return p;
+  }
+  return null;
 }
 
-// Localiza bash.exe no Windows mesmo sem estar no PATH (vem com Git for Windows).
-// No Linux/macOS, retorna 'bash' (sempre no PATH).
+function isWindowsStoreStub(p) {
+  const norm = p.replace(/\\/g, '/').toLowerCase();
+  return norm.includes('windowsapps') || norm.includes('microsoft/windowsapps');
+}
+
 function findBash() {
-  if (process.platform !== 'win32') return 'bash';
-  // Tenta no PATH primeiro
+  if (process.platform !== 'win32') return which('bash') || 'bash';
   const inPath = which('bash');
   if (inPath) return inPath;
-  // Locais conhecidos do Git for Windows
   const candidates = [
     'C:\\Program Files\\Git\\bin\\bash.exe',
     'C:\\Program Files (x86)\\Git\\bin\\bash.exe',
-    `${process.env.LOCALAPPDATA || ''}\\Programs\\Git\\bin\\bash.exe`,
-    `${process.env.ProgramW6432 || ''}\\Git\\bin\\bash.exe`,
+    path.join(process.env.LOCALAPPDATA || '', 'Programs', 'Git', 'bin', 'bash.exe'),
+    path.join(process.env.ProgramW6432 || '', 'Git', 'bin', 'bash.exe'),
   ].filter(Boolean);
   for (const p of candidates) {
     try {
       if (fs.existsSync(p)) return p;
     } catch {}
+  }
+  return null;
+}
+
+function findClaude() {
+  const inPath = which('claude');
+  if (inPath && !isWindowsStoreStub(inPath)) return inPath;
+  const home = os.homedir();
+  const candidates = [
+    path.join(home, '.local', 'bin', 'claude'),
+    path.join(home, '.local', 'bin', 'claude.exe'),
+    path.join(process.env.APPDATA || '', 'npm', 'claude.cmd'),
+    path.join(process.env.APPDATA || '', 'npm', 'claude'),
+    path.join(process.env.LOCALAPPDATA || '', 'Programs', 'claude', 'claude.exe'),
+  ].filter(Boolean);
+  for (const p of candidates) {
+    try {
+      if (fs.existsSync(p)) return p;
+    } catch {}
+  }
+  return null;
+}
+
+function findPython() {
+  for (const cmd of process.platform === 'win32' ? ['python', 'python3', 'py'] : ['python3', 'python']) {
+    const p = which(cmd);
+    if (!p || isWindowsStoreStub(p)) continue;
+    const r = spawnSync(p, ['--version'], { encoding: 'utf8' });
+    if (r.status === 0 && /python\s+\d/i.test(r.stdout || r.stderr || '')) return p;
   }
   return null;
 }
@@ -578,12 +648,12 @@ function checkCmdVersion(cmd, args = '--version') {
 // Tabela de pré-requisitos + comandos de instalação por OS
 function depsTable() {
   return [
-    { name: 'node', minVersion: '18', label: 'Node.js' },
-    { name: 'npm', minVersion: '9', label: 'npm' },
-    { name: 'git', minVersion: '2.30', label: 'git' },
-    { name: 'bash', minVersion: '4', label: 'bash' },
-    { name: 'python3', minVersion: '3.10', label: 'Python 3', altWindows: 'python' },
-    { name: 'claude', minVersion: null, label: 'Claude Code CLI' },
+    { name: 'node', minVersion: '18', label: 'Node.js', requiredForInstall: false },
+    { name: 'npm', minVersion: '9', label: 'npm', requiredForInstall: false },
+    { name: 'git', minVersion: '2.30', label: 'git', requiredForInstall: false },
+    { name: 'bash', minVersion: '4', label: 'bash', requiredForInstall: false },
+    { name: 'python3', minVersion: '3.10', label: 'Python 3', altWindows: 'python', requiredForInstall: false },
+    { name: 'claude', minVersion: null, label: 'Claude Code CLI', requiredForInstall: false },
   ];
 }
 
@@ -649,8 +719,8 @@ function cmdInstallDeps() {
   log(c('yellow', '   Você verá prompts de senha. Verifique cada comando antes de aceitar.'));
   log('');
 
-  // Ordenar pra instalar git/bash PRIMEIRO no Windows (resto depende deles).
-  const order = ['git', 'bash', 'python3', 'claude', 'node', 'npm'];
+  // git + bash primeiro no Windows; claude/python são opcionais no install
+  const order = ['git', 'bash', 'python3', 'node', 'npm'];
   const sorted = missing.slice().sort((a, b) => order.indexOf(a.name) - order.indexOf(b.name));
 
   for (const d of sorted) {
@@ -678,36 +748,43 @@ function cmdHelp() {
 ${c('bold', 'marketing-doma')} — CLI do plugin Claude Code
 
 ${c('bold', 'Comandos:')}
-  ${c('cyan', 'install')}      Instala plugin. Verifica pré-requisitos e oferece instalar faltantes.
-  ${c('cyan', 'update')}       Atualiza plugin (sobrescreve do GitHub, preservando live-rules/planos).
+  ${c('cyan', 'install-advanced')} Python venv (audit, layout-mapper, wizard — opcional).
+  ${c('cyan', 'install')}      Download + Remotion + sync + Claude/Cursor (tudo em um).
+  ${c('cyan', 'update')}       Atualiza plugin + re-sync Remotion/IDE (mesmo se já na última).
   ${c('cyan', 'status')}       Versão local vs remota + saúde da instalação + pré-requisitos.
   ${c('cyan', 'export')}       Empacota edições locais (live-rules, planos, edits) em tarball pro dev.
-  ${c('cyan', 'install-deps')} Instala pré-requisitos faltantes (sudo/admin) — chamado automático pelo install.
+  ${c('cyan', 'install-deps')} Instala git/bash/python no SO (legado — install não precisa).
   ${c('cyan', 'uninstall')}    Remove plugin (mantém este CLI).
   ${c('cyan', 'version')}      Mostra versão do CLI + plugin.
   ${c('cyan', 'help')}         Esta tela.
 
-${c('bold', 'Uso típico (1ª vez):')}
+${c('bold', 'Pré-requisitos manuais:')}
+  Node.js LTS · conta Anthropic · VS Code · extensão Claude Code
   npm install -g marketing-doma-cli
-  marketing-doma install
 
-${c('bold', 'Atualizar:')}
-  marketing-doma update
+${c('bold', 'Automático (na pasta do projeto):')}
+  cd minha-pasta
+  marketing-doma install           (plugin + Remotion + IDE — tudo)
+  claude → /marketing-doma         (dia a dia)
+  /marketing-doma-setup            (opcional — reparar/re-sync)
 
-${c('bold', 'Mais info:')}
-  Plugin: ${REPO_URL.replace('.git', '')}
-  Instala em: ${PLUGIN_DIR}
-  Symlink Claude Code: ${CLAUDE_SYMLINK}
+${c('bold', 'Instala em:')}
+  <projeto>/.claude/plugins/marketing-doma/
+
+${c('bold', 'Limpar instalação antiga (legacy):')}
+  marketing-doma cleanup-legacy
 `);
 }
 
 function main() {
   const cmd = (process.argv[2] || 'help').toLowerCase();
+  const run = (fn) => Promise.resolve(fn()).catch((e) => fail(e.message || String(e)));
+
   switch (cmd) {
-    case 'doctor':       // alias retrocompat — mergeado em status
+    case 'doctor':
     case 'd':
     case 'check':
-      return cmdStatus();
+      return run(cmdStatus);
     case 'install-deps':
     case 'deps':
       return cmdInstallDeps();
@@ -716,17 +793,23 @@ function main() {
       return cmdExport();
     case 'install':
     case 'i':
-      return cmdInstall();
+      return run(cmdInstall);
+    case 'install-advanced':
+    case 'advanced':
+      return cmdInstallAdvanced();
     case 'update':
     case 'upgrade':
     case 'u':
-      return cmdUpdate();
+      return run(cmdUpdate);
     case 'status':
     case 's':
-      return cmdStatus();
+      return run(cmdStatus);
     case 'uninstall':
     case 'remove':
       return cmdUninstall();
+    case 'cleanup-legacy':
+    case 'cleanup':
+      return cmdCleanupLegacy();
     case 'version':
     case '-v':
     case '--version':

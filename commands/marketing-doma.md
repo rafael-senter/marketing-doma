@@ -10,7 +10,7 @@ description: "Marketing Doma — fluxo guiado de criação de post/carrossel/sto
 ## Pré-check (silencioso, 1 comando)
 
 ```bash
-test -d "$(pwd)/remotion-doma" || { echo "⚠️  Rode primeiro: /marketing-doma:marketing-doma-setup"; exit 0; }
+test -d "$(pwd)/remotion-doma" || { echo "⚠️  Rode primeiro: marketing-doma install (ou /marketing-doma-setup)"; exit 0; }
 ```
 
 Se falhou: avisar e parar.

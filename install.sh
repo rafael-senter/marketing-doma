@@ -1,20 +1,16 @@
 #!/usr/bin/env bash
 # marketing-doma :: install.sh (raiz)
 #
-# Wrapper conveniente — chama scripts/install-globally.sh.
-# Roda 1× após clonar o plugin em qualquer pasta.
-#
-# Fluxo típico:
-#   git clone git@gitlab.com:valem_grupo/marketing-doma.git ~/qualquer/lugar/marketing-doma
-#   cd ~/qualquer/lugar/marketing-doma
-#   bash install.sh
-#
-# Depois (em qualquer pasta de projeto):
-#   claude
-#   /marketing-doma:marketing-doma-setup    # instala Remotion no CWD
-#   /marketing-doma:marketing-doma           # cria posts
+# Roteador:
+#   Plugin em <projeto>/.claude/plugins/marketing-doma → install-project.sh (padrão)
+#   Plugin em outro lugar (dev) → install-globally.sh (legacy)
 
 set -euo pipefail
 
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+if [ -n "${MARKETING_DOMA_PROJECT:-}" ] || [[ "$DIR" == *"/.claude/plugins/marketing-doma" ]]; then
+  exec bash "$DIR/scripts/install-project.sh" "$@"
+fi
+
 exec bash "$DIR/scripts/install-globally.sh" "$@"
