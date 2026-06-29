@@ -133,9 +133,7 @@ Hook Remotion (studio :3010) nos dois IDEs — mesmo comando Node, cross-platfor
 
 **Cursor:** Settings → Features → **Third-party skills** ON.
 
-**Nada global** em `~/.claude/` ou `~/.cursor/`.
-
-Instalação antiga em `~/.local/share/marketing-doma` → `marketing-doma cleanup-legacy`.
+**Nada global** em `~/.claude/` ou `~/.cursor/`. Tudo fica na pasta do projeto.
 
 ## Documentação
 

@@ -23,8 +23,6 @@ const path = require('node:path');
 const os = require('node:os');
 
 const REPO_URL = 'https://github.com/rafael-senter/marketing-doma.git';
-const LEGACY_PLUGIN_DIR = path.join(os.homedir(), '.local', 'share', 'marketing-doma');
-const LEGACY_CLAUDE_SYMLINK = path.join(os.homedir(), '.claude', 'plugins', 'marketing-doma');
 const { downloadPlugin, remotePluginVersion } = require('../lib/download-plugin');
 const { enablePlugin, disablePlugin } = require('../lib/settings-enable-plugin');
 const CLI_VERSION = require('../package.json').version;
@@ -40,21 +38,7 @@ function projectPluginDir(root = projectRoot()) {
 function resolveInstall() {
   const root = projectRoot();
   const local = projectPluginDir(root);
-  const localOk = fs.existsSync(path.join(local, 'plugin.json'));
-  const legacyOk = fs.existsSync(path.join(LEGACY_PLUGIN_DIR, 'plugin.json'));
-
-  if (localOk) {
-    return { dir: local, root, mode: 'project', settings: path.join(root, '.claude', 'settings.json') };
-  }
-  if (legacyOk) {
-    return {
-      dir: LEGACY_PLUGIN_DIR,
-      root: null,
-      mode: 'legacy',
-      settings: path.join(os.homedir(), '.claude', 'settings.json'),
-      symlink: LEGACY_CLAUDE_SYMLINK,
-    };
-  }
+  // 100% local — sempre instala em <projeto>/.claude/plugins/marketing-doma
   return { dir: local, root, mode: 'project', settings: path.join(root, '.claude', 'settings.json') };
 }
 
@@ -463,10 +447,6 @@ function cmdStatus() {
     log(`  ${remotionReady(inst.root || projectRoot()) ? c('green', '✓') : c('red', '✗')} Remotion (remotion-doma/node_modules)`);
     log(`  ${findPython() ? c('green', '✓') : c('gray', '○')} Python (opcional — audit/recreate)`);
     log(`  ${findClaude() ? c('green', '✓') : c('yellow', '⚠')} Claude Code CLI ${findClaude() ? '' : '(rode npm run doma:setup ou instale manual)'}`);
-
-    if (fs.existsSync(LEGACY_PLUGIN_DIR)) {
-      warn(`Legacy ${LEGACY_PLUGIN_DIR} — rode marketing-doma cleanup-legacy`);
-    }
   })();
 }
 
@@ -525,25 +505,6 @@ function cmdUninstall() {
   fs.rmSync(inst.dir, { recursive: true, force: true });
   ok('Plugin removido do projeto.');
   log('Plugin removido. CLI local: ' + c('cyan', 'npm uninstall marketing-doma-cli'));
-}
-
-function cmdCleanupLegacy() {
-  header('marketing-doma cleanup-legacy');
-  let removed = 0;
-  for (const p of [LEGACY_PLUGIN_DIR, LEGACY_CLAUDE_SYMLINK]) {
-    if (fs.existsSync(p)) {
-      fs.rmSync(p, { recursive: true, force: true });
-      ok(`Removido: ${p}`);
-      removed++;
-    }
-  }
-  const cacheDir = path.join(os.homedir(), '.claude', 'plugins', 'cache', 'marketing-doma');
-  if (fs.existsSync(cacheDir)) {
-    fs.rmSync(cacheDir, { recursive: true, force: true });
-    ok(`Removido cache legacy: ${cacheDir}`);
-    removed++;
-  }
-  if (!removed) ok('Nada legacy pra limpar.');
 }
 
 function walkFiles(dir, base, out) {
@@ -819,6 +780,8 @@ ${c('bold', 'Comandos:')}
   ${c('cyan', 'version')}      Mostra versão do CLI + plugin.
   ${c('cyan', 'help')}         Esta tela.
 
+${c('bold', 'Instalação 100% local — só nesta pasta, nada global.')}
+
 ${c('bold', 'Instalação (100% local — só nesta pasta):')}
   mkdir meu-projeto && cd meu-projeto
   npm init -y
@@ -832,9 +795,6 @@ ${c('bold', 'Onde fica cada coisa:')}
   .claude/settings.json               ← Claude Code
   .cursor/hooks.json + rules/         ← Cursor
   remotion-doma/                      ← renders
-
-${c('bold', 'Limpar lixo antigo (~/.local/share, symlinks):')}
-  npm run doma:status  →  marketing-doma cleanup-legacy
 `);
 }
 
@@ -869,9 +829,6 @@ function main() {
     case 'uninstall':
     case 'remove':
       return cmdUninstall();
-    case 'cleanup-legacy':
-    case 'cleanup':
-      return cmdCleanupLegacy();
     case 'version':
     case '-v':
     case '--version':
