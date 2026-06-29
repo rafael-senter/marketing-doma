@@ -1,35 +1,15 @@
 #!/usr/bin/env node
 'use strict';
-/** Após npm install marketing-doma-cli — adiciona scripts doma:* no package.json do projeto. */
+/** Após npm install marketing-doma-cli — cria/atualiza package.json do projeto com scripts doma:*. */
 const fs = require('node:fs');
 const path = require('node:path');
 
 const root = process.env.INIT_CWD || process.cwd();
 const pkgPath = path.join(root, 'package.json');
-if (!fs.existsSync(pkgPath)) {
-  // Postinstall rodou em um contexto sem package.json (ex: npm install -g)
-  // Isso é OK — os scripts serão adicionados quando o usuário rodar em uma pasta com package.json
-  process.exit(0);
-}
-
-let pkg;
-try {
-  pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf8'));
-} catch {
-  // Não conseguiu fazer parse — maybe corrupted, skip silenciosamente
-  process.exit(0);
-}
-
-// Guarda: NUNCA modificar o próprio pacote (ex: npm install dentro de cli/ durante dev)
-if (pkg.name === 'marketing-doma-cli') {
-  process.exit(0);
-}
 
 const ver = require('./package.json').version;
-pkg.scripts = pkg.scripts || {};
-pkg.devDependencies = pkg.devDependencies || {};
 
-const scripts = {
+const SCRIPTS = {
   'doma:install': 'marketing-doma install',
   'doma:update': 'marketing-doma update',
   'doma:status': 'marketing-doma status',
@@ -37,29 +17,65 @@ const scripts = {
   'doma:export': 'marketing-doma export',
 };
 
-let changed = false;
-for (const [k, v] of Object.entries(scripts)) {
-  if (pkg.scripts[k] !== v) {
-    pkg.scripts[k] = v;
-    changed = true;
-  }
-}
-const dep = `^${ver}`;
-if (pkg.devDependencies['marketing-doma-cli'] !== dep) {
-  pkg.devDependencies['marketing-doma-cli'] = dep;
-  changed = true;
-}
-if (pkg.private !== true) {
-  pkg.private = true;
-  changed = true;
+/** Sanitiza um nome para o padrão NPM (lowercase, sem acento/espaço). */
+function sanitizeName(name) {
+  const s = String(name)
+    .normalize('NFD')
+    .replace(/[̀-ͯ]/g, '')   // remove acentos
+    .toLowerCase()
+    .replace(/[^a-z0-9._-]/g, '-')      // troca inválidos por hífen
+    .replace(/^[._-]+/, '')             // tira leading . _ -
+    .replace(/[._-]+$/, '')             // tira trailing . _ -
+    .replace(/-+/g, '-');               // colapsa hífens
+  return s || 'marketing-doma-projeto';
 }
 
-if (changed) {
+let pkg;
+const exists = fs.existsSync(pkgPath);
+
+if (exists) {
   try {
-    fs.writeFileSync(pkgPath, JSON.stringify(pkg, null, 2) + '\n');
-    console.log('[marketing-doma-cli] ✓ scripts doma:* adicionados ao package.json');
-  } catch (e) {
-    console.error('[marketing-doma-cli] ✗ Erro ao escrever package.json:', e.message);
-    // Não falha a instalação — o usuário pode rodar npm run doma:install mesmo assim
+    pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf8'));
+  } catch {
+    // package.json corrompido — não mexe
+    process.exit(0);
   }
+  // Guarda: NUNCA modificar o próprio pacote (ex: npm install dentro de cli/ durante dev)
+  if (pkg.name === 'marketing-doma-cli') {
+    process.exit(0);
+  }
+} else {
+  // Sem package.json (npm init -y falhou com nome inválido, ou usuário não rodou).
+  // Cria um do zero com nome sanitizado a partir do diretório.
+  pkg = {
+    name: sanitizeName(path.basename(root)),
+    version: '1.0.0',
+    private: true,
+  };
+}
+
+// Sanitiza nome existente se for inválido (acento/espaço/maiúsculas)
+if (pkg.name) {
+  const clean = sanitizeName(pkg.name);
+  if (clean !== pkg.name) pkg.name = clean;
+} else {
+  pkg.name = sanitizeName(path.basename(root));
+}
+
+pkg.scripts = pkg.scripts || {};
+for (const [k, v] of Object.entries(SCRIPTS)) {
+  pkg.scripts[k] = v;
+}
+if (pkg.private !== true) pkg.private = true;
+
+try {
+  fs.writeFileSync(pkgPath, JSON.stringify(pkg, null, 2) + '\n');
+  console.log(
+    exists
+      ? '[marketing-doma-cli] ✓ scripts doma:* adicionados ao package.json'
+      : `[marketing-doma-cli] ✓ package.json criado (name: ${pkg.name}) + scripts doma:*`
+  );
+} catch (e) {
+  console.error('[marketing-doma-cli] ✗ Erro ao escrever package.json:', e.message);
+  // Não falha a instalação
 }

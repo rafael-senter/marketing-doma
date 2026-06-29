@@ -213,6 +213,18 @@ function depPresent(d, osTag) {
   return !!which(cmdName);
 }
 
+function sanitizePkgName(name) {
+  const s = String(name)
+    .normalize('NFD')
+    .replace(/[̀-ͯ]/g, '')     // remove acentos
+    .toLowerCase()
+    .replace(/[^a-z0-9._-]/g, '-')        // troca inválidos por hífen
+    .replace(/^[._-]+/, '')               // tira leading . _ -
+    .replace(/[._-]+$/, '')               // tira trailing . _ -
+    .replace(/-+/g, '-');                 // colapsa hífens
+  return s || 'marketing-doma-projeto';
+}
+
 function ensureHostPackageJson(root) {
   const pkgPath = path.join(root, 'package.json');
   let pkg = { name: 'marketing-doma-projeto', private: true, scripts: {}, devDependencies: {} };
@@ -231,7 +243,8 @@ function ensureHostPackageJson(root) {
   };
   Object.assign(pkg.scripts, domaScripts);
   pkg.devDependencies['marketing-doma-cli'] = pkg.devDependencies['marketing-doma-cli'] || `^${CLI_VERSION}`;
-  if (!pkg.name) pkg.name = 'marketing-doma-projeto';
+  // Sanitiza nome (acento/espaço da pasta quebram o npm)
+  pkg.name = sanitizePkgName(pkg.name || path.basename(root));
   fs.writeFileSync(pkgPath, JSON.stringify(pkg, null, 2) + '\n');
 }
 

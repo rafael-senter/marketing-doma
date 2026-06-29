@@ -25,29 +25,33 @@ Plugin do Marketing da Doma para [Claude Code](https://claude.com/claude-code) e
 
 Sem `npm -g`, sem clone global, sem symlinks em `~/.claude/`. ✅ Caminhos com espaços e acentuação são suportados.
 
-### 1× por pasta
+### 1× por pasta (2 comandos)
 
 ```bash
 mkdir marketing-doma && cd marketing-doma
-npm init -y                             # cria package.json
 npm install marketing-doma-cli          # local — NÃO usar -g
-npm run doma:install                    # plugin + Remotion + IDE
+npx marketing-doma install              # cria package.json + plugin + Remotion + IDE
 ```
 
-> **⚠️ Nome inválido no `npm init -y`?** Se o nome da sua pasta tiver acentos ou espaços, o `npm init -y` falha. Solução: rode `npm init -y` em outra pasta ou crie o `package.json` manualmente com um nome simples (ex.: `"name": "marketing-doma-projeto"`). O plugin sanitiza nomes automaticamente no setup.
+| # | Comando | O que faz |
+|---|---|---|
+| 1 | `mkdir marketing-doma && cd marketing-doma` | Cria e entra na pasta do projeto |
+| 2 | `npm install marketing-doma-cli` | Instala o CLI **local** (sem `-g`) |
+| 3 | `npx marketing-doma install` | Cria o `package.json` (nome sanitizado), baixa o plugin do GitHub, instala Remotion e configura Claude Code + Cursor |
 
-> **⚠️ Postinstall bloqueado?** Se o npm avisar sobre `allow-scripts`, adicione `"allowScripts": true` no `package.json` antes de instalar. O script `postinstall` só adiciona os comandos `doma:*` — pode revisar em `node_modules/marketing-doma-cli/postinstall.js`.
+> **Por que `npx marketing-doma install` e não `npm init` + `npm run`?** O npm 11+ **bloqueia scripts de postinstall** por padrão, então `npm install` sozinho não adiciona os comandos `doma:*`. O `npx marketing-doma install` faz tudo direto, sem depender de postinstall — e **cria o `package.json` automaticamente** com nome válido (resolve acentos/espaços na pasta).
 
-`doma:install` extrai tarball GitHub **direto** em `.claude/plugins/marketing-doma/` — sem `git clone`, sem GitHub CLI (HTTP puro).
+Depois do install, os atalhos `npm run doma:*` já funcionam. `install` extrai tarball GitHub **direto** em `.claude/plugins/marketing-doma/` — sem `git clone`, sem GitHub CLI (HTTP puro).
 
 ### O comando NÃO é global
 
-Use sempre via npm scripts (ou `npx`):
+Use sempre via `npx` (primeiro install) ou npm scripts (depois):
 
 | ✅ Funciona | ❌ Não funciona |
 |---|---|
-| `npm run doma:install` | `marketing-doma install` (sem `-g`) |
-| `npx marketing-doma install` | — |
+| `npx marketing-doma install` (1ª vez) | `marketing-doma install` (sem `-g`) |
+| `npm run doma:install` (após install) | `npm init -y` em pasta com acento/espaço |
+| `npm run doma:status` / `doma:update` | — |
 
 ### Dia a dia
 

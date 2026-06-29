@@ -41,21 +41,21 @@ Alternativa: extensão Claude Code no VS Code.
 
 ✅ Espaços no caminho são suportados — ex.: `Desktop/marketing-doma-projet` ou `~/Documentos/projeto-doma`
 
-### 4. Instalar (3 comandos)
+### 4. Instalar (2 comandos)
 
 ```bash
-npm init -y
 npm install marketing-doma-cli
-npm run doma:install
+npx marketing-doma install
 ```
 
-⚠️ **`npm init -y` falhou com "Invalid name"?** Acontece se a pasta tiver acentos ou espaços. Crie o `package.json` manualmente com um nome simples:
+| # | Comando | O que faz |
+|---|---|---|
+| 1 | `npm install marketing-doma-cli` | Instala o CLI local (sem `-g`) |
+| 2 | `npx marketing-doma install` | Cria `package.json` + baixa plugin + Remotion + configura IDEs |
 
-```json
-{ "name": "marketing-doma-projeto", "version": "1.0.0", "private": true }
-```
+> **Por que `npx` e não `npm init` + `npm run`?** O npm 11+ bloqueia scripts de `postinstall`, então `npm install` sozinho não adiciona os comandos `doma:*`. O `npx marketing-doma install` faz tudo direto e **cria o `package.json` automaticamente** com nome válido — resolve acentos e espaços na pasta sem você precisar editar nada.
 
-⚠️ **Aviso de `allow-scripts`?** Algumas versões do npm bloqueiam o `postinstall`. Adicione `"allowScripts": true` ao `package.json` (não use `npm install --allow-scripts` — falha em project-scoped). O `postinstall` só adiciona os comandos `doma:*` — revise em `node_modules/marketing-doma-cli/postinstall.js`.
+Depois disso, os atalhos `npm run doma:*` já funcionam normalmente.
 
 O `doma:install` faz **tudo nesta pasta**:
 
