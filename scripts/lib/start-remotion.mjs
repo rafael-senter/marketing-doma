@@ -4,8 +4,10 @@ import { spawn } from 'node:child_process';
 import fs from 'node:fs';
 import net from 'node:net';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-const PROJECT = path.resolve(__dirname, '../../../..');
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const PROJECT = path.resolve(__dirname, '../../../../..');
 const REMOTION = path.join(PROJECT, 'remotion-doma');
 const LOG = path.join(process.env.TEMP || '/tmp', 'remotion-marketing-doma.log');
 
