@@ -39,9 +39,9 @@ Alternativa: extensão Claude Code no VS Code.
 
 ### 3. Abrir pasta no editor
 
-✅ Espaços no caminho são suportados — ex.: `Desktop/marketing-doma-projet` ou `~/Documentos/projeto-doma`
+Abra **a pasta onde você quer trabalhar** — a instalação acontece nela mesma, sem criar subpasta. ✅ Espaços e acentos no caminho são suportados.
 
-### 4. Instalar (2 comandos)
+### 4. Instalar (2 comandos — na pasta aberta)
 
 ```bash
 npm install marketing-doma-cli

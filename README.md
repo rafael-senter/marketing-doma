@@ -27,17 +27,17 @@ Sem `npm -g`, sem clone global, sem symlinks em `~/.claude/`. ✅ Caminhos com e
 
 ### 1× por pasta (2 comandos)
 
+Abra a pasta do seu projeto no editor e rode **dentro dela** (não precisa criar subpasta):
+
 ```bash
-mkdir marketing-doma && cd marketing-doma
 npm install marketing-doma-cli          # local — NÃO usar -g
 npx marketing-doma install              # cria package.json + plugin + Remotion + IDE
 ```
 
 | # | Comando | O que faz |
 |---|---|---|
-| 1 | `mkdir marketing-doma && cd marketing-doma` | Cria e entra na pasta do projeto |
-| 2 | `npm install marketing-doma-cli` | Instala o CLI **local** (sem `-g`) |
-| 3 | `npx marketing-doma install` | Cria o `package.json` (nome sanitizado), baixa o plugin do GitHub, instala Remotion e configura Claude Code + Cursor |
+| 1 | `npm install marketing-doma-cli` | Instala o CLI **local** (sem `-g`) na pasta atual |
+| 2 | `npx marketing-doma install` | Cria o `package.json` (nome sanitizado), baixa o plugin do GitHub, instala Remotion e configura Claude Code + Cursor |
 
 > **Por que `npx marketing-doma install` e não `npm init` + `npm run`?** O npm 11+ **bloqueia scripts de postinstall** por padrão, então `npm install` sozinho não adiciona os comandos `doma:*`. O `npx marketing-doma install` faz tudo direto, sem depender de postinstall — e **cria o `package.json` automaticamente** com nome válido (resolve acentos/espaços na pasta).
 
