@@ -20,6 +20,11 @@ try {
   process.exit(0);
 }
 
+// Guarda: NUNCA modificar o próprio pacote (ex: npm install dentro de cli/ durante dev)
+if (pkg.name === 'marketing-doma-cli') {
+  process.exit(0);
+}
+
 const ver = require('./package.json').version;
 pkg.scripts = pkg.scripts || {};
 pkg.devDependencies = pkg.devDependencies || {};
