@@ -16,12 +16,14 @@ node .claude/plugins/marketing-doma/scripts/lib/install-deps.mjs
 Se plugin não existir → avisar: `marketing-doma install` primeiro.
 
 Output (~2 min na 1ª vez):
-- `==> 1/5 Node.js`
-- `==> 2/5 Remotion`
-- `==> 3/5 Sync`
-- `==> 4/5 IDE config (Claude + Cursor)`
-- `==> 5/5 Python SKIP`
-- `🎉 Setup completo`
+- ==> 0/6 package.json
+- ==> 1/6 Node.js
+- ==> 2/6 Claude Code CLI (auto por OS)
+- ==> 3/6 Remotion
+- ==> 4/6 Sync
+- ==> 5/6 IDE config
+- ==> 6/6 Python SKIP
+- 🎉 Setup completo
 
 **Python (opcional):**
 ```bash

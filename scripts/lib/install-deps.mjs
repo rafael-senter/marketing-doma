@@ -47,16 +47,20 @@ if (/\s/.test(PROJECT_ROOT)) {
   fail(`Caminho com espaços não suportado: ${PROJECT_ROOT}`);
 }
 
-console.log('==> 0/5 package.json (CLI local no projeto)');
+console.log('==> 0/6 package.json (CLI local no projeto)');
 const { ensureHostPackage } = await import('./ensure-host-package.mjs');
 const pkgInfo = ensureHostPackage(PROJECT_ROOT);
 ok(`package.json ${pkgInfo.created ? 'criado' : 'OK'} — use npm run doma:install (sem npm -g)`);
 
-console.log('==> 1/5 Verificando Node.js');
+console.log('==> 1/6 Verificando Node.js');
 run('node', ['--version']);
 ok(`Node OK — projeto: ${PROJECT_ROOT}`);
 
-console.log('==> 2/5 Remotion');
+console.log('==> 2/6 Claude Code CLI');
+const { ensureClaudeCli } = await import('./ensure-claude-cli.mjs');
+ensureClaudeCli();
+
+console.log('==> 3/6 Remotion');
 const TPL = path.join(PLUGIN_DIR, 'templates/remotion-init');
 if (!fs.existsSync(TPL)) fail(`template ausente: ${TPL}`);
 
@@ -92,7 +96,7 @@ if (!fs.existsSync(path.join(HOST, 'node_modules', 'remotion'))) {
 
 assertRemotionReady();
 
-console.log('==> 3/5 Sync componentes/assets');
+console.log('==> 4/6 Sync componentes/assets');
 process.env.MARKETING_DOMA_PROJECT = PROJECT_ROOT;
 await import('./sync-components.mjs');
 
@@ -105,20 +109,20 @@ function copyHostFile(templateName, destName) {
   }
 }
 
-console.log('==> 4/5 IDE config (Claude Code + Cursor, local)');
+console.log('==> 5/6 IDE config (Claude Code + Cursor, local)');
 const { configureProject } = await import('./configure-ides.mjs');
 configureProject(PROJECT_ROOT);
 
-console.log('==> 4b/5 Host files');
+console.log('==> 5b/6 Host files');
 copyHostFile('host-README.md', 'README.md');
 copyHostFile('host-.gitignore', '.gitignore');
 
 if (ADVANCED) {
-  console.log('==> 5/5 Advanced (Python — layout-mapper, audit, wizard cliente)');
+  console.log('==> 6/6 Advanced (Python — layout-mapper, audit, wizard cliente)');
   const adv = path.join(PLUGIN_DIR, 'scripts/lib/install-advanced.mjs');
   run('node', [adv], PROJECT_ROOT);
 } else {
-  console.log('==> 5/5 Python — SKIP (fluxo marketing não precisa)');
+  console.log('==> 6/6 Python — SKIP (fluxo marketing não precisa)');
   console.log('  ℹ️  Audit/recreate/wizard: marketing-doma install-advanced');
 }
 

@@ -462,7 +462,7 @@ function cmdStatus() {
     log(`  ${c('green', '✓')} Node.js (obrigatório)`);
     log(`  ${remotionReady(inst.root || projectRoot()) ? c('green', '✓') : c('red', '✗')} Remotion (remotion-doma/node_modules)`);
     log(`  ${findPython() ? c('green', '✓') : c('gray', '○')} Python (opcional — audit/recreate)`);
-    log(`  ${findClaude() ? c('green', '✓') : c('gray', '○')} claude CLI (opcional — extensão VS Code OK)`);
+    log(`  ${findClaude() ? c('green', '✓') : c('yellow', '⚠')} Claude Code CLI ${findClaude() ? '' : '(rode npm run doma:setup ou instale manual)'}`);
 
     if (fs.existsSync(LEGACY_PLUGIN_DIR)) {
       warn(`Legacy ${LEGACY_PLUGIN_DIR} — rode marketing-doma cleanup-legacy`);
@@ -745,11 +745,12 @@ function installCmdFor(depName, osTag) {
       'windows':      'winget install Python.Python.3.11',
     },
     'claude': {
-      'linux-debian': 'curl -fsSL https://claude.ai/install.sh | sh',
-      'linux-fedora': 'curl -fsSL https://claude.ai/install.sh | sh',
-      'linux-arch':   'curl -fsSL https://claude.ai/install.sh | sh',
-      'macos':        'curl -fsSL https://claude.ai/install.sh | sh',
-      'windows':      '# Baixar de https://claude.com/claude-code (instalador Windows)',
+      'linux-debian': 'curl -fsSL https://claude.ai/install.sh | bash',
+      'linux-fedora': 'curl -fsSL https://claude.ai/install.sh | bash',
+      'linux-arch':   'curl -fsSL https://claude.ai/install.sh | bash',
+      'linux-other':  'curl -fsSL https://claude.ai/install.sh | bash',
+      'macos':        'curl -fsSL https://claude.ai/install.sh | bash  # fallback: brew install --cask claude-code',
+      'windows':      'powershell -Command "irm https://claude.ai/install.ps1 | iex"  # fallback: winget install Anthropic.ClaudeCode',
     },
   };
   return (cmds[depName] && cmds[depName][osTag]) || null;

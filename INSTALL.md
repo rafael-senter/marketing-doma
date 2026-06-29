@@ -21,9 +21,21 @@
 
 https://nodejs.org — verificar: `node --version` (v18+)
 
-### 2. Conta Anthropic + VS Code ou Cursor
+### 2. Conta Anthropic + Claude Code CLI
 
-Extensão Claude Code se usar VS Code.
+Conta **Pro/Max/Team/Enterprise/Console**.
+
+O `npm run doma:install` tenta instalar o CLI automaticamente:
+
+| OS | Ordem |
+|---|---|
+| **Windows** | PowerShell `install.ps1` → WinGet `Anthropic.ClaudeCode` |
+| **macOS** | `install.sh` → Homebrew `claude-code` |
+| **Linux/WSL** | `install.sh` |
+
+Falhou um → tenta o próximo. Já instalado → pula.
+
+Alternativa: extensão Claude Code no VS Code.
 
 ### 3. Abrir pasta no editor
 
