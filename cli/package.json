@@ -7,7 +7,12 @@
   },
   "main": "bin/marketing-doma.js",
   "scripts": {
-    "postinstall": "node postinstall.js"
+    "postinstall": "node postinstall.js",
+    "doma:install": "marketing-doma install",
+    "doma:update": "marketing-doma update",
+    "doma:status": "marketing-doma status",
+    "doma:setup": "node .claude/plugins/marketing-doma/scripts/lib/install-deps.mjs",
+    "doma:export": "marketing-doma export"
   },
   "type": "commonjs",
   "engines": {
@@ -41,5 +46,9 @@
   "bugs": {
     "url": "https://github.com/rafael-senter/marketing-doma/-/issues"
   },
-  "homepage": "https://github.com/rafael-senter/marketing-doma#readme"
+  "homepage": "https://github.com/rafael-senter/marketing-doma#readme",
+  "devDependencies": {
+    "marketing-doma-cli": "^0.1.46"
+  },
+  "private": true
 }

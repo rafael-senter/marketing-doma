@@ -18,6 +18,16 @@ const DOMa_SCRIPTS = {
   'doma:export': 'marketing-doma export',
 };
 
+function sanitizePackageName(name) {
+  // Valida nome contra regex NPM: lowercase alphanumeric, hyphens, dots
+  const sanitized = name
+    .toLowerCase()
+    .replace(/[^\w\.\-]/g, '-')  // substitui caracteres inválidos por hífens
+    .replace(/^[\.\-]+/, '')      // remove leading dots/hyphens
+    .replace(/[\.\-]+$/, '');     // remove trailing dots/hyphens
+  return sanitized || 'marketing-doma-project';
+}
+
 function readJson(p, fallback = {}) {
   if (!fs.existsSync(p)) return { ...fallback };
   try {
@@ -59,6 +69,19 @@ export function ensureHostPackage(projectRoot = process.cwd()) {
     pkg.devDependencies = pkg.devDependencies || {};
     for (const [k, v] of Object.entries(DOMa_SCRIPTS)) {
       pkg.scripts[k] = v;
+    }
+  }
+
+  // Garantir que o nome é válido (sem acentuação, espaços, etc)
+  if (!pkg.name) {
+    const dirName = path.basename(projectRoot);
+    const sanitized = sanitizePackageName(dirName);
+    pkg.name = sanitized;
+  } else {
+    const original = pkg.name;
+    pkg.name = sanitizePackageName(original);
+    if (pkg.name !== original) {
+      console.log(`  [WARN] Nome do projeto sanitizado: "${original}" → "${pkg.name}"`);
     }
   }
 

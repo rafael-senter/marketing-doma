@@ -43,10 +43,6 @@ function cpFile(src, dst) {
   fs.copyFileSync(src, dst);
 }
 
-if (/\s/.test(PROJECT_ROOT)) {
-  fail(`Caminho com espaços não suportado: ${PROJECT_ROOT}`);
-}
-
 console.log('==> 0/6 package.json (CLI local no projeto)');
 const { ensureHostPackage } = await import('./ensure-host-package.mjs');
 const pkgInfo = ensureHostPackage(PROJECT_ROOT);

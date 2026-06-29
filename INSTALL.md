@@ -39,15 +39,18 @@ Alternativa: extensão Claude Code no VS Code.
 
 ### 3. Abrir pasta no editor
 
-⚠️ **Sem espaços** no caminho — ex.: `Desktop/marketing-doma`
+✅ Espaços no caminho são suportados — ex.: `Desktop/marketing-doma-projet` ou `~/Documentos/projeto-doma`
 
 ### 4. Instalar (3 comandos)
 
 ```bash
 npm init -y
 npm install marketing-doma-cli
+npm install --allow-scripts
 npm run doma:install
 ```
+
+⚠️ **Nota sobre segurança:** O `npm install --allow-scripts` é necessário para executar o script `postinstall` que adiciona comandos `doma:*` ao seu `package.json`. Você pode verificar o script em `node_modules/marketing-doma-cli/postinstall.js` antes de aprovar.
 
 O `doma:install` faz **tudo nesta pasta**:
 

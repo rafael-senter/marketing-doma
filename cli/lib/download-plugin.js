@@ -65,10 +65,25 @@ async function downloadPlugin(destDir) {
   const root = entries.length === 1 ? path.join(extractDir, entries[0]) : extractDir;
 
   fs.mkdirSync(destDir, { recursive: true });
+
+  // Copia todos os arquivos recursivamente (preserva estrutura)
+  function copyRecursive(src, dst) {
+    const stat = fs.statSync(src);
+    if (stat.isDirectory()) {
+      fs.mkdirSync(dst, { recursive: true });
+      for (const entry of fs.readdirSync(src)) {
+        copyRecursive(path.join(src, entry), path.join(dst, entry));
+      }
+    } else {
+      fs.mkdirSync(path.dirname(dst), { recursive: true });
+      fs.copyFileSync(src, dst);
+    }
+  }
+
   for (const name of fs.readdirSync(root)) {
     const src = path.join(root, name);
     const dst = path.join(destDir, name);
-    fs.cpSync(src, dst, { recursive: true, force: true });
+    copyRecursive(src, dst);
   }
 
   fs.rmSync(tmp, { recursive: true, force: true });
