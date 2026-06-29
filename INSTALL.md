@@ -46,11 +46,16 @@ Alternativa: extensão Claude Code no VS Code.
 ```bash
 npm init -y
 npm install marketing-doma-cli
-npm install --allow-scripts
 npm run doma:install
 ```
 
-⚠️ **Nota sobre segurança:** O `npm install --allow-scripts` é necessário para executar o script `postinstall` que adiciona comandos `doma:*` ao seu `package.json`. Você pode verificar o script em `node_modules/marketing-doma-cli/postinstall.js` antes de aprovar.
+⚠️ **`npm init -y` falhou com "Invalid name"?** Acontece se a pasta tiver acentos ou espaços. Crie o `package.json` manualmente com um nome simples:
+
+```json
+{ "name": "marketing-doma-projeto", "version": "1.0.0", "private": true }
+```
+
+⚠️ **Aviso de `allow-scripts`?** Algumas versões do npm bloqueiam o `postinstall`. Adicione `"allowScripts": true` ao `package.json` (não use `npm install --allow-scripts` — falha em project-scoped). O `postinstall` só adiciona os comandos `doma:*` — revise em `node_modules/marketing-doma-cli/postinstall.js`.
 
 O `doma:install` faz **tudo nesta pasta**:
 
@@ -99,13 +104,15 @@ minha-pasta/
 
 ---
 
-## Lixo antigo (instalação global legacy)
+## CLI global antigo (legacy)
+
+Se você instalou `marketing-doma-cli` globalmente no passado (`npm install -g`), remova — ele causa conflitos:
 
 ```bash
-npm run doma:status
-npx marketing-doma cleanup-legacy
-npm run doma:install
+npm uninstall -g marketing-doma-cli
 ```
+
+A instalação atual é **100% local**: nada em `~/.local/share/`, nenhum symlink global, nenhum comando global.
 
 ---
 
@@ -113,7 +120,11 @@ npm run doma:install
 
 | Erro | Solução |
 |---|---|
-| `marketing-doma` não encontrado | Rodar na pasta do projeto: `npm install marketing-doma-cli` |
+| `marketing-doma: command not recognized` | **Esperado.** Use `npm run doma:install` ou `npx marketing-doma install` (o CLI não é global) |
+| `npm init -y` → `Invalid name` | Pasta com acento/espaço. Crie `package.json` manual com nome simples |
+| `EALLOWSCRIPTS` / postinstall bloqueado | Adicione `"allowScripts": true` no `package.json` |
+| `npm.cmd EINVAL` (Windows) | Atualize: `npm install marketing-doma-cli@latest` (corrigido na 0.1.47) |
+| `Falha ao buscar GitHub` | Atualize CLI; HTTP puro não precisa de GitHub CLI (corrigido na 0.1.47) |
 | Remotion ausente | `npm run doma:setup` |
 | Repo GitHub privado | Pedir acesso ao dev |
 
