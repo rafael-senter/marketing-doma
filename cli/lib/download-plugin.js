@@ -12,19 +12,25 @@ const RAW_PLUGIN_JSON = `https://raw.githubusercontent.com/${REPO}/main/plugin.j
 
 function fetchUrl(url, dest) {
   return new Promise((resolve, reject) => {
-    const go = (u) => {
-      https.get(u, { headers: { 'User-Agent': 'marketing-doma-cli' } }, (res) => {
+    const go = (u, redirects = 0) => {
+      if (redirects > 5) return reject(new Error('Muitos redirects'));
+      const req = https.get(u, { headers: { 'User-Agent': 'marketing-doma-cli' } }, (res) => {
         if ([301, 302, 307, 308].includes(res.statusCode) && res.headers.location) {
           res.resume();
-          return go(res.headers.location);
+          return go(res.headers.location, redirects + 1);
         }
         if (res.statusCode !== 200) {
+          res.resume();
           reject(new Error(`HTTP ${res.statusCode} ao baixar ${u}`));
           return;
         }
         const file = fs.createWriteStream(dest);
         pipeline(res, file).then(resolve).catch(reject);
-      }).on('error', reject);
+      });
+      req.on('error', reject);
+      req.setTimeout(60000, () => {
+        req.destroy(new Error('Timeout ao baixar tarball do GitHub (60s)'));
+      });
     };
     go(url);
   });
@@ -32,13 +38,30 @@ function fetchUrl(url, dest) {
 
 async function fetchJson(url) {
   return new Promise((resolve, reject) => {
-    https.get(url, { headers: { 'User-Agent': 'marketing-doma-cli' } }, (res) => {
-      let data = '';
-      res.on('data', (c) => { data += c; });
-      res.on('end', () => {
-        try { resolve(JSON.parse(data)); } catch (e) { reject(e); }
+    const go = (u, redirects = 0) => {
+      if (redirects > 5) return reject(new Error('Muitos redirects'));
+      const req = https.get(u, { headers: { 'User-Agent': 'marketing-doma-cli' } }, (res) => {
+        // Trata redirects (raw.githubusercontent pode redirecionar)
+        if ([301, 302, 307, 308].includes(res.statusCode) && res.headers.location) {
+          res.resume();
+          return go(res.headers.location, redirects + 1);
+        }
+        if (res.statusCode !== 200) {
+          res.resume();
+          return reject(new Error(`HTTP ${res.statusCode} ao buscar ${u}`));
+        }
+        let data = '';
+        res.on('data', (c) => { data += c; });
+        res.on('end', () => {
+          try { resolve(JSON.parse(data)); } catch (e) { reject(e); }
+        });
       });
-    }).on('error', reject);
+      req.on('error', reject);
+      req.setTimeout(15000, () => {
+        req.destroy(new Error('Timeout ao conectar com GitHub (15s)'));
+      });
+    };
+    go(url);
   });
 }
 
