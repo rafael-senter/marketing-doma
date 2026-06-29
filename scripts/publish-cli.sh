@@ -34,9 +34,19 @@ case "${1:-}" in
     ;;
 esac
 
-# Logado?
-if ! npm whoami >/dev/null 2>&1; then
+# Logado? Token granular em patrick/.env (npm_key) ou npm login interativo
+PATRICK_ENV="$(cd "$PLUGIN_DIR/../../.." && pwd)/.env"
+NPM_TOKEN=""
+if [ -f "$PATRICK_ENV" ]; then
+  NPM_TOKEN=$(grep -E '^npm_key=' "$PATRICK_ENV" 2>/dev/null | head -1 | cut -d= -f2- | tr -d '"' | tr -d "'" | tr -d ' ')
+fi
+
+if [ -n "$NPM_TOKEN" ]; then
+  echo "==> npm auth via .env (npm_key)"
+  npm config set //registry.npmjs.org/:_authToken "$NPM_TOKEN" --location=user
+elif ! npm whoami >/dev/null 2>&1; then
   echo "✗ Não logado no npm. Rode: npm login"
+  echo "  Ou defina npm_key em $PATRICK_ENV"
   exit 1
 fi
 

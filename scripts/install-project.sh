@@ -103,12 +103,19 @@ for f in plugin.json .claude-plugin/plugin.json commands/marketing-doma.md; do
   log "✓ $f"
 done
 
+step "3. Remotion + sync + IDE (Node)"
+if [ "$DRY_RUN" -eq 1 ]; then
+  log "[dry-run] rodaria node scripts/lib/install-deps.mjs"
+else
+  MARKETING_DOMA_PROJECT="$PROJECT_ROOT" "$NODE" "$REPO_DIR/scripts/lib/install-deps.mjs"
+fi
+
 echo ""
-echo "🎉 Plugin marketing-doma v$VERSION registrado no projeto."
+echo "🎉 Plugin marketing-doma v$VERSION pronto no projeto."
 echo ""
 echo "Próximos passos:"
-echo "  1. Reinicie Claude Code (ou abra nova sessão na pasta $PROJECT_ROOT)"
-echo "  2. Rode: /marketing-doma-setup   (1ª vez — instala Remotion)"
-echo "  3. Rode: /marketing-doma         (criar peça)"
+echo "  1. Reinicie Claude Code / Cursor na pasta $PROJECT_ROOT"
+echo "  2. Rode: /marketing-doma         (criar peça)"
 echo ""
+echo "Reparar setup: /marketing-doma-setup  ou  marketing-doma install"
 echo "Desinstalar: bash $0 --uninstall"

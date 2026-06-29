@@ -23,8 +23,8 @@ Setup detalhado pra desenvolvedor. Para usuário leigo em Claude Code, ver [`INS
 ├── .claude/
 │   ├── plugins/marketing-doma/     ← clone do GitHub (marketing-doma install)
 │   └── settings.json             ← enabledPlugins + hook auto-start
-├── remotion-doma/                ← criado pelo /marketing-doma-setup
-├── .venv-instagram/              ← venv Python
+├── remotion-doma/                ← criado pelo marketing-doma install
+├── .venv-instagram/              ← opcional (install-advanced)
 └── ...
 ```
 
@@ -39,16 +39,27 @@ Dev edita aqui, faz `git push origin main vX.Y.Z`. CLI npm clona do GitHub.
 
 ---
 
-## O que `/marketing-doma-setup` faz
+## O que `marketing-doma install` faz
 
-1. **Verifica deps**: `node --version`, `python3 --version`, `claude --version`.
-2. **Instala Remotion** se `remotion-doma/node_modules` não existe:
-   - `cd remotion-doma && npm i --no-fund --no-audit`
-   - Garante `.npmrc` local com `min-release-age=0` (override do `~/.npmrc` global que bloqueia versões recentes — política Shai-Hulud do CLAUDE.md global).
-3. **Cria venv Python** se `.venv-instagram/` não existe:
-   - `python3 -m venv .venv-instagram`
-   - `.venv-instagram/bin/pip install Pillow numpy scipy`
-4. **Cria/atualiza `.claude/settings.json` LOCAL** (não global!) com hook `SessionStart` que roda `scripts/start-remotion.sh` — formato schema atual do Claude Code (aninhado):
+1. **Node** — verifica versão.
+2. **Remotion** — cria `remotion-doma/`, `npm i`, sync componentes/assets (sharp p/ resize).
+3. **IDE** — `.claude/settings.json` + `.cursor/hooks.json` + rules + `CURSOR.md`.
+4. **Python** — **SKIP** no fluxo marketing.
+
+`/marketing-doma-setup` = re-sync idempotente (mesmo script).
+
+## Python (opcional — `marketing-doma install-advanced`)
+
+- Cria `.venv-instagram/` com paths **Windows** (`Scripts/python.exe`, `Scripts/pip.exe`) ou **Unix** (`bin/python`, `bin/pip`).
+- Instala Pillow, numpy, scipy, scikit-image + layout-mapper se existir.
+- Implementação: `scripts/lib/install-advanced.mjs` (100% Node launcher, sem Git Bash).
+
+Resolver python do venv em scripts:
+```bash
+node .claude/plugins/marketing-doma/scripts/lib/venv-paths.mjs "$(pwd)" python
+```
+
+Hook Remotion (schema aninhado):
    ```json
    {
      "hooks": {
@@ -67,7 +78,6 @@ Dev edita aqui, faz `git push origin main vX.Y.Z`. CLI npm clona do GitHub.
    }
    ```
    ⚠️ Schema antigo (sem o aninhamento `hooks: [...]`) causa erro `"Expected array, but received undefined"`.
-5. **Valida**: roda um still de smoke test, confirma que o studio sobe na porta 3010.
 
 ---
 

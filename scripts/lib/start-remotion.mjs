@@ -9,7 +9,9 @@ import { fileURLToPath } from 'node:url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const PROJECT = path.resolve(__dirname, '../../../../..');
 const REMOTION = path.join(PROJECT, 'remotion-doma');
-const LOG = path.join(process.env.TEMP || '/tmp', 'remotion-marketing-doma.log');
+const LOG = path.join(process.env.TEMP || process.env.TMP || '/tmp', 'remotion-marketing-doma.log');
+const IS_WIN = process.platform === 'win32';
+const NPX = IS_WIN ? 'npx.cmd' : 'npx';
 
 function portOpen(port) {
   return new Promise((resolve) => {
@@ -24,8 +26,8 @@ if (await portOpen(3010)) process.exit(0);
 
 const out = fs.openSync(LOG, 'a');
 const child = spawn(
-  process.platform === 'win32' ? 'npx.cmd' : 'npx',
+  NPX,
   ['remotion', 'studio', '--no-open', '--port', '3010'],
-  { cwd: REMOTION, detached: true, stdio: ['ignore', out, out], shell: process.platform === 'win32' }
+  { cwd: REMOTION, detached: true, stdio: ['ignore', out, out], shell: false, windowsHide: true }
 );
 child.unref();

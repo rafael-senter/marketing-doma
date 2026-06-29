@@ -12,13 +12,13 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PLUGIN_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
 source "$SCRIPT_DIR/_detect-project.sh"
 detect_project_root "$@" || exit 1
-VENV_PY="$PROJECT_ROOT/.venv-instagram/bin/python"
+VENV_PY=$(node "$SCRIPT_DIR/lib/venv-paths.mjs" "$PROJECT_ROOT" python 2>/dev/null || true)
 COMPARE_PY="$PROJECT_ROOT/.claude/skills/layout-mapper/scripts/compare.py"
 
 CSV="${1:-}"
 
-if [ ! -f "$VENV_PY" ] || [ ! -f "$COMPARE_PY" ]; then
-  echo "[ERRO] venv ou layout-mapper não encontrado. Rode /marketing-doma-setup."
+if [ -z "$VENV_PY" ] || [ ! -f "$COMPARE_PY" ]; then
+  echo "[ERRO] venv ou layout-mapper não encontrado. Rode marketing-doma install-advanced."
   exit 1
 fi
 

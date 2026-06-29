@@ -7,6 +7,7 @@ import { spawnSync } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { runCmd } from './run-cmd.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const PLUGIN_DIR = path.resolve(__dirname, '../..');
@@ -21,8 +22,20 @@ const inst = (m) => console.log(`  [INSTALL] ${m}`);
 const fail = (m) => { console.error(`  [FAIL] ${m}`); process.exit(1); };
 
 function run(cmd, args, cwd = PROJECT_ROOT) {
-  const r = spawnSync(cmd, args, { cwd, stdio: 'inherit', shell: process.platform === 'win32' });
-  if (r.status !== 0) fail(`${cmd} ${args.join(' ')} falhou`);
+  runCmd(cmd, args, { cwd });
+}
+
+function assertRemotionReady() {
+  const remotionPkg = path.join(HOST, 'node_modules', 'remotion', 'package.json');
+  if (!fs.existsSync(remotionPkg)) {
+    fail(
+      'Remotion não instalado (node_modules/remotion ausente).\n' +
+      '  Windows: abra PowerShell na pasta do projeto e rode:\n' +
+      '    cd remotion-doma && npm i --no-fund --no-audit\n' +
+      '  Ou: marketing-doma install  /  /marketing-doma-setup'
+    );
+  }
+  ok('Remotion verificado (node_modules/remotion OK)');
 }
 
 function cpFile(src, dst) {
@@ -61,12 +74,18 @@ if (process.platform !== 'win32') {
   fs.chmodSync(path.join(HOST, 'render-still.sh'), 0o755);
 }
 
-if (!fs.existsSync(path.join(HOST, 'node_modules'))) {
+if (!fs.existsSync(path.join(HOST, 'node_modules', 'remotion'))) {
   inst('npm i em remotion-doma (~2min na 1ª vez)');
-  run('npm', ['i', '--no-fund', '--no-audit'], HOST);
+  try {
+    run('npm', ['i', '--no-fund', '--no-audit'], HOST);
+  } catch (e) {
+    fail(`npm install falhou em remotion-doma: ${e.message}`);
+  }
 } else {
-  ok('node_modules já existem');
+  ok('node_modules Remotion já existem');
 }
+
+assertRemotionReady();
 
 console.log('==> 3/5 Sync componentes/assets');
 process.env.MARKETING_DOMA_PROJECT = PROJECT_ROOT;
@@ -91,14 +110,8 @@ copyHostFile('host-.gitignore', '.gitignore');
 
 if (ADVANCED) {
   console.log('==> 5/5 Advanced (Python — layout-mapper, audit, wizard cliente)');
-  const advSh = path.join(PLUGIN_DIR, 'scripts/install-advanced.sh');
-  if (process.platform === 'win32') {
-    const bash = findGitBash();
-    if (bash) run(bash, [advSh], PROJECT_ROOT);
-    else console.warn('  [WARN] Git Bash não encontrado — rode install-advanced manualmente');
-  } else {
-    run('bash', [advSh], PROJECT_ROOT);
-  }
+  const adv = path.join(PLUGIN_DIR, 'scripts/lib/install-advanced.mjs');
+  run('node', [adv], PROJECT_ROOT);
 } else {
   console.log('==> 5/5 Python — SKIP (fluxo marketing não precisa)');
   console.log('  ℹ️  Audit/recreate/wizard: marketing-doma install-advanced');
@@ -114,11 +127,3 @@ console.log(`
 Claude Code: /marketing-doma
 Cursor: peça "cria post Doma" ou leia CURSOR.md
 `);
-
-function findGitBash() {
-  const cands = [
-    'C:\\Program Files\\Git\\bin\\bash.exe',
-    path.join(process.env.LOCALAPPDATA || '', 'Programs', 'Git', 'bin', 'bash.exe'),
-  ];
-  return cands.find((p) => fs.existsSync(p));
-}

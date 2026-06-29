@@ -27,14 +27,23 @@ from urllib.parse import urlparse
 PLUGIN = Path(__file__).resolve().parent.parent
 PROJECT = PLUGIN.parent.parent.parent
 INSTAGRAM_SKILL = PROJECT / ".claude" / "skills" / "instagram-intel"
-VENV = PROJECT / ".venv-instagram" / "bin" / "python"
+def venv_python(project: Path) -> Path | None:
+    v = project / ".venv-instagram"
+    for rel in ("Scripts/python.exe", "Scripts/python", "bin/python3", "bin/python"):
+        p = v / rel
+        if p.exists():
+            return p
+    return None
+
+
+VENV = venv_python(PROJECT)
 EXTRACT_PALETA = PLUGIN / "scripts" / "extract-paleta.py"
 
 
 def fetch_from_ig(handle, slug):
     """Usa scrape_profile da instagram-intel pra pegar profile pic."""
     scrape = INSTAGRAM_SKILL / "scripts" / "scrape_profile.py"
-    if not scrape.exists() or not VENV.exists():
+    if not scrape.exists() or not VENV or not VENV.exists():
         print(f"[ERRO] instagram-intel ou venv não disponível em {INSTAGRAM_SKILL}")
         return None
 

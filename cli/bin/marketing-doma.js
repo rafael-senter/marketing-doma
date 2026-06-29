@@ -121,6 +121,20 @@ function toBashPath(p) {
   return abs.replace(/\\/g, '/');
 }
 
+function semverGte(a, b) {
+  const pa = String(a).split('.').map((n) => parseInt(n, 10) || 0);
+  const pb = String(b).split('.').map((n) => parseInt(n, 10) || 0);
+  for (let i = 0; i < 3; i++) {
+    if (pa[i] > pb[i]) return true;
+    if (pa[i] < pb[i]) return false;
+  }
+  return true;
+}
+
+function remotionReady(root) {
+  return fs.existsSync(path.join(root, 'remotion-doma', 'node_modules', 'remotion', 'package.json'));
+}
+
 function runInstallProject(pluginDir, root) {
   const setup = path.join(pluginDir, 'scripts/lib/install-deps.mjs');
   if (fs.existsSync(setup)) {
@@ -132,6 +146,10 @@ function runInstallProject(pluginDir, root) {
       env: { ...process.env, MARKETING_DOMA_PROJECT: root },
     });
     if (r.status !== 0) fail('Setup do projeto falhou');
+    if (!remotionReady(root)) {
+      fail('Remotion não instalado após setup. Rode: node .claude/plugins/marketing-doma/scripts/lib/install-deps.mjs');
+    }
+    ok('Remotion instalado e verificado');
     return;
   }
   const configure = path.join(pluginDir, 'scripts/lib/configure-ides.mjs');
@@ -336,7 +354,7 @@ function cmdUpdate() {
     const remote = await fetchRemoteVersion();
     info(`Versão local: ${before || '?'}`);
     if (remote) info(`Versão GitHub: ${remote}`);
-    if (before && remote && before === remote) {
+    if (before && remote && semverGte(before, remote)) {
       ok('Já está na última versão.');
       info('Re-sincronizando Remotion + IDE...');
       runInstallProject(inst.dir, root);
@@ -385,8 +403,11 @@ function cmdStatus() {
       if (remote) {
         log(`  Plugin remoto (GitHub):     ${c('cyan', remote)}`);
         if (local && remote !== local) {
-          warn(`Atualização disponível: ${local} → ${remote}`);
-          info('Rode `marketing-doma update`.');
+          if (semverGte(local, remote)) ok('Plugin local ≥ remoto.');
+          else {
+            warn(`Atualização disponível: ${local} → ${remote}`);
+            info('Rode `marketing-doma update`.');
+          }
         } else ok('Plugin atualizado.');
       }
 
@@ -403,16 +424,15 @@ function cmdStatus() {
       else info('Cursor: rode marketing-doma install');
       if (fs.existsSync(cursorRules)) ok('Cursor: rules OK');
 
-      const venv = path.join(inst.root || projectRoot(), '.venv-instagram');
-      if (fs.existsSync(venv)) ok('Python advanced (.venv-instagram) instalado');
+      const root = inst.root || projectRoot();
+      if (venvPythonReady(root)) ok('Python advanced (.venv-instagram) instalado');
       else info('Python advanced: não instalado (opcional — install-advanced)');
     }
 
     log('');
     log(c('bold', '── Stack ──'));
     log(`  ${c('green', '✓')} Node.js (obrigatório)`);
-    const remotion = path.join(inst.root || projectRoot(), 'remotion-doma', 'node_modules');
-    log(`  ${fs.existsSync(remotion) ? c('green', '✓') : c('gray', '○')} Remotion (marketing-doma install)`);
+    log(`  ${remotionReady(inst.root || projectRoot()) ? c('green', '✓') : c('red', '✗')} Remotion (remotion-doma/node_modules)`);
     log(`  ${findPython() ? c('green', '✓') : c('gray', '○')} Python (opcional — audit/recreate)`);
     log(`  ${findClaude() ? c('green', '✓') : c('gray', '○')} claude CLI (opcional — extensão VS Code OK)`);
 
@@ -425,18 +445,30 @@ function cmdStatus() {
 function cmdInstallAdvanced() {
   header('marketing-doma install-advanced');
   const inst = resolveInstall();
+  const root = inst.root || projectRoot();
   if (!fs.existsSync(path.join(inst.dir, 'plugin.json'))) {
     fail('Plugin não instalado. Rode marketing-doma install primeiro.');
   }
-  const adv = path.join(inst.dir, 'scripts/install-advanced.sh');
-  if (process.platform === 'win32') {
-    const bash = findBash();
-    if (!bash) fail('Git Bash necessário pro install-advanced no Windows.');
-    sh(`"${toBashPath(bash)}" "${toBashPath(adv)}"`, { env: { MARKETING_DOMA_PROJECT: inst.root || projectRoot() } });
-  } else {
-    sh(`bash "${adv}"`, { env: { MARKETING_DOMA_PROJECT: inst.root || projectRoot() } });
-  }
+  const adv = path.join(inst.dir, 'scripts/lib/install-advanced.mjs');
+  if (!fs.existsSync(adv)) fail('install-advanced.mjs não encontrado no plugin.');
+  const r = spawnSync('node', [adv], {
+    stdio: 'inherit',
+    encoding: 'utf8',
+    env: { ...process.env, MARKETING_DOMA_PROJECT: root },
+    cwd: root,
+  });
+  if (r.status !== 0) fail('install-advanced falhou');
   ok('Advanced instalado.');
+}
+
+function venvPythonReady(root) {
+  const v = path.join(root, '.venv-instagram');
+  return (
+    fs.existsSync(path.join(v, 'Scripts', 'python.exe')) ||
+    fs.existsSync(path.join(v, 'Scripts', 'python')) ||
+    fs.existsSync(path.join(v, 'bin', 'python3')) ||
+    fs.existsSync(path.join(v, 'bin', 'python'))
+  );
 }
 
 function cmdUninstall() {
