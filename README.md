@@ -41,17 +41,7 @@ npx marketing-doma install              # cria package.json + plugin + Remotion 
 
 > **Por que `npx marketing-doma install` e não `npm init` + `npm run`?** O npm 11+ **bloqueia scripts de postinstall** por padrão, então `npm install` sozinho não adiciona os comandos `doma:*`. O `npx marketing-doma install` faz tudo direto, sem depender de postinstall — e **cria o `package.json` automaticamente** com nome válido (resolve acentos/espaços na pasta).
 
-Depois do install, os atalhos `npm run doma:*` já funcionam. `install` extrai tarball GitHub **direto** em `.claude/plugins/marketing-doma/` — sem `git clone`, sem GitHub CLI (HTTP puro).
-
-### O comando NÃO é global
-
-Use sempre via `npx` (primeiro install) ou npm scripts (depois):
-
-| ✅ Funciona | ❌ Não funciona |
-|---|---|
-| `npx marketing-doma install` (1ª vez) | `marketing-doma install` (sem `-g`) |
-| `npm run doma:install` (após install) | `npm init -y` em pasta com acento/espaço |
-| `npm run doma:status` / `doma:update` | — |
+Depois do install, os atalhos `npm run doma:*` já funcionam.
 
 ### Dia a dia
 
