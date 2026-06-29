@@ -174,13 +174,13 @@ Diagrama do fluxo completo e responsabilidades de cada camada.
 ## 📦 Distribuição
 
 ### Source (dev)
-- Git próprio em `patrick/.claude/plugins/marketing-doma/.git/`.
+- Git próprio em `patrick/.claude/skills/marketing-doma/.git/`.
 - Remote: https://github.com/rafael-senter/marketing-doma (público).
 
 ### CLI npm (cliente / equipe)
 - Pacote: https://www.npmjs.com/package/marketing-doma-cli
 - Instalação 1×: `npm install -g marketing-doma-cli && marketing-doma install`.
-- CLI faz `git clone --depth 1` do GitHub em `~/.local/share/marketing-doma/` + symlink em `~/.claude/plugins/marketing-doma`.
+- CLI faz `git clone --depth 1` do GitHub em `~/.local/share/marketing-doma/` + symlink em `~/.claude/skills/marketing-doma`.
 - Updates: `marketing-doma update` faz force-overwrite preservando `live-rules/` e `planos/`.
 - Export pra dev: `marketing-doma export` empacota edições do cliente em tarball.
 

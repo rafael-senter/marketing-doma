@@ -24,7 +24,7 @@ claude
 ## 3. Rodar o wizard
 Cole no Claude Code:
 ```
-! python .claude/plugins/marketing-doma/scripts/wizard-cliente.py \
+! python .claude/skills/marketing-doma/scripts/wizard-cliente.py \
     --logo ~/Downloads/rentauto-logo.png \
     --nome rentauto \
     --cidade "Curitiba/PR" \
@@ -43,15 +43,15 @@ Cole no Claude Code:
 ## 5. Conferir visualmente
 Abrir o arquivo gerado:
 ```
-~/projetos-doma/patrick/.claude/plugins/marketing-doma/assets/cards-clientes/_205-card_rentauto.png
+~/projetos-doma/patrick/.claude/skills/marketing-doma/assets/cards-clientes/_205-card_rentauto.png
 ```
 
 Se ficou bom → segue. Se não → recomeça com cor ou padding ajustado.
 
 ## 6. Catalogar + sync
 ```
-! python .claude/plugins/marketing-doma/scripts/build-catalog.py
-! bash .claude/plugins/marketing-doma/scripts/sync-components.sh
+! python .claude/skills/marketing-doma/scripts/build-catalog.py
+! bash .claude/skills/marketing-doma/scripts/sync-components.sh
 ```
 
 Cada um leva ~5 segundos.
@@ -94,14 +94,14 @@ Output em `remotion-doma/out/cliente-rentauto.png`.
 
 ## Se errar e quiser refazer
 ```
-! rm ~/projetos-doma/patrick/.claude/plugins/marketing-doma/assets/cards-clientes/_205-card_rentauto.png
+! rm ~/projetos-doma/patrick/.claude/skills/marketing-doma/assets/cards-clientes/_205-card_rentauto.png
 ! python ...wizard-cliente.py --logo ... --cor "#cor-nova" ...
 ```
 
 ## Em modo guiado (sem comando)
 Se não lembra os argumentos:
 ```
-! python .claude/plugins/marketing-doma/scripts/wizard-cliente.py
+! python .claude/skills/marketing-doma/scripts/wizard-cliente.py
 ```
 Wizard pergunta cada coisa interativamente.
 

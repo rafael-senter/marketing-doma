@@ -5,7 +5,7 @@ alwaysApply: true
 
 # marketing-doma — Cursor
 
-Plugin **local**: `.claude/plugins/marketing-doma/` (mesmo path no Claude Code e Cursor).
+Plugin **local**: `.claude/skills/marketing-doma/` (mesmo path no Claude Code e Cursor).
 
 ## Antes de criar peça
 
@@ -21,14 +21,14 @@ Ou reparo: `/marketing-doma-setup`
 
 Quando o usuário pedir post, carrossel ou story Doma:
 
-1. Ler `.claude/plugins/marketing-doma/commands/marketing-doma.md` e seguir o fluxo.
-2. Regras de marca: `.claude/plugins/marketing-doma/CLAUDE.md` + `knowledge-base/padroes/RULES-recriacao.md`.
+1. Ler `.claude/skills/marketing-doma/commands/marketing-doma.md` e seguir o fluxo.
+2. Regras de marca: `.claude/skills/marketing-doma/CLAUDE.md` + `knowledge-base/padroes/RULES-recriacao.md`.
 3. Render: `bash remotion-doma/render-still.sh <id>` (Linux/mac) ou `node remotion-doma/render-still.sh` via Git Bash no Windows — preferir terminal integrado com `cd remotion-doma && bash render-still.sh <id>`.
 
 ## Paths Windows
 
 - Usar **Node** (`node ...`), não bash, quando possível.
-- Plugin sempre em `.claude/plugins/marketing-doma/` relativo à raiz do projeto aberto no Cursor.
+- Plugin sempre em `.claude/skills/marketing-doma/` relativo à raiz do projeto aberto no Cursor.
 - Pasta do projeto **sem espaços** no caminho.
 
 ## Advanced (audit, layout-mapper, wizard cliente)

@@ -33,7 +33,7 @@ Se falhou: avisar e parar.
 
 ## Passo 3 — gerar plano
 
-Rodar `bash ~/.claude/plugins/marketing-doma/scripts/new-post.sh <categoria> <nome>`.
+Rodar `bash ~/.claude/skills/marketing-doma/scripts/new-post.sh <categoria> <nome>`.
 
 Resultado: `templates/planos/POST-<nome>-plano.md` + snippet em `/tmp/<nome>-still-snippet.tsx`.
 
@@ -48,7 +48,7 @@ Invocar agent `validador-marca` no plano. Se BLOQUEIA: mostrar ao usuário + par
 ## Passo 6 — colar snippet + render
 
 1. Adicionar Still no `remotion-doma/src/Root.tsx` (cat snippet, anexar antes do `</>` final).
-2. Rodar `bash ~/.claude/plugins/marketing-doma/scripts/sync-components.sh`.
+2. Rodar `bash ~/.claude/skills/marketing-doma/scripts/sync-components.sh`.
 3. Rodar `bash remotion-doma/render-still.sh <nome>-N` para cada slide.
 
 ## Passo 7 — análise + correção automática (OBRIGATÓRIO)

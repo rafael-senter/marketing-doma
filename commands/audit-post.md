@@ -9,12 +9,12 @@ description: "Compara render vs modelo via compare.py (SSIM + % pixels + MAE). R
 
 Par único:
 ```bash
-PY=$(node .claude/plugins/marketing-doma/scripts/lib/venv-paths.mjs "$(pwd)" python)
+PY=$(node .claude/skills/marketing-doma/scripts/lib/venv-paths.mjs "$(pwd)" python)
 "$PY" .claude/skills/layout-mapper/scripts/compare.py \
   --modelo "<modelo>" --render "$(pwd)/remotion-doma/out/<id>.png"
 ```
 
 Batch:
 ```bash
-bash .claude/plugins/marketing-doma/scripts/compare-all.sh <arquivo.csv>
+bash .claude/skills/marketing-doma/scripts/compare-all.sh <arquivo.csv>
 ```

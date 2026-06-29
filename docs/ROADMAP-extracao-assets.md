@@ -91,7 +91,7 @@ Ex: `simbolo-m-grafite.png`, `padrao-m-loop.png`, `mockup-erp-pdv.png`.
 ### 4. Mover pra `assets/<subpasta>/`
 
 ```bash
-mv /tmp/simbolo-m-grafite.png .claude/plugins/marketing-doma/assets/oficial/
+mv /tmp/simbolo-m-grafite.png .claude/skills/marketing-doma/assets/oficial/
 ```
 
 ### 5. Adicionar metadata em `scripts/build-catalog.py`

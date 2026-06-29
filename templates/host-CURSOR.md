@@ -4,7 +4,7 @@
 
 ## IDE
 
-Este projeto funciona em **Cursor** e **Claude Code** com a mesma pasta `.claude/plugins/marketing-doma/`.
+Este projeto funciona em **Cursor** e **Claude Code** com a mesma pasta `.claude/skills/marketing-doma/`.
 
 | Ferramenta | Config local |
 |---|---|
@@ -21,7 +21,7 @@ npm install marketing-doma-cli
 npm run doma:install
 ```
 
-Plugin baixa **direto** em `.claude/plugins/marketing-doma/` — sem clone/symlink global.
+Plugin baixa **direto** em `.claude/skills/marketing-doma/` — sem clone/symlink global.
 
 Reparo: `npm run doma:setup`
 
@@ -35,7 +35,7 @@ Claude Code: `/marketing-doma`
 
 ```
 .
-├── .claude/plugins/marketing-doma/   ← plugin
+├── .claude/skills/marketing-doma/   ← plugin
 ├── .claude/settings.json             ← Claude
 ├── .cursor/hooks.json                ← Cursor hooks
 ├── .cursor/rules/                    ← Cursor rules
@@ -54,10 +54,10 @@ Claude Code: `/marketing-doma`
 
 ```bash
 marketing-doma update
-node .claude/plugins/marketing-doma/scripts/lib/sync-components.mjs
+node .claude/skills/marketing-doma/scripts/lib/sync-components.mjs
 ```
 
 ## Docs completas
 
-- Plugin: `.claude/plugins/marketing-doma/INSTALL.md`
-- Marca: `.claude/plugins/marketing-doma/CLAUDE.md`
+- Plugin: `.claude/skills/marketing-doma/INSTALL.md`
+- Marca: `.claude/skills/marketing-doma/CLAUDE.md`

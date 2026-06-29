@@ -31,7 +31,7 @@ Setup detalhado pra desenvolvedor. Para usuário leigo em Claude Code, ver [`INS
 ### Estrutura do source (dev — fonte de verdade)
 
 ```
-/home/rafael/projetos/projetos-doma/patrick/.claude/plugins/marketing-doma/    ← source do dev
+/home/rafael/projetos/projetos-doma/patrick/.claude/skills/marketing-doma/    ← source do dev
 └── .git/   → remote origin = github.com/rafael-senter/marketing-doma
 ```
 
@@ -56,7 +56,7 @@ Dev edita aqui, faz `git push origin main vX.Y.Z`. CLI npm clona do GitHub.
 
 Resolver python do venv em scripts:
 ```bash
-node .claude/plugins/marketing-doma/scripts/lib/venv-paths.mjs "$(pwd)" python
+node .claude/skills/marketing-doma/scripts/lib/venv-paths.mjs "$(pwd)" python
 ```
 
 Hook Remotion (schema aninhado):
@@ -68,7 +68,7 @@ Hook Remotion (schema aninhado):
            "hooks": [
              {
                "type": "command",
-               "command": "node .claude/plugins/marketing-doma/scripts/lib/start-remotion.mjs",
+               "command": "node .claude/skills/marketing-doma/scripts/lib/start-remotion.mjs",
                "timeout": 5
              }
            ]
@@ -85,13 +85,13 @@ Hook Remotion (schema aninhado):
 
 ### Source (dev)
 
-Plugin tem git próprio em `patrick/.claude/plugins/marketing-doma/`:
+Plugin tem git próprio em `patrick/.claude/skills/marketing-doma/`:
 - Remote: https://github.com/rafael-senter/marketing-doma (privado na equipe; público na instalação)
 - Branch: main
 
 ### CLI npm
 
-CLI npm publicado em https://www.npmjs.com/package/marketing-doma-cli. Clona em `<projeto>/.claude/plugins/marketing-doma/` e habilita via `enabledPlugins` no settings.json **do projeto**.
+CLI npm publicado em https://www.npmjs.com/package/marketing-doma-cli. Clona em `<projeto>/.claude/skills/marketing-doma/` e habilita via `enabledPlugins` no settings.json **do projeto**.
 
 ### Fluxo de release
 
@@ -126,7 +126,7 @@ Script `scripts/auto-rules-learn.sh` ajuda a commitar essas regras automaticamen
 ## Hook auto-start — comportamento
 
 Toda vez que abrir Claude Code dentro de `projetos-doma/patrick/`:
-- Hook roda `bash .claude/plugins/marketing-doma/scripts/start-remotion.sh &`
+- Hook roda `bash .claude/skills/marketing-doma/scripts/start-remotion.sh &`
 - Script verifica se já tem studio rodando na porta 3010; se não, sobe:
   ```bash
   cd remotion-doma && nohup npx remotion studio --no-open --port 3010 > /tmp/remotion.log 2>&1 &

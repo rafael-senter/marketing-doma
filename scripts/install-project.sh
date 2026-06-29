@@ -2,7 +2,7 @@
 # marketing-doma :: install-project.sh
 # Registra o plugin NO PROJETO (CWD) — sem clone global, sem cache redundante.
 #
-# Espera plugin clonado em: <projeto>/.claude/plugins/marketing-doma/
+# Espera plugin clonado em: <projeto>/.claude/skills/marketing-doma/
 #
 # Uso:
 #   MARKETING_DOMA_PROJECT=/path/projeto bash install-project.sh
@@ -16,7 +16,7 @@ REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 if [ -n "${MARKETING_DOMA_PROJECT:-}" ] && [ -d "$MARKETING_DOMA_PROJECT" ]; then
   PROJECT_ROOT="$(cd "$MARKETING_DOMA_PROJECT" && pwd)"
 else
-  # .claude/plugins/marketing-doma → sobe 3 níveis
+  # .claude/skills/marketing-doma → sobe 3 níveis
   PROJECT_ROOT="$(cd "$REPO_DIR/../../.." && pwd)"
 fi
 
@@ -67,7 +67,7 @@ if [ "$UNINSTALL" -eq 1 ]; then
   echo "Projeto: $PROJECT_ROOT"
   json_disable
   log "✓ marketing-doma desabilitado em $SETTINGS"
-  if [ -d "$REPO_DIR" ] && [ "$REPO_DIR" = "$PROJECT_ROOT/.claude/plugins/marketing-doma" ]; then
+  if [ -d "$REPO_DIR" ] && [ "$REPO_DIR" = "$PROJECT_ROOT/.claude/skills/marketing-doma" ]; then
     run "rm -rf '$REPO_DIR'"
     log "✓ plugin removido de $REPO_DIR"
   fi

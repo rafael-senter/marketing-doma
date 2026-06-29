@@ -131,12 +131,12 @@ Equipe revisa periodicamente as `live-rules/` e promove pras RULES gerais (`know
 
 ## 🆕 AUTO-COMMIT de mudanças durante sessão (REGRA OBRIGATÓRIA — só no source/dev)
 
-⚠️ **Esta regra só vale na máquina do dev** (fonte de verdade em `patrick/.claude/plugins/marketing-doma/`). **No cliente (marketing) NÃO há git** — auto-melhoria fica em `knowledge-base/live-rules/` e é coletada via `marketing-doma export` pra integração manual do dev. Ver CLAUDE.md do host (seção 7) pra fluxo cliente.
+⚠️ **Esta regra só vale na máquina do dev** (fonte de verdade em `patrick/.claude/skills/marketing-doma/`). **No cliente (marketing) NÃO há git** — auto-melhoria fica em `knowledge-base/live-rules/` e é coletada via `marketing-doma export` pra integração manual do dev. Ver CLAUDE.md do host (seção 7) pra fluxo cliente.
 
 **Toda vez** que o dev editar ficha de categoria, componente em `templates/components/`, script, ou regra na knowledge-base **DURANTE uma sessão de uso real** (não recriação inicial):
 
 1. Validar mudança visualmente (render OK).
-2. Rodar `bash ~/.claude/plugins/marketing-doma/scripts/auto-commit-changes.sh --push`.
+2. Rodar `bash ~/.claude/skills/marketing-doma/scripts/auto-commit-changes.sh --push`.
 3. Mudança fica versionada no GitHub pra próximas sessões + para distribuição via `marketing-doma update`.
 
 Por quê? Sem auto-commit, melhorias descobertas em runtime **morrem com a sessão**. Próxima sessão começa do zero com mesma regra desatualizada.
@@ -171,7 +171,7 @@ Skill `auto-optimizer` invoca este script automaticamente ao promover regra.
 ## 📚 Mapa do plugin (onde está cada coisa)
 
 ```
-.claude/plugins/marketing-doma/
+.claude/skills/marketing-doma/
 ├── plugin.json                   manifest (skills/commands/agents/scripts)
 ├── CLAUDE.md                     este arquivo
 ├── README.md                     visão geral + uso

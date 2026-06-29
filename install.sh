@@ -2,7 +2,7 @@
 # marketing-doma :: install.sh (raiz)
 #
 # Instalação 100% LOCAL na pasta do projeto.
-# Plugin sempre em <projeto>/.claude/plugins/marketing-doma
+# Plugin sempre em <projeto>/.claude/skills/marketing-doma
 # Nada global: sem symlinks em ~/.claude, sem ~/.local/share.
 
 set -euo pipefail

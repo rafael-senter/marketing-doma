@@ -16,8 +16,7 @@ const PROJECT_ROOT = process.argv[2]
     : process.cwd();
 
 /** Relativo ao projeto — funciona Linux, macOS, Windows (Node aceita /). */
-const REMOTION_HOOK = 'node .claude/plugins/marketing-doma/scripts/lib/start-remotion.mjs';
-const PLUGIN_KEY = 'marketing-doma@marketing-doma';
+const REMOTION_HOOK = 'node .claude/skills/marketing-doma/scripts/lib/start-remotion.mjs';
 
 function readJson(p) {
   if (!fs.existsSync(p)) return {};
@@ -32,8 +31,13 @@ function writeJson(p, data) {
 function mergeClaudeSettings() {
   const p = path.join(PROJECT_ROOT, '.claude/settings.json');
   const s = readJson(p);
-  s.enabledPlugins = s.enabledPlugins || {};
-  s.enabledPlugins[PLUGIN_KEY] = true;
+
+  // Plugin em .claude/skills/ é descoberto automaticamente (skills-dir) — não usa
+  // enabledPlugins. Remove entrada legacy que apontava p/ marketplace inexistente.
+  if (s.enabledPlugins && s.enabledPlugins['marketing-doma@marketing-doma']) {
+    delete s.enabledPlugins['marketing-doma@marketing-doma'];
+    if (Object.keys(s.enabledPlugins).length === 0) delete s.enabledPlugins;
+  }
 
   const hasHook = JSON.stringify(s).includes('start-remotion');
   if (!hasHook) {

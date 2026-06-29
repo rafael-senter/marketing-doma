@@ -32,13 +32,15 @@ function projectRoot() {
 }
 
 function projectPluginDir(root = projectRoot()) {
-  return path.join(root, '.claude', 'plugins', 'marketing-doma');
+  // .claude/skills/ — o Claude Code descobre automaticamente plugins aqui
+  // (pasta com .claude-plugin/plugin.json vira <nome>@skills-dir, sem registro global).
+  return path.join(root, '.claude', 'skills', 'marketing-doma');
 }
 
 function resolveInstall() {
   const root = projectRoot();
   const local = projectPluginDir(root);
-  // 100% local — sempre instala em <projeto>/.claude/plugins/marketing-doma
+  // 100% local — sempre instala em <projeto>/.claude/skills/marketing-doma
   return { dir: local, root, mode: 'project', settings: path.join(root, '.claude', 'settings.json') };
 }
 
@@ -131,7 +133,7 @@ function runInstallProject(pluginDir, root) {
     });
     if (r.status !== 0) fail('Setup do projeto falhou');
     if (!remotionReady(root)) {
-      fail('Remotion não instalado após setup. Rode: node .claude/plugins/marketing-doma/scripts/lib/install-deps.mjs');
+      fail('Remotion não instalado após setup. Rode: node .claude/skills/marketing-doma/scripts/lib/install-deps.mjs');
     }
     ok('Remotion instalado e verificado');
     return;
@@ -238,7 +240,7 @@ function ensureHostPackageJson(root) {
     'doma:install': 'marketing-doma install',
     'doma:update': 'marketing-doma update',
     'doma:status': 'marketing-doma status',
-    'doma:setup': 'node .claude/plugins/marketing-doma/scripts/lib/install-deps.mjs',
+    'doma:setup': 'node .claude/skills/marketing-doma/scripts/lib/install-deps.mjs',
     'doma:export': 'marketing-doma export',
   };
   Object.assign(pkg.scripts, domaScripts);
@@ -272,7 +274,7 @@ function cmdInstall() {
     }
 
     fs.mkdirSync(path.dirname(pluginDir), { recursive: true });
-    info('Baixando plugin do GitHub → .claude/plugins/marketing-doma/ (direto, sem git clone)...');
+    info('Baixando plugin do GitHub → .claude/skills/marketing-doma/ (direto, sem git clone)...');
     await downloadPlugin(pluginDir);
     ok('Plugin baixado');
 
@@ -804,7 +806,7 @@ ${c('bold', 'Instalação (100% local — só nesta pasta):')}
 
 ${c('bold', 'Onde fica cada coisa:')}
   node_modules/marketing-doma-cli/    ← CLI (local)
-  .claude/plugins/marketing-doma/     ← plugin (tarball GitHub, sem clone)
+  .claude/skills/marketing-doma/      ← plugin (tarball GitHub, sem clone)
   .claude/settings.json               ← Claude Code
   .cursor/hooks.json + rules/         ← Cursor
   remotion-doma/                      ← renders

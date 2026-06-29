@@ -5,7 +5,7 @@
 Você está num projeto de **marketing da Doma**. Plugin, regras e assets vivem **neste projeto**:
 
 ```
-.claude/plugins/marketing-doma/
+.claude/skills/marketing-doma/
 ```
 
 Ativação: `.claude/settings.json` local (`enabledPlugins` + hook Remotion). **Nada no global `~/.claude/`.**
@@ -42,13 +42,13 @@ Ativação: `.claude/settings.json` local (`enabledPlugins` + hook Remotion). **
 
 | Pra saber | Ler |
 |---|---|
-| Regras completas de marca + protocolo de criação | `.claude/plugins/marketing-doma/CLAUDE.md` |
-| Voz institucional Doma | `.claude/plugins/marketing-doma/knowledge-base/identidade/voz-sigadoma.md` |
-| Design system real (T1-T11) | `.claude/plugins/marketing-doma/knowledge-base/identidade/design-system.md` |
-| RULES de recriação §0-§18 | `.claude/plugins/marketing-doma/knowledge-base/padroes/RULES-recriacao.md` |
-| Ficha de uma categoria | `.claude/plugins/marketing-doma/knowledge-base/padroes/<categoria>.md` |
-| Catálogo de assets | `.claude/plugins/marketing-doma/assets/CATALOGO.json` |
-| Cheat-sheet Remotion | `.claude/plugins/marketing-doma/knowledge-base/REMOTION-cheatsheet.md` |
+| Regras completas de marca + protocolo de criação | `.claude/skills/marketing-doma/CLAUDE.md` |
+| Voz institucional Doma | `.claude/skills/marketing-doma/knowledge-base/identidade/voz-sigadoma.md` |
+| Design system real (T1-T11) | `.claude/skills/marketing-doma/knowledge-base/identidade/design-system.md` |
+| RULES de recriação §0-§18 | `.claude/skills/marketing-doma/knowledge-base/padroes/RULES-recriacao.md` |
+| Ficha de uma categoria | `.claude/skills/marketing-doma/knowledge-base/padroes/<categoria>.md` |
+| Catálogo de assets | `.claude/skills/marketing-doma/assets/CATALOGO.json` |
+| Cheat-sheet Remotion | `.claude/skills/marketing-doma/knowledge-base/REMOTION-cheatsheet.md` |
 
 ## Auto-melhoria (regra-chave)
 

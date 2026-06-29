@@ -94,7 +94,7 @@ Gera `marketing-doma-export-YYYY-MM-DD.tar.gz` na pasta atual.
 ### No dev
 
 ```bash
-cd /caminho/do/plugin/.claude/plugins/marketing-doma
+cd /caminho/do/plugin/.claude/skills/marketing-doma
 tar -xzf ~/Downloads/marketing-doma-export-XXX.tar.gz
 git status
 # revisar + integrar + commit + git push origin main vX.Y.Z
@@ -136,8 +136,8 @@ npm run doma:status
 
 ```
 minha-pasta/
-├── .claude/plugins/marketing-doma/
-├── .claude/settings.json          ← enabledPlugins + hook SessionStart
+├── .claude/skills/marketing-doma/  ← descoberto automático (skills-dir)
+├── .claude/settings.json          ← hook SessionStart
 ├── .cursor/hooks.json             ← hook sessionStart
 ├── .cursor/rules/marketing-doma.mdc
 ├── CURSOR.md
@@ -174,7 +174,7 @@ Duas camadas versionáveis:
 | **CLI** (`cli/`) | bump `cli/package.json` + `bash scripts/publish-cli.sh` → equipe `npm i -g marketing-doma-cli@latest` |
 
 ```bash
-cd .claude/plugins/marketing-doma   # source no projeto dev
+cd .claude/skills/marketing-doma   # source no projeto dev
 sed -i 's/"version": "0.1.X"/"version": "0.1.Y"/g' plugin.json .claude-plugin/plugin.json .claude-plugin/marketplace.json
 bash scripts/check-all.sh
 git add -A && git commit -m "feat(v0.1.Y): ..." && git tag v0.1.Y && git push origin main v0.1.Y
@@ -185,7 +185,7 @@ Detalhes em [cli/README.md](cli/README.md).
 ## Visão estrutural
 
 ```
-.claude/plugins/marketing-doma/
+.claude/skills/marketing-doma/
 ├── plugin.json
 ├── CLAUDE.md
 ├── cli/                          CLI npm (marketing-doma-cli)

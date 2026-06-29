@@ -37,12 +37,12 @@ cd projeto
 
 # 2. "Clone" do plugin (copia local)
 echo "==> 2. Copiar plugin pra .claude/plugins/"
-cp -r "$PLUGIN_DIR" .claude/plugins/marketing-doma
-[ -f .claude/plugins/marketing-doma/plugin.json ] && ok "plugin copiado" || fail "copia falhou"
+cp -r "$PLUGIN_DIR" .claude/skills/marketing-doma
+[ -f .claude/skills/marketing-doma/plugin.json ] && ok "plugin copiado" || fail "copia falhou"
 
 # 3. validate.sh do plugin
 echo "==> 3. validate.sh"
-if bash .claude/plugins/marketing-doma/scripts/validate.sh >/dev/null 2>&1; then
+if bash .claude/skills/marketing-doma/scripts/validate.sh >/dev/null 2>&1; then
   ok "validate OK"
 else
   fail "validate falhou"
@@ -50,7 +50,7 @@ fi
 
 # 4. lint-voz.sh
 echo "==> 4. lint-voz.sh"
-if bash .claude/plugins/marketing-doma/scripts/lint-voz.sh >/dev/null 2>&1; then
+if bash .claude/skills/marketing-doma/scripts/lint-voz.sh >/dev/null 2>&1; then
   ok "lint-voz OK"
 else
   fail "lint-voz falhou"
@@ -58,8 +58,8 @@ fi
 
 # 5. new-post.sh scaffold
 echo "==> 5. new-post.sh dicas-carrossel"
-if bash .claude/plugins/marketing-doma/scripts/new-post.sh dicas-carrossel smoke-e2e-test >/dev/null 2>&1; then
-  PLAN=".claude/plugins/marketing-doma/templates/planos/POST-smoke-e2e-test-plano.md"
+if bash .claude/skills/marketing-doma/scripts/new-post.sh dicas-carrossel smoke-e2e-test >/dev/null 2>&1; then
+  PLAN=".claude/skills/marketing-doma/templates/planos/POST-smoke-e2e-test-plano.md"
   SNIP="/tmp/smoke-e2e-test-still-snippet.tsx"
   [ -f "$PLAN" ] && ok "plano gerado" || fail "plano não gerado"
   [ -f "$SNIP" ] && ok "snippet gerado" || fail "snippet não gerado"
@@ -71,7 +71,7 @@ fi
 # 6. Smoke: componentes existem em templates/components/
 echo "==> 6. Componentes templates/components/"
 for c in dicas/Dicas.tsx spin/Spin.tsx frase-em-pilulas/FrasePilulas.tsx; do
-  if [ -f ".claude/plugins/marketing-doma/templates/components/$c" ]; then
+  if [ -f ".claude/skills/marketing-doma/templates/components/$c" ]; then
     ok "$c"
   else
     fail "$c FALTA"
@@ -81,7 +81,7 @@ done
 # 7. Assets oficiais
 echo "==> 7. Assets oficiais"
 for a in oficial/logotipo-principal-branco.png oficial/selo-grafite.png icones; do
-  if [ -e ".claude/plugins/marketing-doma/assets/$a" ]; then
+  if [ -e ".claude/skills/marketing-doma/assets/$a" ]; then
     ok "$a"
   else
     fail "$a FALTA"
@@ -91,7 +91,7 @@ done
 # 8. Knowledge-base
 echo "==> 8. Knowledge-base"
 for k in identidade/voz-sigadoma.md padroes/RULES-recriacao.md padroes/INDICE.md assets-index/cores.md; do
-  if [ -f ".claude/plugins/marketing-doma/knowledge-base/$k" ]; then
+  if [ -f ".claude/skills/marketing-doma/knowledge-base/$k" ]; then
     ok "$k"
   else
     fail "$k FALTA"
@@ -100,12 +100,12 @@ done
 
 # 9. Sub-skills 15 categorias
 echo "==> 9. 15 sub-skills"
-COUNT=$(find .claude/plugins/marketing-doma/skills/marketing-doma/subskills -maxdepth 2 -name 'SKILL.md' 2>/dev/null | wc -l)
+COUNT=$(find .claude/skills/marketing-doma/skills/marketing-doma/subskills -maxdepth 2 -name 'SKILL.md' 2>/dev/null | wc -l)
 [ $COUNT -eq 15 ] && ok "15 sub-skills" || fail "esperado 15, achou $COUNT"
 
 # 10. Manifest plugin.json válido JSON
 echo "==> 10. plugin.json válido"
-if python3 -c "import json; json.load(open('.claude/plugins/marketing-doma/plugin.json'))" 2>/dev/null; then
+if python3 -c "import json; json.load(open('.claude/skills/marketing-doma/plugin.json'))" 2>/dev/null; then
   ok "JSON válido"
 else
   fail "JSON inválido"

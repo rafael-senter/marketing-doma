@@ -8,7 +8,7 @@ description: "Atalho carrossel (categorias multi-slide: dicas-carrossel, spin, d
 **EXECUTAR DIRETO.**
 
 ```bash
-bash ~/.claude/plugins/marketing-doma/scripts/new-post.sh <categoria> <nome>
+bash ~/.claude/skills/marketing-doma/scripts/new-post.sh <categoria> <nome>
 ```
 
 Categorias-carrossel:

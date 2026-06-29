@@ -13,7 +13,7 @@ npm run doma:install
 
 ## O que `doma:install` faz
 
-1. Baixa tarball GitHub → `.claude/plugins/marketing-doma/` (sem git clone)
+1. Baixa tarball GitHub → `.claude/skills/marketing-doma/` (sem git clone)
 2. Cria `remotion-doma/` + npm i
 3. Configura `.claude/` + `.cursor/`
 

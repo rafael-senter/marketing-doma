@@ -14,7 +14,7 @@ const DOMa_SCRIPTS = {
   'doma:install': 'marketing-doma install',
   'doma:update': 'marketing-doma update',
   'doma:status': 'marketing-doma status',
-  'doma:setup': 'node .claude/plugins/marketing-doma/scripts/lib/install-deps.mjs',
+  'doma:setup': 'node .claude/skills/marketing-doma/scripts/lib/install-deps.mjs',
   'doma:export': 'marketing-doma export',
 };
 

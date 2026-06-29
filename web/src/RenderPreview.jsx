@@ -29,7 +29,7 @@ const KNOWN_RENDERS = [
   'padrao-produtividade-270', 'padrao-produtividade-277', 'padrao-produtividade-254',
 ];
 
-// Path do host (assumindo plugin em <projeto>/.claude/plugins/marketing-doma/)
+// Path do host (assumindo plugin em <projeto>/.claude/skills/marketing-doma/)
 // e renders em <projeto>/remotion-doma/out/
 const HOST_OUT = '/@fs/' + '/home/rafael/projetos/projetos-doma/patrick/remotion-doma/out';
 

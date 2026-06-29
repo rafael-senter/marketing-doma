@@ -2,7 +2,7 @@
 # auto-commit-changes.sh — detecta mudanças no plugin global durante sessão e commita.
 #
 # Comportamento:
-#   - Verifica `git status` no plugin (~/.claude/plugins/marketing-doma).
+#   - Verifica `git status` no plugin (~/.claude/skills/marketing-doma).
 #   - Se há mudanças NÃO commitadas em arquivos críticos (knowledge-base/, templates/,
 #     scripts/, CLAUDE.md, fichas), commita com mensagem auto-gerada por arquivo.
 #   - Sempre validate antes (check-all.sh) — se falhar, NÃO commita (deixa user fix).

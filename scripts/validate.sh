@@ -74,7 +74,7 @@ for md in md_files:
         p = m.group(1).strip()
         # ignorar wildcards, placeholders, refs ao host, /tmp, comandos bash
         skip_substrings = ['{{','<','*','{','remotion-doma/','doma-brand/','.venv-instagram/','/tmp/','/.claude/skills/','.claude/settings.json',
-                           '.cursor/hooks.json','.cursor/rules/','.claude/plugins/marketing-doma/',
+                           '.cursor/hooks.json','.cursor/rules/','.claude/skills/marketing-doma/',
                            'v1/','v1.tsx','manual/','mapaBrasil.ts','RootV1','POST-template-']
         if any(x in p for x in skip_substrings): continue
         # comando bash (`bash script.sh`, `npm i`, etc) — não é path

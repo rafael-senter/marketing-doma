@@ -8,7 +8,7 @@ alwaysApply: false
 Rodar quando usuário pedir setup, reparo, ou `remotion-doma/` ausente:
 
 ```bash
-node .claude/plugins/marketing-doma/scripts/lib/install-deps.mjs
+node .claude/skills/marketing-doma/scripts/lib/install-deps.mjs
 ```
 
 Idempotente. **`marketing-doma install` já executa este script.**

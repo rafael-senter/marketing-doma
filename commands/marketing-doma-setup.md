@@ -10,7 +10,7 @@ description: "Reparar/re-sync — Remotion + IDE hooks. Idempotente (install já
 **EXECUTAR DIRETO:**
 
 ```bash
-node .claude/plugins/marketing-doma/scripts/lib/install-deps.mjs
+node .claude/skills/marketing-doma/scripts/lib/install-deps.mjs
 ```
 
 Se plugin não existir → avisar: `marketing-doma install` primeiro.

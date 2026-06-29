@@ -12,7 +12,7 @@
       "description": "UX guiada para marketing leigo em Claude Code criar peças Doma. 18 sub-skills (12 categorias + brand-rules + novo-post + asset-ingester + auto-optimizer + ...), 4 agentes (ghostwriter, validador-marca, editor, render-orchestrator), 20 scripts (wizard-cliente, render-batch, sync, fetch-cliente-asset, extract-paleta, render-from-plano), 144 assets catalogados (logos, ícones, fontes, bases nanobanana 4 BGs, fotos, grafismos, cards-clientes), Web UI 9 tabs.",
       "source": "./",
       "category": "marketing",
-      "version": "0.1.48"
+      "version": "0.1.49"
     }
   ]
 }

@@ -32,7 +32,7 @@ npm run doma:export
 ```
 .
 ├── package.json + node_modules/marketing-doma-cli/
-├── .claude/plugins/marketing-doma/
+├── .claude/skills/marketing-doma/
 ├── .claude/settings.json
 ├── .cursor/
 └── remotion-doma/out/

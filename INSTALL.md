@@ -59,7 +59,7 @@ Depois disso, os atalhos `npm run doma:*` já funcionam normalmente.
 
 O `doma:install` faz **tudo nesta pasta**:
 
-- Download tarball GitHub → `.claude/plugins/marketing-doma/` (direto, sem `git clone`)
+- Download tarball GitHub → `.claude/skills/marketing-doma/` (direto, sem `git clone`)
 - `remotion-doma/` + npm install
 - `.claude/settings.json` — plugin + hook studio
 - `.cursor/hooks.json` + rules
@@ -93,7 +93,7 @@ minha-pasta/
 ├── package.json
 ├── node_modules/marketing-doma-cli/   ← CLI local
 ├── .claude/
-│   ├── plugins/marketing-doma/        ← plugin (GitHub tarball)
+│   ├── skills/marketing-doma/         ← plugin (GitHub tarball)
 │   └── settings.json
 ├── .cursor/hooks.json + rules/
 ├── remotion-doma/
