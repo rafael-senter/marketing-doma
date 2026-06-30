@@ -438,12 +438,10 @@ function cmdStatus() {
         } else ok('Plugin atualizado.');
       }
 
-      if (inst.settings && fs.existsSync(inst.settings)) {
-        try {
-          const s = JSON.parse(fs.readFileSync(inst.settings, 'utf8'));
-          if (s.enabledPlugins?.['marketing-doma@marketing-doma']) ok('Claude Code: enabledPlugins OK');
-          else warn('Claude: rode marketing-doma install');
-        } catch { warn('Claude: settings.json inválido'); }
+      // Plugin em .claude/skills/ → Claude Code descobre automaticamente (skills-dir).
+      // Basta o plugin.json existir no caminho certo (já validado acima).
+      if (inst.dir.includes(path.join('.claude', 'skills'))) {
+        ok('Claude Code: plugin em .claude/skills (descoberta automática)');
       }
       const cursorHooks = path.join(inst.root || projectRoot(), '.cursor/hooks.json');
       const cursorRules = path.join(inst.root || projectRoot(), '.cursor/rules/marketing-doma.mdc');

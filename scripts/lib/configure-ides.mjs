@@ -85,6 +85,29 @@ function installCursorRules() {
   }
 }
 
+/**
+ * Cursor não descobre os commands do plugin (.claude/skills/.../commands/) —
+ * só lê .cursor/commands/*.md. Copiamos cada command pra lá (o Cursor não
+ * suporta referência a arquivo externo, então o conteúdo precisa estar local).
+ * Source of truth continua sendo o plugin; isto é um espelho gerado no install.
+ */
+function installCursorCommands() {
+  const srcDir = path.join(PLUGIN_DIR, 'commands');
+  if (!fs.existsSync(srcDir)) return;
+  const dstDir = path.join(PROJECT_ROOT, '.cursor/commands');
+  fs.mkdirSync(dstDir, { recursive: true });
+
+  let n = 0;
+  for (const file of fs.readdirSync(srcDir)) {
+    if (!file.endsWith('.md')) continue;
+    const body = fs.readFileSync(path.join(srcDir, file), 'utf8');
+    // Cursor usa o nome do arquivo como nome do comando; mantém o conteúdo igual.
+    fs.writeFileSync(path.join(dstDir, file), body);
+    n++;
+  }
+  if (n) console.log(`  [OK]   .cursor/commands/ (${n} comandos)`);
+}
+
 function copyHostFile(templateName, destName) {
   const src = path.join(PLUGIN_DIR, 'templates', templateName);
   const dst = path.join(PROJECT_ROOT, destName);
@@ -100,6 +123,7 @@ export function configureProject(root = PROJECT_ROOT) {
   mergeClaudeSettings();
   mergeCursorHooks();
   installCursorRules();
+  installCursorCommands();
   copyHostFile('host-CURSOR.md', 'CURSOR.md');
   copyHostFile('host-CLAUDE.md', 'CLAUDE.md');
 }

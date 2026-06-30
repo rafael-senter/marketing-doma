@@ -1,6 +1,6 @@
 {
   "name": "marketing-doma-cli",
-  "version": "0.1.49",
+  "version": "0.1.50",
   "description": "CLI local do projeto marketing-doma — npm install marketing-doma-cli (sem -g). Download tarball + setup .claude/.cursor/remotion-doma.",
   "bin": {
     "marketing-doma": "bin/marketing-doma.js"
