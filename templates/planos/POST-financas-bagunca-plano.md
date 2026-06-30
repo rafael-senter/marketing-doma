@@ -40,5 +40,5 @@ secundario: 'Quando a conta pessoal e a da\nempresa viram uma só, o lucro\nse p
 ## 7. Validação + render + audit
 - [ ] `validador-marca`.
 - [ ] Snippet colado.
-- [ ] `bash render-still.sh financas-bagunca`.
+- [ ] `node render-still.mjs financas-bagunca`.
 - [ ] Compare contra POST 244 ou 252.

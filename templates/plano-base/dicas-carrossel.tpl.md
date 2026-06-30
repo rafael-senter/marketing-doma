@@ -72,7 +72,7 @@
 ## 8. Render
 ```bash
 for i in 1 2 3 4 5 6 7 8 9; do
-  bash remotion-doma/render-still.sh {{NOME}}-$i
+  node remotion-doma/render-still.mjs {{NOME}}-$i
 done
 ```
 

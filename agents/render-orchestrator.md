@@ -19,7 +19,7 @@ Sub-agente que **renderiza em lote** e **audita comparativamente** stills do Rem
 ### 1. Render
 Para cada ID, rodar:
 ```bash
-cd remotion-doma && ./render-still.sh <id>
+cd remotion-doma && node render-still.mjs <id>
 ```
 - Scale 2 → Lanczos automático (sem franja).
 - Output: `remotion-doma/out/<id>.png`.

@@ -42,5 +42,5 @@ secundario: 'Conta misturada esconde\no resultado real\ndo seu negócio.'
 ## 7. Validação + render + audit
 - [ ] `validador-marca`.
 - [ ] Snippet colado.
-- [ ] `bash render-still.sh financas-misturadas`.
+- [ ] `node render-still.mjs financas-misturadas`.
 - [ ] Compare contra POST 244 ou 252.

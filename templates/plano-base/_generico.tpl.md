@@ -46,7 +46,7 @@
 - [ ] Snippet colado em `remotion-doma/src/Root.tsx`.
 
 ## 8. Render
-- `bash remotion-doma/render-still.sh {{NOME}}-1`
+- `node remotion-doma/render-still.mjs {{NOME}}-1`
 - (etc. pra cada slide)
 
 ## 9. Audit (se há modelo)

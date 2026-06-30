@@ -74,6 +74,10 @@ if (!fs.existsSync(HOST)) {
 
 fs.mkdirSync(path.join(HOST, 'scripts'), { recursive: true });
 cpFile(path.join(TPL, 'scripts/resize-lanczos.mjs'), path.join(HOST, 'scripts/resize-lanczos.mjs'));
+// render-still/batch .mjs (Node puro, cross-platform) — funciona no Windows nativo sem bash.
+cpFile(path.join(PLUGIN_DIR, 'templates/render-still.mjs'), path.join(HOST, 'render-still.mjs'));
+cpFile(path.join(PLUGIN_DIR, 'templates/render-batch.mjs'), path.join(HOST, 'render-batch.mjs'));
+// render-still.sh (Linux/mac, ou Windows com Git Bash) — mantido por compatibilidade.
 cpFile(path.join(PLUGIN_DIR, 'templates/render-still.sh'), path.join(HOST, 'render-still.sh'));
 if (process.platform !== 'win32') {
   fs.chmodSync(path.join(HOST, 'render-still.sh'), 0o755);

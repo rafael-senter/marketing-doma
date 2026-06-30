@@ -51,7 +51,7 @@ Carrega/centraliza tudo que TODA peça deve respeitar, independente da categoria
 
 ## Render anti-franja
 
-- SEMPRE via `bash remotion-doma/render-still.sh <id>` (scale 2 → Lanczos).
+- SEMPRE via `node remotion-doma/render-still.mjs <id>` (scale 2 → Lanczos).
 - Container do componente:
   ```ts
   WebkitFontSmoothing: 'antialiased'

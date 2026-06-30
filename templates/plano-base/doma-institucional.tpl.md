@@ -25,4 +25,4 @@
 
 ## 5. Validação + render
 - [ ] `validador-marca`.
-- [ ] `bash remotion-doma/render-still.sh {{NOME}}`.
+- [ ] `node remotion-doma/render-still.mjs {{NOME}}`.

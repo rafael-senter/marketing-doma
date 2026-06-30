@@ -64,7 +64,7 @@ PIL detecta:
    - Editar componente em ~/.claude/skills/marketing-doma/templates/components/<cat>/<Componente>.tsx
    - Aplicar fix (fontSize, padding, color, quebra)
 5. Sync: bash ~/.claude/skills/marketing-doma/scripts/sync-components.sh
-6. Re-render: bash remotion-doma/render-still.sh <id>
+6. Re-render: node remotion-doma/render-still.mjs <id>
 7. Re-rodar checks (validar fix funcionou).
 8. Se persistiu trivial: tentar 1 vez mais. Se ainda persiste: marcar como não-trivial.
 9. Auto-commit das mudanças no plugin:

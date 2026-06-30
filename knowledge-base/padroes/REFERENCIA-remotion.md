@@ -14,7 +14,7 @@ Objetivo: usar o Remotion no seu potencial — não só `<div>` cru. Tudo aqui �
 `remotion still` em scale 1 deixa **franja cromática sub-pixel** nas bordas do texto
 (o "texto torto"). Solução comprovada: renderizar em `--scale 2` e reduzir com Lanczos.
 ```bash
-./render-still.sh <id-do-still>      # faz scale2 + downscale Lanczos → out/<id>.png
+node render-still.mjs <id-do-still>      # faz scale2 + downscale Lanczos → out/<id>.png
 ```
 Detalhes e medições em `RULES-recriacao.md §8`.
 

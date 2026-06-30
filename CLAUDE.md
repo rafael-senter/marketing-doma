@@ -50,7 +50,7 @@ Razão: flexibilidade máxima de reuso sem regerar via Gemini (cota cara/billing
 - Fonte em `assets/fontes/`. Nunca fallback do sistema.
 
 ### Render = anti-franja
-- SEMPRE via `bash remotion-doma/render-still.sh <id>` (scale 2 → Lanczos).
+- SEMPRE via `node remotion-doma/render-still.mjs <id>` (scale 2 → Lanczos).
 - Render scale 1 deixa franja sub-pixel = "texto torto/tremido".
 
 ### Remotion API — quando mexer em componente

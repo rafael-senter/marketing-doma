@@ -114,7 +114,7 @@ Método: medição por pixel (PIL/numpy), amostragem direta. Nenhuma interpreta�
 | **Mapa do Brasil (estados amarelo/cinza + rótulos)** | **SVG vetorial real** — RESOLVIDO com `@svg-maps/brazil` (27 paths por sigla, viewBox 613×639). Pintado choropleth em código: presente=#F4BC34, ausente=#D0D0D0, borda branca, rótulo #1F1F1F. Paths em `../../templates/components/mapaBrasil.ts`. |
 
 ## STATUS DA RECRIAÇÃO — ~93% (validado por medição visual)
-Componente: `../../templates/components/mapa-de-clientes/MapaClientes.tsx`. Render: `./render-still.sh padrao-mapa-clientes`.
+Componente: `../../templates/components/mapa-de-clientes/MapaClientes.tsx`. Render: `node render-still.mjs padrao-mapa-clientes`.
 - ✅ Mapa choropleth com os 17 estados certos (PA,MT,MS,GO,DF,BA,PI,CE,PE,AL,MG,ES,SP,RJ,PR,SC,RS), bordas brancas.
 - ✅ Card branco, selo pill "+93% DE CLIENTES", legenda 2 linhas centralizada.
 - ✅ Centroides REAIS dos rótulos (calculados via svgpathtools — bbox de cada path).

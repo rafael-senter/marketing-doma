@@ -26,4 +26,4 @@
 ## 5. Validação + render
 - [ ] Cada logo recortado validado.
 - [ ] `validador-marca`.
-- [ ] Render lote: `bash render-batch.sh {{NOME}} <N+2>`.
+- [ ] Render lote: `node render-batch.mjs {{NOME}} <N+2>`.

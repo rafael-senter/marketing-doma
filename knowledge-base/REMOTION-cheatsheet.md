@@ -62,7 +62,7 @@ Watermark, ícones bicolor, símbolo M:
 ### Anti-franja (regra absoluta)
 SEMPRE renderizar via `render-still.sh` (scale 2 → Lanczos):
 ```bash
-bash remotion-doma/render-still.sh <id>
+node remotion-doma/render-still.mjs <id>
 ```
 - Render direto (`npx remotion still scale 1`) → franja sub-pixel = "texto torto".
 - `--scale 2` + downscale Lanczos com PIL fundem os sub-pixels.

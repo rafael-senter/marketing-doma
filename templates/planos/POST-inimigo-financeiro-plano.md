@@ -39,5 +39,5 @@ secundario: 'Não é falta de venda —\né falta de controle.\nQuem não contro
 ## 7. Validação + render + audit
 - [ ] `validador-marca`.
 - [ ] Snippet colado.
-- [ ] `bash render-still.sh inimigo-financeiro`.
+- [ ] `node render-still.mjs inimigo-financeiro`.
 - [ ] Compare contra POST 244 ou 252.

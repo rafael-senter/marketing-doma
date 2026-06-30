@@ -38,5 +38,5 @@ SpinCta: {texto: string; destaque: string}
 
 ## 6. Validação + render
 - [ ] `validador-marca`.
-- [ ] Render lote: `bash render-batch.sh {{NOME}} 6`.
+- [ ] Render lote: `node render-batch.mjs {{NOME}} 6`.
 - [ ] Compare com POST 243 ou 251.

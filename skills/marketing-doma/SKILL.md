@@ -54,7 +54,7 @@ Skill auto-contida que gera posts/carrosséis/stories da Doma no Remotion seguin
 4. **Plano** — Compor `templates/planos/POST-<nome>-plano.md` (cores medidas, voz, slide-a-slide).
 5. **Validar** — Mostrar plano + invocar `validador-marca` + pedir aprovação humana.
 6. **Codar** — Adicionar Stills no `remotion-doma/src/Root.tsx` (snippet em `templates/Root.tsx.snippet`).
-7. **Renderizar** — `bash remotion-doma/render-still.sh <id>` por slide (scale 2 → Lanczos).
+7. **Renderizar** — `node remotion-doma/render-still.mjs <id>` por slide (scale 2 → Lanczos).
 8. **Audit** — Se há modelo direto: `layout-mapper compare.py`. Senão: visual + checklist marca.
 9. **Iterar/aprovar** — `/publish-checklist` quando aprovado.
 

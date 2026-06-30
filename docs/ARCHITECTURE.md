@@ -75,7 +75,7 @@ Diagrama do fluxo completo e responsabilidades de cada camada.
        │ (cópia working)  │  remotion-doma/public/oficial/icones/fontes/
        └────────┬─────────┘
                 │
-                │  bash remotion-doma/render-still.sh <id>
+                │  node remotion-doma/render-still.mjs <id>
                 ▼  (scale 2 → Lanczos, anti-franja)
        ┌──────────────────┐
        │ PNG renderizado  │  remotion-doma/out/<id>.png

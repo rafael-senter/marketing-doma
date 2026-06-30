@@ -23,7 +23,7 @@ Quando o usuário pedir post, carrossel ou story Doma:
 
 1. Ler `.claude/skills/marketing-doma/commands/marketing-doma.md` e seguir o fluxo.
 2. Regras de marca: `.claude/skills/marketing-doma/CLAUDE.md` + `knowledge-base/padroes/RULES-recriacao.md`.
-3. Render: `bash remotion-doma/render-still.sh <id>` (Linux/mac) ou `node remotion-doma/render-still.sh` via Git Bash no Windows — preferir terminal integrado com `cd remotion-doma && bash render-still.sh <id>`.
+3. Render: `node remotion-doma/render-still.mjs <id>` (Linux/mac) ou `node remotion-doma/render-still.sh` via Git Bash no Windows — preferir terminal integrado com `cd remotion-doma && node render-still.mjs <id>`.
 
 ## Paths Windows
 

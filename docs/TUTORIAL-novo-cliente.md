@@ -71,7 +71,7 @@ Snippet exemplo:
 
 ## 8. Renderizar
 ```
-! bash remotion-doma/render-still.sh cliente-rentauto
+! node remotion-doma/render-still.mjs cliente-rentauto
 ```
 
 Output em `remotion-doma/out/cliente-rentauto.png`.

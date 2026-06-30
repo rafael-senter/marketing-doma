@@ -32,4 +32,4 @@ Trecho 5: "..." (opcional)
 
 ## 7. Validação + render
 - [ ] `validador-marca`.
-- [ ] `bash render-still.sh {{NOME}}`.
+- [ ] `node render-still.mjs {{NOME}}`.

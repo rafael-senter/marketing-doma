@@ -41,5 +41,5 @@ secundario: 'Linha 1\nLinha 2\nLinha 3.'
 ## 7. Validação + render + audit
 - [ ] `validador-marca`.
 - [ ] Snippet colado.
-- [ ] `bash render-still.sh {{NOME}}`.
+- [ ] `node render-still.mjs {{NOME}}`.
 - [ ] Compare contra POST 244 ou 252.

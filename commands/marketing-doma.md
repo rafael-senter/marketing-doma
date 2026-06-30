@@ -49,7 +49,7 @@ Invocar agent `validador-marca` no plano. Se BLOQUEIA: mostrar ao usuário + par
 
 1. Adicionar Still no `remotion-doma/src/Root.tsx` (cat snippet, anexar antes do `</>` final).
 2. Rodar `bash ~/.claude/skills/marketing-doma/scripts/sync-components.sh`.
-3. Rodar `bash remotion-doma/render-still.sh <nome>-N` para cada slide.
+3. Rodar `node remotion-doma/render-still.mjs <nome>-N` para cada slide.
 
 ## Passo 7 — análise + correção automática (OBRIGATÓRIO)
 

@@ -1,7 +1,7 @@
 # Padrão de Post — "Frase em Pílulas" (Doma)
 
 Recriação medida de `instagram-sigadoma/images/sigadoma_DWO5_TLDG1w_1.jpg`.
-Componente: `../../templates/components/frase-em-pilulas/FrasePilulas.tsx`. Render: `./render-still.sh padrao-frase-pilulas`.
+Componente: `../../templates/components/frase-em-pilulas/FrasePilulas.tsx`. Render: `node render-still.mjs padrao-frase-pilulas`.
 Status: ~90% (validado por medição/visual).
 
 ## Conceito

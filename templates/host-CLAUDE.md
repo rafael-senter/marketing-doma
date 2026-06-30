@@ -36,7 +36,7 @@ Ativação: `.claude/settings.json` local (`enabledPlugins` + hook Remotion). **
 - **Watermark** = MAIS ESCURA tom-sobre-tom (NÃO mais clara).
 - **Cores POR BLOCO**: medir cada peça, não reusar entre posts.
 - **Fonte**: TT Lakes oficial em `fontes/`.
-- **Render**: sempre `bash remotion-doma/render-still.sh <id>` (scale 2 → Lanczos).
+- **Render**: sempre `node remotion-doma/render-still.mjs <id>` (scale 2 → Lanczos).
 
 ## Onde ler cada coisa (referências ao plugin)
 
