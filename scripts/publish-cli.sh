@@ -29,6 +29,23 @@ if [ -n "$REMOTE_V" ] && [ "$LOCAL_V" = "$REMOTE_V" ]; then
 fi
 echo "==> Publicar marketing-doma-cli@$LOCAL_V (npm atual: ${REMOTE_V:-?})"
 
+# Sincroniza versão do plugin (manifests) com a do CLI
+PLUGIN_V="$LOCAL_V"
+for f in \
+  "$PLUGIN_DIR/plugin.json" \
+  "$PLUGIN_DIR/.claude-plugin/plugin.json"; do
+  if [ -f "$f" ]; then
+    sed -i "s/\"version\": \"0.1.[0-9]*\"/\"version\": \"$PLUGIN_V\"/" "$f"
+  fi
+done
+if [ -f "$PLUGIN_DIR/.claude-plugin/marketplace.json" ]; then
+  sed -i "s/\"version\": \"0.1.[0-9]*\"/\"version\": \"$PLUGIN_V\"/" "$PLUGIN_DIR/.claude-plugin/marketplace.json"
+fi
+if [ -f "$PLUGIN_DIR/templates/host-package.json" ]; then
+  sed -i "s/\"marketing-doma-cli\": \"\\^0.1.[0-9]*\"/\"marketing-doma-cli\": \"^$PLUGIN_V\"/" "$PLUGIN_DIR/templates/host-package.json"
+fi
+echo "==> Manifests plugin sincronizados em $PLUGIN_V"
+
 # Bump opcional
 case "${1:-}" in
   patch|minor|major)

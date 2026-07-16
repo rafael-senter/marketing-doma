@@ -22,7 +22,11 @@ const baseFill = {
 type Caixa = {texto: string; left: string; top: string; width: string; fontSize?: number};
 
 export type FuncoesSistemaProps = {
-  base: string;
+  base?: string;                       // base full-bleed (nanobanana). Opcional: peças com mockupBrowser não usam.
+  mockupBrowser?: {src: string; left: string; top: string; width: string; rotate?: number};
+                                       // frame de browser em código (RULES §6 alternativa sem nanobanana):
+                                       // barra com 3 dots + cantos arredondados + sombra, tela = print real do ERP
+  selo?: {src: string; left: string; top: string; width: string};  // selo PNG oficial (ex: selo-14anos-1)
   watermark?: boolean;                 // "DOMa" branca topo (full-width)
   logoTopo?: boolean;                  // logo DOMa grafite centralizado no topo
   logoRodape?: boolean;                // logo DOMa grafite centralizado no rodapé
@@ -36,8 +40,29 @@ export type FuncoesSistemaProps = {
 
 export const FuncoesSistema: React.FC<FuncoesSistemaProps> = (p) => (
   <AbsoluteFill style={{...baseFill, backgroundColor: C.manga}}>
-    <Img src={staticFile(p.base)} style={{position: 'absolute', inset: 0, width: '100%', height: '100%',
-      objectFit: 'cover', zIndex: 0}} />
+    {p.base && (
+      <Img src={staticFile(p.base)} style={{position: 'absolute', inset: 0, width: '100%', height: '100%',
+        objectFit: 'cover', zIndex: 0}} />
+    )}
+
+    {p.mockupBrowser && (
+      <div style={{position: 'absolute', left: p.mockupBrowser.left, top: p.mockupBrowser.top, width: p.mockupBrowser.width,
+        zIndex: 2, borderRadius: 22, overflow: 'hidden', background: C.branco,
+        transform: p.mockupBrowser.rotate ? `rotate(${p.mockupBrowser.rotate}deg)` : undefined,
+        boxShadow: '0 30px 70px rgba(32,32,32,0.35)'}}>
+        <div style={{height: 44, background: '#EDEDED', display: 'flex', alignItems: 'center', gap: 10, paddingLeft: 22}}>
+          {['#FF5F57', '#FEBC2E', '#28C840'].map((c) => (
+            <div key={c} style={{width: 14, height: 14, borderRadius: '50%', background: c}} />
+          ))}
+        </div>
+        <Img src={staticFile(p.mockupBrowser.src)} style={{display: 'block', width: '100%', height: 'auto'}} />
+      </div>
+    )}
+
+    {p.selo && (
+      <Img src={staticFile(p.selo.src)} style={{position: 'absolute', left: p.selo.left, top: p.selo.top,
+        width: p.selo.width, height: 'auto', zIndex: 3}} />
+    )}
 
     {p.watermark && (
       <div style={{position: 'absolute', top: '4%', left: '0%', width: '100%', aspectRatio: '1767 / 322',

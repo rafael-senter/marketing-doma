@@ -14,6 +14,8 @@ Skill auto-contida que gera posts/carrosséis/stories da Doma no Remotion seguin
 2. `../../knowledge-base/padroes/RULES-recriacao.md` — §0–§18 de medição/render/cores/sobreposição/watermark.
 3. `../../knowledge-base/identidade/voz-sigadoma.md` — 3 tons + bordões + vocabulário + frases proibidas.
 4. `../../knowledge-base/identidade/design-system.md` — 11 templates oficiais + 2/4 modos de fundo + estrutura narrativa PAS.
+5. `../../knowledge-base/identidade/persona-imagens.md` — regras de persona em imagem (30-50 anos, executivo do setor, EPIs) — se a peça usa foto de pessoa.
+6. `../../knowledge-base/identidade/setores-atendidos.md` — setores oficiais de clientes Doma (copy segmentada + persona coerente).
 
 ## Roteamento por intenção
 
@@ -34,6 +36,7 @@ Skill auto-contida que gera posts/carrosséis/stories da Doma no Remotion seguin
 | "carrossel SPIN (perguntas → implicação → necessidade)" | `subskills/spin` |
 | "categoria nova / não bate com nenhum padrão" | `subskills/novo-post-from-scratch` |
 | "regras transversais de marca / voz / cor" | `subskills/brand-rules` |
+| **peça precisa de foto de pessoa/dono/funcionário de setor cliente** (buscar internet ou gerar nanobanana) | `subskills/image-sourcer` |
 | **usuário cola/envia imagem nova** (foto cliente, logo, asset) | `subskills/asset-ingester` (automático) |
 | **detecta padrão repetido durante sessão** (2+ erros / 3+ confirmações) | `subskills/auto-optimizer` (META) |
 

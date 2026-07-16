@@ -56,11 +56,17 @@ OFICIAL_META = {
     "selo-cor": {"tipo": "selo-circular", "cor": "amarelo", "usar_sobre": ["grafite"], "evitar_sobre": ["amarelo"], "uso": "Selo redondo c/ 'DOMINE A GESTÃO DO SEU NEGÓCIO · SOFTWARE PARA GESTÃO' em texto curvo. Sobre fundo escuro."},
     "selo-grafite": {"tipo": "selo-circular", "cor": "grafite", "usar_sobre": ["amarelo", "soft", "branco", "claro"], "evitar_sobre": ["grafite"], "uso": "Mais comum. Selo grafite no canto sup-dir de CTAs (Dicas Carrossel slide 9)."},
     "selo-branco": {"tipo": "selo-circular", "cor": "branco", "usar_sobre": ["grafite"], "evitar_sobre": ["branco"], "uso": "Selo branco sobre fundo escuro."},
-    # Selo 14 anos
-    "selo-14anos-1": {"tipo": "selo-aniversario", "cor": "amarelo + grafite", "usar_sobre": ["grafite", "branco"], "evitar_sobre": [], "uso": "Selo de 14 anos da marca (variante 1). USO TEMPORAL — só durante 2024/2025."},
-    "selo-14anos-2": {"tipo": "selo-aniversario", "cor": "amarelo + grafite", "usar_sobre": ["grafite", "branco"], "evitar_sobre": [], "uso": "Variante 2."},
-    "selo-14anos-3": {"tipo": "selo-aniversario", "cor": "amarelo + grafite", "usar_sobre": ["grafite", "branco"], "evitar_sobre": [], "uso": "Variante 3."},
-    "selo-14anos-4": {"tipo": "selo-aniversario", "cor": "amarelo + grafite", "usar_sobre": ["grafite", "branco"], "evitar_sobre": [], "uso": "Variante 4."},
+    # Selo 14 anos — 8 variantes mapeadas (ZIP oficial do Patrick, 2026-07-16; confirmado EM USO em 2026)
+    # 4 com badge (balão arredondado com 1 canto reto):
+    "selo-14anos-1": {"tipo": "selo-aniversario", "cor": "badge amarelo manga #F7BE35 + glifo grafite", "usar_sobre": ["grafite", "branco", "foto"], "evitar_sobre": ["amarelo (badge some)"], "uso": "Selo 14 anos COM badge manga (= SELO 14 ANOS-12 do ZIP). Versão principal p/ fundo escuro/branco/foto. Confirmado em uso 2026."},
+    "selo-14anos-2": {"tipo": "selo-aniversario", "cor": "badge grafite + glifo amarelo manga", "usar_sobre": ["amarelo", "soft", "branco"], "evitar_sobre": ["grafite"], "uso": "Selo COM badge grafite, número manga (= SELO 14 ANOS-13). P/ fundo amber/claro."},
+    "selo-14anos-3": {"tipo": "selo-aniversario", "cor": "badge grafite + glifo amarelo soft", "usar_sobre": ["amarelo", "branco"], "evitar_sobre": ["grafite"], "uso": "Badge grafite, número soft (= SELO 14 ANOS-14)."},
+    "selo-14anos-4": {"tipo": "selo-aniversario", "cor": "badge grafite + glifo branco", "usar_sobre": ["amarelo", "soft", "foto"], "evitar_sobre": ["grafite", "branco"], "uso": "Badge grafite, número branco (= SELO 14 ANOS-17)."},
+    # 4 SEM fundo (só o glifo '14 anos' transparente) — casos específicos onde badge não cabe:
+    "selo-14anos-transp-grafite": {"tipo": "selo-aniversario-transp", "cor": "grafite (sem fundo)", "usar_sobre": ["amarelo", "soft", "branco", "claro"], "evitar_sobre": ["grafite", "foto escura"], "uso": "Glifo 14 anos grafite transparente (= Prancheta cópia 4). Direto sobre fundo amber/claro."},
+    "selo-14anos-transp-manga": {"tipo": "selo-aniversario-transp", "cor": "amarelo manga (sem fundo)", "usar_sobre": ["grafite", "branco", "foto escura"], "evitar_sobre": ["amarelo"], "uso": "Glifo manga transparente (= Prancheta cópia 5). Sobre fundo escuro/branco."},
+    "selo-14anos-transp-soft": {"tipo": "selo-aniversario-transp", "cor": "amarelo soft (sem fundo)", "usar_sobre": ["grafite", "foto escura"], "evitar_sobre": ["amarelo", "branco"], "uso": "Glifo soft transparente (= Prancheta cópia 6). Sobre fundo escuro."},
+    "selo-14anos-transp-branco": {"tipo": "selo-aniversario-transp", "cor": "branco (sem fundo)", "usar_sobre": ["grafite", "foto escura"], "evitar_sobre": ["branco", "amarelo claro"], "uso": "Glifo branco transparente (= Prancheta cópia 7). Sobre fundo escuro/foto."},
     # Complementos (grafismos decorativos)
     "complemento-fundo-amarelo": {"tipo": "grafismo-fundo", "cor": "amarelo", "usar_sobre": ["preto/grafite"], "evitar_sobre": ["amarelo"], "uso": "Grafismo decorativo de fundo sobre escuro."},
     "complemento-fundo-grafite": {"tipo": "grafismo-fundo", "cor": "grafite", "usar_sobre": ["amarelo", "branco"], "evitar_sobre": ["grafite"], "uso": "Grafismo de fundo sobre amarelo/branco."},
