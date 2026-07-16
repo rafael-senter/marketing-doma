@@ -248,14 +248,13 @@
       "tipo": "selo-aniversario",
       "cor": "badge amarelo manga #F7BE35 + glifo grafite",
       "usar_sobre": [
+        "amarelo (PADRÃO do projeto — tom-sobre-tom intencional)",
         "grafite",
         "branco",
         "foto"
       ],
-      "evitar_sobre": [
-        "amarelo (badge some)"
-      ],
-      "uso": "Selo 14 anos COM badge manga (= SELO 14 ANOS-12 do ZIP). Versão principal p/ fundo escuro/branco/foto. Confirmado em uso 2026."
+      "evitar_sobre": [],
+      "uso": "Selo 14 anos COM badge manga (= SELO 14 ANOS-12 do ZIP). VERSÃO PADRÃO do projeto — usar esta inclusive sobre fundo amber (badge tom-sobre-tom é intencional; correção Patrick 2026-07-16). Confirmado em uso 2026."
     },
     {
       "arquivo": "selo-14anos-2.png",
@@ -1694,10 +1693,10 @@
       "arquivo": "_funcinadimplencia-base-transp.png",
       "slug": "_funcinadimplencia-base-transp",
       "dims": {
-        "w": 2304,
-        "h": 1856
+        "w": 2214,
+        "h": 1221
       },
-      "size_kb": 872.5,
+      "size_kb": 2244.8,
       "path_plugin": "assets/bases-nanobanana-transparente/_funcinadimplencia-base-transp.png",
       "path_host": "oficial/_funcinadimplencia-base-transp.png",
       "post": "POST inadimplencia (2026-07-16)",

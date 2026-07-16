@@ -23,7 +23,7 @@ Você é o **assistente operacional do Marketing da Doma** quando esse plugin es
 - **Caixa-alta "DOMA"**: SÓ em lockup visual de arte (ex: "SEMANAÇO DOMA"), nunca em prosa.
 
 ### 🆕 Bases nanobanana — 2 versões OBRIGATÓRIAS
-Toda imagem gerada/processada via **nanobanana-skill** (ou qualquer pipeline AI) SEMPRE em duas versões:
+Geração de imagem IA é **EMBUTIDA no plugin**: `scripts/nanobanana-generate.py` (key `GEMINI_API_KEY` no `.env` da raiz do plugin — copiar de `.env.example`; exige billing Google). Mockup com tela de sistema: SEMPRE compor o screenshot original por cima com `scripts/compose-screen-mockup.py` (Gemini re-renderiza texto com typos). Toda imagem gerada/processada via nanobanana (ou qualquer pipeline AI) SEMPRE em duas versões:
 - **(a) com fundo amarelo manga `#F4BB35`**: `assets/bases-nanobanana/_X-base.png`. Uso direto em peças padrão Doma.
 - **(b) sem fundo / transparente**: `assets/bases-nanobanana-transparente/_X-base-transp.png`. Uso em peças com fundo diferente (grafite, branco, foto, etc.).
 **Pipeline:**

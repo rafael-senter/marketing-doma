@@ -29,7 +29,9 @@ export type FuncoesSistemaProps = {
   selo?: {src: string; left: string; top: string; width: string};  // selo PNG oficial (ex: selo-14anos-1)
   imagem?: {src: string; left: string; top: string; width: string; rotate?: number; sombra?: boolean};
                                        // imagem posicionada SEM chrome (ex: base nanobanana transp de notebook/phone)
-  watermark?: boolean;                 // "DOMa" branca topo (full-width)
+  watermark?: boolean;                 // "DOMa" topo (full-width)
+  watermarkCor?: string;               // cor da watermark. Padrão do projeto = TOM DE BRANCO fraco tom-sobre-tom
+                                       // (~18% branco sobre manga = #F6C554), nunca escura (correção Patrick 2026-07-16 ×2)
   logoTopo?: boolean;                  // logo DOMa grafite centralizado no topo
   logoRodape?: boolean;                // logo DOMa grafite centralizado no rodapé
   bigNumero?: {texto: string; left: string; top: string; fontSize?: number};
@@ -75,7 +77,7 @@ export const FuncoesSistema: React.FC<FuncoesSistemaProps> = (p) => (
 
     {p.watermark && (
       <div style={{position: 'absolute', top: '4%', left: '0%', width: '100%', aspectRatio: '1767 / 322',
-        backgroundColor: C.branco, WebkitMaskImage: maskUrl, maskImage: maskUrl,
+        backgroundColor: p.watermarkCor ?? '#F6C554', WebkitMaskImage: maskUrl, maskImage: maskUrl,
         WebkitMaskSize: '100% 100%', maskSize: '100% 100%', WebkitMaskRepeat: 'no-repeat', maskRepeat: 'no-repeat',
         zIndex: 1}} />
     )}

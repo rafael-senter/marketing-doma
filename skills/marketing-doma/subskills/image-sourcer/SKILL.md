@@ -37,7 +37,11 @@ Ou grep no `CATALOGO.json` por slug/uso. Checar `assets/fotos/`, `assets/bases-n
 - Reprovou qualquer item → descartar e ir pra camada 3.
 
 ### 3. FALLBACK: gerar via nanobanana (Gemini)
-Invocar skill `nanobanana-skill`. Prompt DEVE conter:
+Usar o script EMBUTIDO no plugin (não depende de skill do host):
+```bash
+python3 scripts/nanobanana-generate.py --prompt "..." --output out.png [--input ref.png] [--size 1152x896] [--resolution 2K]
+```
+Key: `GEMINI_API_KEY` no `.env` da raiz do plugin (copiar de `.env.example` e preencher — exige billing Google). Prompt DEVE conter:
 - Setor + papel ("owner of a Brazilian clothing store", "metallurgical worker").
 - Persona: "well-groomed professional, 35-45 years old, business shirt" (adaptar vestimenta ao setor).
 - Ação com propósito: "adjusting garments on a rack", "cutting metal with angle grinder".

@@ -19,7 +19,7 @@ Logos, selos, sub-marcas, complementos e taglines oficiais da Doma.
 | `logotipo-vertical-branco.png` | wordmark-vertical-mask | branco (mask) | 1681×1328 | 40.6 KB | Máscara vertical — usado em watermark DO/MA (Certo e Errado POST 247/256). |
 | `logotipo-vertical-cor.png` | wordmark-vertical | amarelo | 1681×1327 | 41.1 KB | Vertical empilhada DO/M.a — pra story/lockup vertical. |
 | `logotipo-vertical-grafite.png` | wordmark-vertical | grafite | 1682×1327 | 40.5 KB | Vertical grafite — story 9:16, lockup. |
-| `selo-14anos-1.png` | selo-aniversario | badge amarelo manga #F7BE35 + glifo grafite | 4167×4167 | 103.9 KB | Selo 14 anos COM badge manga (= SELO 14 ANOS-12 do ZIP). Versão principal p/ fundo escuro/branco/foto. Confirmado em uso 2026. |
+| `selo-14anos-1.png` | selo-aniversario | badge amarelo manga #F7BE35 + glifo grafite | 4167×4167 | 103.9 KB | Selo 14 anos COM badge manga (= SELO 14 ANOS-12 do ZIP). VERSÃO PADRÃO do projeto — usar esta inclusive sobre fundo amber (badge tom-sobre-tom é intencional; correção Patrick 2026-07-16). Confirmado em uso 2026. |
 | `selo-14anos-2.png` | selo-aniversario | badge grafite + glifo amarelo manga | 4167×4167 | 104.8 KB | Selo COM badge grafite, número manga (= SELO 14 ANOS-13). P/ fundo amber/claro. |
 | `selo-14anos-3.png` | selo-aniversario | badge grafite + glifo amarelo soft | 4167×4167 | 105.0 KB | Badge grafite, número soft (= SELO 14 ANOS-14). |
 | `selo-14anos-4.png` | selo-aniversario | badge grafite + glifo branco | 4167×4167 | 103.3 KB | Badge grafite, número branco (= SELO 14 ANOS-17). |

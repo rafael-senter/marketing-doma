@@ -65,7 +65,17 @@ O `doma:install` faz **tudo nesta pasta**:
 - `.cursor/hooks.json` + rules
 - `CURSOR.md` · `CLAUDE.md`
 
-### 5. Usar
+### 5. Geração de imagem IA (opcional — mockups, pessoas, bases)
+
+Para o plugin poder **gerar imagens** (mockup de notebook/celular com tela do sistema, pessoa do setor do cliente, bases fotorrealistas):
+
+1. Copiar `.claude/skills/marketing-doma/.env.example` para `.claude/skills/marketing-doma/.env`
+2. Preencher `GEMINI_API_KEY=` com a key fornecida pelo dev (ou criar em https://aistudio.google.com/apikey — precisa billing ativo)
+3. Instalar dependências Python (uma vez): `python3 -m pip install google-genai python-dotenv Pillow numpy rembg onnxruntime`
+
+Sem a key, tudo funciona normalmente — só a geração de imagem nova via IA fica indisponível (o Claude avisa quando precisar).
+
+### 6. Usar
 
 **Claude Code:** `claude` → `/marketing-doma`  
 **Cursor:** chat *"cria post Doma"* · ler `CURSOR.md`

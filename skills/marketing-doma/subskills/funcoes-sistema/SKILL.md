@@ -9,7 +9,7 @@ description: Card de funcionalidade do ERP — mockup fotorrealista (mão + iPho
 **Ficha:** `../../../../knowledge-base/padroes/funcoes-sistema.md`
 
 ## Padrão visual
-- **Base fotorrealista** (mão + iPhone com tela do ERP, OU laptop com dashboard) gerada via **nanobanana-skill** a partir da tela do ERP extraída do modelo → salva em `public/oficial/_func<NNN>-base.png`.
+- **Base fotorrealista** (mão + iPhone com tela do ERP, OU laptop com dashboard) gerada via **`scripts/nanobanana-generate.py`** (embutido no plugin; key no `.env` da raiz) a partir da tela do ERP extraída do modelo → salva em `public/oficial/_func<NNN>-base.png`. ⚠️ Tela de sistema: compor o screenshot ORIGINAL por cima com `scripts/compose-screen-mockup.py` (Gemini re-renderiza texto com typos — live-rule 2026-07-16).
 - **Overlays Remotion** crispos por cima (texto SEMPRE vetorial, nunca baked na imagem):
   - `watermark` "DOMa" branca topo (CSS mask).
   - `logoTopo` / `logoRodape` (LogoDoma grafite).
@@ -42,6 +42,6 @@ type Props = {
 - ❌ Texto baked na imagem (perde editabilidade + crispness).
 
 ## Próximos passos
-1. Gerar base nanobanana com tela nova do ERP.
+1. Gerar base nanobanana com tela nova do ERP (`scripts/nanobanana-generate.py` + `scripts/compose-screen-mockup.py`).
 2. Combinar com SPIN (slide CTA pode usar este padrão).
 3. Variar device (celular ↔ laptop).
