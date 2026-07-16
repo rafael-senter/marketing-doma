@@ -60,6 +60,9 @@ Razão: flexibilidade máxima de reuso sem regerar via Gemini (cota cara/billing
 
 ---
 
+### 🆕 Efeito 3D por camadas (recurso opcional, 2026-07-16)
+Sujeito "saltando" de objeto gráfico (cabeça por cima do bloco, moedas por cima do card): base completa → objeto → duplicata SEM FUNDO recortada na região do salto, alinhada por pixel. Sub-skill `efeito-3d-camadas` — qualquer categoria pode chamar. NÃO é regra usar: decisão estratégica por peça. Ficha: `knowledge-base/padroes/efeito-3d-camadas.md`.
+
 ### 🆕 Todo post = post + story (regra Patrick 2026-07-16)
 Toda peça nova de feed (1080×1350) nasce com a versão **story (1080×1920)** no mesmo fluxo — 2 Stills: `<id>` e `<id>-story`. Ajuste em um → replicar no outro. Ver live-rule `2026-07-16-post-sempre-com-story.md`.
 

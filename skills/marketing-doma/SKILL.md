@@ -38,6 +38,7 @@ Skill auto-contida que gera posts/carrosséis/stories da Doma no Remotion seguin
 | "regras transversais de marca / voz / cor" | `subskills/brand-rules` |
 | **peça precisa de foto de pessoa/dono/funcionário de setor cliente** (buscar internet ou gerar nanobanana) | `subskills/image-sourcer` |
 | **usuário cola/envia imagem nova** (foto cliente, logo, asset) | `subskills/asset-ingester` (automático) |
+| **efeito 3D / sujeito "saltando" do card-faixa-bloco** (cabeça por cima do bloco, moedas por cima do card) | `subskills/efeito-3d-camadas` (opcional, decisão estratégica — qualquer categoria pode chamar) |
 | **detecta padrão repetido durante sessão** (2+ erros / 3+ confirmações) | `subskills/auto-optimizer` (META) |
 
 ## Sub-agentes invocáveis (Task tool)
