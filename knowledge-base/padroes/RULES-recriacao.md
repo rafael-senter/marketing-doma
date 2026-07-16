@@ -154,3 +154,14 @@ Quando a marca d'água é o **contorno** das letras (outline vazado), não o pre
   2. camada de cima: `backgroundColor` = **cor do FUNDO**, com `inset` de poucos px (ex. `6px 4px`) → encolhe a forma e "come" o interior, deixando exposta só a **borda** da camada de baixo = o outline. `inset` maior = outline mais grosso.
 - **Validar por medição:** `y_topo` das letras, largura (sangra?), e **densidade** (% de pixels ≠ fundo na faixa) — ajustar `top`/`width`/`left`/`inset` até bater. A logo horizontal tem margem mínima → para descer as letras use `top` POSITIVO.
 - **Custo:** o outline raramente alinha pixel-perfect com o do modelo (posição das letras), então pode custar ~0.3-0.5% de SSIM mesmo correto — é o preço de ter o elemento (mais fiel visualmente). Decidir com o Patrick se mantém.
+
+## 19. CRIAÇÃO NOVA — análise pós-render OBRIGATÓRIA (o conteúdo nunca é o modelo)
+
+Regra do Patrick (2026-07-16, POST rede-lojas). Seguir a ficha da categoria NÃO basta: o conteúdo criado é sempre diferente do modelo (mais texto, linhas maiores, mais itens) e a peça sai quebrada mesmo com componente correto. Vale pra TODAS as categorias, feed E story.
+
+1. **ANTES de codar**: dimensionar conteúdo novo vs modelo (linhas/itens); respeitar limites de chars/linha da ficha; sem limites documentados → medir no 1º render e gravar na ficha. NUNCA reduzir fonte pra caber — re-quebrar, densificar copy, ou usar fontSize documentado da ficha.
+2. **DEPOIS de renderizar**: auditar CADA slide (feed e story) com o checklist: órfãs · overflow/colisão · centralização/equilíbrio (buraco >15% inexplicado = defeito; CTA com texto curto = densificar) · fontes = ficha · alternância de modos de cor (ex. SPIN 1-2-1-2) · rodapé/faixas/selo/watermark medidos · dims do PNG (story = `render-still.sh <id>-story 1080 1920`, o default esmaga) · comparação lado a lado com o slide-modelo do mesmo tipo (divergência → numpy, não a olho).
+3. **Iterar até limpar**: defeito → corrigir → sync da RAIZ do host (+ grep valida) → re-render → re-auditar. Só apresentar peça 100% auditada.
+4. **Limite/regra nova descoberta → gravar** na ficha da categoria + live-rule.
+
+Checklist detalhado: `knowledge-base/live-rules/2026-07-16-analise-pos-criacao-obrigatoria.md`.

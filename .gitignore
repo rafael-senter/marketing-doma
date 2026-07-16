@@ -36,3 +36,4 @@ cli/.npmrc
 # Bases com prints REAIS do ERP (dados de clientes) — NUNCA publicar (decisão Patrick 2026-07-16)
 assets/bases-nanobanana/_funcinadimplencia-base.png
 assets/bases-nanobanana-transparente/_funcinadimplencia-base-transp.png
+.remotion/
