@@ -102,7 +102,7 @@ export const DicasMiolo: React.FC<DicasMioloProps> = ({numero, titulo, corpo,
   <AbsoluteFill style={{...baseFill, backgroundColor: C.manga}}>
     {/* card soft topo (full-width, cantos inf arredondados) */}
     <div style={{position: 'absolute', left: 0, top: 0, width: '100%', height: `${headerHeight}%`,
-      background: C.soft, borderBottomLeftRadius: 40, borderBottomRightRadius: 40, zIndex: 1,
+      background: C.soft, borderBottomLeftRadius: 50, borderBottomRightRadius: 50, zIndex: 1,  /* raio 51 medido */
       display: 'flex', alignItems: 'center', padding: '0 56px', boxSizing: 'border-box'}}>
       {/* número grande */}
       <span style={{color: C.grafite, fontSize: numeroSize, fontWeight: 700, lineHeight: 0.9, letterSpacing: -6}}>{numero}</span>
@@ -116,7 +116,7 @@ export const DicasMiolo: React.FC<DicasMioloProps> = ({numero, titulo, corpo,
 
     {/* card branco com o corpo */}
     <div style={{position: 'absolute', left: '11.7%', top: `${corpoTop}%`, width: '76.6%', height: `${corpoH}%`,
-      background: C.branco, borderRadius: 30, zIndex: 1,
+      background: C.branco, borderRadius: 43, zIndex: 1,  /* raio 43 medido */
       display: 'flex', alignItems: 'center', padding: '0 64px', boxSizing: 'border-box'}}>
       <TextoRico style={{color: C.grafite, fontSize: 40, fontWeight: 400, lineHeight: 1.37, display: 'block'}}>
         {corpo}
@@ -135,7 +135,7 @@ export type DicasCtaProps = {texto: string};
 export const DicasCta: React.FC<DicasCtaProps> = ({texto}) => (
   <AbsoluteFill style={{...baseFill, backgroundColor: C.manga}}>
     <div style={{position: 'absolute', left: '9.3%', top: '18.8%', width: '81.4%', height: '62.3%',
-      background: C.soft, borderRadius: 36, zIndex: 1}} />
+      background: C.soft, borderRadius: 54, zIndex: 1}} />  {/* raio 54 medido */}
     <Img
       src={staticFile('oficial/selo-grafite.png')}
       alt="DOMa"

@@ -26,7 +26,7 @@ export const Narrativa: React.FC<NarrativaProps> = ({foto, principal}) => (
 
     {/* card BRANCO com a pergunta (centralizada, fim em bold) */}
     <div style={{position: 'absolute', left: '17%', top: '39.1%', width: '65.8%', height: '21.7%',
-      background: C.branco, borderRadius: 24, boxShadow: '0 8px 26px #00000033', zIndex: 2,
+      background: C.branco, borderRadius: 20, boxShadow: '0 8px 26px #00000033', zIndex: 2,
       display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '0 44px', boxSizing: 'border-box'}}>
       <TextoRico style={{color: C.grafite, fontSize: 52, fontWeight: 400, lineHeight: 1.2, textAlign: 'center', display: 'block'}}>
         {principal}

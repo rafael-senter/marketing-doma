@@ -42,7 +42,7 @@ export const DomaMotiva: React.FC<DomaMotivaProps> = ({foto, blocos, card, seloC
 
       {/* card amarelo arredondado */}
       <div style={{position: 'absolute', left: card.left, top: card.top, width: card.width, height: card.height,
-        background: C.card, borderRadius: 28, boxShadow: '0 10px 34px #00000026'}}>
+        background: C.card, borderRadius: 44, boxShadow: '0 10px 34px #00000026'}}>  {/* raio 44 medido */}
         {/* selo DOMa oficial no canto */}
         <Img src={staticFile('oficial/selo-grafite.png')} alt="DOMa"
           style={{position: 'absolute', width: 74, height: 74, ...seloStyle}} />

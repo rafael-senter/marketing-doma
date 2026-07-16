@@ -45,7 +45,7 @@ export const InimigoComum: React.FC<InimigoComumProps> = ({principal, secundario
 
     {/* card BRANCO — frase principal centralizada (aspas, fim em bold) */}
     <div style={{position: 'absolute', left: '11.5%', top: story ? '28%' : '23%', width: '77%', height: '22.5%',
-      background: C.branco, borderRadius: 34, boxShadow: '0 8px 28px #00000022', zIndex: 2,
+      background: C.branco, borderRadius: 24, boxShadow: '0 8px 28px #00000022', zIndex: 2,
       display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '0 56px', boxSizing: 'border-box'}}>
       {/* boldWeight 700 (não 800): negrito do fecho afinado minimamente — correção Patrick 2026-07-16 */}
       <TextoRico boldWeight={700} style={{color: C.grafite, fontSize: 64, fontWeight: 400, lineHeight: 1.22, textAlign: 'center', display: 'block'}}>
@@ -62,7 +62,7 @@ export const InimigoComum: React.FC<InimigoComumProps> = ({principal, secundario
 
     {/* card SOFT — texto secundário centralizado de verdade (sem paddingLeft que empurrava texto pra direita) */}
     <div style={{position: 'absolute', left: story ? '21%' : '19%', top: story ? '59.5%' : '53.5%', width: story ? '58%' : '62%', height: story ? '17.5%' : '22%',
-      background: C.soft, borderRadius: 30, zIndex: 1,
+      background: C.soft, borderRadius: 26, zIndex: 1,  /* raio 26 medido */
       display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '0 40px', boxSizing: 'border-box'}}>
       {/* fontSize 48 (era 42): aumentado a pedido do Patrick 2026-07-16 */}
       <TextoRico style={{color: C.grafite, fontSize: 56, fontWeight: 400, lineHeight: 1.3, textAlign: 'center', display: 'block'}}>

@@ -165,3 +165,25 @@ Regra do Patrick (2026-07-16, POST rede-lojas). Seguir a ficha da categoria NÃO
 4. **Limite/regra nova descoberta → gravar** na ficha da categoria + live-rule.
 
 Checklist detalhado: `knowledge-base/live-rules/2026-07-16-analise-pos-criacao-obrigatoria.md`.
+
+## 20. RAIOS de cantos — SEMPRE medidos, nunca chutados
+
+Auditoria 2026-07-16 (pedido Patrick): vários componentes tinham raios chutados (28/30/36/40) — os reais medidos são maiores/diferentes. Método: varrer dy a partir do canto do bloco e achar onde o x-início da cor volta ao nominal (profundidade da curva ≈ raio).
+
+Raios MEDIDOS por categoria (px @ canvas 1080×1350):
+| Bloco | Raio real |
+|---|---|
+| SPIN card miolo (cantos inf) | ~60-63 |
+| SPIN CTA card claro | **60** (era 36) |
+| SPIN rodapé: faixa sup-dir 60 · bloco branco 80 (3 cantos, inf-esq reto) | ✓ |
+| Dicas card soft topo (cantos inf) | **50** (era 40) |
+| Dicas card branco corpo | **43** (era 30) |
+| Dicas CTA card claro | **54** (era 36) |
+| Doma Motiva card | **44** (era 28) |
+| Inimigo em Comum: bloco branco **24** · bloco soft **26** | (eram 34/30) |
+| Narrativa card | **20** (era 24) |
+| Certo e Errado cards | 43-45 ✓ |
+| Produtividade foto | **48**, canto sup-esq RETO ('0 48 48 48') |
+| Cliente Novo foto/badge | conferir ao usar |
+
+Regra: novo bloco arredondado → medir o raio no modelo (mesma técnica); registrar na ficha. Padrão visual Doma tende a raios GENEROSOS (40-60), não 28.

@@ -163,7 +163,7 @@ export const SpinCta: React.FC<SpinCtaProps> = ({texto, destaque, marca = false,
       {marca && <MarcaPadrao fundo="manga" />}
       {/* card claro grande */}
       <div style={{position: 'absolute', left: '9.3%', top: g.cardTop, width: '81.4%', height: g.cardH,
-        background: C.soft, borderRadius: 36, zIndex: 1}} />
+        background: C.soft, borderRadius: 60, zIndex: 1}} />  {/* raio 61 medido (era 36) */}
 
       {/* selo grafite (sup-dir do card) */}
       <Img src={staticFile('oficial/selo-grafite.png')} alt="DOMa"
