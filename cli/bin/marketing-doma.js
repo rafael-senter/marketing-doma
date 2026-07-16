@@ -300,11 +300,13 @@ function printNextSteps(root) {
   log('Reparar: ' + c('cyan', 'npm run doma:setup') + '  ou  /marketing-doma-setup');
 }
 
-// Pastas dentro do clone que NUNCA podem ser sobrescritas pelo update
-// (são geradas em runtime pelo uso real do cliente — auto-melhoria, planos locais).
+// Caminhos dentro do clone que NUNCA podem ser sobrescritos/apagados pelo update
+// (são gerados em runtime pelo uso real do cliente — auto-melhoria, planos locais,
+// secrets locais como a GEMINI_API_KEY).
 const PRESERVED_DIRS = [
   'knowledge-base/live-rules',
   'templates/planos',
+  '.env',
 ];
 
 function moveOrCopy(src, dst) {
@@ -339,6 +341,12 @@ function restoreAfterReset(pluginDir, { stash, saved }) {
     const dst = path.join(pluginDir, rel);
     if (!fs.existsSync(src)) continue;
     if (fs.existsSync(dst)) {
+      if (fs.statSync(src).isFile()) {
+        // arquivo preservado (ex: .env do cliente) SEMPRE vence o do tarball
+        fs.copyFileSync(src, dst);
+        fs.rmSync(src, { force: true });
+        continue;
+      }
       mergeDir(src, dst);
       fs.rmSync(src, { recursive: true, force: true });
     } else {

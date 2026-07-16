@@ -60,6 +60,9 @@ Razão: flexibilidade máxima de reuso sem regerar via Gemini (cota cara/billing
 
 ---
 
+### 🆕 Todo post = post + story (regra Patrick 2026-07-16)
+Toda peça nova de feed (1080×1350) nasce com a versão **story (1080×1920)** no mesmo fluxo — 2 Stills: `<id>` e `<id>-story`. Ajuste em um → replicar no outro. Ver live-rule `2026-07-16-post-sempre-com-story.md`.
+
 ## 📋 PROTOCOLO obrigatório ANTES DE CRIAR POST NOVO
 
 Vale pra QUALQUER peça nova (que NÃO seja recriação 1:1 de um post-modelo existente).
