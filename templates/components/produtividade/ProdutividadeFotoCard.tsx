@@ -19,9 +19,9 @@ import {LogoDoma, TextoRico} from '../../../components';
  *
  * Limites (§19): título fs78 → máx ~15 chars/linha, 3 linhas; fecho fs60 → máx ~16 chars/linha, 2 linhas.
  */
-const C = {fundo: '#F4BB35', watermark: '#F2BD3C', grafite: '#1F1F1F', branco: '#FFFFFF'};
+const C = {fundo: '#F4BB35', watermark: '#F2B32E', grafite: '#1F1F1F', branco: '#FFFFFF'};  // wm medida no POST 270
 const F = brand.fontes.titulo;
-const maskUrl = `url(${staticFile('oficial/logotipo-principal-branco.png')})`;
+const maskVertUrl = `url(${staticFile('oficial/logotipo-vertical-branco.png')})`;
 
 export type ProdutividadeFotoCardProps = {
   titulo: string;          // topo, até a reticência — ex.: 'O que você **não**\n**acompanha** na\nsua indústria…'
@@ -43,10 +43,11 @@ export const ProdutividadeFotoCard: React.FC<ProdutividadeFotoCardProps> = ({
       backgroundColor: C.fundo, fontFamily: F, overflow: 'hidden',
       WebkitFontSmoothing: 'antialiased', MozOsxFontSmoothing: 'grayscale', textRendering: 'geometricPrecision',
     }}>
-      {/* watermark DOMa topo (tom-sobre-tom medido) */}
-      <div style={{position: 'absolute', top: '3%', left: '50%', transform: 'translateX(-50%)',
-        width: '95%', aspectRatio: '1767 / 322', backgroundColor: C.watermark,
-        WebkitMaskImage: maskUrl, maskImage: maskUrl, WebkitMaskSize: '100% 100%', maskSize: '100% 100%',
+      {/* watermark "DOMa" VERTICAL GIGANTE de fundo (medido no POST 270: #F2B32E, logo estourando
+          o canvas — "O" no topo-dir, "M" na esq-baixo). Asset vertical 1681×1328. */}
+      <div style={{position: 'absolute', top: '0%', left: '-22%',
+        width: '145%', aspectRatio: '1681 / 1328', backgroundColor: C.watermark,
+        WebkitMaskImage: maskVertUrl, maskImage: maskVertUrl, WebkitMaskSize: '100% 100%', maskSize: '100% 100%',
         WebkitMaskRepeat: 'no-repeat', maskRepeat: 'no-repeat', zIndex: 0}} />
 
       {/* título topo — fs 78 medido */}
@@ -64,7 +65,7 @@ export const ProdutividadeFotoCard: React.FC<ProdutividadeFotoCardProps> = ({
 
       {/* foto card + sub-card grafite embutido no canto inf-dir (medido) */}
       <div style={{position: 'absolute', left: '12.4%', top: g.fotoTop, width: '78.2%', height: g.fotoH,
-        borderRadius: 28, overflow: 'hidden', zIndex: 1, boxShadow: '0 10px 30px #00000026'}}>
+        borderRadius: '0 28px 28px 28px', overflow: 'hidden', zIndex: 1  /* canto SUP-ESQ reto (regra Patrick) */, boxShadow: '0 10px 30px #00000026'}}>
         <Img src={staticFile(foto)} style={{width: '100%', height: '100%', objectFit: 'cover'}} />
         <div style={{position: 'absolute', right: 0, bottom: 0, width: '69.5%', height: '26.1%',
           background: C.grafite, borderTopLeftRadius: 28,

@@ -30,3 +30,8 @@ Canvas 1080×1350. Medido com `layout-mapper` + numpy. Foto de teste = modelo (e
 - Limites: título ~15 chars/linha ×3 linhas (3 linhas → foto desce pra T30%, já tratado no componente); fecho ~16 chars ×2 linhas.
 - Story ✓ implementado (título T8%, foto 22→82%, logo 93%).
 - Peça de referência: POST prejuizo-industria (foto `_prod-industria-foto`).
+
+### Correções Patrick 2026-07-16 (POST prejuizo-industria)
+- **Watermark de fundo = "DOMa" VERTICAL GIGANTE** (asset logotipo-vertical-branco 1681×1328 via mask), cor **#F2B32E** (medida no 270 — NÃO usar #F2BD3C imperceptível). Geometria: top 0%, left -22%, width 145% (logo estoura o canvas; "O" topo-dir, "M" esq).
+- **Foto: canto SUPERIOR-ESQUERDO RETO** — borderRadius '0 28px 28px 28px'.
+- **Bold 700** (global via TextoRico — live-rule bold-700-global).
