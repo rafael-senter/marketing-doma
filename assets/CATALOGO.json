@@ -1526,6 +1526,23 @@
       "tela": "dashboard ERP",
       "uso": "Base do POST 273 — laptop com dashboard.",
       "reusar_em": "peças desktop ERP"
+    },
+    {
+      "arquivo": "_funcinadimplencia-base.png",
+      "slug": "_funcinadimplencia-base",
+      "dims": {
+        "w": 2304,
+        "h": 1856
+      },
+      "size_kb": 1585.8,
+      "path_plugin": "assets/bases-nanobanana/_funcinadimplencia-base.png",
+      "path_host": "oficial/_funcinadimplencia-base.png",
+      "post": "POST inadimplencia (2026-07-16)",
+      "categoria": "funcoes-sistema",
+      "device": "notebook (MacBook-like)",
+      "tela": "Painel de Inadimplência (Dashboard Financeiro, ERP Doma Indústria)",
+      "uso": "Base notebook com tela real de Inadimplência. Moldura via nanobanana + screenshot ORIGINAL composto pixel-perfect na tela (Gemini re-renderiza texto com typos — nunca usar tela crua do Gemini); transp via rembg.",
+      "reusar_em": "peças desktop ERP financeiro/inadimplência"
     }
   ],
   "bases-nanobanana-transparente": [
@@ -1672,6 +1689,24 @@
       "uso": "Versão TRANSPARENTE de __func273-base.png (rembg). Use sobre fundo diferente de amber.",
       "fundo": "transparente",
       "par_com": "_func273-base.png"
+    },
+    {
+      "arquivo": "_funcinadimplencia-base-transp.png",
+      "slug": "_funcinadimplencia-base-transp",
+      "dims": {
+        "w": 2304,
+        "h": 1856
+      },
+      "size_kb": 872.5,
+      "path_plugin": "assets/bases-nanobanana-transparente/_funcinadimplencia-base-transp.png",
+      "path_host": "oficial/_funcinadimplencia-base-transp.png",
+      "post": "POST inadimplencia (2026-07-16)",
+      "categoria": "funcoes-sistema",
+      "device": "notebook (MacBook-like)",
+      "tela": "Painel de Inadimplência (Dashboard Financeiro, ERP Doma Indústria)",
+      "uso": "Versão TRANSPARENTE de __funcinadimplencia-base.png (rembg). Use sobre fundo diferente de amber.",
+      "fundo": "transparente",
+      "par_com": "_funcinadimplencia-base.png"
     }
   ],
   "bases-nanobanana-soft": [

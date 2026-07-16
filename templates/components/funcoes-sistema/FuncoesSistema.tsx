@@ -27,6 +27,8 @@ export type FuncoesSistemaProps = {
                                        // frame de browser em código (RULES §6 alternativa sem nanobanana):
                                        // barra com 3 dots + cantos arredondados + sombra, tela = print real do ERP
   selo?: {src: string; left: string; top: string; width: string};  // selo PNG oficial (ex: selo-14anos-1)
+  imagem?: {src: string; left: string; top: string; width: string; rotate?: number; sombra?: boolean};
+                                       // imagem posicionada SEM chrome (ex: base nanobanana transp de notebook/phone)
   watermark?: boolean;                 // "DOMa" branca topo (full-width)
   logoTopo?: boolean;                  // logo DOMa grafite centralizado no topo
   logoRodape?: boolean;                // logo DOMa grafite centralizado no rodapé
@@ -57,6 +59,13 @@ export const FuncoesSistema: React.FC<FuncoesSistemaProps> = (p) => (
         </div>
         <Img src={staticFile(p.mockupBrowser.src)} style={{display: 'block', width: '100%', height: 'auto'}} />
       </div>
+    )}
+
+    {p.imagem && (
+      <Img src={staticFile(p.imagem.src)} style={{position: 'absolute', left: p.imagem.left, top: p.imagem.top,
+        width: p.imagem.width, height: 'auto', zIndex: 2,
+        transform: p.imagem.rotate ? `rotate(${p.imagem.rotate}deg)` : undefined,
+        filter: p.imagem.sombra === false ? undefined : 'drop-shadow(0 30px 50px rgba(32,32,32,0.30))'}} />
     )}
 
     {p.selo && (

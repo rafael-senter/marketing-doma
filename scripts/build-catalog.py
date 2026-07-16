@@ -190,6 +190,12 @@ BASES_NANOBANANA_META = {
         "uso": "Base do POST 273 — laptop com dashboard.",
         "reusar_em": "peças desktop ERP"
     },
+    "_funcinadimplencia-base": {
+        "post": "POST inadimplencia (2026-07-16)", "categoria": "funcoes-sistema",
+        "device": "notebook (MacBook-like)", "tela": "Painel de Inadimplência (Dashboard Financeiro, ERP Doma Indústria)",
+        "uso": "Base notebook com tela real de Inadimplência. Moldura via nanobanana + screenshot ORIGINAL composto pixel-perfect na tela (Gemini re-renderiza texto com typos — nunca usar tela crua do Gemini); transp via rembg.",
+        "reusar_em": "peças desktop ERP financeiro/inadimplência"
+    },
     "_doma115-base": {
         "post": "POST 115", "categoria": "doma-institucional",
         "device": "phone", "tela": "menu Doma (institucional)",

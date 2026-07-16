@@ -18,6 +18,7 @@ Cada base = device (mão+iPhone / laptop / produto) + tela do ERP Doma. Overlays
 | `_func248-base.png` | POST 248 | funcoes-sistema | laptop | dashboard financeiro | 1856×2304 | 3794.1 KB | peças desktop/dashboard |
 | `_func266-base.png` | POST 266 | funcoes-sistema | mão+iPhone | tela ERP | 1856×2304 | 3524.2 KB | peças mobile ERP |
 | `_func273-base.png` | POST 273 | funcoes-sistema | laptop | dashboard ERP | 1856×2304 | 3367.1 KB | peças desktop ERP |
+| `_funcinadimplencia-base.png` | POST inadimplencia (2026-07-16) | funcoes-sistema | notebook (MacBook-like) | Painel de Inadimplência (Dashboard Financeiro, ERP Doma Indústria) | 2304×1856 | 1585.8 KB | peças desktop ERP financeiro/inadimplência |
 
 ## Como usar
 

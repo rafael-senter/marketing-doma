@@ -47,6 +47,23 @@ Invocar skill `nanobanana-skill`. Prompt DEVE conter:
 
 ⚠️ Cota Gemini exige billing — avisar usuário antes de gerar se não confirmado.
 
+### 3b. MOCKUP DE TELA DE SISTEMA (ERP/browser/app em device) — pipeline especial
+
+⚠️ **Gemini re-renderiza o texto da tela com typos/alucinações** (nomes, datas, valores errados). Em peça B2B isso reprova. NUNCA usar a tela crua do render. Regra completa: `knowledge-base/live-rules/2026-07-16-nanobanana-tela-composta.md`.
+
+Fluxo (o usuário só fornece o screenshot — o resto é automático):
+1. Gerar a MOLDURA via nanobanana: prompt pede device fotorrealista exibindo o screenshot, fundo `#F4BB35`, sombra suave. O render serve só como moldura.
+2. Compor o screenshot ORIGINAL por cima com o script pronto:
+   ```bash
+   python3 scripts/compose-screen-mockup.py \
+     --mockup <render-nanobanana.png> \
+     --screenshot <screenshot-original.png> \
+     --output assets/bases-nanobanana/_<slug>-base.png \
+     --transparent assets/bases-nanobanana-transparente/_<slug>-base-transp.png
+   ```
+   O script detecta a área de tela sozinho (âncora: barra do browser), cola o screenshot fit-na-largura, preenche gap com linha limpa do fundo e recoloca o footer. Se a detecção falhar, passar `--bbox L,T,R,B` medido via numpy.
+3. Seguir "Pós-obtenção" abaixo (catalogar + sync).
+
 ## Pós-obtenção (SEMPRE, qualquer camada 2 ou 3)
 
 1. **2 versões obrigatórias**:
