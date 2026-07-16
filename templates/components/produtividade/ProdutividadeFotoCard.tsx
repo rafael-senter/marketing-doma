@@ -67,14 +67,14 @@ export const ProdutividadeFotoCard: React.FC<ProdutividadeFotoCardProps> = ({
 
       {/* foto card — canto SUP-ESQ reto (regra Patrick), H 45% medida */}
       <div style={{position: 'absolute', left: '12.4%', top: g.fotoTop, width: '78.2%', height: g.fotoH,
-        borderRadius: '0 28px 28px 28px', overflow: 'hidden', zIndex: 1, boxShadow: '0 10px 30px #00000026'}}>
+        borderRadius: '0 48px 48px 48px', overflow: 'hidden', zIndex: 1  /* raio 48 medido */, boxShadow: '0 10px 30px #00000026'}}>
         <Img src={staticFile(foto)} style={{width: '100%', height: '100%', objectFit: 'cover'}} />
       </div>
 
       {/* bloco preto FLUTUANTE (medido: x 36.2→90.6% = alinhado à direita da foto; y 65.7→79.2% =
           ~metade sobre a foto, ~metade fora; 4 cantos raio 28) */}
-      <div style={{position: 'absolute', left: '36.2%', top: g.blocoTop, width: '54.4%', height: g.blocoH,
-        background: C.grafite, borderRadius: 28, zIndex: 2,
+      <div style={{position: 'absolute', left: '40%', top: g.blocoTop, width: '54.4%', height: g.blocoH,
+        background: C.grafite, borderRadius: 28, zIndex: 2,  /* right 94.4% → sai da foto tb no lado (regra Patrick) */
         display: 'flex', alignItems: 'center', paddingLeft: 44, boxSizing: 'border-box'}}>
         <TextoRico style={{color: C.branco, fontSize: 60, fontWeight: 400, lineHeight: 1.12, display: 'block'}}>
           {fecho}

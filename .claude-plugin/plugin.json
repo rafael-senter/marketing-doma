@@ -1,6 +1,6 @@
 {
   "name": "marketing-doma",
-  "version": "0.1.67",
+  "version": "0.1.68",
   "description": "Plugin do Marketing Doma — geração de posts/carrosséis/stories no Remotion seguindo design system real (12 categorias mapeadas), voz institucional @sigadoma, regras de marca (DOMa logo, watermark tom-sobre-tom medida, cores por bloco, TT Lakes oficial). Skill master /marketing-doma guia leigo em Claude Code passo-a-passo. 18 sub-skills, 4 agentes, 9 commands, 20 scripts, 144 assets catalogados, Web UI 9 tabs.",
   "author": {
     "name": "rafael",
