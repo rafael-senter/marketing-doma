@@ -3,7 +3,7 @@
 Logos, selos, sub-marcas, complementos e taglines oficiais da Doma.
 
 
-**Total:** 35 arquivos.
+**Total:** 36 arquivos.
 
 
 | Arquivo | Tipo | Cor | Dimensões | Tamanho | Uso |
@@ -30,6 +30,7 @@ Logos, selos, sub-marcas, complementos e taglines oficiais da Doma.
 | `selo-branco.png` | selo-circular | branco | 1757×1788 | 102.4 KB | Selo branco sobre fundo escuro. |
 | `selo-cor.png` | selo-circular | amarelo | 1758×1788 | 114.5 KB | Selo redondo c/ 'DOMINE A GESTÃO DO SEU NEGÓCIO · SOFTWARE PARA GESTÃO' em texto curvo. Sobre fundo escuro. |
 | `selo-grafite.png` | selo-circular | grafite | 1758×1788 | 114.2 KB | Mais comum. Selo grafite no canto sup-dir de CTAs (Dicas Carrossel slide 9). |
+| `selo-preto-solido.png` | selo-circular | círculo preto sólido #1F1F1F + escritas brancas | 1757×1757 | 252.9 KB | Selo achatado (círculo+escritas em 1 png, glifo 72%) p/ usos fora do Remotion. NO Remotion preferir 2 camadas: div círculo preto + selo-branco.png por cima (borda ajustável) — cf doma-motiva.md v3. |
 | `submarca-industria.png` | submarca | varia (PNG e SVG) | 520×67 | 11.2 KB | Lockup vertical 'INDÚSTRIA MOBILE' — bottom-bar de cards de vertical Indústria. |
 | `submarca-industria.svg` | submarca | varia (PNG e SVG) | SVG | 4.8 KB | Lockup vertical 'INDÚSTRIA MOBILE' — bottom-bar de cards de vertical Indústria. |
 | `submarca-moda.png` | submarca | varia | 459×67 | 10.2 KB | Lockup 'MODA MANAGER' — bottom-bar Moda. |

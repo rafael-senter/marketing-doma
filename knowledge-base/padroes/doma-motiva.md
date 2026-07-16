@@ -2,31 +2,48 @@
 
 > ✅ **RECRIADO v2 — 242: 93.1% · 250: 95.7%** — `../../templates/components/doma-motiva/DomaMotiva.tsx`.
 > Modelos: `tipos-de-posts/.../Doma Motiva/POST 242.png` e `POST 250.png`.
+> 🆕 **TEMPLATE v3 (Patrick, 2026-07-16)** — watermark gigante, selo em camadas, card proporcional, 3D opcional. Peça de referência: `motiva-controla` + `motiva-controla-story`.
 
-Medido com `layout-mapper` + numpy. Canvas 1080×1350.
+Medido com `layout-mapper` + numpy. Canvas 1080×1350 (feed) / 1080×1920 (story).
 
-## Template FIXO (parametrizado por props — as variantes mudam bastante)
-- **Foto full-bleed** de fundo (`objectFit:cover`).
-- **Card amarelo manga** `#F4BB35` arredondado (raio 28), sombra suave, com:
-  - **frase motivacional** em 1-2 parágrafos (grafite `#212121`, regular, **último termo em bold**), fontSize ~33, lineHeight 1.28, padding 40;
-  - **selo DOMa oficial** (`oficial/selo-grafite.png`, ~74px) no canto.
-- **Watermark "DomaMotiva"** sangrado (branco, opacity ~0.16, fontSize ~88).
+## Template FIXO (parametrizado por props)
+- **Foto full-bleed** de fundo (`objectFit:cover`), pré-composta no canvas quando há efeito 3D.
+- **Card amarelo manga** `#F4BB35` arredondado (raio 44), sombra suave.
+- **Watermark "#DomaMotiva" GIGANTE sangrada** (v3, medida nos POST 242/250):
+  - fontSize **162**, weight 700, branco `opacity 0.20`, letterSpacing −2, nowrap;
+  - `left: -2.2%`, `top` OU `bottom`: **−1%** → "#" cortado à esquerda E "a" cortado à direita (texto sangra as duas bordas);
+  - ❌ NUNCA a versão antiga pequena (fs 88 com padding — rejeitada).
+- **Selo DOMa preto-e-branco EM CAMADAS** (v3 — regra transferível a outras categorias):
+  - camada 1: **div círculo preto `#1F1F1F`** (`borderRadius 50%`), Ø **170** — o círculo é MAIOR que as escritas e cresce livre;
+  - camada 2: **`oficial/selo-branco.png`** (escritas brancas) centrado por cima, `left/top 18%, width/height 64%`;
+  - ❌ NUNCA `selo-grafite.png` solto (escritas pretas transparentes — invisíveis/erradas aqui);
+  - posição: selo **CRUZA a borda do card** — `sup-dir` = `{top: 12, right: -85}` (metade fora, borda direita); `inf-dir` = `{bottom: -85, right: -10}`;
+  - existe asset achatado `oficial/selo-preto-solido.png` (círculo+escritas em 1 png) para usos fora do Remotion, mas NO COMPONENTE usar as 2 camadas (borda ajustável sem mexer nas letras).
+
+## Card proporcional ao texto (v3)
+- O card deve ter tamanho **proporcional ao texto** — nunca sobrar campo vazio grande.
+- Disposição interna medida (POST 242): `padding top 53 / left 66 / right 80 / bottom 44`, `justifyContent: center`, **gap 40 (~1 linha) entre parágrafos**.
+- fontSize por peça (motiva-controla: 44 feed / 46 story). Máx chars/linha ≈ (card.width × 1080 × 0.86) ÷ (fs × 0.516).
+- Frase maior que o card → aumentar card mantendo proporção, nunca espremer fonte.
+
+## Efeito 3D — OPCIONAL, avaliar caso a caso (regra da categoria)
+- **Antes de criar, AVALIAR**: a composição da foto tem elemento (cabeça/objeto) que invade naturalmente a área do card? → usar 3D. Senão → peça SEM 3D (não forçar).
+- Fluxo (ver skill `efeito-3d-camadas`): pré-compor a foto no canvas exato (PIL cover crop) → `rembg` (API python do `.venv-instagram`, CLI quebrada) → crop retangular da região que "salta" → prop `recorte3d {src,left,top,width}` (% do canvas) → camada `zIndex 5` acima do card. Emenda invisível porque o fundo sob o recorte é a própria foto alinhada.
+- Card menor (proporcional) pode eliminar o contato do 3D — decidir com Patrick: peça limpa sem contato OU reposicionar card.
+- Assets 3D: sempre 2 versões (base composta + alpha/recortes transparentes) em `assets/bases-nanobanana{,-transparente}/`.
+
+## Foto (regra de persona)
+- Gerar via `scripts/nanobanana-generate.py` (só roda no `.venv-instagram`): dono de PME brasileiro 30–50 anos no AMBIENTE do negócio, sem texto na imagem; pessoa posicionada deixando área livre para o card; pedir "head reaching upper-middle" quando quiser 3D.
 
 ## VARIA (props)
-| Prop | 242 | 250 |
-|------|-----|-----|
-| `card` (left/top/w/h) | 10.2% / 17.6% / 46.8% / 32.4% | 45.4% / 26.4% / 46.8% / 20.4% |
-| `seloCanto` | sup-dir | inf-dir |
-| `watermark` | topo ("DomaMotiva") | base ("#DomaMotiva") |
-| `blocos` | "Desafios…**pode crescer.**" + "Uma mente…**enxerga oportunidades.**" | "Crescer dói." + "Ficar **parado custa muito mais.**" |
+| Prop | 242 | 250 | motiva-controla (v3) |
+|------|-----|-----|------|
+| `card` (l/t/w/h) | 10.2/17.6/46.8/32.4% | 45.4/26.4/46.8/20.4% | 8/16/44/27% (story 8/17/46/19.5%) |
+| `seloCanto` | sup-dir | inf-dir | sup-dir |
+| `watermark` | topo | base | topo |
+| `fontSize` | 33 | 33 | 44 (story 46) |
+| `recorte3d` | — | — | crop rembg (l 55.56% t 25.93% w 32.41%) |
 
 ## Notas
-- Fotos de teste = os próprios modelos (`public/oficial/_teste-motiva-*.jpg`). Em produção, foto LIMPA do Patrick → o watermark recriado não duplica (no teste duplica porque a foto-modelo já tem o watermark original).
-- Selo: 242 usa selo quadrado/escuro, 250 usa selo circular — ambos cobertos por `selo-grafite.png` (ajustar asset se necessário).
-
-## Limites pra criação nova (§19 — 2026-07-16)
-- Card de texto é POSICIONAL POR PEÇA (props left/top/width/height medidos no modelo escolhido) + fontSize prop.
-- Máx chars/linha ≈ (card.width × 1080 × 0.86) ÷ (fs × 0.516). Ex.: card 46.8% fs 40 → ~21 chars.
-- Frase maior que o card do modelo → escolher OUTRO modelo com card maior (242 vs 250), nunca espremer fonte.
-- Watermark: posição `topo`/`base` conforme modelo; selo canto oposto ao card.
-- **Story: SEM prop `story`** — implementar ao usar.
+- **Story**: prop-based via Stills `<id>-story` (canvas 1080×1920, foto pré-composta story, recorte 3D próprio — coords diferem do feed).
+- ⚠️ Remotion Studio aberto pode gravar `translate/scale` espúrios no componente do HOST ao arrastar (aconteceu 2×) — antes de render, conferir `grep translate` e restaurar do plugin se sujo.

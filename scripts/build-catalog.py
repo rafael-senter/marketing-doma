@@ -56,6 +56,7 @@ OFICIAL_META = {
     "selo-cor": {"tipo": "selo-circular", "cor": "amarelo", "usar_sobre": ["grafite"], "evitar_sobre": ["amarelo"], "uso": "Selo redondo c/ 'DOMINE A GESTÃO DO SEU NEGÓCIO · SOFTWARE PARA GESTÃO' em texto curvo. Sobre fundo escuro."},
     "selo-grafite": {"tipo": "selo-circular", "cor": "grafite", "usar_sobre": ["amarelo", "soft", "branco", "claro"], "evitar_sobre": ["grafite"], "uso": "Mais comum. Selo grafite no canto sup-dir de CTAs (Dicas Carrossel slide 9)."},
     "selo-branco": {"tipo": "selo-circular", "cor": "branco", "usar_sobre": ["grafite"], "evitar_sobre": ["branco"], "uso": "Selo branco sobre fundo escuro."},
+    "selo-preto-solido": {"tipo": "selo-circular", "cor": "círculo preto sólido #1F1F1F + escritas brancas", "usar_sobre": ["amarelo", "foto", "claro"], "evitar_sobre": ["grafite"], "uso": "Selo achatado (círculo+escritas em 1 png, glifo 72%) p/ usos fora do Remotion. NO Remotion preferir 2 camadas: div círculo preto + selo-branco.png por cima (borda ajustável) — cf doma-motiva.md v3."},
     # Selo 14 anos — 8 variantes mapeadas (ZIP oficial do Patrick, 2026-07-16; confirmado EM USO em 2026)
     # 4 com badge (balão arredondado com 1 canto reto):
     "selo-14anos-1": {"tipo": "selo-aniversario", "cor": "badge amarelo manga #F7BE35 + glifo grafite", "usar_sobre": ["imagem/foto (uso canônico)", "grafite", "branco"], "evitar_sobre": ["amarelo (usar a -4 no lugar)"], "uso": "Selo 14 anos COM badge manga (= SELO 14 ANOS-12 do ZIP). USO CANÔNICO: sobre IMAGENS/FOTOS. Sobre fundo amber usar selo-14anos-4. Confirmado em uso 2026."},
@@ -344,6 +345,25 @@ def build():
                 "arquivo": f.name, "slug": slug,
                 "dims": get_dims(f), "size_kb": round(f.stat().st_size / 1024, 1),
                 "path_plugin": f"assets/fotos/{f.name}", "path_host": f"oficial/{f.name}",
+                **meta
+            })
+
+    # FOTOS DE SEGMENTOS (fundos trocáveis da categoria "segmentos")
+    seg_dir = ASSETS / "fotos-segmentos"
+    seg_meta = {
+        "loja-produtos-naturais": {"tema": "segmento-naturais-v1", "uso": "Loja de produtos naturais CLEAN (placa 'PRODUTOS NATURAIS - ORGÂNICOS'). Fundo do segmento-naturais v1."},
+        "loja-produtos-naturais-v2": {"tema": "segmento-naturais-v2", "uso": "Loja de produtos naturais VISÃO DO DONO (granéis com R$/kg, PDV, balança, 'Promoção do Dia'). Regra: foto de segmento = visão do dono, cf segmentos.md."},
+    }
+    if seg_dir.exists():
+        catalog.setdefault("fotos-segmentos", [])
+        for f in sorted(seg_dir.iterdir()):
+            if f.suffix not in (".jpg", ".png"): continue
+            slug = f.stem
+            meta = seg_meta.get(slug, {"tema": "?", "uso": "(adicionar em seg_meta)"})
+            catalog["fotos-segmentos"].append({
+                "arquivo": f.name, "slug": slug,
+                "dims": get_dims(f), "size_kb": round(f.stat().st_size / 1024, 1),
+                "path_plugin": f"assets/fotos-segmentos/{f.name}", "path_host": f"segmentos/{f.name}",
                 **meta
             })
 

@@ -30,3 +30,5 @@ Recursos do Remotion: **`REFERENCIA-remotion.md`**.
 - **Render sempre por `render-still.sh`** (scale2→Lanczos, sem franja).
 - **Asset de terceiro = extrair do modelo, nunca recriar** (recorte = colocação). Logo Doma = PNG oficial.
 - **Watermark = logo oficial tingida** (CSS mask + backgroundColor medido).
+- [Segmentos](segmentos.md) — post de segmento (POST 234): foto trocável + card manga topo-colado + wordmark soft. Regra foto = visão do dono.
+- [Diversas](diversas.md) — tipográfico frame outline + fecho gigante (POST 178 re-medido).

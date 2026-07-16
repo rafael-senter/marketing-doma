@@ -76,3 +76,11 @@ regiao.save('_<peca>-salto-transp.png')
 ```
 
 Fallback sem rembg (fundo sólido): flood-fill de borda com scipy (ver `knowledge-base/padroes/funcoes-sistema.md`, recorte do notebook).
+
+
+## 🆕 Regra de decisão (2026-07-16, POST motiva-controla)
+- **Avaliar caso a caso ANTES de criar**: usar 3D só quando a composição da foto tem elemento (cabeça/objeto) que invade NATURALMENTE a área do card/bloco. Sem essa interação → peça SEM 3D. Não é regra usar sempre.
+- Implementação de referência: prop `recorte3d {src,left,top,width}` no `DomaMotiva.tsx` (camada zIndex 5 acima do card).
+- rembg: usar API python do `.venv-instagram` (`from rembg import remove`) — o CLI global quebra (gradio ausente).
+- Pré-compor a foto no canvas exato (PIL cover crop) ANTES do rembg/crop — assim as coords do recorte = coords do canvas e a emenda fica invisível.
+- Story tem coords próprias (cover corta diferente) — gerar base + recorte separados por formato.

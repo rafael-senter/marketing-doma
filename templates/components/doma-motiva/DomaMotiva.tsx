@@ -19,12 +19,17 @@ export type DomaMotivaProps = {
   seloCanto: 'sup-dir' | 'inf-dir';
   watermark: 'topo' | 'base';
   fontSize?: number;
+  /** EFEITO 3D (opcional — avaliar caso a caso, ver skill efeito-3d-camadas):
+   *  recorte da pessoa (rembg) colado NA MESMA posição da foto, zIndex acima do card.
+   *  A cabeça "salta" na frente do card. Coords em % do canvas (crop pré-alinhado). */
+  recorte3d?: {src: string; left: string; top: string; width: string};
 };
 
-export const DomaMotiva: React.FC<DomaMotivaProps> = ({foto, blocos, card, seloCanto, watermark, fontSize = 33}) => {
+export const DomaMotiva: React.FC<DomaMotivaProps> = ({foto, blocos, card, seloCanto, watermark, fontSize = 33, recorte3d}) => {
+  // selo CRUZA a borda do card (medido POST 242: Ø126, centro na borda direita, metade fora)
   const seloStyle: React.CSSProperties = seloCanto === 'sup-dir'
-    ? {top: 18, right: 18}
-    : {bottom: -26, right: 24};
+    ? {top: 12, right: -85}
+    : {bottom: -85, right: -10};
   return (
     <AbsoluteFill style={{
       fontFamily: F, overflow: 'hidden',
@@ -33,22 +38,30 @@ export const DomaMotiva: React.FC<DomaMotivaProps> = ({foto, blocos, card, seloC
       {/* foto de fundo full-bleed */}
       <Img src={staticFile(foto)} style={{position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover'}} />
 
-      {/* watermark "DomaMotiva" sangrado (branco translúcido) */}
-      <div style={{position: 'absolute', left: 0, right: 0, [watermark === 'topo' ? 'top' : 'bottom']: '0.5%',
-        textAlign: watermark === 'topo' ? 'left' : 'center', paddingLeft: watermark === 'topo' ? '4%' : 0,
-        fontSize: 88, fontWeight: 800, color: '#FFFFFF', opacity: 0.16, letterSpacing: -1, whiteSpace: 'nowrap'}}>
-        {watermark === 'base' ? '#DomaMotiva' : 'DomaMotiva'}
+      {/* watermark "#DomaMotiva" GIGANTE sangrado (medido POST 242/250): letras ~130px de altura,
+          "#" cortado à esquerda e "a" cortado à direita — texto ultrapassa as DUAS bordas.
+          Branco translúcido por cima da foto. Correção Patrick 2026-07-16 (antes era 88px sem sangrar). */}
+      <div style={{position: 'absolute', left: '-2.2%', [watermark === 'topo' ? 'top' : 'bottom']: '-1%',
+        fontSize: 162, fontWeight: 700, color: '#FFFFFF', opacity: 0.20, letterSpacing: -2,
+        whiteSpace: 'nowrap', lineHeight: 1}}>
+        #DomaMotiva
       </div>
 
       {/* card amarelo arredondado */}
       <div style={{position: 'absolute', left: card.left, top: card.top, width: card.width, height: card.height,
         background: C.card, borderRadius: 44, boxShadow: '0 10px 34px #00000026'}}>  {/* raio 44 medido */}
         {/* selo DOMa oficial no canto */}
-        <Img src={staticFile('oficial/selo-grafite.png')} alt="DOMa"
-          style={{position: 'absolute', width: 74, height: 74, ...seloStyle}} />
+        {/* selo preto-e-branco em CAMADAS: círculo preto (div, cresce livre) ATRÁS + escritas
+            selo-branco.png fixas POR CIMA — borda preta ajustável sem mexer nas letras */}
+        <div style={{position: 'absolute', width: 170, height: 170, ...seloStyle}}>
+          <div style={{position: 'absolute', inset: 0, borderRadius: '50%', background: '#1F1F1F'}} />
+          <Img src={staticFile('oficial/selo-branco.png')} alt="DOMa"
+            style={{position: 'absolute', left: '18%', top: '18%', width: '64%', height: '64%'}} />
+        </div>
         {/* texto motivacional (parágrafos, último termo em bold) */}
-        <div style={{position: 'absolute', top: 40, left: 40, right: 100, bottom: 36,
-          display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', gap: 26}}>
+        {/* disposição medida POST 242: padding top 53 / left 66, gap entre parágrafos = 1 linha */}
+        <div style={{position: 'absolute', top: 53, left: 66, right: 80, bottom: 44,
+          display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: 40}}>
           {blocos.map((b, i) => (
             <TextoRico key={i} style={{color: C.grafite, fontSize, fontWeight: 400, lineHeight: 1.28, display: 'block'}}>
               {b}
@@ -56,6 +69,12 @@ export const DomaMotiva: React.FC<DomaMotivaProps> = ({foto, blocos, card, seloC
           ))}
         </div>
       </div>
+
+      {/* camada 3D: recorte da pessoa por cima do card (sanduíche foto→card→recorte) */}
+      {recorte3d && (
+        <Img src={staticFile(recorte3d.src)} style={{position: 'absolute',
+          left: recorte3d.left, top: recorte3d.top, width: recorte3d.width, zIndex: 5}} />
+      )}
     </AbsoluteFill>
   );
 };

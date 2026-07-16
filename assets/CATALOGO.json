@@ -487,6 +487,29 @@
       "uso": "Mais comum. Selo grafite no canto sup-dir de CTAs (Dicas Carrossel slide 9)."
     },
     {
+      "arquivo": "selo-preto-solido.png",
+      "slug": "selo-preto-solido",
+      "ext": "png",
+      "size_kb": 252.9,
+      "dims": {
+        "w": 1757,
+        "h": 1757
+      },
+      "path_plugin": "assets/oficial/selo-preto-solido.png",
+      "path_host": "oficial/selo-preto-solido.png",
+      "tipo": "selo-circular",
+      "cor": "círculo preto sólido #1F1F1F + escritas brancas",
+      "usar_sobre": [
+        "amarelo",
+        "foto",
+        "claro"
+      ],
+      "evitar_sobre": [
+        "grafite"
+      ],
+      "uso": "Selo achatado (círculo+escritas em 1 png, glifo 72%) p/ usos fora do Remotion. NO Remotion preferir 2 camadas: div círculo preto + selo-branco.png por cima (borda ajustável) — cf doma-motiva.md v3."
+    },
+    {
       "arquivo": "submarca-industria.png",
       "slug": "submarca-industria",
       "ext": "png",
@@ -1543,6 +1566,34 @@
       "tela": "Painel de Inadimplência (Dashboard Financeiro, ERP Doma Indústria)",
       "uso": "Base notebook com tela real de Inadimplência. Moldura via nanobanana + screenshot ORIGINAL composto pixel-perfect na tela (Gemini re-renderiza texto com typos — nunca usar tela crua do Gemini); transp via rembg.",
       "reusar_em": "peças desktop ERP financeiro/inadimplência"
+    },
+    {
+      "arquivo": "motiva-controla-feed.png",
+      "slug": "motiva-controla-feed",
+      "dims": {
+        "w": 1080,
+        "h": 1350
+      },
+      "size_kb": 1944.0,
+      "path_plugin": "assets/bases-nanobanana/motiva-controla-feed.png",
+      "path_host": "oficial/motiva-controla-feed.png",
+      "post": "?",
+      "categoria": "?",
+      "uso": "(adicionar em BASES_NANOBANANA_META)"
+    },
+    {
+      "arquivo": "motiva-controla-story.png",
+      "slug": "motiva-controla-story",
+      "dims": {
+        "w": 1080,
+        "h": 1920
+      },
+      "size_kb": 2730.8,
+      "path_plugin": "assets/bases-nanobanana/motiva-controla-story.png",
+      "path_host": "oficial/motiva-controla-story.png",
+      "post": "?",
+      "categoria": "?",
+      "uso": "(adicionar em BASES_NANOBANANA_META)"
     }
   ],
   "bases-nanobanana-transparente": [
@@ -1707,6 +1758,78 @@
       "uso": "Versão TRANSPARENTE de __funcinadimplencia-base.png (rembg). Use sobre fundo diferente de amber.",
       "fundo": "transparente",
       "par_com": "_funcinadimplencia-base.png"
+    },
+    {
+      "arquivo": "motiva-controla-feed-alpha.png",
+      "slug": "motiva-controla-feed-alpha",
+      "dims": {
+        "w": 1080,
+        "h": 1350
+      },
+      "size_kb": 1069.2,
+      "path_plugin": "assets/bases-nanobanana-transparente/motiva-controla-feed-alpha.png",
+      "path_host": "oficial/motiva-controla-feed-alpha.png",
+      "post": "?",
+      "categoria": "?",
+      "device": null,
+      "tela": null,
+      "uso": "Versão TRANSPARENTE de _motiva-controla-feed-alpha.png (rembg). Use sobre fundo diferente de amber.",
+      "fundo": "transparente",
+      "par_com": "motiva-controla-feed-alpha.png"
+    },
+    {
+      "arquivo": "motiva-controla-feed-recorte.png",
+      "slug": "motiva-controla-feed-recorte",
+      "dims": {
+        "w": 350,
+        "h": 350
+      },
+      "size_kb": 170.0,
+      "path_plugin": "assets/bases-nanobanana-transparente/motiva-controla-feed-recorte.png",
+      "path_host": "oficial/motiva-controla-feed-recorte.png",
+      "post": "?",
+      "categoria": "?",
+      "device": null,
+      "tela": null,
+      "uso": "Versão TRANSPARENTE de _motiva-controla-feed-recorte.png (rembg). Use sobre fundo diferente de amber.",
+      "fundo": "transparente",
+      "par_com": "motiva-controla-feed-recorte.png"
+    },
+    {
+      "arquivo": "motiva-controla-story-alpha.png",
+      "slug": "motiva-controla-story-alpha",
+      "dims": {
+        "w": 1080,
+        "h": 1920
+      },
+      "size_kb": 1538.2,
+      "path_plugin": "assets/bases-nanobanana-transparente/motiva-controla-story-alpha.png",
+      "path_host": "oficial/motiva-controla-story-alpha.png",
+      "post": "?",
+      "categoria": "?",
+      "device": null,
+      "tela": null,
+      "uso": "Versão TRANSPARENTE de _motiva-controla-story-alpha.png (rembg). Use sobre fundo diferente de amber.",
+      "fundo": "transparente",
+      "par_com": "motiva-controla-story-alpha.png"
+    },
+    {
+      "arquivo": "motiva-controla-story-recorte.png",
+      "slug": "motiva-controla-story-recorte",
+      "dims": {
+        "w": 380,
+        "h": 490
+      },
+      "size_kb": 286.1,
+      "path_plugin": "assets/bases-nanobanana-transparente/motiva-controla-story-recorte.png",
+      "path_host": "oficial/motiva-controla-story-recorte.png",
+      "post": "?",
+      "categoria": "?",
+      "device": null,
+      "tela": null,
+      "uso": "Versão TRANSPARENTE de _motiva-controla-story-recorte.png (rembg). Use sobre fundo diferente de amber.",
+      "fundo": "transparente",
+      "par_com": "motiva-controla-story-recorte.png"
     }
   ],
   "bases-nanobanana-soft": [
@@ -2368,6 +2491,34 @@
       "card_num": "7",
       "uso": "Card cliente #7 recortado do POST 205 (logo+cor+cantos baked). NÃO reutilizar para OUTROS clientes — cada cliente tem cor própria.",
       "warning": "específico por cliente — recortar do modelo do cliente próprio."
+    }
+  ],
+  "fotos-segmentos": [
+    {
+      "arquivo": "loja-produtos-naturais-v2.png",
+      "slug": "loja-produtos-naturais-v2",
+      "dims": {
+        "w": 1696,
+        "h": 2528
+      },
+      "size_kb": 7335.9,
+      "path_plugin": "assets/fotos-segmentos/loja-produtos-naturais-v2.png",
+      "path_host": "segmentos/loja-produtos-naturais-v2.png",
+      "tema": "segmento-naturais-v2",
+      "uso": "Loja de produtos naturais VISÃO DO DONO (granéis com R$/kg, PDV, balança, 'Promoção do Dia'). Regra: foto de segmento = visão do dono, cf segmentos.md."
+    },
+    {
+      "arquivo": "loja-produtos-naturais.png",
+      "slug": "loja-produtos-naturais",
+      "dims": {
+        "w": 1696,
+        "h": 2528
+      },
+      "size_kb": 7204.2,
+      "path_plugin": "assets/fotos-segmentos/loja-produtos-naturais.png",
+      "path_host": "segmentos/loja-produtos-naturais.png",
+      "tema": "segmento-naturais-v1",
+      "uso": "Loja de produtos naturais CLEAN (placa 'PRODUTOS NATURAIS - ORGÂNICOS'). Fundo do segmento-naturais v1."
     }
   ]
 }
