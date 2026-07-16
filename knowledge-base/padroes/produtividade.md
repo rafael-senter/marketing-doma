@@ -37,3 +37,7 @@ Canvas 1080×1350. Medido com `layout-mapper` + numpy. Foto de teste = modelo (e
 - **Bold 600** (global via TextoRico — MEDIDO: stroke 9px como o modelo; live-rule bold-600-global).
 - **Bloco preto do fecho = FLUTUANTE** (não embutido na foto): x **40→94.4%** — sai da foto na borda INFERIOR (~metade) E na LATERAL DIREITA (~3.8%), 4 cantos raio 28 (regra Patrick 2026-07-16). Foto H **45%** (bottom 72.5% no modelo).
 - **Watermark DO/M.a**: mais pra baixo (top 9%, left -17.5%, width 135%) — extremidades das letras cortadas nas bordas.
+
+### Regras Patrick 2026-07-16 (rodada 2)
+- **Bordinha BRANCA fina (3px) ao redor da foto central** — medida no POST 270 (2px @1080; usar 3px). Vale pra toda imagem de centro de tela desta categoria (border acompanha o raio 48).
+- **Story: conteúdo mais pra BAIXO** — título T14%, selo T11%, foto 30→80%, bloco preto 75.3%, logo 93%. Nunca amontoar no topo.

@@ -37,8 +37,9 @@ export const ProdutividadeFotoCard: React.FC<ProdutividadeFotoCardProps> = ({
   // e mantém o bottom original 79.2% (H 49.2%). Com título de 2 linhas sobra respiro extra — ok.
   // MEDIDO POST 270: foto T27.5→bottom 72.5 (H45). Bloco preto FLUTUANTE: sobrepõe a foto
   // (~metade dentro, ~metade fora), alinhado à direita da foto, 4 cantos raio 28.
+  // story: conteúdo MAIS PRA BAIXO (regra Patrick 2026-07-16 — estava tudo no topo)
   const g = story
-    ? {tituloTop: '8%', fotoTop: '22%', fotoH: '50%', blocoTop: '67.3%', blocoH: '9.5%', logoTop: '93%', seloTop: '5%'}
+    ? {tituloTop: '14%', fotoTop: '30%', fotoH: '50%', blocoTop: '75.3%', blocoH: '9.5%', logoTop: '93%', seloTop: '11%'}
     : {tituloTop: '8.5%', fotoTop: '30%', fotoH: '45%', blocoTop: '68.2%', blocoH: '13.5%', logoTop: '90%', seloTop: '6.5%'};
   return (
     <AbsoluteFill style={{
@@ -67,7 +68,8 @@ export const ProdutividadeFotoCard: React.FC<ProdutividadeFotoCardProps> = ({
 
       {/* foto card — canto SUP-ESQ reto (regra Patrick), H 45% medida */}
       <div style={{position: 'absolute', left: '12.4%', top: g.fotoTop, width: '78.2%', height: g.fotoH,
-        borderRadius: '0 48px 48px 48px', overflow: 'hidden', zIndex: 1  /* raio 48 medido */, boxShadow: '0 10px 30px #00000026'}}>
+        borderRadius: '0 48px 48px 48px', overflow: 'hidden', zIndex: 1, boxShadow: '0 10px 30px #00000026',
+        border: '3px solid #FFFFFF', boxSizing: 'border-box'  /* raio 48 + bordinha branca fina medidos (regra Patrick) */}}>
         <Img src={staticFile(foto)} style={{width: '100%', height: '100%', objectFit: 'cover'}} />
       </div>
 
