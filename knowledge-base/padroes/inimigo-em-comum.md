@@ -28,3 +28,13 @@ Canvas 1080×1350. Medido com `layout-mapper` + numpy.
 | Frase secundária | 48 lh1.3 (fs aumentado a pedido do Patrick 2026-07-16) | ~29 | ~4 | bloco 68%×24% |
 - Aspas tipográficas “ ” na principal; bold só no trecho-chave.
 - **Story: já usado em inimigo-crescimento-story esticando o componente — verificar densidade; ideal implementar prop `story` padrão SPIN.**
+
+## 🆕 TEMPLATE v2 aprovado (Patrick, 2026-07-16) — POST inimigo-crescimento
+Substitui as medidas antigas. Vale FEED e STORY (mesmo componente; story = canvas 1080×1920, aprovado assim).
+
+- **Watermark**: logo VERTICAL empilhada (`logotipo-vertical-branco.png` mask) — "DO" em cima, "Ma" embaixo com espaçamento oficial, `width 100%, left 0, top 1%` (bate nas DUAS paredes; mask sem margens — medido). NÃO usar mais wordmark horizontal sangrada.
+- **Cor watermark**: `#F5C24A` (mais clara que fundo — exceção da categoria mantida).
+- **Card branco**: `L11.5% T23% W77% H22.5%` · **Card soft**: `L19% T53.5% W62% H22%` · **Badge**: centro `L27.5% T52.6%` Ø119.
+- **Fontes**: principal 64 regular + fecho bold **700** (TextoRico boldWeight); secundário **56** regular.
+- **Par obrigatório** feed+story; story renderiza com dims explícitas (1080 1920).
+- Stills de referência: `inimigo-crescimento` + `inimigo-crescimento-story`.
