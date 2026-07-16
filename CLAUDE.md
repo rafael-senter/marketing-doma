@@ -46,7 +46,7 @@ Razão: flexibilidade máxima de reuso sem regerar via Gemini (cota cara/billing
 - NÃO reusar cor de outra peça — amostrar pixel do modelo específico.
 
 ### Fonte = TT Lakes oficial
-- Corpo regular (400). Só palavra-chave bold (700-800).
+- Corpo regular (400). Só palavra-chave bold (**600** — medido; ver pacote visual Patrick 2026-07-16).
 - Fonte em `assets/fontes/`. Nunca fallback do sistema.
 
 ### Render = anti-franja
