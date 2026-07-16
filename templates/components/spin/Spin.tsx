@@ -57,15 +57,28 @@ const SetaReta: React.FC<{cor?: string; size?: number}> = ({cor = C.preto, size 
   </svg>
 );
 
-/* botão circular branco (canto inf-dir) com seta — comum a capa e miolo.
- * story: bottom em px equivalente (60px) pra não afundar no canvas 1920. */
-const BotaoSeta: React.FC<{story?: boolean}> = ({story = false}) => (
-  <div style={{position: 'absolute', right: '5.5%', bottom: story ? 60 : '4.5%', width: 150, height: 150,
-    borderRadius: '50%', background: C.branco, zIndex: 4,
-    display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-    <SetaReta />
-  </div>
-);
+/* Rodapé com seta — comum a capa e miolos (MEDIDO no POST 243 2, 2026-07-16):
+ * - faixa colorida: L0 → 82.4%, arredondada APENAS no canto SUPERIOR DIREITO (raio 60);
+ * - bloco BRANCO SEPARADO (não é círculo flutuante!): 82.5%→100% × topo da faixa→base,
+ *   arredondado em 3 cantos (TL 80 / TR 80 / BR 80) e RETO no inferior-esquerdo;
+ * - seta preta 64-68px centrada no bloco. Acima do bloco aparece o fundo do slide. */
+const RodapeSeta: React.FC<{cor: string; label?: string; story?: boolean}> = ({cor, label, story = false}) => {
+  const alt = story ? '9%' : '13%';
+  return (
+    <>
+      <div style={{position: 'absolute', left: 0, bottom: 0, width: '82.4%', height: alt,
+        background: cor, borderTopRightRadius: 60, zIndex: 3,
+        display: 'flex', alignItems: 'center', paddingLeft: '26%', boxSizing: 'border-box'}}>
+        {label && <span style={{color: C.grafite, fontSize: 28, fontWeight: 400}}>{label}</span>}
+      </div>
+      <div style={{position: 'absolute', right: 0, bottom: 0, width: '17.5%', height: alt,
+        background: C.branco, borderRadius: '80px 80px 80px 0', zIndex: 3,
+        display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+        <SetaReta />
+      </div>
+    </>
+  );
+};
 
 /* ─────────────────────────  CAPA (slide 1)  ───────────────────────── */
 export type SpinCapaProps = {titulo: string; texto: string; foto: string; marca?: boolean; story?: boolean};
@@ -74,7 +87,6 @@ export const SpinCapa: React.FC<SpinCapaProps> = ({titulo, texto, foto, marca = 
   const blocoH = story ? '30%' : '40%';
   const fotoTop = story ? '30%' : '40%';
   const fotoH = story ? '57.1%' : '47.1%';
-  const faixaH = story ? '12.9%' : '13%';
   return (
     <AbsoluteFill style={{...baseFill, backgroundColor: C.soft}}>
       {marca && <MarcaPadrao fundo="soft" />}
@@ -100,13 +112,8 @@ export const SpinCapa: React.FC<SpinCapaProps> = ({titulo, texto, foto, marca = 
         </TextoRico>
       </div>
 
-      {/* faixa inferior manga + "Arrasta pro lado." */}
-      <div style={{position: 'absolute', left: 0, bottom: 0, width: '100%', height: faixaH,
-        background: C.manga, borderTopRightRadius: 40, zIndex: 1,
-        display: 'flex', alignItems: 'center', paddingLeft: '26%'}}>
-        <span style={{color: C.grafite, fontSize: 28, fontWeight: 400}}>Arrasta pro lado.</span>
-      </div>
-      <BotaoSeta story={story} />
+      {/* faixa inferior manga + "Arrasta pro lado." + bloco branco com seta */}
+      <RodapeSeta cor={C.manga} label="Arrasta pro lado." story={story} />
     </AbsoluteFill>
   );
 };
@@ -137,10 +144,8 @@ export const SpinMiolo: React.FC<SpinMioloProps> = ({perguntas, cardClaro = fals
           {perguntas}
         </TextoRico>
       </div>
-      {/* faixa inferior (rodapé) */}
-      <div style={{position: 'absolute', left: 0, bottom: 0, width: '100%', height: story ? '9%' : '13%',
-        background: faixa, borderTopRightRadius: 40, zIndex: 0}} />
-      <BotaoSeta story={story} />
+      {/* faixa inferior (rodapé) + bloco branco com seta */}
+      <RodapeSeta cor={faixa} story={story} />
     </AbsoluteFill>
   );
 };

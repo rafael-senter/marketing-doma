@@ -20,15 +20,15 @@ EXATAMENTE o mesmo sistema de templates — só muda o conteúdo (texto) e a fot
 - **Título fs 60 lh1.12** (medido: cap 42-46, passo 66-70) — máx ~13 chars/linha.
 - **Texto fs 40 lh1.3 CENTRADO verticalmente** no bloco (medido; nunca colado no topo) — máx ~18 chars/linha.
 - **Foto full-bleed** top **40% → 87.1%** (medido; não fica sob os blocos).
-- **Faixa inferior manga** (87.1%→100%, canto sup-dir arred.) com "Arrasta pro lado." +
-  **botão circular branco** (Ø150, canto inf-dir) com seta reta →.
+- **Rodapé em 2 PEÇAS (medido)**: faixa manga x 0→**82.4%** (arredondada SÓ no canto sup-dir, raio 60) com "Arrasta pro lado." + **bloco BRANCO SEPARADO** x 82.5%→100% × 87%→100% (raios 80 em TL/TR/BR, canto inf-esq RETO) com seta preta ~68px centrada. NUNCA círculo flutuante.
 - Props: `titulo`, `texto`, `foto`, `story?`.
 
 ### 2) `SpinMiolo` (slides 2-5)
 - **Card central** `L13.6% W72.8%` (cantos inf arredondados) + lista de
   perguntas com "→ " + **faixa inferior** + **botão seta branco**. Texto x-left = card + 100px.
-- **Modo normal (2-4):** fundo soft, card manga **0→80.8%** (medido), fonte 44 lh1.3 — máx ~25 chars/linha.
-- **Modo `cardClaro` (slide 5, mais itens):** INVERTE — fundo manga, card soft **0→84.4%**.
+- **⚠️ ALTERNÂNCIA DE MODOS (regra Patrick):** os miolos alternam a cada slide — 2 = modo 1 (fundo soft + card manga), 3 = modo 2 (`cardClaro`), 4 = modo 1, 5 = modo 2… `cardClaro` É o modo 2 da alternância, não só "slide denso".
+- **Modo 1 (normal):** fundo soft, card manga **0→80.8%** (medido), fonte 44 lh1.3 — máx ~25 chars/linha.
+- **Modo 2 (`cardClaro`):** INVERTE — fundo manga, card soft **0→84.4%**.
   ⚠️ Fonte é **44 IGUAL ao miolo** (medido no 243-5 — NUNCA 37). Conteúdo denso (6+ itens) → `fontSize: 40` (máx ~29 chars/linha).
   Cabeçalho "**E se você pudesse:**" e pergunta-fecho em **bold**.
 - Props: `perguntas`, `cardClaro?`, `fontSize?`, `story?`.
