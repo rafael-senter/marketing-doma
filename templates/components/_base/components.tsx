@@ -173,8 +173,8 @@ export const TextoRico: React.FC<{
   children: string;
   style?: React.CSSProperties;
   corHighlight?: string;
-  boldWeight?: number;   // peso do **bold** (default 700 — REGRA Patrick 2026-07-16: negrito mais fino em TODAS as criações; 800 só se o modelo pedir)
-}> = ({children, style, corHighlight = brand.cores.amareloSoft, boldWeight = 700}) => {
+  boldWeight?: number;   // peso do **bold** (default 600 — MEDIDO no POST 270: stroke bold 9px vs regular 5px; 700 dava 11px. Regra Patrick 2026-07-16: negrito fino em TODAS as criações)
+}> = ({children, style, corHighlight = brand.cores.amareloSoft, boldWeight = 600}) => {
   // divide por **bold**, ==highlight== e //itálico//
   const partes = children.split(/(\*\*[^*]+\*\*|==[^=]+==|\/\/[^/]+\/\/)/g);
   // converte \n em quebra de linha real

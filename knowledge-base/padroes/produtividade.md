@@ -34,4 +34,6 @@ Canvas 1080×1350. Medido com `layout-mapper` + numpy. Foto de teste = modelo (e
 ### Correções Patrick 2026-07-16 (POST prejuizo-industria)
 - **Watermark de fundo = "DOMa" VERTICAL GIGANTE** (asset logotipo-vertical-branco 1681×1328 via mask), cor **#F2B32E** (medida no 270 — NÃO usar #F2BD3C imperceptível). Geometria: top 0%, left -22%, width 145% (logo estoura o canvas; "O" topo-dir, "M" esq).
 - **Foto: canto SUPERIOR-ESQUERDO RETO** — borderRadius '0 28px 28px 28px'.
-- **Bold 700** (global via TextoRico — live-rule bold-700-global).
+- **Bold 600** (global via TextoRico — MEDIDO: stroke 9px como o modelo; live-rule bold-600-global).
+- **Bloco preto do fecho = FLUTUANTE** (não embutido na foto): x 36.2→90.6% (alinhado à direita da foto), sobrepõe ~metade dentro/~metade fora da borda inferior da foto, 4 cantos raio 28. Foto H **45%** (bottom 72.5% no modelo).
+- **Watermark DO/M.a**: mais pra baixo (top 9%, left -17.5%, width 135%) — extremidades das letras cortadas nas bordas.

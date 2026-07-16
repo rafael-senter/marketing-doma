@@ -35,9 +35,11 @@ export const ProdutividadeFotoCard: React.FC<ProdutividadeFotoCardProps> = ({
 }) => {
   // feed: título 3 linhas fs78 ocupa ~19.6% → T8.5% termina 28.1%; foto começa 30% (sem colisão)
   // e mantém o bottom original 79.2% (H 49.2%). Com título de 2 linhas sobra respiro extra — ok.
+  // MEDIDO POST 270: foto T27.5→bottom 72.5 (H45). Bloco preto FLUTUANTE: sobrepõe a foto
+  // (~metade dentro, ~metade fora), alinhado à direita da foto, 4 cantos raio 28.
   const g = story
-    ? {tituloTop: '8%', fotoTop: '22%', fotoH: '60%', logoTop: '93%', seloTop: '5%'}
-    : {tituloTop: '8.5%', fotoTop: '30%', fotoH: '49.2%', logoTop: '90%', seloTop: '6.5%'};
+    ? {tituloTop: '8%', fotoTop: '22%', fotoH: '50%', blocoTop: '67.3%', blocoH: '9.5%', logoTop: '93%', seloTop: '5%'}
+    : {tituloTop: '8.5%', fotoTop: '30%', fotoH: '45%', blocoTop: '68.2%', blocoH: '13.5%', logoTop: '90%', seloTop: '6.5%'};
   return (
     <AbsoluteFill style={{
       backgroundColor: C.fundo, fontFamily: F, overflow: 'hidden',
@@ -45,8 +47,8 @@ export const ProdutividadeFotoCard: React.FC<ProdutividadeFotoCardProps> = ({
     }}>
       {/* watermark "DOMa" VERTICAL GIGANTE de fundo (medido no POST 270: #F2B32E, logo estourando
           o canvas — "O" no topo-dir, "M" na esq-baixo). Asset vertical 1681×1328. */}
-      <div style={{position: 'absolute', top: '0%', left: '-22%',
-        width: '145%', aspectRatio: '1681 / 1328', backgroundColor: C.watermark,
+      <div style={{position: 'absolute', top: '9%', left: '-17.5%',
+        width: '135%', aspectRatio: '1681 / 1328', backgroundColor: C.watermark,
         WebkitMaskImage: maskVertUrl, maskImage: maskVertUrl, WebkitMaskSize: '100% 100%', maskSize: '100% 100%',
         WebkitMaskRepeat: 'no-repeat', maskRepeat: 'no-repeat', zIndex: 0}} />
 
@@ -63,17 +65,20 @@ export const ProdutividadeFotoCard: React.FC<ProdutividadeFotoCardProps> = ({
           style={{position: 'absolute', left: '78.5%', top: g.seloTop, width: '15.3%', zIndex: 3}} />
       )}
 
-      {/* foto card + sub-card grafite embutido no canto inf-dir (medido) */}
+      {/* foto card — canto SUP-ESQ reto (regra Patrick), H 45% medida */}
       <div style={{position: 'absolute', left: '12.4%', top: g.fotoTop, width: '78.2%', height: g.fotoH,
-        borderRadius: '0 28px 28px 28px', overflow: 'hidden', zIndex: 1  /* canto SUP-ESQ reto (regra Patrick) */, boxShadow: '0 10px 30px #00000026'}}>
+        borderRadius: '0 28px 28px 28px', overflow: 'hidden', zIndex: 1, boxShadow: '0 10px 30px #00000026'}}>
         <Img src={staticFile(foto)} style={{width: '100%', height: '100%', objectFit: 'cover'}} />
-        <div style={{position: 'absolute', right: 0, bottom: 0, width: '69.5%', height: '26.1%',
-          background: C.grafite, borderTopLeftRadius: 28,
-          display: 'flex', alignItems: 'center', paddingLeft: 44, boxSizing: 'border-box'}}>
-          <TextoRico style={{color: C.branco, fontSize: 60, fontWeight: 400, lineHeight: 1.12, display: 'block'}}>
-            {fecho}
-          </TextoRico>
-        </div>
+      </div>
+
+      {/* bloco preto FLUTUANTE (medido: x 36.2→90.6% = alinhado à direita da foto; y 65.7→79.2% =
+          ~metade sobre a foto, ~metade fora; 4 cantos raio 28) */}
+      <div style={{position: 'absolute', left: '36.2%', top: g.blocoTop, width: '54.4%', height: g.blocoH,
+        background: C.grafite, borderRadius: 28, zIndex: 2,
+        display: 'flex', alignItems: 'center', paddingLeft: 44, boxSizing: 'border-box'}}>
+        <TextoRico style={{color: C.branco, fontSize: 60, fontWeight: 400, lineHeight: 1.12, display: 'block'}}>
+          {fecho}
+        </TextoRico>
       </div>
 
       {/* logo rodapé */}
