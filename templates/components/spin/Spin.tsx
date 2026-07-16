@@ -127,8 +127,8 @@ export const SpinMiolo: React.FC<SpinMioloProps> = ({perguntas, cardClaro = fals
 };
 
 /* ─────────────────────────  CTA (slide 6)  ─────────────────────────── */
-export type SpinCtaProps = {texto: string; destaque: string; marca?: boolean};
-export const SpinCta: React.FC<SpinCtaProps> = ({texto, destaque, marca = false}) => (
+export type SpinCtaProps = {texto: string; destaque: string; marca?: boolean; fontSize?: number};
+export const SpinCta: React.FC<SpinCtaProps> = ({texto, destaque, marca = false, fontSize = 41}) => (
   <AbsoluteFill style={{...baseFill, backgroundColor: C.manga}}>
     {marca && <MarcaPadrao fundo="manga" />}
     {/* card claro grande */}
@@ -141,7 +141,7 @@ export const SpinCta: React.FC<SpinCtaProps> = ({texto, destaque, marca = false}
 
     {/* texto corrido */}
     <div style={{position: 'absolute', left: '18.5%', top: '24%', width: '63%', zIndex: 2}}>
-      <TextoRico style={{color: C.grafite, fontSize: 41, fontWeight: 400, lineHeight: 1.3, display: 'block'}}>
+      <TextoRico style={{color: C.grafite, fontSize, fontWeight: 400, lineHeight: 1.3, display: 'block'}}>
         {texto}
       </TextoRico>
     </div>
