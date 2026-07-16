@@ -76,7 +76,7 @@ export const ProdutividadeFotoCard: React.FC<ProdutividadeFotoCardProps> = ({
       {/* bloco preto FLUTUANTE (medido: x 36.2→90.6% = alinhado à direita da foto; y 65.7→79.2% =
           ~metade sobre a foto, ~metade fora; 4 cantos raio 28) */}
       <div style={{position: 'absolute', left: '40%', top: g.blocoTop, width: '54.4%', height: g.blocoH,
-        background: C.grafite, borderRadius: 28, zIndex: 2,  /* right 94.4% → sai da foto tb no lado (regra Patrick) */
+        background: C.grafite, borderRadius: '0 28px 28px 28px', zIndex: 2,  /* canto SUP-ESQ RETO como a foto; sai da foto embaixo e no lado (regras Patrick) */
         display: 'flex', alignItems: 'center', paddingLeft: 44, boxSizing: 'border-box'}}>
         <TextoRico style={{color: C.branco, fontSize: 60, fontWeight: 400, lineHeight: 1.12, display: 'block'}}>
           {fecho}

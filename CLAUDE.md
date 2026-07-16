@@ -66,6 +66,9 @@ Sujeito "saltando" de objeto gráfico (cabeça por cima do bloco, moedas por cim
 ### 🆕 Todo post = post + story (regra Patrick 2026-07-16)
 Toda peça nova de feed (1080×1350) nasce com a versão **story (1080×1920)** no mesmo fluxo — 2 Stills: `<id>` e `<id>-story`. Ajuste em um → replicar no outro. Story renderiza com dims explícitas: `render-still.sh <id>-story 1080 1920` (default esmaga pra 1350). Ver live-rule `2026-07-16-post-sempre-com-story.md`.
 
+### 🆕 Pacote visual Patrick 2026-07-16 (TRANSVERSAL — ler antes de criar)
+Bold 600 medido · raios generosos medidos (RULES §20) · UM canto reto por bloco (identificar qual no modelo) · fecho flutuante saindo da imagem · borda branca 3px em foto central · watermark DOMa gigante (vertical, cortada, tom-sobre-tom medido) · story com conteúdo mais pra baixo · modos de cor alternantes em carrossel. Detalhes: `knowledge-base/live-rules/2026-07-16-pacote-visual-patrick.md`.
+
 ### 🆕 Análise pós-criação OBRIGATÓRIA (regra Patrick 2026-07-16 — RULES §19)
 O conteúdo criado NUNCA é igual ao modelo da categoria — seguir a ficha não basta. Toda peça nova: (1) ANTES de codar, dimensionar conteúdo vs limites de chars/linha da ficha; (2) DEPOIS do render, auditar CADA slide (feed E story): órfãs, overflow/colisão, centralização/buracos, fontes = ficha, alternância de modos de cor, rodapé/watermark medidos, dims do PNG, comparação lado a lado com o slide-modelo; (3) iterar até limpar antes de apresentar; (4) limite novo descoberto → gravar na ficha. Checklist completo: `knowledge-base/padroes/RULES-recriacao.md` §19 + live-rule `2026-07-16-analise-pos-criacao-obrigatoria.md`.
 
