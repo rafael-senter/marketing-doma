@@ -18,3 +18,8 @@ Canvas 1080×1350. Medido com `layout-mapper` + numpy. Foto de teste = modelo (e
 
 ## Nota geral
 - Em testes com foto-modelo, logo/selo recriados aparecem DUPLICADOS (a foto já os tem). Em produção, foto LIMPA resolve.
+
+## Limites pra criação nova (§19 — 2026-07-16)
+- 3 layouts distintos (270 foto-card fs58 lh1.12 ~19 chars/linha · 277 · 254 c/ operário nanobanana) — escolher o layout do modelo mais próximo e MEDIR o card dele.
+- fs 58: máx ~19 chars/linha; título maior → quebrar, nunca reduzir.
+- **Story: SEM prop `story`** — implementar ao usar.

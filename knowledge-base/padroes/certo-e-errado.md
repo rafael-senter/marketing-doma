@@ -170,3 +170,10 @@ Ambos os cards:
 4. **Marca d'água = palavra "DOMA" gigante** em `#F6C655` (tom sobre tom, contraste ~mínimo), sangrando bordas no topo. NÃO é número 26 nem o logo pequeno.
 5. **Corpo do card centralizado verticalmente** (não top-aligned); kicker fica fixo no topo (y≈469); line-height ≈56px; padding interno ≈38px.
 6. **Logo "DOMa"** (a-minúsculo cap-height, ponto = perna do M), centralizado, grafite, base do canvas.
+
+## Limites pra criação nova (§19 — calculados do componente, 2026-07-16)
+| Bloco | fs | Máx chars/linha | Risco |
+|---|---|---|---|
+| Card certo/errado | 40 lh1.3 | ~15 | cards 35.74%×37.93% FIXOS → máx ~6-7 linhas; modelos usam 3-6. Texto maior = transborda silencioso |
+| Badge (CERTO/ERRADO) | 27 bold | — | fixo |
+- **Story: SEM prop `story`** — implementar ao usar (padrão SPIN).

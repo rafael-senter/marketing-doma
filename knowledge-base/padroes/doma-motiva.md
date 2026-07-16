@@ -23,3 +23,10 @@ Medido com `layout-mapper` + numpy. Canvas 1080×1350.
 ## Notas
 - Fotos de teste = os próprios modelos (`public/oficial/_teste-motiva-*.jpg`). Em produção, foto LIMPA do Patrick → o watermark recriado não duplica (no teste duplica porque a foto-modelo já tem o watermark original).
 - Selo: 242 usa selo quadrado/escuro, 250 usa selo circular — ambos cobertos por `selo-grafite.png` (ajustar asset se necessário).
+
+## Limites pra criação nova (§19 — 2026-07-16)
+- Card de texto é POSICIONAL POR PEÇA (props left/top/width/height medidos no modelo escolhido) + fontSize prop.
+- Máx chars/linha ≈ (card.width × 1080 × 0.86) ÷ (fs × 0.516). Ex.: card 46.8% fs 40 → ~21 chars.
+- Frase maior que o card do modelo → escolher OUTRO modelo com card maior (242 vs 250), nunca espremer fonte.
+- Watermark: posição `topo`/`base` conforme modelo; selo canto oposto ao card.
+- **Story: SEM prop `story`** — implementar ao usar.

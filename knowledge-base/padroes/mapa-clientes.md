@@ -127,3 +127,8 @@ Componente: `../../templates/components/mapa-de-clientes/MapaClientes.tsx`. Rend
 - Borda do selo: **#F0B830** (dourado)
 - Título selo + rótulos mapa + legenda: **#1F1F1F** (quase preto)
 - Subtítulo selo: **#808080** (cinza médio)
+
+## Limites pra criação nova (§19 — 2026-07-16)
+- Conteúdo majoritariamente FIXO (SVG mapa + selo + números). Mudanças = números/rótulos: rótulos sobre SVG SEMPRE por medição + conversão viewBox (RULES §17).
+- Números do selo: fs 32 bold — texto maior que "XX% DE CLIENTES" reflui o selo; auditar render.
+- **Story: SEM prop `story`** — implementar ao usar.

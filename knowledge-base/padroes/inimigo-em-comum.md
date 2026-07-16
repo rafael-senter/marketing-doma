@@ -20,3 +20,11 @@ Canvas 1080×1350. Medido com `layout-mapper` + numpy.
 ## Reaproveitável
 - **Badge circular + seta ↘** = ícone SVG (strokeWidth grosso, linecap round), igual conceito dos ícones X/✓ do Certo e Errado.
 - Watermark gigante: quando o modelo mostra só "DO" sangrando, usar a logo horizontal width ~175% deslocada p/ esquerda (não centralizada).
+
+## Limites pra criação nova (§19 — calculados do componente, 2026-07-16)
+| Bloco | fs | Máx chars/linha | Máx linhas | Risco |
+|---|---|---|---|---|
+| Frase principal (entre aspas) | 68 lh1.22 | ~24 | 3-4 | bloco fixo 81.9%×24.2% centrado — 5+ linhas transborda |
+| Frase secundária | 48 lh1.3 (fs aumentado a pedido do Patrick 2026-07-16) | ~29 | ~4 | bloco 68%×24% |
+- Aspas tipográficas “ ” na principal; bold só no trecho-chave.
+- **Story: já usado em inimigo-crescimento-story esticando o componente — verificar densidade; ideal implementar prop `story` padrão SPIN.**

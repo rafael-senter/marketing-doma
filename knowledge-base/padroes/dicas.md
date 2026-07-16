@@ -37,3 +37,16 @@ Carrossel numerado de "erros comuns / dicas". Canvas 1080×1350. 3 templates:
 ## Reproduzir 133 / 193
 1. Extrair ícones da capa de cada (recorte numpy, transparência, limitar x).
 2. `DicasCapa` (título/subtítulo/ícones) + N× `DicasMiolo` (numero/titulo/corpo) + `DicasCta`.
+
+## Limites pra criação nova (§19 — calculados do componente, 2026-07-16)
+
+| Bloco | fs/peso | Máx chars/linha | Máx linhas | Risco |
+|---|---|---|---|---|
+| Capa título (highlight) | 78 bold | ~11 | 2 | linha maior estoura sobre os ícones |
+| Capa subtítulo | 50 (bold=**) | ~16 | 4 | right-aligned, colide com ícones se longo |
+| Miolo título | 50 bold | ~25 | 3 | header FIXO (36.5%) — título 4+ linhas = usar DicasMioloCompact ou headerHeight maior |
+| Miolo corpo | 40 lh1.37 | ~33 | ~12 | ⚠️ card branco tem altura fixa + overflow hidden → corpo longo é CORTADO SILENCIOSAMENTE. Auditar render SEMPRE |
+| CTA texto | 44 lh1.27 | ~30 | ~11 | texto curto = buraco no card (densificar) |
+
+- Rodapé da capa = faixa soft FULL-WIDTH centrada "ARRASTA PRO LADO →" (≠ SPIN: aqui NÃO tem bloco branco de seta).
+- **Story (1080×1920): componente ainda SEM prop `story`** — ao criar peça nova nesta categoria, implementar na hora seguindo o padrão SPIN (cards flutuantes centrados com altura px ≈ do feed; faixa 9%; render `1080 1920`).

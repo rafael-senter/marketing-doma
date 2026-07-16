@@ -59,3 +59,10 @@ selo:       {left: '73%', top: '72%', width: '19%'}
 
 - **Stills de referência** no Root.tsx do host. Renders aprovados: `out/func-inadimplencia.png` + `out/func-inadimplencia-story.png`.
 - **Regra par post+story**: live-rule `2026-07-16-post-sempre-com-story.md`. Story NÃO é resize do post — redistribuir pelas zonas seguras.
+
+## Limites pra criação nova (§19 — 2026-07-16)
+- Componente 100% PARAMÉTRICO (tituloTopo/balaoEscuro/balaoSoft/bigNumero/imagem/selo com left/top/width/fontSize por props) — cada peça define geometria própria; medir contra o modelo escolhido.
+- Balões: texto máx ≈ (width × 1080 × 0.86) ÷ (fs × 0.516) chars/linha; balão não pode tapar a TELA do mockup (dados = protagonista).
+- Base de device: pipeline nanobanana + compose-screen-mockup.py (tela crua do Gemini tem typos — live-rule 2026-07-16-nanobanana-tela-composta).
+- ⚠️ Prints reais do ERP com dados de cliente: NUNCA no repo público (gitignored desde v0.1.57).
+- **Story: já tem exemplo (func-inadimplencia-story) com layout redistribuído por props** — replicar o padrão.

@@ -34,10 +34,11 @@ export const InimigoComum: React.FC<InimigoComumProps> = ({principal, secundario
     backgroundColor: C.fundo, fontFamily: F, overflow: 'hidden',
     WebkitFontSmoothing: 'antialiased', MozOsxFontSmoothing: 'grayscale', textRendering: 'geometricPrecision',
   }}>
-    {/* watermark "DOMa" gigante (CSS mask da logo horizontal), tom-sobre-tom.
-        Modelo: enorme, "DO" sangra o canto sup-esq. width ~175%, deslocado p/ esquerda. */}
-    <div style={{position: 'absolute', top: '1%', left: '-6%',
-      width: '175%', aspectRatio: '1767 / 322', backgroundColor: C.watermark,
+    {/* watermark: só o "DO" da wordmark, batendo nas DUAS paredes (correção Patrick 2026-07-16).
+        Medido: "DO" = 48.5% da wordmark (fim do O em x857/1767) → width 206.2% e left 0 fazem
+        D encostar na esquerda e O na direita; "Ma" cai fora da tela. */}
+    <div style={{position: 'absolute', top: '1%', left: '0%',
+      width: '206.2%', aspectRatio: '1767 / 322', backgroundColor: C.watermark,
       WebkitMaskImage: maskUrl, maskImage: maskUrl, WebkitMaskSize: '100% 100%', maskSize: '100% 100%',
       WebkitMaskRepeat: 'no-repeat', maskRepeat: 'no-repeat', zIndex: 0}} />
 
@@ -45,7 +46,8 @@ export const InimigoComum: React.FC<InimigoComumProps> = ({principal, secundario
     <div style={{position: 'absolute', left: '9%', top: '22.2%', width: '81.9%', height: '24.2%',
       background: C.branco, borderRadius: 34, boxShadow: '0 8px 28px #00000022', zIndex: 2,
       display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '0 56px', boxSizing: 'border-box'}}>
-      <TextoRico style={{color: C.grafite, fontSize: 68, fontWeight: 400, lineHeight: 1.22, textAlign: 'center', display: 'block'}}>
+      {/* boldWeight 700 (não 800): negrito do fecho afinado minimamente — correção Patrick 2026-07-16 */}
+      <TextoRico boldWeight={700} style={{color: C.grafite, fontSize: 68, fontWeight: 400, lineHeight: 1.22, textAlign: 'center', display: 'block'}}>
         {principal}
       </TextoRico>
     </div>
@@ -61,7 +63,8 @@ export const InimigoComum: React.FC<InimigoComumProps> = ({principal, secundario
     <div style={{position: 'absolute', left: '16%', top: '54%', width: '68%', height: '24%',
       background: C.soft, borderRadius: 30, zIndex: 1,
       display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '0 40px', boxSizing: 'border-box'}}>
-      <TextoRico style={{color: C.grafite, fontSize: 42, fontWeight: 400, lineHeight: 1.3, textAlign: 'center', display: 'block'}}>
+      {/* fontSize 48 (era 42): aumentado a pedido do Patrick 2026-07-16 */}
+      <TextoRico style={{color: C.grafite, fontSize: 48, fontWeight: 400, lineHeight: 1.3, textAlign: 'center', display: 'block'}}>
         {secundario}
       </TextoRico>
     </div>

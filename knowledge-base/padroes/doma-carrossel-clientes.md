@@ -29,3 +29,12 @@ NUNCA recriados. Cores: manga `#F4BB35` · soft `#F8DD6B` · card-claro `#EFEFEE
   (capa 76→84→88%, fecho 83→93%).
 - **Ajuste de fonte p/ bater wrap**: subir fontSize até o nº de linhas do modelo coincidir (54→58 = 5→6 linhas).
 - Ver [[carrosseis-foto-terceiros]] na memória.
+
+## Limites pra criação nova (§19 — calculados do componente, 2026-07-16)
+| Bloco | fs | Máx chars/linha | Risco |
+|---|---|---|---|
+| Capa texto (card claro) | 58 lh1.2 | ~25 | card altura FIXA 42.6% + flex center → texto longo transborda (overflow hidden). Máx ~6 linhas |
+| Capa subtexto | 44 lh1.22 | ~18 | width 38.3% |
+| Miolo texto (sob a foto) | 46 lh1.42 | ~32 | do top 56% até ~90% → máx ~7 linhas |
+| Fecho (card claro) | 50 lh1.3 | ~29 | mesma altura fixa 42.6% → máx ~8 linhas |
+- **Story: componente SEM prop `story`** — implementar ao usar (padrão SPIN: card flutuante, densidade do feed, render `1080 1920`).

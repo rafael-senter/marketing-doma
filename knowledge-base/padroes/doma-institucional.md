@@ -19,3 +19,13 @@ grafite `#1F1F1F` · branco `#FFF` · watermark `#EAAD32`.
 - **Code-only quando o post é puramente tipográfico/geométrico** (frame + ícone SVG) — não precisa nanobanana.
 - **Ícone "gráfico subindo" em balão** = SVG reaproveitável (barras + seta manga).
 - Watermark institucional `#EAAD32` (mais visível que o `#F5C24A`/`#F6C85D` de outras categorias — medir por post).
+
+## Limites pra criação nova (§19 — calculados do componente, 2026-07-16)
+| Bloco | fs | Máx chars/linha |
+|---|---|---|
+| Texto principal (115/257) | 54 lh1.12 | ~26 |
+| Texto secundário | 46 lh1.18 | ~30 |
+| Labels "+" | 38 bold | ~20 |
+- Sub-tipo (a) tipográfico = code-only; (b) com base nanobanana = pipeline funcoes-sistema.
+- Selo "12 anos" é ELEMENTO DATADO — confirmar número vigente antes de reusar (hoje selo oficial = 14 anos).
+- **Story: SEM prop `story`** — implementar ao usar.

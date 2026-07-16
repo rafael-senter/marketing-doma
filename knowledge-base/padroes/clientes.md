@@ -35,3 +35,12 @@ Canvas 1080×1350. Render por `render-still.sh`.
 | Watermark outline | `#F6C85D` (tom-sobre-tom) |
 | Pílula / texto / logo / rodapé | `#212121` |
 | Texto da pílula / pin interno | `#FFFFFF` |
+
+## Limites pra criação nova (§19 — calculados do componente, 2026-07-16)
+| Bloco | fs | Máx chars | Risco |
+|---|---|---|---|
+| Nome do cliente (bold, linha 1) | 62-64 | ~24 | nome longo estoura a largura — reduzir NUNCA; quebrar em 2 linhas e auditar colisão com rodapé |
+| Badge cidade | 34 | ~28 | pílula grafite cresce com o texto |
+| Foto | — | — | 87.3%×55.1% objectFit cover — foto vertical corta topo/base; conferir enquadramento |
+- Estrutura de texto fixa: "{nome} agora faz parte do time [logo]" — logo = asset, nunca digitado.
+- **Story: SEM prop `story`** — implementar ao usar.

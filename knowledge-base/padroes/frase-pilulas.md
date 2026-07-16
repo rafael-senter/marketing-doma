@@ -58,3 +58,10 @@ no topo, watermark "DOMa" gigante de fundo, logo DOMa no rodapé.
 ## Refino pendente
 - Entrelaçamento das pílulas pode ser um pouco mais pronunciado (no modelo a borda
   de uma cruza mais visivelmente a vizinha).
+
+## Limites pra criação nova (§19 — calculados do componente, 2026-07-16)
+| Bloco | fs | Máx chars | Risco |
+|---|---|---|---|
+| Pílula (linha) | 48 lh1.0 | ~20 por pílula | pílula longa estoura a margem; inclinação sutil por linha (dy), não rotation grande |
+- 4-6 pílulas máx (modelo usa 5). Selo 14 anos oficial 15.3% width.
+- **Story: SEM prop `story`** — implementar ao usar (padrão SPIN).
