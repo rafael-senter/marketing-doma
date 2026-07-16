@@ -17,7 +17,8 @@ import {LogoDoma, TextoRico} from '../../../components';
  */
 const C = {fundo: '#F4BB35', watermark: '#F5C24A', branco: '#FFFFFF', soft: '#F8DD6B', grafite: '#1F1F1F'};
 const F = brand.fontes.titulo;
-const maskUrl = `url(${staticFile('oficial/logotipo-principal-branco.png')})`;
+// logo VERTICAL empilhada ("DO" em cima, "Ma" embaixo, com o espaçamento oficial do arquivo)
+const maskUrl = `url(${staticFile('oficial/logotipo-vertical-branco.png')})`;
 
 const SetaDiagonal: React.FC = () => (
   <svg viewBox="0 0 48 48" width="56" height="56">
@@ -34,37 +35,36 @@ export const InimigoComum: React.FC<InimigoComumProps> = ({principal, secundario
     backgroundColor: C.fundo, fontFamily: F, overflow: 'hidden',
     WebkitFontSmoothing: 'antialiased', MozOsxFontSmoothing: 'grayscale', textRendering: 'geometricPrecision',
   }}>
-    {/* watermark: só o "DO" da wordmark, batendo nas DUAS paredes (correção Patrick 2026-07-16).
-        Medido: "DO" = 48.5% da wordmark (fim do O em x857/1767) → width 206.2% e left 0 fazem
-        D encostar na esquerda e O na direita; "Ma" cai fora da tela. */}
+    {/* watermark: logo VERTICAL empilhada — "DO" em cima e "Ma" embaixo com espaçamento oficial,
+        batendo nas duas paredes (width 100%; mask sem margens internas — medido). Correção Patrick 2026-07-16 ×2. */}
     <div style={{position: 'absolute', top: '1%', left: '0%',
-      width: '206.2%', aspectRatio: '1767 / 322', backgroundColor: C.watermark,
+      width: '100%', aspectRatio: '1681 / 1328', backgroundColor: C.watermark,
       WebkitMaskImage: maskUrl, maskImage: maskUrl, WebkitMaskSize: '100% 100%', maskSize: '100% 100%',
       WebkitMaskRepeat: 'no-repeat', maskRepeat: 'no-repeat', zIndex: 0}} />
 
     {/* card BRANCO — frase principal centralizada (aspas, fim em bold) */}
-    <div style={{position: 'absolute', left: '9%', top: '22.2%', width: '81.9%', height: '24.2%',
+    <div style={{position: 'absolute', left: '11.5%', top: '23%', width: '77%', height: '22.5%',
       background: C.branco, borderRadius: 34, boxShadow: '0 8px 28px #00000022', zIndex: 2,
       display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '0 56px', boxSizing: 'border-box'}}>
       {/* boldWeight 700 (não 800): negrito do fecho afinado minimamente — correção Patrick 2026-07-16 */}
-      <TextoRico boldWeight={700} style={{color: C.grafite, fontSize: 68, fontWeight: 400, lineHeight: 1.22, textAlign: 'center', display: 'block'}}>
+      <TextoRico boldWeight={700} style={{color: C.grafite, fontSize: 64, fontWeight: 400, lineHeight: 1.22, textAlign: 'center', display: 'block'}}>
         {principal}
       </TextoRico>
     </div>
 
     {/* badge circular preto + seta ↘ — centro (283,714) = L26.2% T52.9%, Ø119 */}
-    <div style={{position: 'absolute', left: '26.2%', top: '52.9%', transform: 'translate(-50%,-50%)',
+    <div style={{position: 'absolute', left: '27.5%', top: '52.6%', transform: 'translate(-50%,-50%)',
       width: 119, height: 119, borderRadius: '50%', background: C.grafite, zIndex: 3,
       display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
       <SetaDiagonal />
     </div>
 
     {/* card SOFT — texto secundário centralizado de verdade (sem paddingLeft que empurrava texto pra direita) */}
-    <div style={{position: 'absolute', left: '16%', top: '54%', width: '68%', height: '24%',
+    <div style={{position: 'absolute', left: '19%', top: '53.5%', width: '62%', height: '22%',
       background: C.soft, borderRadius: 30, zIndex: 1,
       display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '0 40px', boxSizing: 'border-box'}}>
       {/* fontSize 48 (era 42): aumentado a pedido do Patrick 2026-07-16 */}
-      <TextoRico style={{color: C.grafite, fontSize: 48, fontWeight: 400, lineHeight: 1.3, textAlign: 'center', display: 'block'}}>
+      <TextoRico style={{color: C.grafite, fontSize: 56, fontWeight: 400, lineHeight: 1.3, textAlign: 'center', display: 'block'}}>
         {secundario}
       </TextoRico>
     </div>
