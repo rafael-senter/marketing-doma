@@ -2003,6 +2003,19 @@
   ],
   "fotos": [
     {
+      "arquivo": "_prod-industria-foto.png",
+      "slug": "_prod-industria-foto",
+      "dims": {
+        "w": 2752,
+        "h": 1536
+      },
+      "size_kb": 6291.5,
+      "path_plugin": "assets/fotos/_prod-industria-foto.png",
+      "path_host": "oficial/_prod-industria-foto.png",
+      "tema": "industria",
+      "uso": "Gestor de indústria (40-48, camisa social + capacete/óculos, tablet, operários com EPIs ao fundo) — nanobanana cf persona-imagens.md. REUSAR pra peças do setor Indústria e Produção."
+    },
+    {
       "arquivo": "_prod254-foto.jpg",
       "slug": "_prod254-foto",
       "dims": {
@@ -2027,6 +2040,19 @@
       "path_host": "oficial/_prod270-foto.jpg",
       "tema": "fabrica-card",
       "uso": "Foto card POST 270 — versão re-extraída com pílula 'tempo parado.'"
+    },
+    {
+      "arquivo": "_spin-moveis-foto.png",
+      "slug": "_spin-moveis-foto",
+      "dims": {
+        "w": 2752,
+        "h": 1536
+      },
+      "size_kb": 5473.2,
+      "path_plugin": "assets/fotos/_spin-moveis-foto.png",
+      "path_host": "oficial/_spin-moveis-foto.png",
+      "tema": "loja-moveis",
+      "uso": "Dono de loja de móveis (38-45, camisa social, tablet, showroom) — nanobanana cf persona-imagens.md. REUSAR pra peças do setor Móveis e Eletro."
     },
     {
       "arquivo": "_teste-foto-cliente.jpg",

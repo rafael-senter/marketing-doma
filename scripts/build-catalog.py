@@ -323,6 +323,7 @@ def build():
     fotos_meta = {
         "_teste-foto-cliente": {"tema": "loja-cliente", "uso": "Foto vitrine/fachada de loja Flairar (Teixeira de Freitas/BA). REUSAR pra peças cliente novo."},
         "_teste-foto-cliente2": {"tema": "loja-cliente", "uso": "Foto Essence Glamour (Jaraguá do Sul/SC). REUSAR pra peças cliente novo."},
+        "_prod-industria-foto": {"tema": "industria", "uso": "Gestor de indústria (40-48, camisa social + capacete/óculos, tablet, operários com EPIs ao fundo) — nanobanana cf persona-imagens.md. REUSAR pra peças do setor Indústria e Produção."},
         "_spin-moveis-foto": {"tema": "loja-moveis", "uso": "Dono de loja de móveis (38-45, camisa social, tablet, showroom) — nanobanana cf persona-imagens.md. REUSAR pra peças do setor Móveis e Eletro."},
         "_teste-motiva-242": {"tema": "motivacional-242", "uso": "Foto motivacional POST 242 — pessoa/cena de trabalho."},
         "_teste-motiva-250": {"tema": "motivacional-250", "uso": "Foto motivacional POST 250 — virada/crescimento."},

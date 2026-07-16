@@ -1,0 +1,84 @@
+import {AbsoluteFill, Img, staticFile} from 'remotion';
+import {brand} from '../../../theme';
+import {LogoDoma, TextoRico} from '../../../components';
+
+/**
+ * PADRÃO "PRODUTIVIDADE" — modo FOTO-CARD PARAMÉTRICO (base POST 270, re-medido 2026-07-16).
+ * Diferente do Produtividade270 (hardcoded, fecho baked na foto): aqui título, foto, fecho e selo
+ * são props — para PEÇAS NOVAS da categoria.
+ *
+ * MEDIDAS REAIS (numpy no POST 270, 1080×1350):
+ *   título topo: fs≈78 lh1.13 (cap ~59, passo 86), x = 12.5% (alinha com a foto) — o 270 antigo
+ *     usava fs 58 (mesma patologia de fonte menor do SPIN).
+ *   foto card: L12.4% T27.5% W78.2% H51.7%, raio 28.
+ *   sub-card grafite: canto INFERIOR-DIREITO da foto, W 54.4%/78.2%≈69.5% da foto,
+ *     H 13.5%/51.7%≈26.1% da foto; texto branco fs≈60 lh1.12, bold no trecho-chave.
+ *   selo 14 anos (pedido Patrick): selo-14anos-4.png sup-dir (como no POST 277).
+ *
+ * STORY (9:16): título T8%, selo T5%, foto T22%→76% (54%), logo 93% — densidade preservada.
+ *
+ * Limites (§19): título fs78 → máx ~15 chars/linha, 3 linhas; fecho fs60 → máx ~16 chars/linha, 2 linhas.
+ */
+const C = {fundo: '#F4BB35', watermark: '#F2BD3C', grafite: '#1F1F1F', branco: '#FFFFFF'};
+const F = brand.fontes.titulo;
+const maskUrl = `url(${staticFile('oficial/logotipo-principal-branco.png')})`;
+
+export type ProdutividadeFotoCardProps = {
+  titulo: string;          // topo, até a reticência — ex.: 'O que você **não**\n**acompanha** na\nsua indústria…'
+  fecho: string;           // sub-card grafite — ex.: 'está virando\n**prejuízo.**'
+  foto: string;            // staticFile path
+  selo14?: boolean;        // selo oficial 14 anos no sup-dir
+  story?: boolean;         // 1080×1920
+};
+export const ProdutividadeFotoCard: React.FC<ProdutividadeFotoCardProps> = ({
+  titulo, fecho, foto, selo14 = true, story = false,
+}) => {
+  // feed: título 3 linhas fs78 ocupa ~19.6% → T8.5% termina 28.1%; foto começa 30% (sem colisão)
+  // e mantém o bottom original 79.2% (H 49.2%). Com título de 2 linhas sobra respiro extra — ok.
+  const g = story
+    ? {tituloTop: '8%', fotoTop: '22%', fotoH: '60%', logoTop: '93%', seloTop: '5%'}
+    : {tituloTop: '8.5%', fotoTop: '30%', fotoH: '49.2%', logoTop: '90%', seloTop: '6.5%'};
+  return (
+    <AbsoluteFill style={{
+      backgroundColor: C.fundo, fontFamily: F, overflow: 'hidden',
+      WebkitFontSmoothing: 'antialiased', MozOsxFontSmoothing: 'grayscale', textRendering: 'geometricPrecision',
+    }}>
+      {/* watermark DOMa topo (tom-sobre-tom medido) */}
+      <div style={{position: 'absolute', top: '3%', left: '50%', transform: 'translateX(-50%)',
+        width: '95%', aspectRatio: '1767 / 322', backgroundColor: C.watermark,
+        WebkitMaskImage: maskUrl, maskImage: maskUrl, WebkitMaskSize: '100% 100%', maskSize: '100% 100%',
+        WebkitMaskRepeat: 'no-repeat', maskRepeat: 'no-repeat', zIndex: 0}} />
+
+      {/* título topo — fs 78 medido */}
+      <div style={{position: 'absolute', left: '12.5%', top: g.tituloTop, width: '62%', zIndex: 2, color: C.grafite}}>
+        <TextoRico style={{fontSize: 78, fontWeight: 400, lineHeight: 1.13, display: 'block'}}>
+          {titulo}
+        </TextoRico>
+      </div>
+
+      {/* selo 14 anos oficial (sup-dir, como POST 277) */}
+      {selo14 && (
+        <Img src={staticFile('oficial/selo-14anos-4.png')} alt="14 anos"
+          style={{position: 'absolute', left: '78.5%', top: g.seloTop, width: '15.3%', zIndex: 3}} />
+      )}
+
+      {/* foto card + sub-card grafite embutido no canto inf-dir (medido) */}
+      <div style={{position: 'absolute', left: '12.4%', top: g.fotoTop, width: '78.2%', height: g.fotoH,
+        borderRadius: 28, overflow: 'hidden', zIndex: 1, boxShadow: '0 10px 30px #00000026'}}>
+        <Img src={staticFile(foto)} style={{width: '100%', height: '100%', objectFit: 'cover'}} />
+        <div style={{position: 'absolute', right: 0, bottom: 0, width: '69.5%', height: '26.1%',
+          background: C.grafite, borderTopLeftRadius: 28,
+          display: 'flex', alignItems: 'center', paddingLeft: 44, boxSizing: 'border-box'}}>
+          <TextoRico style={{color: C.branco, fontSize: 60, fontWeight: 400, lineHeight: 1.12, display: 'block'}}>
+            {fecho}
+          </TextoRico>
+        </div>
+      </div>
+
+      {/* logo rodapé */}
+      <div style={{position: 'absolute', top: g.logoTop, left: 0, right: 0, display: 'flex', justifyContent: 'center', zIndex: 3}}>
+        <LogoDoma cor={C.grafite} tamanho={56} wordmark />
+      </div>
+    </AbsoluteFill>
+  );
+};

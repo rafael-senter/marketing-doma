@@ -23,3 +23,10 @@ Canvas 1080×1350. Medido com `layout-mapper` + numpy. Foto de teste = modelo (e
 - 3 layouts distintos (270 foto-card fs58 lh1.12 ~19 chars/linha · 277 · 254 c/ operário nanobanana) — escolher o layout do modelo mais próximo e MEDIR o card dele.
 - fs 58: máx ~19 chars/linha; título maior → quebrar, nunca reduzir.
 - **Story: SEM prop `story`** — implementar ao usar.
+
+## Peças novas — usar `ProdutividadeFotoCard.tsx` (paramétrico, 2026-07-16)
+- Props: `titulo` (topo, fs **78** lh1.13 — RE-MEDIDO no POST 270: o 270 hardcoded usava 58, fonte menor que o modelo), `fecho` (sub-card GRAFITE no canto inf-dir da foto, fs 60 lh1.12, raio sup-esq 28), `foto`, `selo14` (selo-14anos-4.png sup-dir), `story`.
+- Sub-card grafite medido: W 69.5% × H 26.1% da foto, canto inferior-direito.
+- Limites: título ~15 chars/linha ×3 linhas (3 linhas → foto desce pra T30%, já tratado no componente); fecho ~16 chars ×2 linhas.
+- Story ✓ implementado (título T8%, foto 22→82%, logo 93%).
+- Peça de referência: POST prejuizo-industria (foto `_prod-industria-foto`).
