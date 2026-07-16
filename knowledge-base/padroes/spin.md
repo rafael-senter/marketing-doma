@@ -17,25 +17,30 @@ EXATAMENTE o mesmo sistema de templates — só muda o conteúdo (texto) e a fot
 ### 1) `SpinCapa` (slide 1)
 - Split no topo (40% da altura), 50/50: **bloco título manga** (esq, cantos inf-dir arred.) +
   **bloco texto soft** (dir, cantos inf-esq arred.).
-- **Foto full-bleed** na faixa central (top 34% → height 54%).
-- **Faixa inferior manga** (height 13%, canto sup-dir arred.) com "Arrasta pro lado." +
+- **Título fs 60 lh1.12** (medido: cap 42-46, passo 66-70) — máx ~13 chars/linha.
+- **Texto fs 40 lh1.3 CENTRADO verticalmente** no bloco (medido; nunca colado no topo) — máx ~18 chars/linha.
+- **Foto full-bleed** top **40% → 87.1%** (medido; não fica sob os blocos).
+- **Faixa inferior manga** (87.1%→100%, canto sup-dir arred.) com "Arrasta pro lado." +
   **botão circular branco** (Ø150, canto inf-dir) com seta reta →.
-- Props: `titulo`, `texto`, `foto`.
+- Props: `titulo`, `texto`, `foto`, `story?`.
 
 ### 2) `SpinMiolo` (slides 2-5)
-- **Card central** `L13.6% W72.8%` do topo até 82% (cantos inf arredondados) + lista de
-  perguntas com "→ " + **faixa inferior** + **botão seta branco**.
-- **Modo normal (2-4):** fundo soft, card manga, fonte 44.
-- **Modo `cardClaro` (slide 5, mais itens):** INVERTE — fundo manga, card soft, fonte 37.
+- **Card central** `L13.6% W72.8%` (cantos inf arredondados) + lista de
+  perguntas com "→ " + **faixa inferior** + **botão seta branco**. Texto x-left = card + 100px.
+- **Modo normal (2-4):** fundo soft, card manga **0→80.8%** (medido), fonte 44 lh1.3 — máx ~25 chars/linha.
+- **Modo `cardClaro` (slide 5, mais itens):** INVERTE — fundo manga, card soft **0→84.4%**.
+  ⚠️ Fonte é **44 IGUAL ao miolo** (medido no 243-5 — NUNCA 37). Conteúdo denso (6+ itens) → `fontSize: 40` (máx ~29 chars/linha).
   Cabeçalho "**E se você pudesse:**" e pergunta-fecho em **bold**.
-- Props: `perguntas`, `cardClaro?`, `fontSize?`.
+- Props: `perguntas`, `cardClaro?`, `fontSize?`, `story?`.
+- **Story 9:16:** card FLUTUANTE centrado (altura px ≈ do feed → mesma densidade), 4 cantos arredondados, faixa 9%, botão bottom 60px.
 
 ### 3) `SpinCta` (slide 6)
 - Fundo manga + **card claro grande** `L9.3% T7% W81.4% H86%` (raio 36) +
   **selo grafite** (`selo-grafite.png`, L80.3% T12.7% Ø176) +
-  texto corrido (fontSize 41) — assinatura da marca = o **selo/logo** (asset), e se o nome aparecer na frase, escrever "Doma" sem destaque +
-  **sub-card destaque manga** `L18.5% T62% W63.1% H15.3%` (raio 22) com o CTA final.
-- Props: `texto`, `destaque`.
+  texto corrido (**fontSize 44 lh1.3**, top 21.5%, máx ~28 chars/linha) — assinatura da marca = o **selo/logo** (asset), e se o nome aparecer na frase, escrever "Doma" sem destaque +
+  **sub-card destaque manga** `L18.5% T61% W63.1% H16.4%` (raio 22, medido) com o CTA final (**fs 44**, 3 linhas).
+- Texto ideal = **7 linhas + 2 gaps** (termina ~59%, cola no sub-card 61% como o modelo). Texto curto = buraco feio.
+- Props: `texto`, `destaque`, `fontSize?`, `story?`.
 
 ## Regras aplicadas
 - Marca: assinatura = **LOGO/selo** (asset oficial), NUNCA o nome digitado. No texto corrido, citar como **"Doma"** (sem destaque/bold), igual ao modelo. NUNCA digitar "DOMa"/"DOM.a". Ver `doma-brand/CATALOGO-logos.md` + regra de marca no `CLAUDE.md`.
