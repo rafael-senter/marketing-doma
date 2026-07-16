@@ -28,9 +28,10 @@ const SetaDiagonal: React.FC = () => (
   </svg>
 );
 
-export type InimigoComumProps = {principal: string; secundario: string};
+export type InimigoComumProps = {principal: string; secundario: string;
+  story?: boolean};  // true = layout 9:16 (blocos descem um pouco — ajuste Patrick 2026-07-16)
 
-export const InimigoComum: React.FC<InimigoComumProps> = ({principal, secundario}) => (
+export const InimigoComum: React.FC<InimigoComumProps> = ({principal, secundario, story}) => (
   <AbsoluteFill style={{
     backgroundColor: C.fundo, fontFamily: F, overflow: 'hidden',
     WebkitFontSmoothing: 'antialiased', MozOsxFontSmoothing: 'grayscale', textRendering: 'geometricPrecision',
@@ -43,7 +44,7 @@ export const InimigoComum: React.FC<InimigoComumProps> = ({principal, secundario
       WebkitMaskRepeat: 'no-repeat', maskRepeat: 'no-repeat', zIndex: 0}} />
 
     {/* card BRANCO — frase principal centralizada (aspas, fim em bold) */}
-    <div style={{position: 'absolute', left: '11.5%', top: '23%', width: '77%', height: '22.5%',
+    <div style={{position: 'absolute', left: '11.5%', top: story ? '28%' : '23%', width: '77%', height: '22.5%',
       background: C.branco, borderRadius: 34, boxShadow: '0 8px 28px #00000022', zIndex: 2,
       display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '0 56px', boxSizing: 'border-box'}}>
       {/* boldWeight 700 (não 800): negrito do fecho afinado minimamente — correção Patrick 2026-07-16 */}
@@ -53,14 +54,14 @@ export const InimigoComum: React.FC<InimigoComumProps> = ({principal, secundario
     </div>
 
     {/* badge circular preto + seta ↘ — centro (283,714) = L26.2% T52.9%, Ø119 */}
-    <div style={{position: 'absolute', left: '27.5%', top: '52.6%', transform: 'translate(-50%,-50%)',
+    <div style={{position: 'absolute', left: '27.5%', top: story ? '58.5%' : '52.6%', transform: 'translate(-50%,-50%)',
       width: 119, height: 119, borderRadius: '50%', background: C.grafite, zIndex: 3,
       display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
       <SetaDiagonal />
     </div>
 
     {/* card SOFT — texto secundário centralizado de verdade (sem paddingLeft que empurrava texto pra direita) */}
-    <div style={{position: 'absolute', left: '19%', top: '53.5%', width: '62%', height: '22%',
+    <div style={{position: 'absolute', left: story ? '21%' : '19%', top: story ? '59.5%' : '53.5%', width: story ? '58%' : '62%', height: story ? '17.5%' : '22%',
       background: C.soft, borderRadius: 30, zIndex: 1,
       display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '0 40px', boxSizing: 'border-box'}}>
       {/* fontSize 48 (era 42): aumentado a pedido do Patrick 2026-07-16 */}

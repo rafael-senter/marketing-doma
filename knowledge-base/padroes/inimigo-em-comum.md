@@ -29,12 +29,37 @@ Canvas 1080×1350. Medido com `layout-mapper` + numpy.
 - Aspas tipográficas “ ” na principal; bold só no trecho-chave.
 - **Story: já usado em inimigo-crescimento-story esticando o componente — verificar densidade; ideal implementar prop `story` padrão SPIN.**
 
-## 🆕 TEMPLATE v2 aprovado (Patrick, 2026-07-16) — POST inimigo-crescimento
-Substitui as medidas antigas. Vale FEED e STORY (mesmo componente; story = canvas 1080×1920, aprovado assim).
+## 🆕 TEMPLATE v2 aprovado (Patrick, 2026-07-16) — FONTE DA VERDADE
+Substitui as medidas antigas. Componente `InimigoComum.tsx` com prop `story` — números abaixo são os implementados (validados peça a peça com o Patrick no POST inimigo-crescimento).
 
-- **Watermark**: logo VERTICAL empilhada (`logotipo-vertical-branco.png` mask) — "DO" em cima, "Ma" embaixo com espaçamento oficial, `width 100%, left 0, top 1%` (bate nas DUAS paredes; mask sem margens — medido). NÃO usar mais wordmark horizontal sangrada.
-- **Cor watermark**: `#F5C24A` (mais clara que fundo — exceção da categoria mantida).
-- **Card branco**: `L11.5% T23% W77% H22.5%` · **Card soft**: `L19% T53.5% W62% H22%` · **Badge**: centro `L27.5% T52.6%` Ø119.
-- **Fontes**: principal 64 regular + fecho bold **700** (TextoRico boldWeight); secundário **56** regular.
-- **Par obrigatório** feed+story; story renderiza com dims explícitas (1080 1920).
-- Stills de referência: `inimigo-crescimento` + `inimigo-crescimento-story`.
+### Escrita grande de fundo (watermark) — FEED e STORY
+- Asset: `logotipo-vertical-branco.png` como CSS mask (logo VERTICAL empilhada: "DO" em cima, "Ma" embaixo, espaçamento oficial do arquivo).
+- Posição: `top 1%, left 0, width 100%` — **bate nas DUAS paredes** (mask sem margens internas — medido alpha bbox 0/1680 de 1681).
+- `aspectRatio: 1681/1328` → altura 853px (63% do feed; 44% do story). "Ma" fica parcialmente atrás dos cards — intencional.
+- Cor: `#F5C24A` sobre fundo `#F4BB35` (mais CLARA que o fundo — exceção da categoria a RULES §9, medida nos modelos 244/252).
+- ❌ NUNCA a wordmark horizontal sangrada (mostrava "DON" cortado — rejeitada).
+
+### FEED 1080×1350 (prop `story` ausente/false)
+| Elemento | Medidas |
+|---|---|
+| Card branco | `L11.5% T23% W77% H22.5%`, radius 34, sombra `0 8px 28px #00000022` |
+| Badge seta ↘ | centro `L27.5% T52.6%`, Ø119, grafite `#1F1F1F` |
+| Card soft `#F8DD6B` | `L19% T53.5% W62% H22%`, radius 30 |
+| Logo rodapé | wordmark grafite, `top 87%`, tamanho 60 |
+
+### STORY 1080×1920 (prop `story: true`)
+| Elemento | Medidas |
+|---|---|
+| Card branco | `L11.5% T28% W77% H22.5%` (desce 5pp) |
+| Badge seta ↘ | centro `L27.5% T58.5%` |
+| Card soft | `L21% T59.5% W58% H17.5%` (menor que o feed — fontes NÃO diminuem) |
+| Logo rodapé | `top 87%` (= y1670, fim da zona segura) |
+
+### Tipografia (IGUAL nos dois formatos)
+- Principal (card branco): TT Lakes **64px regular**, lineHeight 1.22, centralizado, fecho em **bold 700** (`TextoRico boldWeight={700}` — 800 rejeitado, grosso demais). Padrão de quebra: 3 linhas, aspas fora do bold.
+- Secundário (card soft): **56px regular**, lineHeight 1.3, centralizado, SEM bold. 3 linhas curtas.
+
+### Regras de uso
+- Par obrigatório: `<id>` + `<id>-story` (story com `story: true` e canvas 1080×1920; render com dims explícitas).
+- Só o texto varia entre peças — layout é fixo.
+- Stills de referência: `inimigo-crescimento` / `inimigo-crescimento-story`. Renders aprovados em `remotion-doma/out/`.
