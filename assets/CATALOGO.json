@@ -248,13 +248,14 @@
       "tipo": "selo-aniversario",
       "cor": "badge amarelo manga #F7BE35 + glifo grafite",
       "usar_sobre": [
-        "amarelo (PADRÃO do projeto — tom-sobre-tom intencional)",
+        "imagem/foto (uso canônico)",
         "grafite",
-        "branco",
-        "foto"
+        "branco"
       ],
-      "evitar_sobre": [],
-      "uso": "Selo 14 anos COM badge manga (= SELO 14 ANOS-12 do ZIP). VERSÃO PADRÃO do projeto — usar esta inclusive sobre fundo amber (badge tom-sobre-tom é intencional; correção Patrick 2026-07-16). Confirmado em uso 2026."
+      "evitar_sobre": [
+        "amarelo (usar a -4 no lugar)"
+      ],
+      "uso": "Selo 14 anos COM badge manga (= SELO 14 ANOS-12 do ZIP). USO CANÔNICO: sobre IMAGENS/FOTOS. Sobre fundo amber usar selo-14anos-4. Confirmado em uso 2026."
     },
     {
       "arquivo": "selo-14anos-2.png",
@@ -323,7 +324,7 @@
         "grafite",
         "branco"
       ],
-      "uso": "Badge grafite, número branco (= SELO 14 ANOS-17)."
+      "uso": "Badge grafite, número branco (= SELO 14 ANOS-17). USO CANÔNICO sobre fundo AMBER (padrão do projeto, correção Patrick 2026-07-16)."
     },
     {
       "arquivo": "selo-14anos-transp-branco.png",

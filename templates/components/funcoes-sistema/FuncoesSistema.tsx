@@ -12,6 +12,8 @@ import {LogoDoma, TextoRico} from '../../../components';
 const C = {manga: '#F4BB35', soft: '#F7DC6B', grafite: '#202020', branco: '#FFFFFF'};
 const F = brand.fontes.titulo;
 const maskUrl = `url(${staticFile('oficial/logotipo-principal-branco.png')})`;
+// mask vertical empilhada ("DO" em cima, "Ma" embaixo) — mesma técnica do CertoErrado
+const maskVerticalUrl = `url(${staticFile('oficial/logotipo-vertical-branco.png')})`;
 
 const baseFill = {
   fontFamily: F, overflow: 'hidden' as const,
@@ -29,11 +31,15 @@ export type FuncoesSistemaProps = {
   selo?: {src: string; left: string; top: string; width: string};  // selo PNG oficial (ex: selo-14anos-1)
   imagem?: {src: string; left: string; top: string; width: string; rotate?: number; sombra?: boolean};
                                        // imagem posicionada SEM chrome (ex: base nanobanana transp de notebook/phone)
-  watermark?: boolean;                 // "DOMa" topo (full-width)
+  watermark?: boolean;                 // "DOMa" topo (full-width, horizontal)
+  watermarkVertical?: boolean;         // "DO/Ma" empilhada GIGANTE sangrando topo/laterais (padrão story;
+                                       // mesma técnica CertoErrado). Substitui a horizontal quando true
   watermarkCor?: string;               // cor da watermark. Padrão do projeto = TOM DE BRANCO fraco tom-sobre-tom
                                        // (~18% branco sobre manga = #F6C554), nunca escura (correção Patrick 2026-07-16 ×2)
   logoTopo?: boolean;                  // logo DOMa grafite centralizado no topo
   logoRodape?: boolean;                // logo DOMa grafite centralizado no rodapé
+  logoRodapeBottom?: string;           // bottom do logo rodapé. Feed = '5%' (default). STORY = '15%'+
+                                       // (zona morta base do story = 250px; ver padroes/instagram-zonas-seguras.md)
   bigNumero?: {texto: string; left: string; top: string; fontSize?: number};
   tituloTopo?: {texto: string; left?: string; top: string; width: string; fontSize?: number; align?: 'left' | 'center'};
   corpo?: Caixa;                       // texto corrido grafite
@@ -75,7 +81,15 @@ export const FuncoesSistema: React.FC<FuncoesSistemaProps> = (p) => (
         width: p.selo.width, height: 'auto', zIndex: 3}} />
     )}
 
-    {p.watermark && (
+    {p.watermarkVertical && (
+      <div style={{position: 'absolute', top: '3%', left: '50%', transform: 'translateX(-50%)',
+        width: '100%', aspectRatio: '1681 / 1328', backgroundColor: p.watermarkCor ?? '#F6C554',
+        WebkitMaskImage: maskVerticalUrl, maskImage: maskVerticalUrl,
+        WebkitMaskSize: '100% 100%', maskSize: '100% 100%',
+        WebkitMaskRepeat: 'no-repeat', maskRepeat: 'no-repeat', zIndex: 1}} />
+    )}
+
+    {p.watermark && !p.watermarkVertical && (
       <div style={{position: 'absolute', top: '4%', left: '0%', width: '100%', aspectRatio: '1767 / 322',
         backgroundColor: p.watermarkCor ?? '#F6C554', WebkitMaskImage: maskUrl, maskImage: maskUrl,
         WebkitMaskSize: '100% 100%', maskSize: '100% 100%', WebkitMaskRepeat: 'no-repeat', maskRepeat: 'no-repeat',
@@ -138,7 +152,7 @@ export const FuncoesSistema: React.FC<FuncoesSistemaProps> = (p) => (
     )}
 
     {p.logoRodape && (
-      <div style={{position: 'absolute', bottom: '5%', left: 0, right: 0, display: 'flex', justifyContent: 'center', zIndex: 3}}>
+      <div style={{position: 'absolute', bottom: p.logoRodapeBottom ?? '5%', left: 0, right: 0, display: 'flex', justifyContent: 'center', zIndex: 3}}>
         <LogoDoma cor={C.grafite} tamanho={60} wordmark />
       </div>
     )}

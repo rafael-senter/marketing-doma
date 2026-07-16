@@ -10,6 +10,6 @@
     "doma:export": "marketing-doma export"
   },
   "devDependencies": {
-    "marketing-doma-cli": "^0.1.52"
+    "marketing-doma-cli": "^0.1.56"
   }
 }

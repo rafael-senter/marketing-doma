@@ -26,3 +26,36 @@ grafite `#202020` · branco `#FFF`.
   (melhor que 6 componentes hard-coded).
 - **Base nanobanana + overlays Remotion**: device/mockup 3D pela IA, texto sempre vetorial em cima
   (crispo, editável, sem franja). Ver [[funcoes-sistema-pipeline]] + [[nanobanana-gemini]] na memória.
+
+## 🆕 MODELO func-inadimplencia (2026-07-16) — notebook + pergunta provocativa [APROVADO]
+Aprovado pelo Patrick como MODELO reutilizável da categoria (par post + story). Props EXATAS abaixo — copiar e trocar só conteúdo/print.
+
+### Comum aos dois formatos
+- **Fundo**: manga `#F4BB35` liso (sem base full-bleed).
+- **Watermark cor**: tom de branco fraco `#F6C554` (~18% branco sobre manga) — default `watermarkCor`. NUNCA escura, NUNCA branca 100%.
+- **Título**: pergunta provocativa 2ª pessoa, bold só no fecho.
+- **Imagem**: slot `imagem` com base notebook TRANSP (gerar via image-sourcer/nanobanana + recorte flood-fill; SEMPRE 2 versões amber+transp em `bases-nanobanana*/`).
+- **Selo 14 anos**: `selo-14anos-4.png` (17: badge grafite+glifo branco) sobre fundo amber; `selo-14anos-1.png` (12: badge manga) APENAS sobre imagem/foto.
+- **Logo rodapé**: wordmark grafite.
+
+### POST 1080×1350 (`func-inadimplencia`)
+```
+watermark: true (horizontal topo), logoRodape: true (bottom 5% default)
+tituloTopo: {top: '19%', width: '88%', align: 'center', fontSize: 54}
+imagem:     {left: '5%', top: '32%', width: '90%'}
+corpo:      {left: '6%', top: '83%', width: '62%', fontSize: 34}
+selo:       {left: '75%', top: '81%', width: '17%'}
+```
+
+### STORY 1080×1920 (`func-inadimplencia-story`) — zonas seguras (padroes/instagram-zonas-seguras.md)
+```
+watermarkVertical: true (DO/Ma empilhada, top 3%, width 100% — encosta nas laterais, sem corte)
+logoRodape: true, logoRodapeBottom: '14%'  (5% cairia na zona morta)
+tituloTopo: {top: '16.5%', width: '88%', align: 'center', fontSize: 70}
+imagem:     {left: '2%', top: '37%', width: '96%'}
+corpo:      {left: '7%', top: '73.5%', width: '64%', fontSize: 40}
+selo:       {left: '73%', top: '72%', width: '19%'}
+```
+
+- **Stills de referência** no Root.tsx do host. Renders aprovados: `out/func-inadimplencia.png` + `out/func-inadimplencia-story.png`.
+- **Regra par post+story**: live-rule `2026-07-16-post-sempre-com-story.md`. Story NÃO é resize do post — redistribuir pelas zonas seguras.
