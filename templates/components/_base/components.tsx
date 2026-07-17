@@ -8,6 +8,22 @@ import {brand} from './theme';
  * extraídos do manual (public/logos/), não mais aproximação tipográfica.
  */
 
+// ── Seta diagonal DOMa (PADRÃO OFICIAL — Patrick 2026-07-17) ────────────────
+// Seta ↘ oficial p/ TODOS os posts Doma que usarem flecha direcional (badge etc).
+// Traço grosso, hastes RETAS (butt), ponta PONTUDA (miter), riscas laterais
+// curvas e compridas. viewBox 100×100. `cor` (default branco), `size` px.
+// NÃO recriar variações à mão — sempre reusar este componente.
+export const SetaDoma: React.FC<{cor?: string; size?: number}> = ({cor = '#fff', size = 74}) => (
+  <svg viewBox="0 0 100 100" width={size} height={size}>
+    <g fill="none" stroke={cor} strokeWidth="13" strokeLinecap="butt" strokeLinejoin="miter" strokeMiterlimit="10">
+      {/* haste central reta */}
+      <path d="M22 22 L78 78" />
+      {/* riscas laterais curvas compridas (esquerda→ponta→topo) */}
+      <path d="M24 78 Q53 72 78 78 Q72 53 78 24" />
+    </g>
+  </svg>
+);
+
 // ── Logo DOMa (oficial, do manual) ─────────────────────────────────────────
 // Usa o PNG oficial. `cor` decide a versão: tons escuros → grafite, claros → branco.
 // proporção do logo principal ≈ 3.7:1 (largura:altura).

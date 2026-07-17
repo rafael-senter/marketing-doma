@@ -138,6 +138,7 @@ A watermark é só ~5% mais escura que o fundo (ex: fundo `#F4BB36` → watermar
 - Badges de check/x e ícones de traço: desenhar em **SVG** com traços GROSSOS (`strokeWidth` ~9 em viewBox 86) e `strokeLinecap:'round'`/`strokeLinejoin:'round'` (pontas arredondadas). Caractere unicode (✕/✓) sai fino e diferente.
 - Se o modelo tem **LONG SHADOW** (sombra flat que segue a forma do símbolo na diagonal): NÃO usar clipPath triangular genérico (fica errado). Técnica correta = repetir o símbolo ~80 cópias deslocadas na diagonal 45° (passo ~0.55px), TODAS dentro de um `<g opacity={0.15}>` ÚNICO (opacity no grupo, não por cópia — senão acumula e cria "riscos" de tonalidade desigual). Cor preta. Resultado: silhueta sólida de tonalidade UNIFORME. Símbolo branco por cima. `overflow:hidden` no círculo. (Validado no Certo e Errado.)
 - Para ícones TEMÁTICOS (gráfico, alvo, cifrão…) usar os PNGs oficiais (`<Icone>`), nunca desenhar à mão.
+- **Seta DIRECIONAL ↘ = componente compartilhado `SetaDoma`** (não desenhar por categoria) — ver §21.
 
 ## 17. Texto: medir LARGURA e CAP-HEIGHT separados — fonte larga = letterSpacing, não fontSize
 - Ao validar um texto, medir DUAS coisas no modelo: **cap-height** (altura de uma maiúscula isolada, ex. o "E" inicial — janela estreita só nessa letra, sem pegar descendentes de vizinhas) e **largura** da linha inteira (projeção de colunas escuras).
@@ -187,3 +188,16 @@ Raios MEDIDOS por categoria (px @ canvas 1080×1350):
 | Cliente Novo foto/badge | conferir ao usar |
 
 Regra: novo bloco arredondado → medir o raio no modelo (mesma técnica); registrar na ficha. Padrão visual Doma tende a raios GENEROSOS (40-60), não 28.
+
+## 21. Seta DIRECIONAL ↘ = `SetaDoma` (componente ÚNICO, Patrick 2026-07-17)
+
+Toda flecha direcional (↘ em badge) em QUALQUER post Doma usa o componente compartilhado `SetaDoma` (`templates/components/_base/components.tsx`). Nunca redesenhar seta à mão por categoria.
+
+Geometria oficial (iterada com Patrick por print, aprovada):
+- viewBox `0 0 100 100`, `strokeWidth 13`, `fill:none`.
+- Arestas: `strokeLinecap="butt"` (pontas RETAS) + `strokeLinejoin="miter"` + `strokeMiterlimit="10"` (ponta PONTUDA). ⚠️ Exceção ao §16 (que usa round) — a seta direcional é butt/miter.
+- Haste central: `M22 22 L78 78`. Riscas laterais compridas: `M24 78 Q53 72 78 78 Q72 53 78 24`.
+- Props `cor` (default `#fff`) · `size` (default 74).
+
+Uso: `<SetaDoma />` (badge escuro) · `<SetaDoma cor={C.grafite} size={96} />` (badge claro/soft).
+Aplicado: inimigo-em-comum, doma-institucional (271). NÃO vale p/ nav horizontal "ARRASTA →" nem ícone de gráfico/crescimento.

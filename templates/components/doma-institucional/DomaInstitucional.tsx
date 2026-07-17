@@ -1,6 +1,6 @@
 import {AbsoluteFill, Img, staticFile} from 'remotion';
 import {brand} from '../../../theme';
-import {LogoDoma, TextoRico} from '../../../components';
+import {LogoDoma, TextoRico, SetaDoma} from '../../../components';
 
 /**
  * PADRÃO "DOMA (institucional)" (v2) — POST 115, 178, 257, 271.
@@ -66,13 +66,8 @@ export const Doma178: React.FC = () => (
 );
 
 /* ── POST 271 — tipográfico "Tem uma coisa ESTRANHA..." + card lista ── */
-const seta = (
-  <svg viewBox="0 0 48 48" width="46%" height="46%">
-    <path d="M14 14 L34 34" stroke={C.grafite} strokeWidth="5" strokeLinecap="round" />
-    <path d="M20 34 L34 34 L34 20" stroke={C.grafite} strokeWidth="5" fill="none"
-      strokeLinecap="round" strokeLinejoin="round" />
-  </svg>
-);
+// seta ↘ = SetaDoma oficial (padrão transversal Patrick 2026-07-17), tingida grafite
+const seta = <SetaDoma cor={C.grafite} size={96} />;
 export const Doma271: React.FC = () => (
   <AbsoluteFill style={{...baseFill, backgroundColor: C.manga}}>
     {/* título (esq) — ESTRANHA em highlight soft; 'com quem usa Doma.' sublinhado */}

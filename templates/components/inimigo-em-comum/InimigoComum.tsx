@@ -1,6 +1,6 @@
 import {AbsoluteFill, staticFile} from 'remotion';
 import {brand} from '../../../theme';
-import {LogoDoma, TextoRico} from '../../../components';
+import {LogoDoma, TextoRico, SetaDoma} from '../../../components';
 
 /**
  * PADRÃO "INIMIGO EM COMUM" (v2) — recriação medida dos modelos POST 244 / 252.
@@ -19,14 +19,6 @@ const C = {fundo: '#F4BB35', watermark: '#F5C24A', branco: '#FFFFFF', soft: '#F8
 const F = brand.fontes.titulo;
 // logo VERTICAL empilhada ("DO" em cima, "Ma" embaixo, com o espaçamento oficial do arquivo)
 const maskUrl = `url(${staticFile('oficial/logotipo-vertical-branco.png')})`;
-
-const SetaDiagonal: React.FC = () => (
-  <svg viewBox="0 0 48 48" width="56" height="56">
-    <path d="M15 15 L33 33" stroke="#fff" strokeWidth="6.5" strokeLinecap="round" />
-    <path d="M33 18 L33 33 L18 33" stroke="#fff" strokeWidth="6.5" fill="none"
-      strokeLinecap="round" strokeLinejoin="round" />
-  </svg>
-);
 
 export type InimigoComumProps = {principal: string; secundario: string;
   story?: boolean};  // true = layout 9:16 (blocos descem um pouco — ajuste Patrick 2026-07-16)
@@ -57,7 +49,7 @@ export const InimigoComum: React.FC<InimigoComumProps> = ({principal, secundario
     <div style={{position: 'absolute', left: '27.5%', top: story ? '58.5%' : '52.6%', transform: 'translate(-50%,-50%)',
       width: 119, height: 119, borderRadius: '50%', background: C.grafite, zIndex: 3,
       display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-      <SetaDiagonal />
+      <SetaDoma />
     </div>
 
     {/* card SOFT — texto secundário centralizado de verdade (sem paddingLeft que empurrava texto pra direita) */}

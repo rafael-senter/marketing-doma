@@ -18,7 +18,7 @@ Canvas 1080×1350. Medido com `layout-mapper` + numpy.
   Mais confiável que ajustar fontSize/maxWidth e torcer pra quebrar igual. 244 = 3+3 linhas, 252 = 3+3.
 
 ## Reaproveitável
-- **Badge circular + seta ↘** = ícone SVG (strokeWidth grosso, linecap round), igual conceito dos ícones X/✓ do Certo e Errado.
+- **Badge circular + seta ↘** = componente compartilhado `SetaDoma` (padrão oficial, RULES §21). Branca no badge grafite. NÃO redesenhar a seta — importar de `../../../components`. (Antes era SVG local com linecap round; padronizado 2026-07-17 p/ butt+miter, ponta pontuda.)
 - Watermark gigante: quando o modelo mostra só "DO" sangrando, usar a logo horizontal width ~175% deslocada p/ esquerda (não centralizada).
 
 ## Limites pra criação nova (§19 — calculados do componente, 2026-07-16)
