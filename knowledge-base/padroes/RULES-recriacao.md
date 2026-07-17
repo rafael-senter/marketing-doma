@@ -196,7 +196,8 @@ Toda flecha direcional (↘ em badge) em QUALQUER post Doma usa o componente com
 Geometria oficial (iterada com Patrick por print, aprovada):
 - viewBox `0 0 100 100`, `strokeWidth 13`, `fill:none`.
 - Arestas: `strokeLinecap="butt"` (pontas RETAS) + `strokeLinejoin="miter"` + `strokeMiterlimit="10"` (ponta PONTUDA). ⚠️ Exceção ao §16 (que usa round) — a seta direcional é butt/miter.
-- Haste central: `M22 22 L78 78`. Riscas laterais compridas: `M24 78 Q53 72 78 78 Q72 53 78 24`.
+- **Ordem de desenho**: haste PRIMEIRO (atrás), riscas laterais DEPOIS (por cima) — cabeça cobre a ponta da haste.
+- Haste central: `M22 22 L76 76` (tip 76, encaixa no V). Riscas laterais compridas: `M24 78 Q53 72 78 78 Q72 53 78 24`.
 - Props `cor` (default `#fff`) · `size` (default 74).
 
 Uso: `<SetaDoma />` (badge escuro) · `<SetaDoma cor={C.grafite} size={96} />` (badge claro/soft).

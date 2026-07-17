@@ -16,9 +16,9 @@ import {brand} from './theme';
 export const SetaDoma: React.FC<{cor?: string; size?: number}> = ({cor = '#fff', size = 74}) => (
   <svg viewBox="0 0 100 100" width={size} height={size}>
     <g fill="none" stroke={cor} strokeWidth="13" strokeLinecap="butt" strokeLinejoin="miter" strokeMiterlimit="10">
-      {/* haste central reta */}
-      <path d="M22 22 L78 78" />
-      {/* riscas laterais curvas compridas (esquerda→ponta→topo) */}
+      {/* haste central reta — desenhada PRIMEIRO (fica ATRÁS); tip em 76 tuck sob a cabeça */}
+      <path d="M22 22 L76 76" />
+      {/* riscas laterais curvas compridas — desenhadas DEPOIS (POR CIMA), cobrem a ponta da haste */}
       <path d="M24 78 Q53 72 78 78 Q72 53 78 24" />
     </g>
   </svg>
