@@ -47,3 +47,42 @@ Medido com `layout-mapper` + numpy. Canvas 1080×1350 (feed) / 1080×1920 (story
 ## Notas
 - **Story**: prop-based via Stills `<id>-story` (canvas 1080×1920, foto pré-composta story, recorte 3D próprio — coords diferem do feed).
 - ⚠️ Remotion Studio aberto pode gravar `translate/scale` espúrios no componente do HOST ao arrastar (aconteceu 2×) — antes de render, conferir `grep translate` e restaurar do plugin se sujo.
+
+
+---
+
+## Revisão v3 (2026-07-21) — categoria FECHADA
+
+### O defeito de origem: foto com elemento *baked*
+As fotos antigas (`oficial/_teste-motiva-*.jpg`) eram **recortes do próprio modelo**, com card,
+selo e watermark já impressos na imagem. Funcionava no feed só porque o nosso card caía
+exatamente por cima do baked. No story o `cover` corta diferente → **aparecia card e selo em
+duplicidade**. Regra: foto de peça é **imagem limpa**; se só existe o modelo, recriar a foto
+limpa via nanobanana usando o modelo como `--input` ("remova os gráficos e reconstrua o fundo").
+
+### Medições corrigidas (o componente estava genérico demais)
+| | POST 242 | POST 250 |
+|---|---|---|
+| fontSize | **38** (era 33) | **45** (era 33) |
+| selo Ø | **135** (era 170) | **109** (era 170) |
+| selo offset | `{top: 146, right: -30}` | `{bottom: -52, right: 70}` |
+| card (feed) | `L10.2% T17.6% W46.8% H32.4%` | `L45.4% T26.4% W46.8% H20.4%` |
+
+Props novas no componente: `seloTamanho` e `seloOffset` — o selo NÃO é do mesmo tamanho em toda
+peça da categoria, tem que ser medido. Negrito **600** (medido no 250: bold 5px vs regular 3px).
+Padding do texto: `top 68` (folga pedida pelo Patrick), `left 62`, `right 45` — com `right 80` o
+texto do 250 quebrava em 3 linhas em vez das 2 do modelo.
+
+### Sobreposição 3D — agora padrão da categoria
+As 3 peças usam `recorte3d` (pessoa sem fundo por cima do card): o cabelo/ombro passa por cima do
+card e do selo. Pipeline: base composta no canvas exato (cover PIL) → `rembg` → asset em
+`public/motiva/<peça>-<formato>[-recorte].png`. **Base e recorte são gerados por FORMATO** — o
+`cover` de 9:16 corta diferente do 4:5.
+
+### Peças da categoria
+| Still | Foto | Story |
+|---|---|---|
+| `padrao-motiva-242` | mulher do modelo, recriada limpa | ✅ |
+| `motiva-242-varB` | dona de loja no escritório (foto nova) | ✅ |
+| `padrao-motiva-250` | homem do modelo, recriado limpo | ✅ |
+| `motiva-controla` | já estava boa (referência da categoria) | ✅ |

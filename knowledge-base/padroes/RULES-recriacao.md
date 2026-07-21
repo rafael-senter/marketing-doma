@@ -395,3 +395,22 @@ Image.fromarray(np.dstack([rgb, a*255]).astype(np.uint8), 'RGBA') \
   próprio pixel, senão perde o degradê.
 - Exportar em **4×** e deixar o CSS reduzir — o render é scale 2.
 - Conferir sempre `alpha` médio da primeira linha do PNG: tem que ser ~0.
+
+## 28. Foto de peça = imagem LIMPA; e o render que "não muda" (Patrick 2026-07-21)
+
+**28.1 — Nunca usar recorte do modelo como foto da peça.** As fotos de `doma-motiva` eram recortes
+do próprio modelo, com card/selo/watermark já impressos. No feed passava despercebido (o nosso
+card caía em cima do baked); no story o `cover` corta diferente e **apareceu tudo em duplicidade**.
+Se só existe o modelo, recriar a foto limpa via nanobanana usando o modelo como `--input`:
+"recreate this photograph as a CLEAN version, remove the graphics and rebuild what was behind them".
+
+**28.2 — Base e recorte 3D são por FORMATO.** O `cover` de 9:16 corta diferente do 4:5, então
+`public/<cat>/<peça>-feed.png` e `-story.png` (mais os `-recorte`) são arquivos distintos. Reusar a
+base do feed no story desloca a pessoa e quebra a sobreposição.
+
+**28.3 — `render-still.sh` não pode silenciar o stderr.** O script fazia
+`remotion still ... >/dev/null 2>&1`: quando o build quebrava, o **PNG antigo continuava em `out/`**
+e o script ainda imprimia "✓". Custou quatro renders seguidos "sem efeito" até eu rodar o comando
+cru e ver `Expected ")" but found "key"`. O script agora falha com `exit 1` e mostra o erro.
+Regra geral: **script de build/render nunca engole stderr** — o custo de depurar um sucesso falso é
+muito maior que o de ver ruído no terminal.

@@ -23,13 +23,17 @@ export type DomaMotivaProps = {
    *  recorte da pessoa (rembg) colado NA MESMA posição da foto, zIndex acima do card.
    *  A cabeça "salta" na frente do card. Coords em % do canvas (crop pré-alinhado). */
   recorte3d?: {src: string; left: string; top: string; width: string};
+  /** Ø do selo em px. MEDIDO por peça — no POST 250 é 109, no 242 é 170. */
+  seloTamanho?: number;
+  /** offset do selo em relação ao canto, em px (sobrescreve o padrão do `seloCanto`) */
+  seloOffset?: {top?: number; bottom?: number; right?: number};
 };
 
-export const DomaMotiva: React.FC<DomaMotivaProps> = ({foto, blocos, card, seloCanto, watermark, fontSize = 33, recorte3d}) => {
+export const DomaMotiva: React.FC<DomaMotivaProps> = ({foto, blocos, card, seloCanto, watermark, fontSize = 33, recorte3d, seloTamanho = 170, seloOffset}) => {
   // selo CRUZA a borda do card (medido POST 242: Ø126, centro na borda direita, metade fora)
-  const seloStyle: React.CSSProperties = seloCanto === 'sup-dir'
+  const seloStyle: React.CSSProperties = seloOffset ?? (seloCanto === 'sup-dir'
     ? {top: 12, right: -85}
-    : {bottom: -85, right: -10};
+    : {bottom: -85, right: -10});
   return (
     <AbsoluteFill style={{
       fontFamily: F, overflow: 'hidden',
@@ -53,17 +57,20 @@ export const DomaMotiva: React.FC<DomaMotivaProps> = ({foto, blocos, card, seloC
         {/* selo DOMa oficial no canto */}
         {/* selo preto-e-branco em CAMADAS: círculo preto (div, cresce livre) ATRÁS + escritas
             selo-branco.png fixas POR CIMA — borda preta ajustável sem mexer nas letras */}
-        <div style={{position: 'absolute', width: 170, height: 170, ...seloStyle}}>
+        <div style={{position: 'absolute', width: seloTamanho, height: seloTamanho, ...seloStyle}}>
           <div style={{position: 'absolute', inset: 0, borderRadius: '50%', background: '#1F1F1F'}} />
           <Img src={staticFile('oficial/selo-branco.png')} alt="DOMa"
             style={{position: 'absolute', left: '18%', top: '18%', width: '64%', height: '64%'}} />
         </div>
         {/* texto motivacional (parágrafos, último termo em bold) */}
         {/* disposição medida POST 242: padding top 53 / left 66, gap entre parágrafos = 1 linha */}
-        <div style={{position: 'absolute', top: 53, left: 66, right: 80, bottom: 44,
+        {/* right 55 MEDIDO no POST 250 (texto vai até x940 num card que termina em 995);
+            com 80 o texto quebrava em 3 linhas em vez de 2 */}
+        <div style={{position: 'absolute', top: 68, left: 62, right: 45, bottom: 44,   // top 68: folga no topo pedida pelo Patrick (era 53)
           display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: 40}}>
+          {/* negrito 600: MEDIDO no POST 250 — bold 5px vs regular 3px (o default 500 dava 4px) */}
           {blocos.map((b, i) => (
-            <TextoRico key={i} style={{color: C.grafite, fontSize, fontWeight: 400, lineHeight: 1.28, display: 'block'}}>
+            <TextoRico key={i} boldWeight={600} style={{color: C.grafite, fontSize, fontWeight: 400, lineHeight: 1.28, display: 'block'}}>
               {b}
             </TextoRico>
           ))}
