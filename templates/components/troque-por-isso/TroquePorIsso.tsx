@@ -142,11 +142,14 @@ const CardMiolo: React.FC<{
   </div>
 );
 
-/* lista com ✅ (só o último miolo, seguindo o modelo) */
-const Check: React.FC<{size?: number}> = ({size = 38}) => (
-  <svg width={size} height={size} viewBox="0 0 48 48" style={{minWidth: size}}>
-    <rect x="3" y="3" width="42" height="42" rx="7" fill={C.check} />
-    <path d="M13 25 L21 33 L36 15" stroke="#FFF" strokeWidth="5.5" fill="none"
+/* lista com ✅ (só o último miolo, seguindo o modelo).
+   MEDIDO no POST 186 s7: quadrado **59×59 px** (x197-255, y1122-1180), gap 16 até o texto,
+   spacing 66px entre itens. O `size` é o LADO do quadrado (o rect preenche o viewBox inteiro).
+   ⚠️ Erro cometido: quadrado de 33px — quase metade do modelo, a lista sumia ao lado do texto. */
+const Check: React.FC<{size?: number}> = ({size = 55}) => (
+  <svg width={size} height={size} viewBox="0 0 48 48" style={{minWidth: size, display: 'block'}}>
+    <rect x="0" y="0" width="48" height="48" rx="8" fill={C.check} />
+    <path d="M11 24.5 L20 33.5 L37 15" stroke="#FFF" strokeWidth="6" fill="none"
       strokeLinecap="round" strokeLinejoin="round" />
   </svg>
 );
@@ -166,7 +169,7 @@ export const TrocaMiolo: React.FC<{
       {lista && (
         <div style={{display: 'flex', flexDirection: 'column', gap: 12}}>
           {lista.map((t, i) => (
-            <div key={i} style={{display: 'flex', alignItems: 'center', gap: 18}}>
+            <div key={i} style={{display: 'flex', alignItems: 'center', gap: 16}}>
               <Check />
               <span style={{color: C.grafite, fontSize: 50, fontWeight: 400, lineHeight: '50px'}}>{t}</span>
             </div>

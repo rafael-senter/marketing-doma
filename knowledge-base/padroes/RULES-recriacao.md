@@ -298,3 +298,18 @@ Validar o método rodando antes num trecho de texto REGULAR do mesmo modelo — 
 
 Medições do POST 186: itálico do modelo **8.0°** e **9.0°** · regular **-1.0°** (controle) ·
 `fontStyle: italic` nosso **12.5°** · com `skewX(-8.5deg)` **7.0°** ✅.
+
+## 26. Medir o elemento RENDERIZADO, não o prop declarado (Patrick 2026-07-21)
+
+Erro real: o ✅ da lista saiu com **33px** contra **59px** do modelo — quase metade. A prop dizia
+`size = 38`, mas o SVG desenhava `<rect x=3 y=3 width=42 height=42>` dentro de um `viewBox 48`,
+então o lado efetivo era `38 × 42/48 = 33`. O número no código mentia sobre o resultado.
+
+- Ao auditar um render, medir o **bbox do pixel** de cada elemento gráfico (ícone, badge, selo,
+  quadrado, círculo) e comparar com o mesmo bbox no modelo. Nunca conferir "pelo prop".
+- Em componente SVG reutilizável, fazer a forma **preencher o viewBox** para que `size` seja o
+  tamanho real. Se houver padding interno proposital, documentar no componente.
+- Vale para qualquer elemento com viewBox/padding: ícone, selo, logo, marcador de lista.
+
+Método: máscara pela cor exata do elemento (`|px − cor| ≤ 30`) e bbox das bandas conectadas,
+no modelo e no render, comparando lado a lado.

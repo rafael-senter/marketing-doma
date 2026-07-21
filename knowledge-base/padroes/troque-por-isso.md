@@ -111,10 +111,20 @@ Centralizado (cx 540 = centro do canvas e do card), vertical centrado na área a
 | Principal quando é a fala do "erro" | **50** | 62px | bold + itálico |
 | Título do card com lista | **52** | 62px | bold |
 | **Nota / reforço** ("Venda o benefício…") | **37** | 43px | bold + itálico |
-| Item da lista ✅ | **50** | 50px | regular · ✅ `#7CB342` 38px, gap 18 do texto, gap 12 entre itens |
+| Item da lista ✅ | **50** | 50px | regular · ✅ **55×55px**, gap 16 do texto, spacing 67 entre itens |
 
 ❌ **Erro real cometido:** reforço em fs 50 contra principal em 52 — a hierarquia sumiu e o card
 virou um bloco único. O reforço é **notícia menor**, ~0.69× do principal.
+
+### O ✅ da lista — MEDIDO, não estimado
+Quadrado verde `#7CB342` de **59×59px** no modelo (px `x197-255`, `y1122-1180`), **gap 16** até o
+texto, **spacing 66px** entre itens. Implementado em **55×55** (proporcional aos corpos -7%),
+spacing 67 — bate com o modelo.
+❌ **Erro real cometido:** ✅ de 33×33 — quase metade do modelo. O componente `Check` desenhava um
+`rect` de 42/48 dentro do viewBox, então o `size` NÃO era o lado do quadrado. Corrigido: o `rect`
+preenche o viewBox inteiro, logo `size` = lado real do quadrado.
+⚠️ Sempre medir o elemento RENDERIZADO, não confiar no número passado como prop — padding interno
+de SVG/viewBox faz o valor efetivo ser menor que o declarado.
 
 > Os valores brutos medidos no modelo eram 58/54/55/40/54 com lh 66. O Patrick pediu **-4 no corpo**
 > na revisão final — a peça respira melhor. **A razão entre os papéis é o que não pode mudar**;
@@ -196,3 +206,4 @@ virou um bloco único. O reforço é **notícia menor**, ~0.69× do principal.
 | 5 | Gap entre blocos 30 | **70** (miolo) e **90** (CTA) |
 | 6 | `fontStyle: italic` deitando 12.5° | `skewX(-8.5deg)` (§2.3) |
 | 7 | Foto de capa "artificial", preço em papelão | enquadramento aberto + etiqueta impressa (§4) |
+| 8 | ✅ da lista com 33px (modelo tem 59) | `rect` preenche o viewBox → `size` = lado real; 55px (§5) |
