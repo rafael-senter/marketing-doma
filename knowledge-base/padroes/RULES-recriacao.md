@@ -241,3 +241,16 @@ Antes de codar, apresentar a tabela de encaixe e a pergunta:
 > "Bloco X: o texto dá N linhas (fs F) e ocupa Hpx numa área de Dpx. Proponho <ajuste>. Confirma?"
 
 Só codar após o OK. Depois de renderizar, `analyzer-pos-render` revalida com a mesma conta.
+
+## 23. NEGRITO = peso 500 (Patrick 2026-07-21)
+
+Negrito de texto Doma é **`500` (TT Lakes Medium)**, não 600/700/800. Medido contra o POST 186:
+tab fs38 → traço 4px · fecho fs73 → 6px · CTA fs67 → 6px, com regular em 4px.
+**Ratio-alvo bold/regular ≈ 1.5×** na espessura do traço. Peso 700 dava 2.5× (virava black).
+
+- `TextoRico boldWeight={500}` · `fontWeight: 500` em títulos/tabs/labels · regular segue `400`.
+- Onde havia `800`/`900`, descer para `600` — nunca acima.
+- Validar por MEDIÇÃO de traço (mediana dos runs horizontais de tinta numa faixa bold vs uma
+  regular do mesmo fontSize, comparadas às mesmas faixas do modelo). Nunca a olho.
+
+Aplicado: `troque-por-isso`. Demais categorias: ver live-rule `2026-07-21-bold-peso-500.md` (pendente).

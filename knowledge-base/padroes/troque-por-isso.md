@@ -17,6 +17,10 @@ Carrossel de dicas em pares antes→depois. Canvas 1080×1350. Slides medidos: 1
 | watermark | `#F3B530` | só no slide CTA (mais ESCURA que o fundo — regra §9 normal) |
 | check verde | `#7CB342` | emoji ✅ da lista (slide 7) |
 
+## Pesos de fonte (RULES §23)
+Regular **400** · negrito **500** (Medium) — traço medido: bold 6px vs regular 4px (ratio 1.5×).
+Vale para tabs, títulos, `TextoRico boldWeight` e todo `**markup**`. ❌ Nunca 700 nesta categoria.
+
 ## Assinatura visual da categoria: **card de 1 canto reto**
 Todo card tem raio **110px** em 3 cantos e **0** no canto onde encosta a tab.
 - Card **TROQUE ISSO** (topo) → canto reto **superior-esquerdo** → `borderRadius: '0 110px 110px 110px'`

@@ -44,7 +44,7 @@ export const TrocaCapa: React.FC<{
     {/* título — esq 12.8%, quebras hardcoded */}
     <div style={{position: 'absolute', left: '12.8%', top: topTitulo, width: '80%', zIndex: 2}}>
       <TextoRico
-        boldWeight={700}
+        boldWeight={500}
         style={{
           color: C.grafite, fontSize: fontSizeTitulo, fontWeight: 400,
           lineHeight: 1.05, display: 'block',
@@ -96,7 +96,7 @@ const Tab: React.FC<{label: string; lado: 'esq' | 'dir'; top: number}> = ({label
     background: C.branco, borderRadius: 12, height: 76,
     display: 'flex', alignItems: 'center', padding: '0 44px', zIndex: 3,
   }}>
-    <span style={{color: C.grafite, fontSize: 38, fontWeight: 700, letterSpacing: 0.5, lineHeight: 1}}>
+    <span style={{color: C.grafite, fontSize: 38, fontWeight: 500, letterSpacing: 0.5, lineHeight: 1}}>
       {label}
     </span>
   </div>
@@ -115,10 +115,10 @@ const CardMiolo: React.FC<{
     {blocos.map((b, i) => (
       <TextoRico
         key={i}
-        boldWeight={700}
+        boldWeight={500}
         style={{
           color: C.grafite, fontSize: b.fontSize ?? 58,
-          fontWeight: b.bold ? 700 : 400,
+          fontWeight: b.bold ? 500 : 400,
           fontStyle: b.italico ? 'italic' : 'normal',
           lineHeight: 1.25, textAlign: 'center', display: 'block',
         }}>
@@ -181,7 +181,7 @@ export const TrocaFecho: React.FC<{
       padding: '0 107px 0 189px', gap: 70,
     }}>
       {paragrafos.map((p, i) => (
-        <TextoRico key={i} boldWeight={700}
+        <TextoRico key={i} boldWeight={500}
           style={{color: C.grafite, fontSize, fontWeight: 400, lineHeight: 1.40, display: 'block'}}>
           {p}
         </TextoRico>
@@ -228,7 +228,7 @@ export const TrocaCta: React.FC<{blocos: string[]}> = ({blocos}) => (
           <div style={{width: 102, minWidth: 102, display: 'flex', justifyContent: 'center', paddingTop: 6}}>
             {ICONES_CTA[i % 3]}
           </div>
-          <TextoRico boldWeight={700}
+          <TextoRico boldWeight={500}
             style={{color: C.grafite, fontSize: 67, fontWeight: 400, lineHeight: 1.38, display: 'block'}}>
             {b}
           </TextoRico>
