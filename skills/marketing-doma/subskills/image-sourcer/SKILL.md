@@ -77,8 +77,8 @@ credibilidade. Vale para geração via nanobanana E para seleção de foto de ba
 ### Todo prompt de cena/ambiente DEVE conter
 1. **Enquadramento aberto** que mostre o lugar de verdade (corredor, profundidade da loja, vista do
    salão) — não um close arrumadinho de prateleira.
-2. **Imperfeições reais**, explicitamente pedidas: `handwritten price tags`, `slightly crowded and
-   imperfect merchandising`, `worn/scuffed floor`, `uneven stacking`, `faded old signage`, `a bit of dust`.
+2. **Imperfeições reais**, explicitamente pedidas: `slightly crowded and imperfect merchandising`,
+   `worn/scuffed floor`, `uneven stacking`, `a bit of dust`, mercadoria pendurada em ganchos.
 3. **Luz disponível de verdade**: `mixed fluorescent ceiling light with daylight from the storefront`,
    `natural available light` — nunca luz de estúdio ou "cinematic lighting".
 4. **Vocabulário documental**: `candid documentary photography`, `unstaged`, `shot on a 28mm lens`,
@@ -93,12 +93,22 @@ credibilidade. Vale para geração via nanobanana E para seleção de foto de ba
 
 ### Checklist de aprovação (antes de catalogar)
 - [ ] Dá pra acreditar que alguém tirou essa foto com o celular na loja do cliente?
-- [ ] Tem pelo menos 2 imperfeições visíveis (etiqueta manuscrita, chão gasto, pilha torta, poeira)?
+- [ ] Tem pelo menos 2 imperfeições visíveis (chão gasto, pilha torta, poeira, caixa aberta)?
+- [ ] Os preços estão em etiqueta IMPRESSA de prateleira (nunca papelão manuscrito)?
 - [ ] A luz é a do lugar, não de estúdio?
 - [ ] O enquadramento mostra o ESPAÇO, não só um detalhe?
 - Reprovou → regerar com o prompt corrigido, não aproveitar "porque tá bonita".
 
-### Se ainda parecer artificial: subir o nível de "vivido" (técnica da v3)
+### ⛔ Preço SEMPRE em etiqueta impressa de prateleira — nunca papelão manuscrito
+Regra Patrick 2026-07-21: `handwritten cardboard price signs` deixam a cena **estranha** e
+contradizem o discurso Doma (loja que a gente quer retratar tem controle, não gambiarra de preço).
+- ✅ Pedir: `small tidy printed shelf-edge price labels sitting flush in the metal label holders
+  on the front lip of each shelf, the way a normal well-run store does it`.
+- ❌ Nunca: `handwritten price tags`, `cardboard price signs`, `marker handwriting`, `taped paper signs`.
+- Se a imagem já ficou boa mas tem papelão: **não regerar do zero** — reusar como `--input` e pedir
+  a troca cirúrgica ("keep the photo exactly as it is, change ONLY the price signage").
+
+### Se ainda parecer artificial: subir o nível de "vivido"
 Enquadramento aberto + imperfeições genéricas às vezes não bastam — a cena continua com cara de
 render. O que resolve é dar **sinais de que alguém trabalha ali todo dia**:
 1. **Reusar a melhor tentativa como `--input`** (referência de composição) e pedir variação — trava
@@ -106,8 +116,8 @@ render. O que resolve é dar **sinais de que alguém trabalha ali todo dia**:
 2. **Foto amadora explícita**: `a real casual snapshot the shop owner took with his phone`,
    `slightly tilted framing`, `mild ISO noise`, `soft corners`, `flat contrast`.
 3. **Objetos locais que ninguém coloca num render**: ventilador de parede, calendário de papel,
-   bilhete manuscrito colado com fita, plaquinha de preço em papelão escrita a marcador, remendo
-   de fita crepe, mercadoria pendurada em prego/gancho, caixas de papelão empilhadas no chão.
+   mercadoria pendurada em prego/gancho, caixas de papelão empilhadas no chão.
+   ⚠️ NÃO usar plaquinha de preço em papelão/manuscrita — ver regra do preço acima.
 4. **Vestígio de trabalho em andamento**: `an open box someone was restocking left mid-aisle`.
 5. **Móvel heterogêneo**: `mix of old wooden shelves and mismatched metal ones` (loja real cresce
    por remendo, não tem mobiliário uniforme).
@@ -117,9 +127,11 @@ render. O que resolve é dar **sinais de que alguém trabalha ali todo dia**:
 
 > Escala de referência A/B/C (comparar antes de escrever prompt novo):
 > `_ferragens-loja-base.png` (v1, close de balcão — **reprovada**, "parece artificial") →
-> `_ferragens-loja-v2-base.png` (v2, corredor aberto, etiquetas manuscritas, piso gasto — **boa**) →
-> `_ferragens-loja-v3-base.png` (v3, loja de bairro vivida com ventilador, calendário, caixas no
-> chão e prateleiras heterogêneas — **aprovada**). Stills: `ferragens-troca-1`, `-1-v2`, `-1-v3`.
+> `_ferragens-loja-v2-base.png` (v2, corredor aberto, piso gasto, etiquetas impressas de
+> prateleira — **APROVADA**). Stills: `ferragens-troca-1` e `-1-v2`.
+> A v3 (loja mais bagunçada, com ventilador/calendário/caixas no chão) foi **descartada**: Patrick
+> escolheu a v2. Bagunça a mais não é sinônimo de natural — o que valeu foi enquadramento aberto +
+> piso gasto + luz real, com sinalização de preço limpa.
 
 ## Pós-obtenção (SEMPRE, qualquer camada 2 ou 3)
 

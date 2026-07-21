@@ -36,3 +36,22 @@ foi dar **sinais de que alguém trabalha ali todo dia**:
   not dirty, not abandoned` (sem isso vira loja abandonada).
 
 Escala A/B/C catalogada: v1 reprovada · v2 boa · v3 aprovada.
+
+## Correção — preço NUNCA em papelão manuscrito (Patrick, mesma sessão)
+
+Patrick escolheu a **v2** e descartou a v3. Mas apontou: "os preços parecendo que são no papelão
+fica estranho". Duas lições que corrigem o que eu tinha gravado antes:
+
+1. **`handwritten cardboard price signs` é ANTI-padrão**, não sinal de naturalidade. Contradiz o
+   discurso Doma (a loja que a gente retrata tem controle, não gambiarra de preço).
+   Pedir sempre: `small tidy printed shelf-edge price labels sitting flush in the metal label
+   holders on the front lip of each shelf`.
+2. **Bagunça a mais ≠ mais natural.** A v3 (ventilador, calendário, caixas no chão, prateleiras
+   heterogêneas) foi REJEITADA em favor da v2. O que produz naturalidade é enquadramento aberto +
+   piso gasto + luz real do lugar — com sinalização limpa.
+
+**Técnica de correção cirúrgica:** imagem boa com um defeito pontual → NÃO regerar do zero.
+Reusar como `--input` com "keep the photo exactly as it is, change ONLY <o defeito>". Preservou
+loja, corredor, produtos, luz e enquadramento; trocou só as plaquinhas.
+
+Asset final: `_ferragens-loja-v2-base.png` (versão corrigida). v3 apagada.
