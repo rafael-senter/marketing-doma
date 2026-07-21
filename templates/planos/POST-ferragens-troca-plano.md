@@ -35,14 +35,18 @@ Bordão no fecho: variação de "quem domina o que tem, vende mais".
 | 9 | `TrocaCta` | 3 blocos ícone + texto sobre watermark |
 
 ### Slide 1 — capa
-- Título (fs **70**, lh 1.05, top 11%, esq 12.8%) — 4 linhas (modelo tinha 3 em fs82; o texto da Dani é maior):
+- Título (fs **64**, lh 1.05, top 11%, esq 12.8%) — 4 linhas (modelo tinha 3 em fs82; o texto da
+  Dani é maior. fs 70 dava 5 linhas e invadia a foto — ver RULES §22):
   ```
   Sua loja de ferragens
   está **salvando a obra**
   do cliente… ou **deixando**
   **dinheiro na bancada?**
   ```
-- Foto: **loja de ferragens** (prateleiras/balcão, visão do dono). `L12.4% T35.6% W75.3% H45.0%`.
+- Foto: `oficial/_ferragens-loja-v2-base.png` — corredor aberto da loja, etiquetas impressas de
+  prateleira, piso gasto, luz fluorescente + luz da rua. `L12.4% T35.6% W75.3% H45.0%`.
+  (v1 `_ferragens-loja-base.png`, close de balcão, arquivada em `ferragens-troca-1-v1` — reprovada
+  por parecer artificial. v3 descartada.)
 - Badge grafite (2 linhas, fs 32): `Dicas práticas que` / `quase ninguém aplica`
 - Logo DOMa wordmark grafite, rodapé.
 
@@ -57,7 +61,8 @@ Bordão no fecho: variação de "quem domina o que tem, vende mais".
 | 6 | Cliente comprando sem EPI | Sugerir junto: luva, óculos, máscara | Além de aumentar a venda, você agrega valor de verdade. |
 | 7 | Descobrir que acabou o disjuntor… na hora da venda | **Usar o Doma e ter controle total:** ✅ Vendas na palma da mão · ✅ Estoque redondinho · ✅ Compras certeiras | Produto que falta = venda que vai embora. |
 
-> Slide 7 replica o fecho comercial do modelo (POST 186 slide 7 cita o ERP + checklist ✅). **Confirmar com Patrick.**
+> Slide 7 replica o fecho comercial do modelo (POST 186 slide 7 cita o ERP + checklist ✅). ✅ aprovado.
+> O reforço "Produto que falta = venda que vai embora." fica no card de CIMA (no de baixo daria 7 linhas).
 
 ### Slide 8 — fecho (fs 73, esq, coluna estreita ~11-14 chars/linha)
 ```
@@ -68,10 +73,8 @@ que cresce.
 **É a que vende**
 **melhor o que**
 **já tem.**
-
-E agora você
-sabe como.
 ```
+> 3º parágrafo ("E agora você sabe como.") **cortado** — 9 linhas não cabiam no card (RULES §22).
 
 ### Slide 9 — CTA (fs 67, 3 blocos com ícone soft)
 1. 🔖 **Salve** esse post.
@@ -99,6 +102,8 @@ Esse carrossel é pra abrir sua visão sobre isso.
 Se quiser ajuda pra aplicar isso na prática, chama a gente.
 ```
 
-## Pendências antes de codar
-1. **Foto da capa** — precisa de imagem de loja de ferragens (prateleiras/balcão). Origem?
-2. Confirmar o slide 7 citando o Doma + checklist ✅ (segue o modelo, mas não estava no texto da Dani).
+## Decisões fechadas
+1. **Foto da capa** — v2 aprovada pelo Patrick (gerada via nanobanana, com correção cirúrgica das
+   etiquetas de preço). v1 arquivada, v3 descartada.
+2. Slide 7 cita o Doma + checklist ✅ — aprovado.
+3. Negrito peso 500 (RULES §23) em toda a peça.
