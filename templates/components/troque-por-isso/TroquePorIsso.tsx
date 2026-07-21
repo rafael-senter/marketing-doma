@@ -142,16 +142,13 @@ const CardMiolo: React.FC<{
   </div>
 );
 
-/* lista com ✅ (só o último miolo, seguindo o modelo).
-   MEDIDO no POST 186 s7: quadrado **59×59 px** (x197-255, y1122-1180), gap 16 até o texto,
-   spacing 66px entre itens. O `size` é o LADO do quadrado (o rect preenche o viewBox inteiro).
-   ⚠️ Erro cometido: quadrado de 33px — quase metade do modelo, a lista sumia ao lado do texto. */
+/* lista com ✅ — asset EXTRAÍDO do modelo (POST 186 s7), não redesenhado.
+   É o emoji ✅ do sistema: tem brilho no canto sup-esq e sombra na borda inf-dir; qualquer
+   SVG feito à mão perde isso e sai chapado. MEDIDO: 59×59px, gap 16 até o texto, spacing 66.
+   Ver RULES §27 (elemento de terceiro = extrair do modelo). */
 const Check: React.FC<{size?: number}> = ({size = 55}) => (
-  <svg width={size} height={size} viewBox="0 0 48 48" style={{minWidth: size, display: 'block'}}>
-    <rect x="0" y="0" width="48" height="48" rx="8" fill={C.check} />
-    <path d="M11 24.5 L20 33.5 L37 15" stroke="#FFF" strokeWidth="6" fill="none"
-      strokeLinecap="round" strokeLinejoin="round" />
-  </svg>
+  <Img src={staticFile('oficial/_troca-check.png')}
+    style={{width: size, height: size, minWidth: size, display: 'block'}} />
 );
 
 export const TrocaMiolo: React.FC<{
@@ -209,19 +206,15 @@ export const TrocaFecho: React.FC<{
 /* ─────────────────────────────────────────────────────────────
    SLIDE N — CTA (3 blocos ícone soft + texto, sobre watermark gigante)
    ───────────────────────────────────────────────────────────── */
-const IconeBookmark: React.FC = () => (
-  <svg width={68} height={86} viewBox="0 0 68 86"><path d="M0 0 H68 V86 L34 58 L0 86 Z" fill={C.soft} /></svg>
-);
-const IconeSeta: React.FC = () => (
-  <svg width={102} height={86} viewBox="0 0 102 86"><path d="M0 0 H102 L51 86 Z" fill={C.soft} /></svg>
-);
-const IconeBalao: React.FC = () => (
-  <svg width={84} height={84} viewBox="0 0 84 84">
-    <circle cx="42" cy="38" r="38" fill={C.soft} />
-    <path d="M14 58 L10 84 L38 68 Z" fill={C.soft} />
-  </svg>
-);
-const ICONES_CTA = [<IconeBookmark key="b" />, <IconeSeta key="s" />, <IconeBalao key="c" />];
+/* Ícones do CTA — assets EXTRAÍDOS do modelo (POST 186 s9), não redesenhados.
+   As formas não são as óbvias: o do meio NÃO é um triângulo simples (tem o lado esquerdo
+   dobrado, é um cursor/enviar) e o balão tem o rabinho no canto inf-DIREITO — desenhar "de
+   cabeça" errou os dois. Tamanhos = os medidos no modelo. Ver RULES §27. */
+const ICONES_CTA: {src: string; w: number; h: number}[] = [
+  {src: 'oficial/_troca-icone-salvar.png', w: 68, h: 86},        // bookmark (salvar)
+  {src: 'oficial/_troca-icone-compartilhar.png', w: 103, h: 86}, // cursor/enviar (compartilhar)
+  {src: 'oficial/_troca-icone-comentar.png', w: 84, h: 84},      // balão, rabinho à DIREITA
+];
 
 export const TrocaCta: React.FC<{blocos: string[]}> = ({blocos}) => (
   <AbsoluteFill style={{...base, backgroundColor: C.manga}}>
@@ -242,7 +235,8 @@ export const TrocaCta: React.FC<{blocos: string[]}> = ({blocos}) => (
       {blocos.map((b, i) => (
         <div key={i} style={{display: 'flex', alignItems: 'flex-start', gap: 32}}>
           <div style={{width: 102, minWidth: 102, display: 'flex', justifyContent: 'center', paddingTop: 6}}>
-            {ICONES_CTA[i % 3]}
+            <Img src={staticFile(ICONES_CTA[i % 3].src)}
+              style={{width: ICONES_CTA[i % 3].w, height: ICONES_CTA[i % 3].h, display: 'block'}} />
           </div>
           <TextoRico boldWeight={500}
             style={{color: C.grafite, fontSize: 67, fontWeight: 400, lineHeight: 1.38, display: 'block'}}>

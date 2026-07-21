@@ -116,7 +116,9 @@ Centralizado (cx 540 = centro do canvas e do card), vertical centrado na área a
 ❌ **Erro real cometido:** reforço em fs 50 contra principal em 52 — a hierarquia sumiu e o card
 virou um bloco único. O reforço é **notícia menor**, ~0.69× do principal.
 
-### O ✅ da lista — MEDIDO, não estimado
+### O ✅ da lista — asset EXTRAÍDO do modelo (RULES §27)
+`assets/oficial/_troca-check.png` — é o **emoji ✅ do sistema**, com brilho no canto sup-esq e
+sombra na borda inf-dir. ❌ NÃO redesenhar em SVG: sai chapado e o Patrick pega na hora.
 Quadrado verde `#7CB342` de **59×59px** no modelo (px `x197-255`, `y1122-1180`), **gap 16** até o
 texto, **spacing 66px** entre itens. Implementado em **55×55** (proporcional aos corpos -7%),
 spacing 67 — bate com o modelo.
@@ -154,12 +156,12 @@ de SVG/viewBox faz o valor efetivo ser menor que o declarado.
   (medido: bloco1 top 338 → bloco2 top 521), ícone em coluna de 102px, gap 32 do texto.
 - Texto **fontSize 67**, `lineHeight 1.38`, primeira palavra em **bold**
   ("Salve", "Compartilhe", "E conta pra gente:").
-- **Ícones soft** (`#F8DD6B`) desenhados em SVG:
-  | Ícone | tamanho | forma |
-  |---|---|---|
-  | bookmark (salvar) | 68×86 | marcador com "V" invertido na base |
-  | seta ↓ (compartilhar) | 102×86 | triângulo apontando pra baixo |
-  | balão de fala | 84×84 | círculo com rabinho inf-esq |
+- **Ícones soft** (`#F8DD6B`) = assets EXTRAÍDOS do modelo (RULES §27), ❌ nunca redesenhados:
+  | Ícone | asset | tamanho | detalhe que errei ao desenhar |
+  |---|---|---|---|
+  | salvar | `_troca-icone-salvar.png` | 68×86 | bookmark com entalhe em V na base |
+  | compartilhar | `_troca-icone-compartilhar.png` | 103×86 | **não é triângulo** — cursor com o lado esq dobrado |
+  | comentar | `_troca-icone-comentar.png` | 84×84 | balão com rabinho no canto inf-**DIREITO** |
 - **Sem logo** no rodapé — a watermark faz o papel de marca.
 
 ---
@@ -207,3 +209,4 @@ de SVG/viewBox faz o valor efetivo ser menor que o declarado.
 | 6 | `fontStyle: italic` deitando 12.5° | `skewX(-8.5deg)` (§2.3) |
 | 7 | Foto de capa "artificial", preço em papelão | enquadramento aberto + etiqueta impressa (§4) |
 | 8 | ✅ da lista com 33px (modelo tem 59) | `rect` preenche o viewBox → `size` = lado real; 55px (§5) |
+| 9 | ✅ e ícones do CTA desenhados à mão (chapados, formas erradas) | **extraídos do modelo** como PNG transparente (RULES §27) |

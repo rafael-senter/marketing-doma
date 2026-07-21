@@ -313,3 +313,35 @@ então o lado efetivo era `38 × 42/48 = 33`. O número no código mentia sobre 
 
 Método: máscara pela cor exata do elemento (`|px − cor| ≤ 30`) e bbox das bandas conectadas,
 no modelo e no render, comparando lado a lado.
+
+## 27. Ícone/emoji do modelo = EXTRAIR, não redesenhar (Patrick 2026-07-21)
+
+Erro real (categoria troque-por-isso): os 3 ícones do CTA e o ✅ da lista foram desenhados em SVG
+"de cabeça" e saíram todos errados:
+- o ✅ é o **emoji do sistema** — tem brilho no canto sup-esq e sombra na borda inf-dir. Qualquer
+  SVG à mão sai chapado. O Patrick notou pelo "brilho no canto".
+- o ícone do meio do CTA **não é um triângulo simples** (tem o lado esquerdo dobrado, é um cursor).
+- o balão de fala tem o rabinho no canto inf-**DIREITO** — desenhei à esquerda.
+
+**Regra:** ícone, emoji, selo ou grafismo que já existe no modelo se **extrai do modelo** com
+transparência e vira asset. Só desenhar em SVG quando a forma é trivial (retângulo, círculo puro)
+E foi medida. Isso estende a regra "asset de terceiro = recorte, nunca recriação" para os
+elementos gráficos pequenos, que passam despercebidos justamente por serem pequenos.
+
+### Receita de extração (alpha pela distância ao FUNDO, preserva bordas suaves)
+```python
+SOFT = np.array([0xF8,0xDD,0x6B], float)     # cor do elemento
+sub  = img[y0:y1, x0:x1].astype(float)
+d    = np.abs(sub - SOFT).max(axis=2)
+a    = np.clip((LIMIAR - d)/LIMIAR, 0, 1)    # 1 = elemento, 0 = fundo
+rgb  = np.broadcast_to(SOFT, sub.shape)      # cor chapada; use `sub` p/ preservar brilho/sombra
+Image.fromarray(np.dstack([rgb, a*255]).astype(np.uint8), 'RGBA') \
+     .resize((w*4, h*4), Image.LANCZOS).save(destino)
+```
+- **Escolher o LIMIAR pela distância entre elemento e fundo**, não por chute. Aqui soft vs manga
+  distam 34 → limiar 22 zera o fundo com folga. ⚠️ Primeira tentativa usou limiar 95 e o fundo
+  saiu com alpha 0.88 — o retângulo do recorte apareceu na peça.
+- Elemento **multicolor** (emoji com brilho/sombra): alpha pela distância ao FUNDO e RGB do
+  próprio pixel, senão perde o degradê.
+- Exportar em **4×** e deixar o CSS reduzir — o render é scale 2.
+- Conferir sempre `alpha` médio da primeira linha do PNG: tem que ser ~0.
