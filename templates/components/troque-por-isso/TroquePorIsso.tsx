@@ -142,13 +142,23 @@ const CardMiolo: React.FC<{
   </div>
 );
 
-/* lista com ✅ — asset EXTRAÍDO do modelo (POST 186 s7), não redesenhado.
-   É o emoji ✅ do sistema: tem brilho no canto sup-esq e sombra na borda inf-dir; qualquer
-   SVG feito à mão perde isso e sai chapado. MEDIDO: 59×59px, gap 16 até o texto, spacing 66.
-   Ver RULES §27 (elemento de terceiro = extrair do modelo). */
+/* ✅ da lista — SVG VETORIAL medido pixel a pixel no POST 186 s7 (não é PNG: escala sem pixelar).
+   Quadrado 59×59, raio 8. DUAS cores de verde + brilho + check branco:
+     face `#7CB342` · borda/sombra `#689F38` (2px no perímetro) · brilho `#FFF` 22% no canto
+     sup-esq (arco) · check `#FBF9F9` traço 9 com pontas arredondadas.
+   Check medido: ponta esq (11.5, 23) · vértice (18.5, 47.5) · ponta dir (46.5, 9). */
 const Check: React.FC<{size?: number}> = ({size = 55}) => (
-  <Img src={staticFile('oficial/_troca-check.png')}
-    style={{width: size, height: size, minWidth: size, display: 'block'}} />
+  <svg width={size} height={size} viewBox="0 0 59 59" style={{minWidth: size, display: 'block'}}>
+    {/* sombra: quadrado escuro atrás, face deslocada -1/-3 => borda só à direita e embaixo,
+        como no emoji original (o topo/esquerda não têm borda) */}
+    <rect x="0" y="0" width="59" height="59" rx="9" fill="#689F38" />
+    <rect x="0" y="0" width="57" height="56" rx="9" fill={C.check} />
+    {/* brilho do canto sup-esq */}
+    <path d="M5 22 A 17 17 0 0 1 22 5 L 22 10 A 12 12 0 0 0 10 22 Z" fill="#FFF" opacity="0.18" />
+    {/* check: centros das extremidades MEDIDOS (cap round soma ~sw/2 em cada ponta) */}
+    <path d="M11.5 25 L18.5 44 L46 12.5" fill="none" stroke="#FBF9F9" strokeWidth="8"
+      strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
 );
 
 export const TrocaMiolo: React.FC<{
@@ -206,16 +216,34 @@ export const TrocaFecho: React.FC<{
 /* ─────────────────────────────────────────────────────────────
    SLIDE N — CTA (3 blocos ícone soft + texto, sobre watermark gigante)
    ───────────────────────────────────────────────────────────── */
-/* Ícones do CTA — assets EXTRAÍDOS do modelo (POST 186 s9), não redesenhados.
-   As formas não são as óbvias: o do meio NÃO é um triângulo simples (tem o lado esquerdo
-   dobrado, é um cursor/enviar) e o balão tem o rabinho no canto inf-DIREITO — desenhar "de
-   cabeça" errou os dois. Tamanhos = os medidos no modelo. Ver RULES §27. */
-/* ⚠️ w/h = tamanho do BOX do recorte (inclui a margem transparente ao redor da forma),
-   não o tamanho da forma. Forma real: 68×86 · 103×86 · 84×84 (medida no modelo). */
-const ICONES_CTA: {src: string; w: number; h: number}[] = [
-  {src: 'oficial/_troca-icone-salvar.png', w: 72, h: 90},        // bookmark (salvar)
-  {src: 'oficial/_troca-icone-compartilhar.png', w: 107, h: 90}, // cursor/enviar (compartilhar)
-  {src: 'oficial/_troca-icone-comentar.png', w: 88, h: 88},      // balão, rabinho à DIREITA
+/* Ícones do CTA — SVG VETORIAL, vértices medidos pixel a pixel no POST 186 s9.
+   Cor única `#F8DD6B` (medido: os 3 são chapados, sem borda — só o ✅ tem 2 cores).
+   As formas NÃO são as óbvias — desenhar "de cabeça" errou duas:
+     · salvar: retângulo 68×86 com entalhe em V; o vértice do V é alto, em (34, 49).
+     · compartilhar: NÃO é triângulo — o lado esquerdo DOBRA em (38, 38) e segue quase reto
+       até a ponta (49, 88); é um cursor/enviar.
+     · comentar: círculo r42 + rabinho no canto inf-DIREITO (eu tinha posto à esquerda). */
+const IconeSalvar: React.FC<{h: number}> = ({h}) => (
+  <svg height={h} viewBox="0 0 68 86" style={{display: 'block'}}>
+    <path d="M0 0 H68 V86 L34 49 L0 86 Z" fill={C.soft} />
+  </svg>
+);
+const IconeCompartilhar: React.FC<{h: number}> = ({h}) => (
+  <svg height={h} viewBox="0 0 103 88" style={{display: 'block'}}>
+    <path d="M0 0 L103 0 L49 88 L38 38 Z" fill={C.soft} />
+  </svg>
+);
+const IconeComentar: React.FC<{h: number}> = ({h}) => (
+  <svg height={h} viewBox="0 0 84 85" style={{display: 'block'}}>
+    <circle cx="42" cy="42" r="42" fill={C.soft} />
+    <path d="M72 60 L84 85 L48 79 Z" fill={C.soft} />
+  </svg>
+);
+/* altura medida de cada ícone no modelo */
+const ICONES_CTA = [
+  {C: IconeSalvar, h: 86},
+  {C: IconeCompartilhar, h: 88},
+  {C: IconeComentar, h: 85},
 ];
 
 export const TrocaCta: React.FC<{blocos: string[]}> = ({blocos}) => (
@@ -240,8 +268,7 @@ export const TrocaCta: React.FC<{blocos: string[]}> = ({blocos}) => (
               da 1ª linha, ±2px). A altura da linha é 67×1.38 ≈ 92, ~= a altura do ícone. */}
           <div style={{width: 102, minWidth: 102, height: 92, display: 'flex',
             justifyContent: 'center', alignItems: 'center'}}>
-            <Img src={staticFile(ICONES_CTA[i % 3].src)}
-              style={{width: ICONES_CTA[i % 3].w, height: ICONES_CTA[i % 3].h, display: 'block'}} />
+            {(() => {const Ic = ICONES_CTA[i % 3]; return <Ic.C h={Ic.h} />;})()}
           </div>
           <TextoRico boldWeight={500}
             style={{color: C.grafite, fontSize: 67, fontWeight: 400, lineHeight: 1.38, display: 'block'}}>

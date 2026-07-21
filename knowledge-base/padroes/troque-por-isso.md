@@ -116,9 +116,15 @@ Centralizado (cx 540 = centro do canvas e do card), vertical centrado na área a
 ❌ **Erro real cometido:** reforço em fs 50 contra principal em 52 — a hierarquia sumiu e o card
 virou um bloco único. O reforço é **notícia menor**, ~0.69× do principal.
 
-### O ✅ da lista — asset EXTRAÍDO do modelo (RULES §27)
-`assets/oficial/_troca-check.png` — é o **emoji ✅ do sistema**, com brilho no canto sup-esq e
-sombra na borda inf-dir. ❌ NÃO redesenhar em SVG: sai chapado e o Patrick pega na hora.
+### O ✅ da lista — SVG VETORIAL medido (RULES §27)
+Componente `Check`. Quadrado **59×59**, raio 9. **4 camadas** (contadas no modelo):
+| Camada | cor | como |
+|---|---|---|
+| sombra | `#689F38` | `rect` 59×59 atrás |
+| face | `#7CB342` | `rect` 57×56 por cima → borda só à direita e embaixo (o topo não tem) |
+| brilho | `#FFF` 18% | arco no canto sup-esq |
+| check | `#FBF9F9` | `M11.5 25 L18.5 44 L46 12.5`, `strokeWidth 8`, cap/join round |
+❌ Não é PNG (pixela ao escalar) nem desenho de memória (sai chapado, sem o relevo).
 Quadrado verde `#7CB342` de **59×59px** no modelo (px `x197-255`, `y1122-1180`), **gap 16** até o
 texto, **spacing 66px** entre itens. Implementado em **55×55** (proporcional aos corpos -7%),
 spacing 67 — bate com o modelo.
@@ -156,17 +162,17 @@ de SVG/viewBox faz o valor efetivo ser menor que o declarado.
   (medido: bloco1 top 338 → bloco2 top 521), ícone em coluna de 102px, gap 32 do texto.
 - Texto **fontSize 67**, `lineHeight 1.38`, primeira palavra em **bold**
   ("Salve", "Compartilhe", "E conta pra gente:").
-- **Ícones soft** (`#F8DD6B`) = assets EXTRAÍDOS do modelo (RULES §27), ❌ nunca redesenhados:
-  | Ícone | asset | forma (medida) | box do `<Img>` | detalhe que errei ao desenhar |
-  |---|---|---|---|---|
-  | salvar | `_troca-icone-salvar.png` | 68×86 | 72×90 | bookmark com entalhe em V na base |
-  | compartilhar | `_troca-icone-compartilhar.png` | 103×86 | 107×90 | **não é triângulo** — cursor com o lado esq dobrado |
-  | comentar | `_troca-icone-comentar.png` | 84×84 | 88×88 | balão com rabinho no canto inf-**DIREITO** |
+- **Ícones soft** = **SVG vetorial**, vértices medidos pixel a pixel (RULES §27). Cor única
+  `#F8DD6B` — medido: os 3 são chapados, sem borda (só o ✅ tem mais de uma cor).
+  | Ícone | viewBox | path | o que eu errei desenhando de memória |
+  |---|---|---|---|
+  | salvar | `0 0 68 86` | `M0 0 H68 V86 L34 49 L0 86 Z` | vértice do V em **49**, não 58 |
+  | compartilhar | `0 0 103 88` | `M0 0 L103 0 L49 88 L38 38 Z` | **não é triângulo** — dobra em (38,38) |
+  | comentar | `0 0 84 85` | `circle 42,42 r42` + `M72 60 L84 85 L48 79 Z` | rabinho é no canto inf-**DIREITO** |
 
-  ⚠️ O `width/height` do `<Img>` é o do **box do recorte** (inclui a margem transparente), não o da
-  forma. Declarar o tamanho da forma encolhe o ícone.
-  ⚠️ Os ícones ficam **por cima da watermark** (`zIndex 2` vs `0`). Se parecerem "atrás da logo" ou
-  com a cor dela por dentro, o problema é **alpha parcial no PNG**, não z-index — ver RULES §27.
+  ⚠️ Ícone centrado na 1ª linha do texto; container `height 92` + `alignItems: center`.
+  ⚠️ Ficam por cima da watermark (`zIndex 2` vs `0`) — e como são SVG de cor chapada, não há
+  risco de alpha parcial deixando a logo vazar por dentro (era o defeito da versão em PNG).
 - **Ícone centrado na 1ª linha do texto** (medido: centros coincidem ±2px). Container do ícone com
   `height 92` (= altura da linha) e `alignItems: center`.
 - **Sem logo** no rodapé — a watermark faz o papel de marca.
@@ -217,4 +223,5 @@ de SVG/viewBox faz o valor efetivo ser menor que o declarado.
 | 7 | Foto de capa "artificial", preço em papelão | enquadramento aberto + etiqueta impressa (§4) |
 | 8 | ✅ da lista com 33px (modelo tem 59) | `rect` preenche o viewBox → `size` = lado real; 55px (§5) |
 | 9 | ✅ e ícones do CTA desenhados à mão (chapados, formas erradas) | **extraídos do modelo** como PNG transparente (RULES §27) |
-| 10 | Ícones do CTA "atrás da logo", pegando a cor da watermark | alpha do PNG era ~0.55 no miolo — extrair com alpha pela distância ao FUNDO (RULES §27) |
+| 10 | Ícones do CTA "atrás da logo", pegando a cor da watermark | era alpha ~0.55 no miolo do PNG |
+| 11 | Ícones em PNG recortado — pixelavam ao escalar | **SVG vetorial** com vértices e cores medidos (RULES §27) |

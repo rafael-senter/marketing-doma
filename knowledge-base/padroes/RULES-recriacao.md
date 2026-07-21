@@ -314,7 +314,7 @@ então o lado efetivo era `38 × 42/48 = 33`. O número no código mentia sobre 
 Método: máscara pela cor exata do elemento (`|px − cor| ≤ 30`) e bbox das bandas conectadas,
 no modelo e no render, comparando lado a lado.
 
-## 27. Ícone/emoji do modelo = EXTRAIR, não redesenhar (Patrick 2026-07-21)
+## 27. Ícone/grafismo do modelo = MEDIR e VETORIZAR (Patrick 2026-07-21)
 
 Erro real (categoria troque-por-isso): os 3 ícones do CTA e o ✅ da lista foram desenhados em SVG
 "de cabeça" e saíram todos errados:
@@ -323,12 +323,37 @@ Erro real (categoria troque-por-isso): os 3 ícones do CTA e o ✅ da lista fora
 - o ícone do meio do CTA **não é um triângulo simples** (tem o lado esquerdo dobrado, é um cursor).
 - o balão de fala tem o rabinho no canto inf-**DIREITO** — desenhei à esquerda.
 
-**Regra:** ícone, emoji, selo ou grafismo que já existe no modelo se **extrai do modelo** com
-transparência e vira asset. Só desenhar em SVG quando a forma é trivial (retângulo, círculo puro)
-E foi medida. Isso estende a regra "asset de terceiro = recorte, nunca recriação" para os
-elementos gráficos pequenos, que passam despercebidos justamente por serem pequenos.
+**Regra:** ícone/grafismo do modelo é **SVG vetorial com os vértices e as cores MEDIDOS pixel a
+pixel** — nunca desenhado de memória, nunca PNG recortado.
+- ❌ **De memória** erra a forma (aconteceu: o balão com o rabinho do lado errado, e um "triângulo"
+  que na verdade é um cursor com o lado esquerdo dobrado).
+- ❌ **PNG recortado** resolve a forma mas **pixela ao escalar** e ainda traz os problemas de alpha
+  descritos abaixo. Foi rejeitado pelo Patrick: "eu pensava que vc ia criar os ícones vetoriais".
+- ✅ **Vetorizar a partir da medição**: perfil de linha → vértices → `<path>`; contar as cores
+  distintas para saber quantas camadas o elemento tem.
 
-### Receita de extração (alpha pela distância ao FUNDO, preserva bordas suaves)
+### Como levantar a geometria (perfil de linha)
+Para cada `y`, listar os *runs* de x preenchidos. Isso revela vértices, dobras e buracos:
+- run único que encolhe linearmente → aresta reta; a **quebra na taxa** é uma dobra (o ícone
+  "compartilhar" dobra em (38,38) e vira quase vertical até a ponta).
+- dois runs a partir de um `y` → começou um entalhe; o vértice está onde eles se encontram
+  (extrapolar as duas retas — no bookmark deu (34,49), e eu tinha chutado (34,58)).
+- largura máxima e simetria → círculo/elipse: `r` = metade da largura máxima, centro no meio.
+
+### Cores: contar antes de assumir
+`Counter` das cores do bbox diz quantas camadas existem. Nos ícones do CTA deu **uma cor só**
+(`#F8DD6B`); no ✅ deu **quatro**: face `#7CB342`, sombra `#689F38`, check `#FBF9F9` e um brilho
+claro no canto sup-esq. Assumir "uma cor" no ✅ é o que fazia ele sair chapado.
+
+### Emoji com relevo (o ✅)
+- Sombra só na **direita e embaixo**: dois `rect` — o escuro no tamanho cheio, a face por cima
+  deslocada (`w-2`, `h-3`). Um `stroke` uniforme dá borda no topo também, que o original não tem.
+- Traço do check: medir o **centro de cada extremidade**, lembrando que `strokeLinecap="round"`
+  soma `sw/2` além do ponto. E a espessura declarada não é a largura medida na horizontal:
+  `sw = larguraHorizontal × dy / comprimento` (medi 8px na horizontal → `sw` 7-8, não 9).
+
+### Se ainda assim precisar recortar (foto, textura, elemento não-vetorizável)
+Receita de extração — alpha pela distância ao FUNDO, preserva bordas suaves:
 ```python
 SOFT = np.array([0xF8,0xDD,0x6B], float)     # cor do elemento
 sub  = img[y0:y1, x0:x1].astype(float)
