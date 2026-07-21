@@ -152,16 +152,23 @@ de SVG/viewBox faz o valor efetivo ser menor que o declarado.
 - Fundo manga + **watermark DOMa GIGANTE** tom-sobre-tom `#F3B530`: logo VERTICAL empilhada via
   CSS mask de `logotipo-vertical-branco.png`, `top 20%`, `left -13.5%`, `width 127%`,
   `aspectRatio 1681/1328` — sangra a base.
-- **3 blocos** ícone + texto: bloco em `L15.1% T22% W78%`, **gap 90px** entre blocos
+- **3 blocos** ícone + texto: bloco em `L15.1% T23.6% W78%`, **gap 90px** entre blocos
   (medido: bloco1 top 338 → bloco2 top 521), ícone em coluna de 102px, gap 32 do texto.
 - Texto **fontSize 67**, `lineHeight 1.38`, primeira palavra em **bold**
   ("Salve", "Compartilhe", "E conta pra gente:").
 - **Ícones soft** (`#F8DD6B`) = assets EXTRAÍDOS do modelo (RULES §27), ❌ nunca redesenhados:
-  | Ícone | asset | tamanho | detalhe que errei ao desenhar |
-  |---|---|---|---|
-  | salvar | `_troca-icone-salvar.png` | 68×86 | bookmark com entalhe em V na base |
-  | compartilhar | `_troca-icone-compartilhar.png` | 103×86 | **não é triângulo** — cursor com o lado esq dobrado |
-  | comentar | `_troca-icone-comentar.png` | 84×84 | balão com rabinho no canto inf-**DIREITO** |
+  | Ícone | asset | forma (medida) | box do `<Img>` | detalhe que errei ao desenhar |
+  |---|---|---|---|---|
+  | salvar | `_troca-icone-salvar.png` | 68×86 | 72×90 | bookmark com entalhe em V na base |
+  | compartilhar | `_troca-icone-compartilhar.png` | 103×86 | 107×90 | **não é triângulo** — cursor com o lado esq dobrado |
+  | comentar | `_troca-icone-comentar.png` | 84×84 | 88×88 | balão com rabinho no canto inf-**DIREITO** |
+
+  ⚠️ O `width/height` do `<Img>` é o do **box do recorte** (inclui a margem transparente), não o da
+  forma. Declarar o tamanho da forma encolhe o ícone.
+  ⚠️ Os ícones ficam **por cima da watermark** (`zIndex 2` vs `0`). Se parecerem "atrás da logo" ou
+  com a cor dela por dentro, o problema é **alpha parcial no PNG**, não z-index — ver RULES §27.
+- **Ícone centrado na 1ª linha do texto** (medido: centros coincidem ±2px). Container do ícone com
+  `height 92` (= altura da linha) e `alignItems: center`.
 - **Sem logo** no rodapé — a watermark faz o papel de marca.
 
 ---
@@ -210,3 +217,4 @@ de SVG/viewBox faz o valor efetivo ser menor que o declarado.
 | 7 | Foto de capa "artificial", preço em papelão | enquadramento aberto + etiqueta impressa (§4) |
 | 8 | ✅ da lista com 33px (modelo tem 59) | `rect` preenche o viewBox → `size` = lado real; 55px (§5) |
 | 9 | ✅ e ícones do CTA desenhados à mão (chapados, formas erradas) | **extraídos do modelo** como PNG transparente (RULES §27) |
+| 10 | Ícones do CTA "atrás da logo", pegando a cor da watermark | alpha do PNG era ~0.55 no miolo — extrair com alpha pela distância ao FUNDO (RULES §27) |

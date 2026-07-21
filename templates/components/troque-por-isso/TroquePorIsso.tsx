@@ -210,10 +210,12 @@ export const TrocaFecho: React.FC<{
    As formas não são as óbvias: o do meio NÃO é um triângulo simples (tem o lado esquerdo
    dobrado, é um cursor/enviar) e o balão tem o rabinho no canto inf-DIREITO — desenhar "de
    cabeça" errou os dois. Tamanhos = os medidos no modelo. Ver RULES §27. */
+/* ⚠️ w/h = tamanho do BOX do recorte (inclui a margem transparente ao redor da forma),
+   não o tamanho da forma. Forma real: 68×86 · 103×86 · 84×84 (medida no modelo). */
 const ICONES_CTA: {src: string; w: number; h: number}[] = [
-  {src: 'oficial/_troca-icone-salvar.png', w: 68, h: 86},        // bookmark (salvar)
-  {src: 'oficial/_troca-icone-compartilhar.png', w: 103, h: 86}, // cursor/enviar (compartilhar)
-  {src: 'oficial/_troca-icone-comentar.png', w: 84, h: 84},      // balão, rabinho à DIREITA
+  {src: 'oficial/_troca-icone-salvar.png', w: 72, h: 90},        // bookmark (salvar)
+  {src: 'oficial/_troca-icone-compartilhar.png', w: 107, h: 90}, // cursor/enviar (compartilhar)
+  {src: 'oficial/_troca-icone-comentar.png', w: 88, h: 88},      // balão, rabinho à DIREITA
 ];
 
 export const TrocaCta: React.FC<{blocos: string[]}> = ({blocos}) => (
@@ -229,12 +231,15 @@ export const TrocaCta: React.FC<{blocos: string[]}> = ({blocos}) => (
     }} />
 
     <div style={{
-      position: 'absolute', left: '15.1%', top: '22%', width: '78%', zIndex: 2,
+      position: 'absolute', left: '15.1%', top: '23.6%', width: '78%', zIndex: 2,
       display: 'flex', flexDirection: 'column', gap: 90,
     }}>
       {blocos.map((b, i) => (
         <div key={i} style={{display: 'flex', alignItems: 'flex-start', gap: 32}}>
-          <div style={{width: 102, minWidth: 102, display: 'flex', justifyContent: 'center', paddingTop: 6}}>
+          {/* ícone CENTRADO na 1ª linha do texto (medido no modelo: centro do ícone = centro
+              da 1ª linha, ±2px). A altura da linha é 67×1.38 ≈ 92, ~= a altura do ícone. */}
+          <div style={{width: 102, minWidth: 102, height: 92, display: 'flex',
+            justifyContent: 'center', alignItems: 'center'}}>
             <Img src={staticFile(ICONES_CTA[i % 3].src)}
               style={{width: ICONES_CTA[i % 3].w, height: ICONES_CTA[i % 3].h, display: 'block'}} />
           </div>

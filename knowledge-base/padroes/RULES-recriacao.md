@@ -338,9 +338,19 @@ rgb  = np.broadcast_to(SOFT, sub.shape)      # cor chapada; use `sub` p/ preserv
 Image.fromarray(np.dstack([rgb, a*255]).astype(np.uint8), 'RGBA') \
      .resize((w*4, h*4), Image.LANCZOS).save(destino)
 ```
+- **Medir o alpha pela distância ao FUNDO, nunca à cor do elemento.** Foi o erro que gerou o
+  sintoma "os ícones parecem estar ATRÁS da logo / pegando a cor dela": o interior do ícone no
+  modelo não era o soft exato (`#F7DA61` em vez de `#F8DD6B`), então o alpha caiu para ~0.55 e a
+  watermark de trás vazava por dentro da forma. Com alpha pela distância ao fundo, o interior
+  fica 100% opaco por construção.
+  Fundo com mais de um tom (fundo + watermark): `d = min(dist(px, tom1), dist(px, tom2))`.
 - **Escolher o LIMIAR pela distância entre elemento e fundo**, não por chute. Aqui soft vs manga
-  distam 34 → limiar 22 zera o fundo com folga. ⚠️ Primeira tentativa usou limiar 95 e o fundo
+  distam 34 → limiar 22 zera o fundo com folga. ⚠️ Outra tentativa usou limiar 95 e o fundo
   saiu com alpha 0.88 — o retângulo do recorte apareceu na peça.
+- **Conferir o alpha do CENTRO (tem que ser 255) e o da borda (tem que ser ~0).** Só a borda não
+  basta: o vazamento acontece no miolo.
+- **O `width/height` do `<Img>` é o do BOX do recorte, não o da forma** — o box inclui a margem
+  transparente. Declarar o tamanho da forma encolhe o elemento (aconteceu: 64px em vez de 68).
 - Elemento **multicolor** (emoji com brilho/sombra): alpha pela distância ao FUNDO e RGB do
   próprio pixel, senão perde o degradê.
 - Exportar em **4×** e deixar o CSS reduzir — o render é scale 2.
