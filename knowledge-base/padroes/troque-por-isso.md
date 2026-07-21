@@ -24,7 +24,10 @@ Todo card tem raio **110px** em 3 cantos e **0** no canto onde encosta a tab.
 - Card do **fecho** (slide 8) → canto reto **superior-direito**
 - Foto da **capa** → canto reto superior-esquerdo, raio **45** nos outros
 
-Cada card tem **borda branca 2px** (`border: 2px solid #FFF`) acompanhando os mesmos raios.
+**TUDO** nesta categoria leva **borda branca 2px** (`border: 2px solid #FFF` + `boxSizing: border-box`)
+acompanhando os mesmos raios — cards do miolo, card do fecho **E a foto da capa**.
+A bordinha fina é assinatura da categoria: MEDIDA no modelo (contorno branco no perímetro exato
+da foto — px `x134` / `y480` / `y1086`). Sem ela a foto "solta" do fundo manga.
 
 ---
 

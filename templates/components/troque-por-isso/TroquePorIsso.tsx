@@ -53,10 +53,12 @@ export const TrocaCapa: React.FC<{
       </TextoRico>
     </div>
 
-    {/* foto — canto sup-esq RETO (assinatura da categoria) */}
+    {/* foto — canto sup-esq RETO (assinatura da categoria) + bordinha branca 2px
+        (MEDIDA no modelo: contorno branco no perímetro exato da foto, igual aos cards) */}
     <div style={{
       position: 'absolute', left: '12.4%', top: '35.6%', width: '75.3%', height: '45.0%',
       borderRadius: '8px 45px 45px 45px', overflow: 'hidden', zIndex: 1,
+      border: `2px solid ${C.branco}`, boxSizing: 'border-box',
     }}>
       <Img src={staticFile(foto)} style={{width: '100%', height: '100%', objectFit: 'cover'}} />
     </div>
