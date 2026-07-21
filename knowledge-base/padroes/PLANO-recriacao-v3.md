@@ -20,7 +20,7 @@ com a skill nova** → entra na fila. Categoria **com prop `story` = já recriad
 | 1 | `frase-em-pilulas` | DWO5_TLDG1w | 1 | card único | ✅ bold 700 medido · px em vez de % · story |
 | 2 | `certo-e-errado` | POST 247, 256 | 2 | card único | ✅ negrito 600 medido + story (cantos/sombra adiados) |
 | 3 | `doma-motiva` | POST 242, 250 | 2 | card único (foto) | ✅ fotos limpas recriadas · selo/fs medidos · 3D · story |
-| 4 | `narrativa` | POST 265, 272 | 2 | card único (foto) | ⬜ |
+| 4 | `narrativa` | POST 265, 272 | 2 | card único (foto) | ✅ tipografia medida · foto limpa · moedas re-extraídas · story |
 | 5 | `mapa-de-clientes` | DSdIG_FkuI4_2 | 1 | card único | ⬜ |
 | 6 | `clientes` | LAYOUT CLIENTE NOVO | 2 | card único (foto) | ⬜ |
 | 7 | `doma-institucional` | POST 115, 178, 257, 271 | 4 | card único | ⬜ |

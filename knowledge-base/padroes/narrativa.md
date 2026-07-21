@@ -21,3 +21,43 @@
 - Foto full-bleed cover: conferir que o card não tapa o elemento-chave da foto.
 - Objetos 3D (modo 272): nanobanana/extração, nunca CSS pobre (RULES §6).
 - **Story: SEM prop `story`** — implementar ao usar.
+
+
+---
+
+## Revisão v3 (2026-07-21) — categoria FECHADA
+
+### POST 265 (card sobre foto)
+O card já estava certo (`x184-895, y528-821`); o **texto** é que estava errado — centralizado e pequeno.
+| | modelo | estava |
+|---|---|---|
+| fontSize | **72** | 52 |
+| alinhamento | **esquerda**, padding-left 73 | centralizado |
+| lineHeight | **99px fixo** (tops 590→689) | 1.2 |
+| negrito | **700** (traço 10px vs 5px = 2.0×) | default 500 (1.4×) |
+| raio do card | **34** | 20 |
+| selo | Ø150 **sobre o canto sup-dir do card** (73.1%/35.6%) | Ø104 no canto da peça |
+
+Foto recriada limpa (a antiga era recorte do modelo, com selo e watermark *baked* — RULES §28.1).
+Watermark "DOMa" da base agora é desenhada pelo componente (CSS mask, branco 13%).
+
+### POST 272 (moedas 3D)
+| | modelo | estava |
+|---|---|---|
+| título | fs **96**, lineHeight **118px** | 66, lh 1.15 |
+| subtítulo | fs **42**, lineHeight **66px** | 41, lh 1.25 |
+| negrito | **700** | default 500 |
+| moedas | recorte limpo | **halo cinza** (retângulo do PNG aparecia) |
+
+**Re-extração das moedas** (RULES §27): alpha pela distância ao FUNDO + máscara restrita às 3
+zonas das moedas + **exclusão do texto grafite dilatada**. Duas armadilhas pagas no caminho:
+1. máscara larga demais trouxe o texto *baked* junto → texto duplicado na peça;
+2. `MaxFilter` com limiar 175 comeu o cifrão laranja. O texto é grafite (<120) e o cifrão ~200 —
+   o limiar tem que separar os dois: **<120 com dilatação 7**.
+
+### STORY — prop `story` nos dois componentes
+`Narrativa`: card top 39.1%→**34%**, altura 21.7%→**15.3%** (mesma em px), selo 35.6%→**30.7%**.
+`Narrativa272`: moedas em **px fixos** (1080×1350) deslocadas +400; título 17.5%→**22%**;
+watermark 4%→**9%**; logo 91.5%→**85%**.
+
+Stills: `padrao-narrativa-265` / `-272` e os pares `-story`.
