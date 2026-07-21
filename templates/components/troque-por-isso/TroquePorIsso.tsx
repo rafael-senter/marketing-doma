@@ -87,7 +87,15 @@ export const TrocaCapa: React.FC<{
 /* ─────────────────────────────────────────────────────────────
    SLIDE 2..N-2 — MIOLO (2 cards + tabs)
    ───────────────────────────────────────────────────────────── */
-type Bloco = {texto: string; fontSize?: number; italico?: boolean; bold?: boolean};
+/**
+ * Bloco de texto do card. MEDIDO no POST 186:
+ * - `lineHeight` é FIXO em px (~66), INDEPENDENTE do fontSize — é assim no modelo
+ *   (spacing 66/65/67 com fs 58, 55 e 54). Usar lineHeight relativo desalinha tudo.
+ * - Hierarquia de papel: principal fs 58 (regular) ou 54 (bold itálico) · nota/reforço fs 40.
+ *   O reforço é NOTÍCIA MENOR — nunca do mesmo tamanho do principal.
+ * - Gap entre blocos = 70px (dá ~135px entre os tops das linhas, como no modelo).
+ */
+type Bloco = {texto: string; fontSize?: number; lhPx?: number; italico?: boolean; bold?: boolean};
 
 const Tab: React.FC<{label: string; lado: 'esq' | 'dir'; top: number}> = ({label, lado, top}) => (
   <div style={{
@@ -110,7 +118,7 @@ const CardMiolo: React.FC<{
     background: C.soft, border: `2px solid ${C.branco}`, borderRadius: radius,
     boxSizing: 'border-box', zIndex: 1,
     display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
-    paddingTop: 102, paddingLeft: 97, paddingRight: 97, paddingBottom: 30, gap: 30,
+    paddingTop: 102, paddingLeft: 97, paddingRight: 97, paddingBottom: 30, gap: 70,
   }}>
     {blocos.map((b, i) => (
       <TextoRico
@@ -120,7 +128,7 @@ const CardMiolo: React.FC<{
           color: C.grafite, fontSize: b.fontSize ?? 58,
           fontWeight: b.bold ? 500 : 400,
           fontStyle: b.italico ? 'italic' : 'normal',
-          lineHeight: 1.25, textAlign: 'center', display: 'block',
+          lineHeight: `${b.lhPx ?? 66}px`, textAlign: 'center', display: 'block',
         }}>
         {b.texto}
       </TextoRico>
@@ -151,11 +159,11 @@ export const TrocaMiolo: React.FC<{
     {/* card POR ISSO — canto reto SUP-DIR */}
     <CardMiolo top={693} radius="110px 0 110px 110px" blocos={porIsso}>
       {lista && (
-        <div style={{display: 'flex', flexDirection: 'column', gap: 28, marginTop: 4}}>
+        <div style={{display: 'flex', flexDirection: 'column', gap: 12}}>
           {lista.map((t, i) => (
             <div key={i} style={{display: 'flex', alignItems: 'center', gap: 18}}>
               <Check />
-              <span style={{color: C.grafite, fontSize: 54, fontWeight: 400, lineHeight: 1.1}}>{t}</span>
+              <span style={{color: C.grafite, fontSize: 54, fontWeight: 400, lineHeight: '54px'}}>{t}</span>
             </div>
           ))}
         </div>
@@ -221,7 +229,7 @@ export const TrocaCta: React.FC<{blocos: string[]}> = ({blocos}) => (
 
     <div style={{
       position: 'absolute', left: '15.1%', top: '22%', width: '78%', zIndex: 2,
-      display: 'flex', flexDirection: 'column', gap: 62,
+      display: 'flex', flexDirection: 'column', gap: 90,
     }}>
       {blocos.map((b, i) => (
         <div key={i} style={{display: 'flex', alignItems: 'flex-start', gap: 32}}>

@@ -62,10 +62,26 @@ Dois cards soft empilhados, medidas IDÊNTICAS em todos os miolos:
   tab de baixo alinha pela DIREITA e sangra 37px. Tab fica `+26px` abaixo do topo do card
   (sobrepõe a borda do card, zIndex acima).
 - **Texto dos cards**: centralizado (cx 540 = centro do canvas e do card), vertical centrado
-  na área ABAIXO da tab. Tamanhos medidos:
-  - Bloco em **bold itálico** (fala do "erro" / frase de reforço): **fontSize 54**, lh ~1.25
-  - Bloco **regular** (a frase entre aspas / o texto principal): **fontSize 58**, lh ~1.25
-  - Lista com ✅: fontSize 54 regular, lineHeight 1.23 (gap 66px), emoji verde `#7CB342` 38px
+  na área ABAIXO da tab.
+
+  ⚠️ **`lineHeight` é FIXO em px (66), NÃO relativo.** Medido: spacing 66/65/67 nos cards do modelo,
+  com fontSize variando entre 58, 55 e 54 — o espaçamento não acompanha o corpo. lineHeight relativo
+  (1.25 etc.) desalinha tudo. Nota/reforço usa lh **46px**.
+
+  **Hierarquia de papel (não achatar):**
+  | Papel | fs | lh | estilo |
+  |---|---|---|---|
+  | Principal (a frase, a fala entre aspas) | **58** | 66px | regular |
+  | Principal em fala do "erro" | **54** | 66px | bold itálico |
+  | Título do card com lista | **55** | 66px | bold |
+  | **Nota / reforço** ("Venda o benefício…") | **40** | 46px | bold itálico |
+  | Item da lista ✅ | 54 | 54px | regular, ✅ `#7CB342` 38px |
+
+  ❌ Erro cometido: reforço em fs 50 (quase igual ao principal em 52) — some a hierarquia e a peça
+  fica com cara de bloco único. O reforço é MENOR e claramente secundário.
+
+- **Gap entre blocos do card = 70px** (dá ~135px entre os tops das linhas: 66 de lh + 70 − sobra).
+  Medido no modelo: s2 977→1118 = 141 · s7 353→485 = 132 · s7 868→999 = 131.
 - **Aspas tipográficas “ ”** quando é fala/exemplo.
 
 ## 3) `TrocaFecho` (slide 8)
@@ -78,7 +94,8 @@ Dois cards soft empilhados, medidas IDÊNTICAS em todos os miolos:
 ## 4) `TrocaCta` (slide 9)
 - Fundo manga + **watermark DOMa GIGANTE** tom-sobre-tom `#F3B530`
   (logo VERTICAL empilhada via CSS mask, `top ~20%`, `width ~127%`, centrada, sangra a base).
-- **3 blocos** ícone-soft + texto, texto começa em `x≈281` (L26%), **fontSize 67**, lh ~1.38.
+- **3 blocos** ícone-soft + texto, texto começa em `x≈281` (L26%), **fontSize 67**, lh ~1.38,
+  **gap 90px** entre blocos (medido: bloco1 top 338 → bloco2 top 521).
   Primeira palavra de cada bloco em **bold** ("Salve", "Compartilhe", "E conta pra gente:").
 - **Ícones soft** (`#F8DD6B`), à esquerda, tamanho ~86px:
   | Ícone | px | forma |

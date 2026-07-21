@@ -254,3 +254,24 @@ tab fs38 → traço 4px · fecho fs73 → 6px · CTA fs67 → 6px, com regular e
   regular do mesmo fontSize, comparadas às mesmas faixas do modelo). Nunca a olho.
 
 Aplicado: `troque-por-isso`. Demais categorias: ver live-rule `2026-07-21-bold-peso-500.md` (pendente).
+
+## 24. lineHeight e HIERARQUIA de texto — copiar do modelo, não improvisar (Patrick 2026-07-21)
+
+Erro real: os cards do miolo ficaram com "cara de bloco único" porque o reforço tinha quase o mesmo
+corpo do texto principal e o espaçamento entre blocos era um terço do modelo. Duas regras:
+
+**24.1 — `lineHeight` costuma ser FIXO em px, não relativo.** No POST 186 o spacing medido é
+66/65/67px com fontSize variando entre 58, 55 e 54: o espaçamento NÃO acompanha o corpo (é assim
+que a ferramenta de design da agência trabalha). Medir o delta entre os tops das linhas do modelo e
+aplicar em px (`lineHeight: '66px'`). lineHeight relativo desalinha todos os blocos de uma vez.
+
+**24.2 — Medir a HIERARQUIA, não só o corpo do texto principal.** Para cada card, listar o fontSize
+de CADA papel (principal / título / nota-reforço / item de lista) e a razão entre eles. No POST 186
+o reforço é **40** contra **58** do principal — 0.69×. Se a recriação usa 50 contra 52, a hierarquia
+morre mesmo com as posições certas.
+
+**24.3 — Gap entre blocos é medido, não estimado.** Delta entre o top da última linha de um bloco e
+o top da primeira do seguinte, menos o lineHeight. No POST 186 dá ~70px nos cards e ~90px no CTA.
+
+Validação: comparar a LISTA DE TOPS das linhas do render com a do modelo (mesma faixa y). Devem
+bater dentro de ~5px. Ver ficha `troque-por-isso.md` para o caso completo.
