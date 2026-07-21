@@ -68,6 +68,40 @@ Fluxo (o usuário só fornece o screenshot — o resto é automático):
    O script detecta a área de tela sozinho (âncora: barra do browser), cola o screenshot fit-na-largura, preenche gap com linha limpa do fundo e recoloca o footer. Se a detecção falhar, passar `--bbox L,T,R,B` medido via numpy.
 3. Seguir "Pós-obtenção" abaixo (catalogar + sync).
 
+## 🆕 NATURALIDADE OBRIGATÓRIA (regra Patrick 2026-07-21)
+
+Imagem que "parece artificial" reprova, mesmo com persona e composição corretas. O público Doma é
+dono de PME real — se a cena parece renderizada/de catálogo, quebra a identificação e a peça perde
+credibilidade. Vale para geração via nanobanana E para seleção de foto de banco de imagem.
+
+### Todo prompt de cena/ambiente DEVE conter
+1. **Enquadramento aberto** que mostre o lugar de verdade (corredor, profundidade da loja, vista do
+   salão) — não um close arrumadinho de prateleira.
+2. **Imperfeições reais**, explicitamente pedidas: `handwritten price tags`, `slightly crowded and
+   imperfect merchandising`, `worn/scuffed floor`, `uneven stacking`, `faded old signage`, `a bit of dust`.
+3. **Luz disponível de verdade**: `mixed fluorescent ceiling light with daylight from the storefront`,
+   `natural available light` — nunca luz de estúdio ou "cinematic lighting".
+4. **Vocabulário documental**: `candid documentary photography`, `unstaged`, `shot on a 28mm lens`,
+   `slight grain`, `realistic colour`.
+5. **Negativas explícitas**: `not glossy`, `not an advertisement`, `not CGI`, `no readable brand logos`.
+
+### Proibido no prompt (produz o look artificial)
+❌ `perfect`, `pristine`, `spotless`, `beautifully organized`, `luxury`, `modern showroom`
+❌ `cinematic lighting`, `studio lighting`, `dramatic lighting`, `golden hour glow`
+❌ `4k`, `8k`, `hyperrealistic`, `ultra detailed`, `octane render`, `unreal engine`
+❌ Simetria perfeita e produtos alinhados milimetricamente.
+
+### Checklist de aprovação (antes de catalogar)
+- [ ] Dá pra acreditar que alguém tirou essa foto com o celular na loja do cliente?
+- [ ] Tem pelo menos 2 imperfeições visíveis (etiqueta manuscrita, chão gasto, pilha torta, poeira)?
+- [ ] A luz é a do lugar, não de estúdio?
+- [ ] O enquadramento mostra o ESPAÇO, não só um detalhe?
+- Reprovou → regerar com o prompt corrigido, não aproveitar "porque tá bonita".
+
+> Caso de referência: `_ferragens-loja-base.png` (v1, close de balcão — aprovada mas Patrick apontou
+> "parece artificial") vs `_ferragens-loja-v2-base.png` (v2, corredor aberto com etiquetas manuscritas,
+> piso gasto e luz fluorescente mista — natural). Comparar as duas antes de escrever prompt novo.
+
 ## Pós-obtenção (SEMPRE, qualquer camada 2 ou 3)
 
 1. **2 versões obrigatórias**:
