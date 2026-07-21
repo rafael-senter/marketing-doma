@@ -179,6 +179,24 @@ de SVG/viewBox faz o valor efetivo ser menor que o declarado.
 
 ---
 
+## 7b. STORY (1080×1920) — prop `story` em TODOS os 4 componentes
+
+Regra do plugin: **toda peça nasce feed + story**. Os 4 aceitam `story: true`.
+Princípio: **os blocos mantêm o MESMO tamanho em px** do feed; só a posição muda (o canvas é
+570px mais alto). Fontes NÃO diminuem.
+
+| Componente | feed | story |
+|---|---|---|
+| `TrocaCapa` título | top 11% | top **19%** |
+| `TrocaCapa` foto | top 35.6% h 45% | top **36%** h **31.7%** (= mesma altura em px) |
+| `TrocaCapa` badge | top 65.8% | top **61.2%** |
+| `TrocaCapa` logo | top 93.6% | top **80%** (zona segura do Instagram) |
+| `TrocaMiolo` cards | topo em 113 / 693 | **389 / 969** (os 2 cards + gap = 1142px, centrados) |
+| `TrocaFecho` card | top 158 | top **443** (centrado) |
+| `TrocaCta` bloco | top 23.6% | top **33%** · watermark top 20% → **30%** |
+
+Render com dims explícitas: `bash render-still.sh <id>-story 1080 1920`.
+
 ## 8. Regras da categoria
 
 - ❌ NÃO usar a seta oficial `SetaDoma` — esta categoria não tem flecha direcional.

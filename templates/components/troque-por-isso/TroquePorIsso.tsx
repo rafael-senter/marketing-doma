@@ -39,10 +39,12 @@ export const TrocaCapa: React.FC<{
   badge: string[];       // linhas do badge (2)
   fontSizeTitulo?: number;
   topTitulo?: string;
-}> = ({titulo, foto, badge, fontSizeTitulo = 64, topTitulo = '11%'}) => (
+  story?: boolean;       // 1080×1920 — conteúdo desce p/ a zona segura do Instagram
+}> = ({titulo, foto, badge, fontSizeTitulo = 64, topTitulo, story}) => (
   <AbsoluteFill style={{...base, backgroundColor: C.manga}}>
     {/* título — esq 12.8%, quebras hardcoded */}
-    <div style={{position: 'absolute', left: '12.8%', top: topTitulo, width: '80%', zIndex: 2}}>
+    <div style={{position: 'absolute', left: '12.8%', top: topTitulo ?? (story ? '19%' : '11%'),
+      width: '80%', zIndex: 2}}>
       <TextoRico
         boldWeight={500}
         style={{
@@ -56,7 +58,8 @@ export const TrocaCapa: React.FC<{
     {/* foto — canto sup-esq RETO (assinatura da categoria) + bordinha branca 2px
         (MEDIDA no modelo: contorno branco no perímetro exato da foto, igual aos cards) */}
     <div style={{
-      position: 'absolute', left: '12.4%', top: '35.6%', width: '75.3%', height: '45.0%',
+      position: 'absolute', left: '12.4%', top: story ? '36%' : '35.6%',
+      width: '75.3%', height: story ? '31.7%' : '45.0%',   // MESMA altura em px nos 2 formatos
       borderRadius: '8px 45px 45px 45px', overflow: 'hidden', zIndex: 1,
       border: `2px solid ${C.branco}`, boxSizing: 'border-box',
     }}>
@@ -66,7 +69,7 @@ export const TrocaCapa: React.FC<{
     {/* badge grafite — canto inf-dir, TRANSBORDA a foto pela direita.
         HUG CONTENT (RULES §22.3): largura acompanha o texto. */}
     <div style={{
-      position: 'absolute', right: '5.7%', top: '65.8%',
+      position: 'absolute', right: '5.7%', top: story ? '61.2%' : '65.8%',
       background: C.grafite, borderRadius: 18, zIndex: 3,
       padding: '20px 24px', display: 'flex', flexDirection: 'column',
       alignItems: 'center', gap: 6,
@@ -77,7 +80,7 @@ export const TrocaCapa: React.FC<{
     </div>
 
     {/* logo rodapé */}
-    <div style={{position: 'absolute', top: '93.6%', left: 0, right: 0,
+    <div style={{position: 'absolute', top: story ? '80%' : '93.6%', left: 0, right: 0,
       display: 'flex', justifyContent: 'center', zIndex: 3}}>
       <LogoDoma cor={C.grafite} tamanho={66} wordmark />
     </div>
@@ -165,14 +168,19 @@ export const TrocaMiolo: React.FC<{
   troque: Bloco[];
   porIsso: Bloco[];
   lista?: string[];      // itens ✅ no card de baixo
-}> = ({troque, porIsso, lista}) => (
+  story?: boolean;       // 1080×1920 — cards centrados, MESMO tamanho em px do feed
+}> = ({troque, porIsso, lista, story}) => {
+  // os 2 cards (561 cada) + gap 20 = 1142px; centrados no canvas do story
+  const topA = story ? 389 : 113;
+  const topB = topA + 580;
+  return (
   <AbsoluteFill style={{...base, backgroundColor: C.manga}}>
     {/* card TROQUE ISSO — canto reto SUP-ESQ */}
-    <CardMiolo top={113} radius="0 110px 110px 110px" blocos={troque} />
-    <Tab label="TROQUE ISSO" lado="esq" top={140} />
+    <CardMiolo top={topA} radius="0 110px 110px 110px" blocos={troque} />
+    <Tab label="TROQUE ISSO" lado="esq" top={topA + 27} />
 
     {/* card POR ISSO — canto reto SUP-DIR */}
-    <CardMiolo top={693} radius="110px 0 110px 110px" blocos={porIsso}>
+    <CardMiolo top={topB} radius="110px 0 110px 110px" blocos={porIsso}>
       {lista && (
         <div style={{display: 'flex', flexDirection: 'column', gap: 12}}>
           {lista.map((t, i) => (
@@ -184,9 +192,10 @@ export const TrocaMiolo: React.FC<{
         </div>
       )}
     </CardMiolo>
-    <Tab label="POR ISSO" lado="dir" top={717} />
+    <Tab label="POR ISSO" lado="dir" top={topB + 24} />
   </AbsoluteFill>
-);
+  );
+};
 
 /* ─────────────────────────────────────────────────────────────
    SLIDE N-1 — FECHO (card único, sem tab)
@@ -194,10 +203,11 @@ export const TrocaMiolo: React.FC<{
 export const TrocaFecho: React.FC<{
   paragrafos: string[];      // markup TextoRico; \n = quebra HARDCODED
   fontSize?: number;
-}> = ({paragrafos, fontSize = 73}) => (
+  story?: boolean;           // 1080×1920 — card centrado, MESMO tamanho em px do feed
+}> = ({paragrafos, fontSize = 73, story}) => (
   <AbsoluteFill style={{...base, backgroundColor: C.manga}}>
     <div style={{
-      position: 'absolute', left: 112, top: 158, width: 856, height: 1035,
+      position: 'absolute', left: 112, top: story ? 443 : 158, width: 856, height: 1035,
       background: C.soft, border: `2px solid ${C.branco}`,
       borderRadius: '110px 0 110px 110px', boxSizing: 'border-box', zIndex: 1,
       display: 'flex', flexDirection: 'column', justifyContent: 'center',
@@ -246,12 +256,12 @@ const ICONES_CTA = [
   {C: IconeComentar, h: 85},
 ];
 
-export const TrocaCta: React.FC<{blocos: string[]}> = ({blocos}) => (
+export const TrocaCta: React.FC<{blocos: string[]; story?: boolean}> = ({blocos, story}) => (
   <AbsoluteFill style={{...base, backgroundColor: C.manga}}>
     {/* watermark DOMa gigante (logo VERTICAL empilhada), tom-sobre-tom MAIS ESCURO */}
     <div style={{
-      position: 'absolute', top: '20%', left: '-13.5%', width: '127%', aspectRatio: '1681 / 1328',
-      backgroundColor: C.wm,
+      position: 'absolute', top: story ? '30%' : '20%', left: '-13.5%', width: '127%',
+      aspectRatio: '1681 / 1328', backgroundColor: C.wm,
       WebkitMaskImage: maskVertical, maskImage: maskVertical,
       WebkitMaskSize: '100% 100%', maskSize: '100% 100%',
       WebkitMaskRepeat: 'no-repeat', maskRepeat: 'no-repeat',
@@ -259,7 +269,7 @@ export const TrocaCta: React.FC<{blocos: string[]}> = ({blocos}) => (
     }} />
 
     <div style={{
-      position: 'absolute', left: '15.1%', top: '23.6%', width: '78%', zIndex: 2,
+      position: 'absolute', left: '15.1%', top: story ? '33%' : '23.6%', width: '78%', zIndex: 2,
       display: 'flex', flexDirection: 'column', gap: 90,
     }}>
       {blocos.map((b, i) => (
