@@ -41,11 +41,14 @@ const PILULAS: Pil[] = [
 // interior = COR DO FUNDO (#F4BB36), nunca transparente — tapa a watermark.
 // rotação `ang` SUTIL deixa cada pílula levemente torta. Todas mesma largura/left.
 // z crescente: cada inferior cruza por cima da superior (entrelaçamento).
-const Pilula: React.FC<Pil> = ({texto, cy, ang, solida, z}) => (
+/* ⚠️ altura/top em PX, não em % — no story (1920) o % esticaria a pílula.
+   Regra do plugin: no story os blocos mantêm o MESMO tamanho em px do feed. */
+const ALT = 124;   // 9.2% de 1350
+const Pilula: React.FC<Pil & {dy: number}> = ({texto, cy, ang, solida, z, dy}) => (
   <div style={{
     position: 'absolute',
     left: `${LEFT}%`, width: `${WIDTH}%`,
-    top: `${cy - 4.6}%`, height: '9.2%',
+    top: cy / 100 * 1350 - ALT / 2 + dy, height: ALT,
     transform: `rotate(${ang}deg)`,
     borderRadius: 999,
     background: solida ? C.soft : C.fundo,
@@ -53,13 +56,15 @@ const Pilula: React.FC<Pil> = ({texto, cy, ang, solida, z}) => (
     display: 'flex', alignItems: 'center', justifyContent: 'center',
     zIndex: z, boxSizing: 'border-box',
   }}>
-    <TextoRico style={{color: C.grafite, fontSize: 48, fontWeight: 400, lineHeight: 1}}>
+    {/* negrito 700: MEDIDO no modelo — bold 6px vs regular 3px = ratio 2.0× (700 dava 2.33, 600 bate)
+        (o default 500 do plugin dava 1.33× aqui). RULES §23: peso é por categoria. */}
+    <TextoRico boldWeight={700} style={{color: C.grafite, fontSize: 48, fontWeight: 400, lineHeight: 1}}>
       {texto}
     </TextoRico>
   </div>
 );
 
-export const FrasePilulas: React.FC = () => (
+export const FrasePilulas: React.FC<{story?: boolean}> = ({story}) => (
   <AbsoluteFill style={{
     backgroundColor: C.fundo, fontFamily: F, overflow: 'hidden',
     WebkitFontSmoothing: 'antialiased', MozOsxFontSmoothing: 'grayscale', textRendering: 'geometricPrecision',
@@ -73,7 +78,7 @@ export const FrasePilulas: React.FC = () => (
           COR EXATA #F2B12F (tom-sobre-tom certo). A logo PNG (alpha=forma) é a máscara;
           o <div> dá a cor. Assim: forma correta do "D"/M + cor certa (não cinza).
           MEDIDO: SÓ 4 repetições no MEIO, letra ~15% alt, sangra bordas. Topo/base LIMPOS. */}
-      {[16.3, 33.9, 51.6, 69.2].map((top, i) => {
+      {(story ? [12, 24.4, 36.8, 49.2, 61.6, 74] : [16.3, 33.9, 51.6, 69.2]).map((top, i) => {
         const url = `url(${staticFile('oficial/logotipo-principal-branco.png')})`;
         return (
           <div key={i} style={{position: 'absolute', left: '50%', transform: 'translateX(-50%)',
@@ -88,15 +93,15 @@ export const FrasePilulas: React.FC = () => (
     {/* selo 14 anos OFICIAL — conteúdo visível alvo 13% (PNG tem ~15% de padding → width 15.3%).
         centro (50%, 18.9%). */}
     <Img src={staticFile('oficial/selo-14anos-4.png')}
-      style={{position: 'absolute', left: '50%', top: '18.9%', transform: 'translate(-50%,-50%)',
-        width: '15.3%', height: 'auto', zIndex: 6}} />
+      style={{position: 'absolute', left: '50%', top: story ? '20%' : '18.9%',
+        transform: 'translate(-50%,-50%)', width: '15.3%', height: 'auto', zIndex: 6}} />
 
     {/* 5 pílulas — z definido por pílula (ver array): 1ª por cima da 2ª;
         da 2ª em diante a de baixo por cima da de cima. */}
-    {PILULAS.map((p, i) => <Pilula key={i} {...p} />)}
+    {PILULAS.map((p, i) => <Pilula key={i} {...p} dy={story ? 285 : 0} />)}
 
     {/* logo rodapé "DOMa" grafite, cx 50%, y~94.5% */}
-    <div style={{position: 'absolute', top: '92.5%', left: 0, right: 0, display: 'flex', justifyContent: 'center', zIndex: 4}}>
+    <div style={{position: 'absolute', top: story ? '84%' : '92.5%', left: 0, right: 0, display: 'flex', justifyContent: 'center', zIndex: 4}}>
       <LogoDoma cor={C.grafite} tamanho={62} wordmark />
     </div>
   </AbsoluteFill>

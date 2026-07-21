@@ -2,7 +2,7 @@
 
 Recriação medida de `instagram-sigadoma/images/sigadoma_DWO5_TLDG1w_1.jpg`.
 Componente: `../../templates/components/frase-em-pilulas/FrasePilulas.tsx`. Render: `node render-still.mjs padrao-frase-pilulas`.
-Status: ~90% (validado por medição/visual).
+Status: **recriação v3 (2026-07-21)** — revisada sob as RULES §22–§27 + versão story.
 
 ## Conceito
 Uma frase quebrada em ~5 **pílulas** (cápsulas) empilhadas em coluna, levemente
@@ -65,3 +65,27 @@ no topo, watermark "DOMa" gigante de fundo, logo DOMa no rodapé.
 | Pílula (linha) | 48 lh1.0 | ~20 por pílula | pílula longa estoura a margem; inclinação sutil por linha (dy), não rotation grande |
 - 4-6 pílulas máx (modelo usa 5). Selo 14 anos oficial 15.3% width.
 - **Story: SEM prop `story`** — implementar ao usar (padrão SPIN).
+
+
+---
+
+## Revisão v3 (2026-07-21) — regras §22–§27
+
+**Negrito = `700`.** MEDIDO no modelo: bold 6px vs regular 3px = **ratio 2.0×** — bem acima do
+default 500 do plugin (que dava 1.33× aqui). Testado: 600 → 1.67 · 700 → 2.33 · modelo 2.00.
+Ficou 700 por preservar o contraste de peça de impacto. Confirma a RULES §23: **peso é por
+categoria, medido — não existe valor universal**.
+
+**Pílulas em PX, não em %.** `height` e `top` passaram de `%` para px (`ALT = 124` = 9.2% de 1350).
+Em `%`, o story (1920) esticaria a pílula em 42%. Regra do plugin: no story os blocos mantêm o
+MESMO tamanho em px do feed.
+
+## STORY (1080×1920) — prop `story`
+| Elemento | feed | story |
+|---|---|---|
+| selo 14 anos | cy 18.9% | cy **20%** |
+| bloco de pílulas | cy 32.5…73% (px de 1350) | **+285px** de deslocamento (bloco centrado) |
+| logo rodapé | top 92.5% | top **84%** (zona segura) |
+| watermark | 4 repetições | **6** (cobre o canvas mais alto) |
+
+Stills: `padrao-frase-pilulas` · `padrao-frase-pilulas-story`.
