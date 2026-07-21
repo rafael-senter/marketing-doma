@@ -177,3 +177,29 @@ Ambos os cards:
 | Card certo/errado | 40 lh1.3 | ~15 | cards 35.74%×37.93% FIXOS → máx ~6-7 linhas; modelos usam 3-6. Texto maior = transborda silencioso |
 | Badge (CERTO/ERRADO) | 27 bold | — | fixo |
 - **Story: SEM prop `story`** — implementar ao usar (padrão SPIN).
+
+
+---
+
+## Revisão v3 (2026-07-21) — negrito medido + story
+
+**Negrito = `600`.** MEDIDO: POST 256 tem bold 4px vs regular 2px = **ratio 2.0×**; o default 500
+dava 1.5×. Com 600 o 256 bate exato (4/2) e o 247 fica +1 (o modelo 247 usa bold um pouco mais
+fino que o 256 — 600 é o melhor compromisso entre os dois). RULES §23: peso é por categoria.
+
+**Card em PX.** `height` do card passou de `37.93%` para `CARD_H = 512` px — em `%`, o story
+esticaria o card em 42%.
+
+### STORY (1080×1920) — prop `story`
+| Elemento | feed | story |
+|---|---|---|
+| cards | top 392 (29%) | top **660** (mesma altura em px) |
+| watermark | top -5% | top **10%** |
+| logo rodapé | top 82% | top **74.5%** |
+
+Stills: `padrao-certoerrado-247` / `-256` e os pares `-story`.
+
+### Fica para depois (decisão do Patrick: só negrito + story nesta rodada)
+- **Cantos do card**: no modelo o card ERRADO tem o canto inf-esq e o CERTO o inf-dir bem mais
+  arredondados que os outros (assinatura de "1 canto diferente"); hoje usamos raio 45 uniforme.
+- **Sombra**: o modelo tem sombra suave sob os cards; a nossa é bem mais fraca.

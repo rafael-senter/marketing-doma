@@ -65,10 +65,13 @@ export type CertoErradoProps = {errado: string; certo: string};
 
 // card: largura 35.8% (386px), altura 37.9% (512px), y 29%, raio 30.
 // esq left 12%, dir left 52.1%. badge cx esq 45.9%/dir 85.9%, cy 32.1% (= topo do card).
-const Card: React.FC<{lado: 'errado' | 'certo'; texto: string; left: string}> = ({lado, texto, left}) => {
+// ⚠️ altura/top do card em PX (não %): no story (1920) o % esticaria o card em 42%.
+// Regra do plugin: no story os blocos mantêm o MESMO tamanho em px do feed.
+const CARD_H = 512;   // 37.93% de 1350
+const Card: React.FC<{lado: 'errado' | 'certo'; texto: string; left: string; top: number}> = ({lado, texto, left, top}) => {
   const ehErrado = lado === 'errado';
   return (
-    <div style={{position: 'absolute', left, top: '29%', width: '35.74%', height: '37.93%',
+    <div style={{position: 'absolute', left, top, width: '35.74%', height: CARD_H,
       background: C.soft, borderRadius: 45, boxShadow: '0 6px 22px #C9982022', zIndex: 1}}>
       {/* badge Ø86, centro cy434 = topo do card (top:0), cx 496/928 (left interno 323). */}
       <IconeBadge tipo={ehErrado ? 'x' : 'check'} cor={ehErrado ? C.vermelho : C.verde} />
@@ -79,7 +82,9 @@ const Card: React.FC<{lado: 'errado' | 'certo'; texto: string; left: string}> = 
       {/* corpo: regular(400) + keyword bold; bloco centralizado vertical no espaço restante */}
       <div style={{position: 'absolute', top: 130, bottom: 48, left: 38, right: 38,
         display: 'flex', flexDirection: 'column', justifyContent: 'center'}}>
-        <TextoRico style={{color: C.grafite, fontSize: 40, fontWeight: 400, lineHeight: 1.3, display: 'block'}}>
+        {/* negrito 600: MEDIDO no POST 256 — bold 4px vs regular 2px = ratio 2.0×
+            (o default 500 dava 1.5×). RULES §23: peso é por categoria. */}
+        <TextoRico boldWeight={600} style={{color: C.grafite, fontSize: 40, fontWeight: 400, lineHeight: 1.3, display: 'block'}}>
           {texto}
         </TextoRico>
       </div>
@@ -91,7 +96,7 @@ const Card: React.FC<{lado: 'errado' | 'certo'; texto: string; left: string}> = 
 // "Ma" embaixo) — é o que aparece no modelo (DO no topo, MA atrás dos cards).
 const maskUrl = `url(${staticFile('oficial/logotipo-vertical-branco.png')})`;
 
-export const CertoErrado: React.FC<CertoErradoProps> = ({errado, certo}) => (
+export const CertoErrado: React.FC<CertoErradoProps & {story?: boolean}> = ({errado, certo, story}) => (
   <AbsoluteFill style={{
     backgroundColor: C.fundo, fontFamily: F, overflow: 'hidden',
     WebkitFontSmoothing: 'antialiased', MozOsxFontSmoothing: 'grayscale', textRendering: 'geometricPrecision',
@@ -100,18 +105,19 @@ export const CertoErrado: React.FC<CertoErradoProps> = ({errado, certo}) => (
         LATERAIS (perna esq do D, lateral dir do O cortadas); a BASE do "Ma" é o limite
         inferior (~y74%, logo abaixo dos cards). width 125% (sangra laterais), top -5%.
         Proporção natural 1.27:1 → altura ~79% (topo -5% → base ~74%). */}
-    <div style={{position: 'absolute', top: '-5%', left: '50%', transform: 'translateX(-50%)',
+    <div style={{position: 'absolute', top: story ? '10%' : '-5%', left: '50%', transform: 'translateX(-50%)',
       width: '125%', aspectRatio: '1681 / 1328', backgroundColor: C.watermark,
       WebkitMaskImage: maskUrl, maskImage: maskUrl,
       WebkitMaskSize: '100% 100%', maskSize: '100% 100%',
       WebkitMaskRepeat: 'no-repeat', maskRepeat: 'no-repeat', zIndex: 0}} />
 
     {/* 2 cards */}
-    <Card lado="errado" texto={errado} left="12.04%" />
-    <Card lado="certo" texto={certo} left="52.13%" />
+    {/* story: card centrado no canvas (mesma altura em px do feed) */}
+    <Card lado="errado" texto={errado} left="12.04%" top={story ? 660 : 392} />
+    <Card lado="certo" texto={certo} left="52.13%" top={story ? 660 : 392} />
 
     {/* logo rodapé "DOMa" grafite, cx 50%, y~82% */}
-    <div style={{position: 'absolute', top: '82%', left: 0, right: 0, display: 'flex', justifyContent: 'center', zIndex: 3}}>
+    <div style={{position: 'absolute', top: story ? '74.5%' : '82%', left: 0, right: 0, display: 'flex', justifyContent: 'center', zIndex: 3}}>
       <LogoDoma cor={C.grafite} tamanho={58} wordmark />
     </div>
   </AbsoluteFill>
