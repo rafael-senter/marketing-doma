@@ -4,7 +4,7 @@ Método e regras: **`RULES-recriacao.md`** (medir→codar→validar, render por 
 Plano/status das 12 categorias: **`PLANO-recriacao.md`** · **`STATUS-recriacao.md`**.
 Recursos do Remotion: **`REFERENCIA-remotion.md`**.
 
-## Fichas por categoria (12/12 ✅)
+## Fichas por categoria (13 categorias)
 
 ### Cards únicos
 - [frase-pilulas.md](frase-pilulas.md) — **PADRÃO-OURO** do método (todas as técnicas medidas).
@@ -24,6 +24,8 @@ Recursos do Remotion: **`REFERENCIA-remotion.md`**.
 - [dicas-trento.md](dicas-trento.md) — POST 193 (storytelling, 8 slides bespoke, watermark bg extraído).
 - [doma-carrossel-clientes.md](doma-carrossel-clientes.md) — POST 205 (logos de cliente recortados + grafismos).
 - [spin.md](spin.md) — POST 243 + 251 (3 templates parametrizados).
+- [troque-por-isso.md](troque-por-isso.md) — **POST 186** (pares Troque/Por isso; card de 1 canto
+  reto + bordinha branca; lineHeight em px; itálico por skew). 🆕 2026-07-21.
 
 ## Princípios transversais (detalhe nas RULES)
 - **Medir por pixel antes de codar** (bbox→%, cores hex por bloco, z-order, ângulos).

@@ -41,6 +41,7 @@ Cada peça é validada com o Patrick antes de seguir.
 10. **Dicas Carrossel / Trento** — POST 193 (8 slides)
 11. **Doma / Carrossel clientes** — POST 205 (8 slides)
 12. **SPIN** — POST 243 (6 slides) + POST 251 (6 slides)
+13. **Troque Isso / Por Isso** — POST 186 (9 slides) 🆕 categoria nova, 2026-07-21
 
 ---
 

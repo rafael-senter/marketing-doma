@@ -1,6 +1,6 @@
 {
   "name": "marketing-doma",
-  "version": "0.1.84",
+  "version": "0.1.85",
   "description": "Plugin do Marketing da Doma — geração de posts/carrosséis/stories no Remotion seguindo o design system real (12 categorias mapeadas), voz institucional (@sigadoma), regras de marca (DOMa logo, watermark tom-sobre-tom medida, cores por bloco, TT Lakes oficial). Skill master /marketing-doma guia leigo em Claude Code por fluxo passo-a-passo (categoria → conteúdo ou brainstorm → plano medido → render → audit comparativo → publish). 14 sub-skills (1 por tipo de post + brand-rules + novo-post-from-scratch). 4 agentes (ghostwriter, validador-marca, editor-conteudo, render-orchestrator). Auto-melhoria: live-rules grava padrões novos descobertos em runtime + ficha da categoria atualizada. Setup via /marketing-doma-setup instala Remotion + deps + hook settings.json local de auto-start do studio.",
   "author": "Doma / Patrick",
   "license": "MIT",
@@ -63,6 +63,7 @@
     "skills/marketing-doma/subskills/dicas-carrossel",
     "skills/marketing-doma/subskills/doma-carrossel-clientes",
     "skills/marketing-doma/subskills/spin",
+    "skills/marketing-doma/subskills/troque-por-isso",
     "skills/marketing-doma/subskills/novo-post-from-scratch",
     "skills/marketing-doma/subskills/brand-rules",
     "skills/marketing-doma/subskills/asset-ingester",

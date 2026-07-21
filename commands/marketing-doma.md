@@ -17,13 +17,13 @@ Se falhou: avisar e parar.
 
 ## Passo 1 — perguntar tipo de post
 
-`AskUserQuestion` com 14 opções:
+`AskUserQuestion` com 15 opções:
 
 📌 Cards: 1) Frase em Pílulas · 2) Mapa Clientes · 3) Certo e Errado · 4) Cliente Novo · 5) Doma Motiva · 6) Inimigo em Comum · 7) Narrativa · 8) Produtividade · 9) Funções do Sistema · 10) Doma Institucional
 
-📚 Carrosséis: 11) Dicas (9 slides) · 12) Carrossel Clientes (8 slides) · 13) SPIN (6 slides)
+📚 Carrosséis: 11) Dicas (9 slides) · 12) Carrossel Clientes (8 slides) · 13) SPIN (6 slides) · 14) Troque Isso / Por Isso (9 slides)
 
-🆕 14) Categoria nova (protocolo from-scratch)
+🆕 15) Categoria nova (protocolo from-scratch)
 
 ## Passo 2 — perguntar conteúdo
 

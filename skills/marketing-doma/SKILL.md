@@ -34,6 +34,7 @@ Skill auto-contida que gera posts/carrosséis/stories da Doma no Remotion seguin
 | "carrossel numerado de erros/dicas (família 246/133/193)" | `subskills/dicas-carrossel` |
 | "carrossel de logos de cliente (família 205)" | `subskills/doma-carrossel-clientes` |
 | "carrossel SPIN (perguntas → implicação → necessidade)" | `subskills/spin` |
+| "carrossel troque isso / por isso (pares antes→depois em cards)" | `subskills/troque-por-isso` |
 | "categoria nova / não bate com nenhum padrão" | `subskills/novo-post-from-scratch` |
 | "regras transversais de marca / voz / cor" | `subskills/brand-rules` |
 | **peça precisa de foto de pessoa/dono/funcionário de setor cliente** (buscar internet ou gerar nanobanana) | `subskills/image-sourcer` |
