@@ -174,7 +174,7 @@ export const NavArrasta: React.FC<{ultimo?: boolean}> = ({ultimo = false}) => {
         justifyContent: 'center',
         fontSize: 56,
         color: brand.cores.grafite,
-        fontWeight: 700,
+        fontWeight: 500,   // RULES §23
         zIndex: 2,
       }}
     >
@@ -189,8 +189,8 @@ export const TextoRico: React.FC<{
   children: string;
   style?: React.CSSProperties;
   corHighlight?: string;
-  boldWeight?: number;   // peso do **bold** (default 600 — MEDIDO no POST 270: stroke bold 9px vs regular 5px; 700 dava 11px. Regra Patrick 2026-07-16: negrito fino em TODAS as criações)
-}> = ({children, style, corHighlight = brand.cores.amareloSoft, boldWeight = 600}) => {
+  boldWeight?: number;   // peso do **bold** (default 500 — RULES §23; era 600 — MEDIDO no POST 270: stroke bold 9px vs regular 5px; 700 dava 11px. Regra Patrick 2026-07-16: negrito fino em TODAS as criações)
+}> = ({children, style, corHighlight = brand.cores.amareloSoft, boldWeight = 500}) => {
   // divide por **bold**, ==highlight== e //itálico//
   const partes = children.split(/(\*\*[^*]+\*\*|==[^=]+==|\/\/[^/]+\/\/)/g);
   // converte \n em quebra de linha real
@@ -222,7 +222,7 @@ export const TextoRico: React.FC<{
               key={i}
               style={{
                 background: corHighlight,
-                fontWeight: 700,
+                fontWeight: 500,   // RULES §23 — negrito Doma e 500, nao 700
                 padding: '0.05em 0.18em',
                 lineHeight: 1.45,
                 boxDecorationBreak: 'clone',

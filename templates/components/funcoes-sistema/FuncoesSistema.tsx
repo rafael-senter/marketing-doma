@@ -104,7 +104,7 @@ export const FuncoesSistema: React.FC<FuncoesSistemaProps> = (p) => (
 
     {p.bigNumero && (
       <span style={{position: 'absolute', left: p.bigNumero.left, top: p.bigNumero.top, zIndex: 2,
-        color: C.grafite, fontSize: p.bigNumero.fontSize ?? 230, fontWeight: 800, lineHeight: 0.9, letterSpacing: -8}}>
+        color: C.grafite, fontSize: p.bigNumero.fontSize ?? 230, fontWeight: 500, lineHeight: 0.9, letterSpacing: -8}}>
         {p.bigNumero.texto}
       </span>
     )}
@@ -147,7 +147,7 @@ export const FuncoesSistema: React.FC<FuncoesSistemaProps> = (p) => (
     {p.badge && (
       <div style={{position: 'absolute', left: p.badge.left, top: p.badge.top, width: p.badge.size ?? '16.1%', aspectRatio: '1 / 1',
         background: C.soft, borderRadius: 18, zIndex: 2, display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-        <span style={{color: C.grafite, fontSize: 80, fontWeight: 800, lineHeight: 1}}>{p.badge.numero}</span>
+        <span style={{color: C.grafite, fontSize: 80, fontWeight: 500, lineHeight: 1}}>{p.badge.numero}</span>
       </div>
     )}
 

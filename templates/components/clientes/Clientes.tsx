@@ -62,7 +62,7 @@ export const Clientes: React.FC<ClientesProps> = ({foto, nome, cidade}) => (
     <div style={{position: 'absolute', left: '18.1%', top: '69.8%', right: '6%', zIndex: 2,
       color: C.grafite, lineHeight: 1.12}}>
       <div style={{fontSize: 64}}>
-        <span style={{fontWeight: 400}}>A </span><span style={{fontWeight: 800}}>{nome}</span>
+        <span style={{fontWeight: 400}}>A </span><span style={{fontWeight: 600}}>{nome}</span>
       </div>
       <div style={{fontSize: 64, fontWeight: 400}}>agora faz parte do time</div>
       <div style={{fontSize: 64, fontWeight: 400, display: 'flex', alignItems: 'center', gap: 16}}>
@@ -72,7 +72,7 @@ export const Clientes: React.FC<ClientesProps> = ({foto, nome, cidade}) => (
 
     {/* rodapé — medido: cap~22, larg~483, peso medium (densidade 0.27, não bold) */}
     <div style={{position: 'absolute', top: '94%', left: 0, right: 0, textAlign: 'center',
-      color: C.grafite, fontSize: 24, fontWeight: 500, letterSpacing: 1, zIndex: 2}}>
+      color: C.grafite, fontSize: 24, fontWeight: 600, letterSpacing: 1, zIndex: 2}}>
       DOMINE A GESTÃO DO SEU NEGÓCIO
     </div>
   </AbsoluteFill>

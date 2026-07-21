@@ -242,18 +242,33 @@ Antes de codar, apresentar a tabela de encaixe e a pergunta:
 
 Só codar após o OK. Depois de renderizar, `analyzer-pos-render` revalida com a mesma conta.
 
-## 23. NEGRITO = peso 500 (Patrick 2026-07-21)
+## 23. NEGRITO — medir por categoria; 500 é o piso, não a regra única
 
-Negrito de texto Doma é **`500` (TT Lakes Medium)**, não 600/700/800. Medido contra o POST 186:
-tab fs38 → traço 4px · fecho fs73 → 6px · CTA fs67 → 6px, com regular em 4px.
-**Ratio-alvo bold/regular ≈ 1.5×** na espessura do traço. Peso 700 dava 2.5× (virava black).
+O default do plugin é **`500`** (TT Lakes Medium) e o alvo é **ratio bold/regular ≈ 1.5×** na
+espessura do traço. Medido no POST 186: tab fs38 → 4px · fecho fs73 → 6px · CTA fs67 → 6px, com
+regular em 4px. Peso 700 dava 2.5× — virava black.
 
-- `TextoRico boldWeight={500}` · `fontWeight: 500` em títulos/tabs/labels · regular segue `400`.
-- Onde havia `800`/`900`, descer para `600` — nunca acima.
-- Validar por MEDIÇÃO de traço (mediana dos runs horizontais de tinta numa faixa bold vs uma
-  regular do mesmo fontSize, comparadas às mesmas faixas do modelo). Nunca a olho.
+⚠️ **Mas 500 NÃO é universal.** A varredura das 17 categorias (2026-07-21) mostrou que cada modelo
+tem o seu peso: forçar 500 em todas deixou **6 categorias mais finas que o próprio modelo**.
+Peso por categoria, medido, hoje:
 
-Aplicado: `troque-por-isso`. Demais categorias: ver live-rule `2026-07-21-bold-peso-500.md` (pendente).
+| peso | categorias |
+|---|---|
+| **500** | certo-e-errado · dicas-otica · doma-motiva · funcoes-sistema · troque-por-isso · diversas · mapa-de-clientes · produtividade |
+| **600** | clientes · dicas · dicas-trento · doma-institucional |
+| **700** | inimigo-em-comum (validado com o Patrick em 2026-07-16 — 800 foi rejeitado por grosso) |
+| só 400 | doma-carrossel-clientes · frase-em-pilulas · narrativa · segmentos · spin (não têm bold) |
+
+### Como medir (o método confiável)
+Espessura mediana dos **runs horizontais de tinta** numa faixa de texto **bold** e numa faixa
+**regular do MESMO fontSize**, na mesma peça — e as mesmas duas faixas no modelo. É pontual e
+preciso: foi assim que 500 foi determinado na `troque-por-isso`.
+
+### O que NÃO funciona (tentado e descartado)
+Métrica **global** da peça (mediana/p90 de todo o texto escuro, ou p75/p25) para decidir o peso:
+mistura logo, ícones, watermark e fontes de tamanhos diferentes, e o ruído é da mesma ordem da
+diferença que se quer medir. Serve para *rastrear* que algo mudou, não para *decidir* o peso.
+Mudança de peso em massa sem medição pontual = mudança no cego.
 
 ## 24. lineHeight e HIERARQUIA de texto — copiar do modelo, não improvisar (Patrick 2026-07-21)
 

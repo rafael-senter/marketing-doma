@@ -81,7 +81,7 @@ export const Diversas: React.FC<DiversasProps> = ({texto, fecho, story}) => {
         {/* fecho centralizado no eixo do frame — flexbox vaza simétrico (modelo x212–867) */}
         <div style={{width: '100%', display: 'flex', justifyContent: 'center', marginTop: 8}}>
           {/* background manga CORTA as linhas do frame atrás do texto (modelo: linha nunca passa atrás) */}
-          <span style={{color: C.grafite, fontSize: fsFecho, fontWeight: 700, lineHeight: 1.05,
+          <span style={{color: C.grafite, fontSize: fsFecho, fontWeight: 500, lineHeight: 1.05,
             whiteSpace: 'nowrap', backgroundColor: C.manga, padding: '0 16px'}}>
             {fecho}
           </span>

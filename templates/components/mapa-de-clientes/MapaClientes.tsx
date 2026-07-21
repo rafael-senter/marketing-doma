@@ -102,8 +102,8 @@ export const MapaClientes: React.FC = () => (
         display: 'flex', flexDirection: 'column', justifyContent: 'center', paddingLeft: 28, boxSizing: 'border-box'}}>
         <div style={{display: 'flex', alignItems: 'baseline', color: C.texto}}>
           <span style={{fontSize: 24, fontWeight: 400}}>+</span>
-          <span style={{fontSize: 32, fontWeight: 800, marginLeft: 22, letterSpacing: 1}}>93%</span>
-          <span style={{fontSize: 32, fontWeight: 800, marginLeft: 12, letterSpacing: 1.5}}>DE CLIENTES</span>
+          <span style={{fontSize: 32, fontWeight: 600, marginLeft: 22, letterSpacing: 1}}>93%</span>
+          <span style={{fontSize: 32, fontWeight: 600, marginLeft: 12, letterSpacing: 1.5}}>DE CLIENTES</span>
         </div>
         <div style={{fontSize: 16, fontWeight: 400, color: C.subtitulo, marginTop: 2}}>
           Satisfeitos com o suporte e produto

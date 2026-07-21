@@ -32,7 +32,7 @@ const Foto: React.FC<{b: Box; z?: number}> = ({b, z = 1}) => (
 
 const Pilula: React.FC<{texto: string; l: number; t: number; w: number; dark?: boolean}> = ({texto, l, t, w, dark}) => (
   <div style={{position: 'absolute', left: `${l}%`, top: `${t}%`, width: `${w}%`, height: '3.6%',
-    background: dark ? C.grafite : C.soft, color: dark ? C.branco : C.grafite, fontSize: 22, fontWeight: 700,
+    background: dark ? C.grafite : C.soft, color: dark ? C.branco : C.grafite, fontSize: 22, fontWeight: 500,
     letterSpacing: 0.5, borderRadius: 9, display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 3}}>{texto}</div>
 );
 
@@ -40,7 +40,7 @@ const Pilula: React.FC<{texto: string; l: number; t: number; w: number; dark?: b
 export const OticaCapa: React.FC = () => (
   <AbsoluteFill style={{...baseFill, backgroundColor: C.manga}}>
     <div style={{position: 'absolute', left: '9%', top: '8%', width: '64%', zIndex: 2,
-      color: C.grafite, fontSize: 52, fontWeight: 700, lineHeight: 1.12}}>
+      color: C.grafite, fontSize: 52, fontWeight: 500, lineHeight: 1.12}}>
       Lojista,<br />faça <span style={{textDecoration: 'underline', textUnderlineOffset: 5}}>trocas inteligentes</span><br />em sua ótica
     </div>
     <Foto b={{src: 'oficial/_133-s1a.jpg', l: 3.5, t: 31.6, w: 45.4, h: 48.5}} />
@@ -50,10 +50,10 @@ export const OticaCapa: React.FC = () => (
     {/* seta entre as fotos */}
     <div style={{position: 'absolute', left: '46.5%', top: '49%', width: 64, height: 64, borderRadius: '50%',
       border: `3px solid ${C.grafite}`, display: 'flex', alignItems: 'center', justifyContent: 'center',
-      color: C.grafite, fontSize: 34, fontWeight: 700, background: C.manga, zIndex: 4}}>→</div>
+      color: C.grafite, fontSize: 34, fontWeight: 500, background: C.manga, zIndex: 4}}>→</div>
     {/* pílula CTA inferior */}
     <div style={{position: 'absolute', left: '50%', top: '82.5%', transform: 'translateX(-50%)',
-      background: C.grafite, color: C.branco, fontSize: 28, fontWeight: 700, borderRadius: 40,
+      background: C.grafite, color: C.branco, fontSize: 28, fontWeight: 500, borderRadius: 40,
       padding: '16px 34px', zIndex: 3, whiteSpace: 'nowrap'}}>para chamar mais atenção!</div>
     <div style={{position: 'absolute', right: '6%', bottom: '4.5%', zIndex: 4}}>
       <LogoDoma cor={C.grafite} tamanho={58} wordmark />
@@ -103,7 +103,7 @@ export const OticaFullFoto: React.FC<FullFotoProps> = ({foto, card, titulo, corp
         background: escuro ? C.grafite : C.soft, borderRadius: 30, zIndex: 1,
         display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '0 40px', boxSizing: 'border-box',
         textAlign: corpo ? 'left' : 'center', alignItems: corpo ? 'flex-start' : 'center'}}>
-        <TextoRico style={{color: escuro ? C.branco : C.grafite, fontSize: 34, fontWeight: 700, lineHeight: 1.15, display: 'block'}}>
+        <TextoRico style={{color: escuro ? C.branco : C.grafite, fontSize: 34, fontWeight: 500, lineHeight: 1.15, display: 'block'}}>
           {titulo}
         </TextoRico>
         {corpo && (
@@ -123,7 +123,7 @@ export const OticaCta: React.FC = () => (
     <div style={{position: 'absolute', left: '16.9%', top: '-2%', width: '66.2%', height: '68%',
       background: C.soft, borderRadius: 30, zIndex: 1, display: 'flex', alignItems: 'flex-end',
       justifyContent: 'center', paddingBottom: 56, boxSizing: 'border-box'}}>
-      <span style={{color: C.grafite, fontSize: 96, fontWeight: 700, lineHeight: 1.0, textAlign: 'center'}}>
+      <span style={{color: C.grafite, fontSize: 96, fontWeight: 500, lineHeight: 1.0, textAlign: 'center'}}>
         Você já<br />faz isso?
       </span>
     </div>

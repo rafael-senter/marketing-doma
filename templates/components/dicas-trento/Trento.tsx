@@ -57,8 +57,8 @@ export const Trento1: React.FC = () => (
     {/* embrulho de bala (banda soft inclinada) */}
     <div style={{position: 'absolute', left: '10%', top: '44%', width: '80%', height: '13%',
       background: C.soft, borderRadius: 18, transform: 'rotate(-7deg)', zIndex: 1}} />
-    <span style={{position: 'absolute', left: '70%', top: '37%', fontSize: 64, fontWeight: 700, color: C.grafite, zIndex: 2}}>?</span>
-    <span style={{position: 'absolute', left: '38%', top: '55%', fontSize: 64, fontWeight: 700, color: C.grafite, zIndex: 2}}>?</span>
+    <span style={{position: 'absolute', left: '70%', top: '37%', fontSize: 64, fontWeight: 600, color: C.grafite, zIndex: 2}}>?</span>
+    <span style={{position: 'absolute', left: '38%', top: '55%', fontSize: 64, fontWeight: 600, color: C.grafite, zIndex: 2}}>?</span>
     <div style={{position: 'absolute', left: '12%', top: '60%', zIndex: 3}}>
       <SeloDoma tamanho={170} variante="grafite" />
     </div>
@@ -130,7 +130,7 @@ export const Trento6: React.FC = () => (
     <Txt l={25} t={31} w={56} size={42}>{'Veio a pandemia e o\nconsumo de chocolate\nsubiu 44%.'}</Txt>
     <div style={{position: 'absolute', left: '23%', top: '43%', width: '56%', background: C.soft, borderRadius: 14,
       padding: '20px 28px', zIndex: 3}}>
-      <TextoRico style={{color: C.grafite, fontSize: 42, fontWeight: 700, lineHeight: 1.18, display: 'block'}}>
+      <TextoRico style={{color: C.grafite, fontSize: 42, fontWeight: 600, lineHeight: 1.18, display: 'block'}}>
         {'E o Trento…\nvirou febre nas redes.'}
       </TextoRico>
     </div>
@@ -157,8 +157,8 @@ export const Trento8: React.FC = () => (
   <AbsoluteFill style={baseFill}>
     <Bg />
     {/* $ soft decorativos */}
-    <span style={{position: 'absolute', right: '16%', top: '20%', fontSize: 70, color: C.soft, fontWeight: 800, zIndex: 1}}>$</span>
-    <span style={{position: 'absolute', left: '13%', top: '70%', fontSize: 70, color: C.soft, fontWeight: 800, zIndex: 1}}>$</span>
+    <span style={{position: 'absolute', right: '16%', top: '20%', fontSize: 70, color: C.soft, fontWeight: 600, zIndex: 1}}>$</span>
+    <span style={{position: 'absolute', left: '13%', top: '70%', fontSize: 70, color: C.soft, fontWeight: 600, zIndex: 1}}>$</span>
     <Txt l={26} t={28} w={56} size={42}>{'Hoje, a Peccin fatura\nmais de ==R$ 700 milhões==\n==por ano.==\n\nE o Trento é mais que\nchocolate:\n\n**É o orgulho que nasceu\nno interior e venceu os\ngigantes.**'}</Txt>
     <div style={{position: 'absolute', bottom: '6%', left: 0, right: 0, display: 'flex', justifyContent: 'center', zIndex: 4}}>
       <LogoDoma cor={C.grafite} tamanho={64} wordmark />

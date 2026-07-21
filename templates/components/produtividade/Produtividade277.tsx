@@ -38,8 +38,8 @@ export const Produtividade277: React.FC = () => (
     <div style={{position: 'absolute', left: '40%', top: '64.5%', zIndex: 3,
       background: C.grafite, borderRadius: 999, padding: '12px 28px',
       display: 'flex', alignItems: 'center', gap: 10}}>
-      <span style={{color: C.branco, fontSize: 22, fontWeight: 700, letterSpacing: 1.5}}>LEIA A LEGENDA</span>
-      <span style={{color: C.branco, fontSize: 22, fontWeight: 700}}>↓</span>
+      <span style={{color: C.branco, fontSize: 22, fontWeight: 500, letterSpacing: 1.5}}>LEIA A LEGENDA</span>
+      <span style={{color: C.branco, fontSize: 22, fontWeight: 500}}>↓</span>
     </div>
   </AbsoluteFill>
 );

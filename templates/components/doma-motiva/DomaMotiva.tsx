@@ -42,7 +42,7 @@ export const DomaMotiva: React.FC<DomaMotivaProps> = ({foto, blocos, card, seloC
           "#" cortado à esquerda e "a" cortado à direita — texto ultrapassa as DUAS bordas.
           Branco translúcido por cima da foto. Correção Patrick 2026-07-16 (antes era 88px sem sangrar). */}
       <div style={{position: 'absolute', left: '-2.2%', [watermark === 'topo' ? 'top' : 'bottom']: '-1%',
-        fontSize: 162, fontWeight: 700, color: '#FFFFFF', opacity: 0.20, letterSpacing: -2,
+        fontSize: 162, fontWeight: 500, color: '#FFFFFF', opacity: 0.20, letterSpacing: -2,
         whiteSpace: 'nowrap', lineHeight: 1}}>
         #DomaMotiva
       </div>

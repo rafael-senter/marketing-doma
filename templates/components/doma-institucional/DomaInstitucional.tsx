@@ -58,7 +58,7 @@ export const Doma178: React.FC = () => (
       <TextoRico style={{color: C.grafite, fontSize: 62, fontWeight: 400, lineHeight: 1.12, display: 'block'}}>
         {'O **nosso**\n**negócio** é\nver o seu'}
       </TextoRico>
-      <span style={{color: C.grafite, fontSize: 86, fontWeight: 800, lineHeight: 1.05, display: 'block', marginTop: 4}}>
+      <span style={{color: C.grafite, fontSize: 86, fontWeight: 600, lineHeight: 1.05, display: 'block', marginTop: 4}}>
         prosperar.
       </span>
     </div>
@@ -74,7 +74,7 @@ export const Doma271: React.FC = () => (
     <div style={{position: 'absolute', left: '13%', top: '15%', width: '78%', zIndex: 2,
       color: C.grafite, fontSize: 64, lineHeight: 1.16}}>
       <div style={{fontWeight: 400}}>Tem uma coisa</div>
-      <div style={{display: 'inline-block', background: C.soft, color: C.grafite, fontWeight: 800,
+      <div style={{display: 'inline-block', background: C.soft, color: C.grafite, fontWeight: 600,
         padding: '2px 18px', borderRadius: 12, margin: '6px 0'}}>ESTRANHA</div>
       <div style={{fontWeight: 400}}>acontecendo</div>
       <div style={{fontWeight: 400, textDecoration: 'underline', textUnderlineOffset: 8}}>com quem usa</div>
@@ -85,7 +85,7 @@ export const Doma271: React.FC = () => (
     <div style={{position: 'absolute', left: '39.6%', top: '47.4%', width: '56%', height: '38.8%',
       background: C.branco, borderRadius: 30, zIndex: 1,
       padding: '44px 48px 44px 70px', boxSizing: 'border-box'}}>
-      <div style={{color: C.grafite, fontSize: 40, fontWeight: 800, marginBottom: 24}}>Eles começam a:</div>
+      <div style={{color: C.grafite, fontSize: 40, fontWeight: 600, marginBottom: 24}}>Eles começam a:</div>
       {['Vender mais', 'Ver dinheiro sobrando\nno caixa', 'Tomar decisões muito\nmelhores'].map((t, i) => (
         <div key={i} style={{display: 'flex', gap: 14, marginBottom: 18}}>
           <span style={{color: C.grafite, fontSize: 34, lineHeight: 1.2}}>•</span>
@@ -114,9 +114,9 @@ const Pilula: React.FC<{top: string; label: string}> = ({top, label}) => (
     background: C.soft, borderRadius: 999, zIndex: 3, display: 'flex', alignItems: 'center', gap: 18, paddingLeft: 14}}>
     <div style={{width: '38px', height: '38px', minWidth: 38, borderRadius: '50%', background: C.grafite,
       display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-      <span style={{color: C.soft, fontSize: 30, fontWeight: 700, lineHeight: 1, marginTop: -2}}>+</span>
+      <span style={{color: C.soft, fontSize: 30, fontWeight: 600, lineHeight: 1, marginTop: -2}}>+</span>
     </div>
-    <span style={{color: C.grafite, fontSize: 38, fontWeight: 700}}>{label}</span>
+    <span style={{color: C.grafite, fontSize: 38, fontWeight: 600}}>{label}</span>
   </div>
 );
 export const Doma115: React.FC = () => (
@@ -142,7 +142,7 @@ export const Doma115: React.FC = () => (
     <div style={{position: 'absolute', left: '9%', top: '57.5%', width: '15%', height: '8.5%',
       background: C.grafite, borderRadius: 16, zIndex: 3, display: 'flex', flexDirection: 'column',
       alignItems: 'center', justifyContent: 'center', lineHeight: 1}}>
-      <span style={{color: C.branco, fontSize: 52, fontWeight: 800}}>12</span>
+      <span style={{color: C.branco, fontSize: 52, fontWeight: 600}}>12</span>
       <span style={{color: C.branco, fontSize: 20, fontWeight: 400, letterSpacing: 2}}>anos</span>
     </div>
 

@@ -28,7 +28,7 @@ export const Produtividade254: React.FC = () => (
     <div style={{position: 'absolute', left: '4%', top: '4%', width: '30%',
       background: C.manga, borderRadius: 16, zIndex: 2, padding: '16px 20px', boxSizing: 'border-box'}}>
       <div style={{color: C.grafite, fontSize: 22, fontWeight: 400, lineHeight: 1.1}}>Aumento de até</div>
-      <div style={{color: C.grafite, fontSize: 60, fontWeight: 800, lineHeight: 1.0}}>18%</div>
+      <div style={{color: C.grafite, fontSize: 60, fontWeight: 600, lineHeight: 1.0}}>18%</div>
       <div style={{color: C.grafite, fontSize: 22, fontWeight: 400, lineHeight: 1.1}}>na produtividade</div>
     </div>
 

@@ -81,7 +81,7 @@ export const DicasCapa: React.FC<DicasCapaProps> = ({titulo, subtitulo, icones})
 const TextoRicoHighlight: React.FC<{texto: string}> = ({texto}) => (
   <div style={{display: 'inline-flex', flexDirection: 'column', alignItems: 'flex-start', gap: 6}}>
     {texto.split('\n').map((linha, i) => (
-      <span key={i} style={{background: C.soft, color: C.grafite, fontSize: 78, fontWeight: 700,
+      <span key={i} style={{background: C.soft, color: C.grafite, fontSize: 78, fontWeight: 600,
         lineHeight: 1.0, padding: '6px 16px', boxDecorationBreak: 'clone'}}>{linha}</span>
     ))}
   </div>
@@ -105,10 +105,10 @@ export const DicasMiolo: React.FC<DicasMioloProps> = ({numero, titulo, corpo,
       background: C.soft, borderBottomLeftRadius: 50, borderBottomRightRadius: 50, zIndex: 1,  /* raio 51 medido */
       display: 'flex', alignItems: 'center', padding: '0 56px', boxSizing: 'border-box'}}>
       {/* número grande */}
-      <span style={{color: C.grafite, fontSize: numeroSize, fontWeight: 700, lineHeight: 0.9, letterSpacing: -6}}>{numero}</span>
+      <span style={{color: C.grafite, fontSize: numeroSize, fontWeight: 600, lineHeight: 0.9, letterSpacing: -6}}>{numero}</span>
       {/* título à direita do número */}
       <div style={{marginLeft: 36, flex: 1}}>
-        <TextoRico style={{color: C.grafite, fontSize: tituloSize, fontWeight: 700, lineHeight: 1.1, display: 'block'}}>
+        <TextoRico style={{color: C.grafite, fontSize: tituloSize, fontWeight: 600, lineHeight: 1.1, display: 'block'}}>
           {titulo}
         </TextoRico>
       </div>

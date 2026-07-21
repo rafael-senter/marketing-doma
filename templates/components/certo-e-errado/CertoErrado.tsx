@@ -73,7 +73,7 @@ const Card: React.FC<{lado: 'errado' | 'certo'; texto: string; left: string}> = 
       {/* badge Ø86, centro cy434 = topo do card (top:0), cx 496/928 (left interno 323). */}
       <IconeBadge tipo={ehErrado ? 'x' : 'check'} cor={ehErrado ? C.vermelho : C.verde} />
       {/* kicker: cap~19px → font ~27; y469 → top 78 (card y391); padding 38px */}
-      <span style={{position: 'absolute', top: 78, left: 38, color: C.grafite, fontSize: 27, fontWeight: 700, letterSpacing: 0.5}}>
+      <span style={{position: 'absolute', top: 78, left: 38, color: C.grafite, fontSize: 27, fontWeight: 500, letterSpacing: 0.5}}>
         {ehErrado ? 'ERRADO' : 'CERTO'}
       </span>
       {/* corpo: regular(400) + keyword bold; bloco centralizado vertical no espaço restante */}
