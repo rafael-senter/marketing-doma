@@ -91,10 +91,15 @@ export const TrocaCapa: React.FC<{
  * Bloco de texto do card. MEDIDO no POST 186:
  * - `lineHeight` é FIXO em px (~66), INDEPENDENTE do fontSize — é assim no modelo
  *   (spacing 66/65/67 com fs 58, 55 e 54). Usar lineHeight relativo desalinha tudo.
- * - Hierarquia de papel: principal fs 58 (regular) ou 54 (bold itálico) · nota/reforço fs 40.
+ * - Hierarquia de papel: principal fs 54 (regular) ou 50 (bold itálico) · nota/reforço fs 37.
  *   O reforço é NOTÍCIA MENOR — nunca do mesmo tamanho do principal.
  * - Gap entre blocos = 70px (dá ~135px entre os tops das linhas, como no modelo).
+ * - ITÁLICO: `skewX(-8.5deg)`, NÃO o `italic` do navegador. TT Lakes não tem arquivo itálico;
+ *   o oblique sintético do Chromium deita 12.5° (MEDIDO) e o modelo usa 8-9°. `font-style:
+ *   oblique <angle>` é IGNORADO em fonte sem eixo de inclinação — só o skew controla o ângulo.
+ *   Ver RULES §25.
  */
+const SKEW_ITALICO = 'skewX(-8.5deg)';
 type Bloco = {texto: string; fontSize?: number; lhPx?: number; italico?: boolean; bold?: boolean};
 
 const Tab: React.FC<{label: string; lado: 'esq' | 'dir'; top: number}> = ({label, lado, top}) => (
@@ -125,10 +130,10 @@ const CardMiolo: React.FC<{
         key={i}
         boldWeight={500}
         style={{
-          color: C.grafite, fontSize: b.fontSize ?? 58,
+          color: C.grafite, fontSize: b.fontSize ?? 54,
           fontWeight: b.bold ? 500 : 400,
-          fontStyle: b.italico ? 'italic' : 'normal',
-          lineHeight: `${b.lhPx ?? 66}px`, textAlign: 'center', display: 'block',
+          lineHeight: `${b.lhPx ?? 62}px`, textAlign: 'center', display: 'block',
+          transform: b.italico ? SKEW_ITALICO : undefined,
         }}>
         {b.texto}
       </TextoRico>
@@ -163,7 +168,7 @@ export const TrocaMiolo: React.FC<{
           {lista.map((t, i) => (
             <div key={i} style={{display: 'flex', alignItems: 'center', gap: 18}}>
               <Check />
-              <span style={{color: C.grafite, fontSize: 54, fontWeight: 400, lineHeight: '54px'}}>{t}</span>
+              <span style={{color: C.grafite, fontSize: 50, fontWeight: 400, lineHeight: '50px'}}>{t}</span>
             </div>
           ))}
         </div>

@@ -71,11 +71,18 @@ Dois cards soft empilhados, medidas IDÊNTICAS em todos os miolos:
   **Hierarquia de papel (não achatar):**
   | Papel | fs | lh | estilo |
   |---|---|---|---|
-  | Principal (a frase, a fala entre aspas) | **58** | 66px | regular |
-  | Principal em fala do "erro" | **54** | 66px | bold itálico |
-  | Título do card com lista | **55** | 66px | bold |
-  | **Nota / reforço** ("Venda o benefício…") | **40** | 46px | bold itálico |
-  | Item da lista ✅ | 54 | 54px | regular, ✅ `#7CB342` 38px |
+  | Principal (a frase, a fala entre aspas) | **54** | 62px | regular |
+  | Principal em fala do "erro" | **50** | 62px | bold itálico |
+  | Título do card com lista | **52** | 62px | bold |
+  | **Nota / reforço** ("Venda o benefício…") | **37** | 43px | bold itálico |
+  | Item da lista ✅ | 50 | 50px | regular, ✅ `#7CB342` 38px |
+
+  (Valores brutos medidos no modelo eram 58/54/55/40/54 com lh 66; o Patrick pediu **-4 no corpo**
+  na revisão final — a peça respira melhor com o texto um pouco menor. A hierarquia entre os
+  papéis é o que importa manter, não o número absoluto.)
+
+  **Itálico = `skewX(-8.5deg)`**, nunca `fontStyle: italic` (deita 12.5°, o modelo usa 8-9°).
+  Ver RULES §25.
 
   ❌ Erro cometido: reforço em fs 50 (quase igual ao principal em 52) — some a hierarquia e a peça
   fica com cara de bloco único. O reforço é MENOR e claramente secundário.

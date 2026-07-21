@@ -275,3 +275,26 @@ o top da primeira do seguinte, menos o lineHeight. No POST 186 dá ~70px nos car
 
 Validação: comparar a LISTA DE TOPS das linhas do render com a do modelo (mesma faixa y). Devem
 bater dentro de ~5px. Ver ficha `troque-por-isso.md` para o caso completo.
+
+## 25. ITÁLICO = `skewX(-8.5deg)`, nunca `fontStyle: italic` (Patrick 2026-07-21)
+
+TT Lakes **não tem arquivo itálico**. Com `fontStyle: 'italic'` o Chromium inventa um oblique
+sintético que deita **12.5°** (medido) — o modelo da agência usa **8-9°**. Fica "muito deitado".
+
+- Usar `transform: 'skewX(-8.5deg)'` no bloco (precisa `display: block/inline-block`).
+- ⚠️ `font-style: oblique <angle>` **é IGNORADO** em fonte sem eixo de inclinação (`slnt`) —
+  testado, rendeu 0°. Só o `skewX` controla o ângulo.
+- Regular fica sem transform.
+
+### Como MEDIR a inclinação (numpy, reutilizável)
+Varrer ângulos de shear e escolher o que mais concentra a tinta por coluna (hastes alinhadas):
+```python
+d = (crop.max(axis=2) < 110).astype(float); H, W = d.shape
+melhor = max(((a, ((lambda acc: acc**2)(np.bincount(
+    (np.nonzero(d)[1] + (np.nonzero(d)[0] - H/2)*np.tan(np.radians(a)) + H).astype(int),
+    minlength=W+2*H))).sum()) for a in np.arange(-20, 20, 0.5)), key=lambda t: t[1])[0]
+```
+Validar o método rodando antes num trecho de texto REGULAR do mesmo modelo — tem que dar ~0°.
+
+Medições do POST 186: itálico do modelo **8.0°** e **9.0°** · regular **-1.0°** (controle) ·
+`fontStyle: italic` nosso **12.5°** · com `skewX(-8.5deg)` **7.0°** ✅.
