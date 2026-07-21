@@ -98,9 +98,28 @@ credibilidade. Vale para geração via nanobanana E para seleção de foto de ba
 - [ ] O enquadramento mostra o ESPAÇO, não só um detalhe?
 - Reprovou → regerar com o prompt corrigido, não aproveitar "porque tá bonita".
 
-> Caso de referência: `_ferragens-loja-base.png` (v1, close de balcão — aprovada mas Patrick apontou
-> "parece artificial") vs `_ferragens-loja-v2-base.png` (v2, corredor aberto com etiquetas manuscritas,
-> piso gasto e luz fluorescente mista — natural). Comparar as duas antes de escrever prompt novo.
+### Se ainda parecer artificial: subir o nível de "vivido" (técnica da v3)
+Enquadramento aberto + imperfeições genéricas às vezes não bastam — a cena continua com cara de
+render. O que resolve é dar **sinais de que alguém trabalha ali todo dia**:
+1. **Reusar a melhor tentativa como `--input`** (referência de composição) e pedir variação — trava
+   o que já funcionou e itera só no realismo.
+2. **Foto amadora explícita**: `a real casual snapshot the shop owner took with his phone`,
+   `slightly tilted framing`, `mild ISO noise`, `soft corners`, `flat contrast`.
+3. **Objetos locais que ninguém coloca num render**: ventilador de parede, calendário de papel,
+   bilhete manuscrito colado com fita, plaquinha de preço em papelão escrita a marcador, remendo
+   de fita crepe, mercadoria pendurada em prego/gancho, caixas de papelão empilhadas no chão.
+4. **Vestígio de trabalho em andamento**: `an open box someone was restocking left mid-aisle`.
+5. **Móvel heterogêneo**: `mix of old wooden shelves and mismatched metal ones` (loja real cresce
+   por remendo, não tem mobiliário uniforme).
+6. **Calibrar a bagunça**: `still clearly organised and navigable, just lived-in and a little messy
+   — not dirty, not abandoned`. Bagunça sem essa trava vira loja abandonada.
+7. **Luz do lugar**: `warm yellowish fluorescent tube light, daylight blowing out the storefront`.
+
+> Escala de referência A/B/C (comparar antes de escrever prompt novo):
+> `_ferragens-loja-base.png` (v1, close de balcão — **reprovada**, "parece artificial") →
+> `_ferragens-loja-v2-base.png` (v2, corredor aberto, etiquetas manuscritas, piso gasto — **boa**) →
+> `_ferragens-loja-v3-base.png` (v3, loja de bairro vivida com ventilador, calendário, caixas no
+> chão e prateleiras heterogêneas — **aprovada**). Stills: `ferragens-troca-1`, `-1-v2`, `-1-v3`.
 
 ## Pós-obtenção (SEMPRE, qualquer camada 2 ou 3)
 
