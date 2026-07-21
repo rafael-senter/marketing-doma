@@ -1,0 +1,237 @@
+import {AbsoluteFill, Img, staticFile} from 'remotion';
+import {brand} from '../../../theme';
+import {LogoDoma, TextoRico} from '../../../components';
+
+/**
+ * CATEGORIA "TROQUE ISSO / POR ISSO" (carrossel) — modelo POST 186.
+ * Ficha: knowledge-base/padroes/troque-por-isso.md (medições pixel a pixel dos slides 1,2,7,8,9).
+ *
+ * Assinatura visual: card com UM canto reto (raio 110 nos outros 3), do lado da tab.
+ * Todo card tem borda branca 2px acompanhando os mesmos raios.
+ * Grafite desta categoria é #212121 (MEDIDO), não #1F1F1F.
+ */
+const C = {
+  manga: '#F4BB35',
+  soft: '#F8DD6B',
+  grafite: '#212121',
+  branco: '#FFFFFF',
+  wm: '#F3B530',
+  check: '#7CB342',
+};
+const F = brand.fontes.titulo;
+const maskVertical = `url(${staticFile('oficial/logotipo-vertical-branco.png')})`;
+
+const base = {
+  fontFamily: F,
+  overflow: 'hidden' as const,
+  WebkitFontSmoothing: 'antialiased' as const,
+  MozOsxFontSmoothing: 'grayscale' as const,
+  textRendering: 'geometricPrecision' as const,
+};
+
+/* ─────────────────────────────────────────────────────────────
+   SLIDE 1 — CAPA
+   título (esq) + foto do segmento + badge grafite + logo rodapé
+   ───────────────────────────────────────────────────────────── */
+export const TrocaCapa: React.FC<{
+  titulo: string;        // markup TextoRico, \n = quebra HARDCODED
+  foto: string;          // path em public/ (ex: 'oficial/_ferragens-loja-base.png')
+  badge: string[];       // linhas do badge (2)
+  fontSizeTitulo?: number;
+  topTitulo?: string;
+}> = ({titulo, foto, badge, fontSizeTitulo = 64, topTitulo = '11%'}) => (
+  <AbsoluteFill style={{...base, backgroundColor: C.manga}}>
+    {/* título — esq 12.8%, quebras hardcoded */}
+    <div style={{position: 'absolute', left: '12.8%', top: topTitulo, width: '80%', zIndex: 2}}>
+      <TextoRico
+        boldWeight={700}
+        style={{
+          color: C.grafite, fontSize: fontSizeTitulo, fontWeight: 400,
+          lineHeight: 1.05, display: 'block',
+        }}>
+        {titulo}
+      </TextoRico>
+    </div>
+
+    {/* foto — canto sup-esq RETO (assinatura da categoria) */}
+    <div style={{
+      position: 'absolute', left: '12.4%', top: '35.6%', width: '75.3%', height: '45.0%',
+      borderRadius: '8px 45px 45px 45px', overflow: 'hidden', zIndex: 1,
+    }}>
+      <Img src={staticFile(foto)} style={{width: '100%', height: '100%', objectFit: 'cover'}} />
+    </div>
+
+    {/* badge grafite — canto inf-dir, TRANSBORDA a foto pela direita.
+        HUG CONTENT (RULES §22.3): largura acompanha o texto. */}
+    <div style={{
+      position: 'absolute', right: '5.7%', top: '65.8%',
+      background: C.grafite, borderRadius: 18, zIndex: 3,
+      padding: '20px 24px', display: 'flex', flexDirection: 'column',
+      alignItems: 'center', gap: 6,
+    }}>
+      {badge.map((l, i) => (
+        <span key={i} style={{color: C.branco, fontSize: 32, fontWeight: 400, lineHeight: 1.18}}>{l}</span>
+      ))}
+    </div>
+
+    {/* logo rodapé */}
+    <div style={{position: 'absolute', top: '93.6%', left: 0, right: 0,
+      display: 'flex', justifyContent: 'center', zIndex: 3}}>
+      <LogoDoma cor={C.grafite} tamanho={66} wordmark />
+    </div>
+  </AbsoluteFill>
+);
+
+/* ─────────────────────────────────────────────────────────────
+   SLIDE 2..N-2 — MIOLO (2 cards + tabs)
+   ───────────────────────────────────────────────────────────── */
+type Bloco = {texto: string; fontSize?: number; italico?: boolean; bold?: boolean};
+
+const Tab: React.FC<{label: string; lado: 'esq' | 'dir'; top: number}> = ({label, lado, top}) => (
+  <div style={{
+    position: 'absolute', top,
+    ...(lado === 'esq' ? {left: 38} : {right: 37}),
+    background: C.branco, borderRadius: 12, height: 76,
+    display: 'flex', alignItems: 'center', padding: '0 44px', zIndex: 3,
+  }}>
+    <span style={{color: C.grafite, fontSize: 38, fontWeight: 700, letterSpacing: 0.5, lineHeight: 1}}>
+      {label}
+    </span>
+  </div>
+);
+
+const CardMiolo: React.FC<{
+  top: number; radius: string; blocos: Bloco[]; children?: React.ReactNode;
+}> = ({top, radius, blocos, children}) => (
+  <div style={{
+    position: 'absolute', left: 73, top, width: 934, height: 561,
+    background: C.soft, border: `2px solid ${C.branco}`, borderRadius: radius,
+    boxSizing: 'border-box', zIndex: 1,
+    display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
+    paddingTop: 102, paddingLeft: 97, paddingRight: 97, paddingBottom: 30, gap: 30,
+  }}>
+    {blocos.map((b, i) => (
+      <TextoRico
+        key={i}
+        boldWeight={700}
+        style={{
+          color: C.grafite, fontSize: b.fontSize ?? 58,
+          fontWeight: b.bold ? 700 : 400,
+          fontStyle: b.italico ? 'italic' : 'normal',
+          lineHeight: 1.25, textAlign: 'center', display: 'block',
+        }}>
+        {b.texto}
+      </TextoRico>
+    ))}
+    {children}
+  </div>
+);
+
+/* lista com ✅ (só o último miolo, seguindo o modelo) */
+const Check: React.FC<{size?: number}> = ({size = 38}) => (
+  <svg width={size} height={size} viewBox="0 0 48 48" style={{minWidth: size}}>
+    <rect x="3" y="3" width="42" height="42" rx="7" fill={C.check} />
+    <path d="M13 25 L21 33 L36 15" stroke="#FFF" strokeWidth="5.5" fill="none"
+      strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+);
+
+export const TrocaMiolo: React.FC<{
+  troque: Bloco[];
+  porIsso: Bloco[];
+  lista?: string[];      // itens ✅ no card de baixo
+}> = ({troque, porIsso, lista}) => (
+  <AbsoluteFill style={{...base, backgroundColor: C.manga}}>
+    {/* card TROQUE ISSO — canto reto SUP-ESQ */}
+    <CardMiolo top={113} radius="0 110px 110px 110px" blocos={troque} />
+    <Tab label="TROQUE ISSO" lado="esq" top={140} />
+
+    {/* card POR ISSO — canto reto SUP-DIR */}
+    <CardMiolo top={693} radius="110px 0 110px 110px" blocos={porIsso}>
+      {lista && (
+        <div style={{display: 'flex', flexDirection: 'column', gap: 28, marginTop: 4}}>
+          {lista.map((t, i) => (
+            <div key={i} style={{display: 'flex', alignItems: 'center', gap: 18}}>
+              <Check />
+              <span style={{color: C.grafite, fontSize: 54, fontWeight: 400, lineHeight: 1.1}}>{t}</span>
+            </div>
+          ))}
+        </div>
+      )}
+    </CardMiolo>
+    <Tab label="POR ISSO" lado="dir" top={717} />
+  </AbsoluteFill>
+);
+
+/* ─────────────────────────────────────────────────────────────
+   SLIDE N-1 — FECHO (card único, sem tab)
+   ───────────────────────────────────────────────────────────── */
+export const TrocaFecho: React.FC<{
+  paragrafos: string[];      // markup TextoRico; \n = quebra HARDCODED
+  fontSize?: number;
+}> = ({paragrafos, fontSize = 73}) => (
+  <AbsoluteFill style={{...base, backgroundColor: C.manga}}>
+    <div style={{
+      position: 'absolute', left: 112, top: 158, width: 856, height: 1035,
+      background: C.soft, border: `2px solid ${C.branco}`,
+      borderRadius: '110px 0 110px 110px', boxSizing: 'border-box', zIndex: 1,
+      display: 'flex', flexDirection: 'column', justifyContent: 'center',
+      padding: '0 107px 0 189px', gap: 70,
+    }}>
+      {paragrafos.map((p, i) => (
+        <TextoRico key={i} boldWeight={700}
+          style={{color: C.grafite, fontSize, fontWeight: 400, lineHeight: 1.40, display: 'block'}}>
+          {p}
+        </TextoRico>
+      ))}
+    </div>
+  </AbsoluteFill>
+);
+
+/* ─────────────────────────────────────────────────────────────
+   SLIDE N — CTA (3 blocos ícone soft + texto, sobre watermark gigante)
+   ───────────────────────────────────────────────────────────── */
+const IconeBookmark: React.FC = () => (
+  <svg width={68} height={86} viewBox="0 0 68 86"><path d="M0 0 H68 V86 L34 58 L0 86 Z" fill={C.soft} /></svg>
+);
+const IconeSeta: React.FC = () => (
+  <svg width={102} height={86} viewBox="0 0 102 86"><path d="M0 0 H102 L51 86 Z" fill={C.soft} /></svg>
+);
+const IconeBalao: React.FC = () => (
+  <svg width={84} height={84} viewBox="0 0 84 84">
+    <circle cx="42" cy="38" r="38" fill={C.soft} />
+    <path d="M14 58 L10 84 L38 68 Z" fill={C.soft} />
+  </svg>
+);
+const ICONES_CTA = [<IconeBookmark key="b" />, <IconeSeta key="s" />, <IconeBalao key="c" />];
+
+export const TrocaCta: React.FC<{blocos: string[]}> = ({blocos}) => (
+  <AbsoluteFill style={{...base, backgroundColor: C.manga}}>
+    {/* watermark DOMa gigante (logo VERTICAL empilhada), tom-sobre-tom MAIS ESCURO */}
+    <div style={{
+      position: 'absolute', top: '20%', left: '-13.5%', width: '127%', aspectRatio: '1681 / 1328',
+      backgroundColor: C.wm,
+      WebkitMaskImage: maskVertical, maskImage: maskVertical,
+      WebkitMaskSize: '100% 100%', maskSize: '100% 100%',
+      WebkitMaskRepeat: 'no-repeat', maskRepeat: 'no-repeat',
+      zIndex: 0, pointerEvents: 'none',
+    }} />
+
+    <div style={{
+      position: 'absolute', left: '15.1%', top: '22%', width: '78%', zIndex: 2,
+      display: 'flex', flexDirection: 'column', gap: 62,
+    }}>
+      {blocos.map((b, i) => (
+        <div key={i} style={{display: 'flex', alignItems: 'flex-start', gap: 32}}>
+          <div style={{width: 102, minWidth: 102, display: 'flex', justifyContent: 'center', paddingTop: 6}}>
+            {ICONES_CTA[i % 3]}
+          </div>
+          <TextoRico boldWeight={700}
+            style={{color: C.grafite, fontSize: 67, fontWeight: 400, lineHeight: 1.38, display: 'block'}}>
+            {b}
+          </TextoRico>
+        </div>
+      ))}
+    </div>
+  </AbsoluteFill>
+);

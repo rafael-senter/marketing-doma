@@ -202,3 +202,42 @@ Geometria oficial (iterada com Patrick por print, aprovada):
 
 Uso: `<SetaDoma />` (badge escuro) · `<SetaDoma cor={C.grafite} size={96} />` (badge claro/soft).
 Aplicado: inimigo-em-comum, doma-institucional (271). NÃO vale p/ nav horizontal "ARRASTA →" nem ícone de gráfico/crescimento.
+
+## 22. ENCAIXE DE TEXTO — medir ANTES de codar, ajustar COM confirmação (Patrick 2026-07-21)
+
+Regra OBRIGATÓRIA em toda peça nova ou recriação. Antes de escrever qualquer `.tsx`, para CADA
+bloco de texto de CADA slide, calcular o encaixe e reportar ao usuário. Nunca descobrir que
+"não coube" só depois de renderizar.
+
+### 22.1 Cálculo obrigatório (por bloco)
+1. **Largura útil** do bloco em px = largura do card/coluna − paddings (medida no modelo, RULES §0).
+2. **Chars por linha** ≈ `larguraÚtil / (fontSize × 0.52)` (TT Lakes, corpo regular; bold ≈ 0.54).
+3. **Nº de linhas** = quebrar o texto real por palavra dentro desse limite (não estimar por total/chars).
+4. **Altura ocupada** = `nºLinhas × fontSize × lineHeight` + gaps entre parágrafos.
+5. **Comparar** com a altura útil do bloco de fundo (altura do card − paddings − altura de tab/badge sobreposto).
+6. Reportar: `bloco | fs | linhas | altura ocupada | altura disponível | folga`.
+
+### 22.2 Ordem das saídas quando NÃO cabe
+Sempre nesta ordem, e **sempre perguntando ao usuário antes de aplicar**:
+1. **Reduzir fontSize** do bloco (mantendo o layout do modelo) — preferível quando a diferença é ≤ 20%.
+2. **Aumentar o número de linhas** subindo/descendo o bloco dentro da área livre.
+3. **Ajustar o bloco de fundo ao texto** (card/pílula/faixa cresce ou encolhe) — só quando o
+   modelo permite bloco de altura variável.
+4. **Encurtar a copy** — última opção, e a copy revisada volta pro usuário aprovar.
+
+❌ PROIBIDO (anti-padrões já cometidos):
+- Encolher card/header pra "compensar" conteúdo magro em categoria de layout FIXO (isso é o §caso Dicas).
+- Deixar `overflow: hidden` cortar texto silenciosamente. Se o bloco corta, é bug, não estilo.
+- Aplicar qualquer um dos ajustes acima **sem confirmar** com o usuário.
+
+### 22.3 Blocos de fundo que se ajustam ao texto
+Quando o modelo mostra o bloco acompanhando o texto (tab/pílula/badge com largura de conteúdo,
+card de altura variável), implementar como **hug content**: `width: fit-content` / `height: auto`
++ padding medido no modelo — em vez de largura/altura fixa em %. Registrar na ficha da categoria
+quais blocos são FIXOS e quais são HUG.
+
+### 22.4 Reporte obrigatório ao usuário
+Antes de codar, apresentar a tabela de encaixe e a pergunta:
+> "Bloco X: o texto dá N linhas (fs F) e ocupa Hpx numa área de Dpx. Proponho <ajuste>. Confirma?"
+
+Só codar após o OK. Depois de renderizar, `analyzer-pos-render` revalida com a mesma conta.
