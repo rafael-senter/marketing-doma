@@ -73,6 +73,9 @@ com GAP y451-595 exatamente na altura do badge (cy516, Ø138). Borracha Ø166.
 > opaco por cima (a linha reencostaria nele) — a borracha cria o GAP dos dois lados.
 
 **Peça principal "Quem controla o número, controla o resultado."** (`DomaQuem`, stills `doma-quem/-story`):
-frame x[247,832] y[285,1058] w585 h773. Texto left300, NORMAL fontSize 90 / "resultado" bold 118.
-Linhas: Quem(reg) · controla o(bold) · número,(bold) · controla o(reg) · resultado.(bold grande).
-Badge cx874 cy(frameTop+231) com borracha. São **2 modelos** na categoria (178 e Quem) — o Quem é o principal.
+frame **x[247,833] y[243,1105] w586 h862** (MEDIDO por diff vs modelo; o 285/773 inicial deixava a
+moldura alta e curta). Texto left300, NORMAL **fontSize 98** (Quem w252 medido) / "resultado" bold **130**
+com **marginLeft -32** (no modelo o resultado começa ~40px à esquerda das outras linhas — outdent).
+lineHeight normal 1.18, resultado marginTop 26. Linhas: Quem(reg) · controla o(bold) · número,(bold) ·
+controla o(reg) · resultado.(bold grande). Badge cx874 cy(frameTop+273=516) com borracha (linha cortada).
+São **2 modelos** na categoria (178 e Quem) — o **Quem é o principal**. Validado por diff pixel vs modelo.

@@ -90,9 +90,9 @@ export const Doma178: React.FC<{story?: boolean}> = ({story}) => {
    Linhas: Quem(reg) · controla o(bold) · número,(bold) · controla o(reg) · resultado.(bold grande).
    Badge cx874 cy516. Story mantém px, só reposiciona. */
 export const DomaQuem: React.FC<{story?: boolean}> = ({story}) => {
-  const frameTop = story ? 573 : 285;
-  const wmTop = frameTop - 185;
-  const textTop = frameTop + 92;
+  const frameTop = story ? 529 : 243;   // MEDIDO: frame y243-1105 (h862), não 285/773
+  const wmTop = frameTop - 127;
+  const textTop = frameTop + 134;        // Quem em y377 (feed), centrado no frame
   return (
   <AbsoluteFill style={{...baseFill, backgroundColor: C.manga}}>
     {/* watermark "DOMa" full-bleed topo (#F1A625) */}
@@ -101,19 +101,20 @@ export const DomaQuem: React.FC<{story?: boolean}> = ({story}) => {
       WebkitMaskSize: '100% 100%', maskSize: '100% 100%', WebkitMaskRepeat: 'no-repeat', maskRepeat: 'no-repeat',
       zIndex: 0}} />
 
-    {/* moldura outline grafite — px fixo */}
-    <div style={{position: 'absolute', left: 247, top: frameTop, width: 585, height: 773,
+    {/* moldura outline grafite — px fixo (h862) */}
+    <div style={{position: 'absolute', left: 247, top: frameTop, width: 586, height: 862,
       border: `2px solid ${C.grafite}`, borderRadius: 44, zIndex: 1}} />
 
-    {/* badge gráfico com borracha = linha cortada */}
-    <BadgeGrafico cx={874} cy={frameTop + 231} />
+    {/* badge gráfico com borracha = linha cortada (cy medido 516) */}
+    <BadgeGrafico cx={874} cy={frameTop + 273} />
 
-    {/* texto (left-align) */}
-    <div style={{position: 'absolute', left: 300, top: textTop, width: 560, zIndex: 4}}>
-      <TextoRico boldWeight={600} style={{color: C.grafite, fontSize: 90, fontWeight: 400, lineHeight: 1.24, display: 'block'}}>
+    {/* texto (left-align). Normal fontSize 98 (Quem w252 medido); "resultado" bold 130
+        OUTDENTADO (marginLeft -32): no modelo o resultado começa ~40px à esquerda das outras linhas. */}
+    <div style={{position: 'absolute', left: 300, top: textTop, width: 570, zIndex: 4}}>
+      <TextoRico boldWeight={600} style={{color: C.grafite, fontSize: 98, fontWeight: 400, lineHeight: 1.18, display: 'block'}}>
         {'Quem\n**controla o**\n**número,**\ncontrola o'}
       </TextoRico>
-      <span style={{color: C.grafite, fontSize: 118, fontWeight: 600, lineHeight: 1.0, display: 'block', marginTop: 10}}>
+      <span style={{color: C.grafite, fontSize: 130, fontWeight: 600, lineHeight: 1.0, display: 'block', marginTop: 26, marginLeft: -32}}>
         resultado.
       </span>
     </div>
