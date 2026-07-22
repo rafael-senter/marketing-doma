@@ -204,3 +204,12 @@ Com 500 o traço já batia (2.0 = modelo), mas a olho ainda ficava fino. Subindo
 Lição: em texto pequeno o **traço mediano satura** (dá 2px em vários pesos, por arredondamento do
 rasterizador). Quando o traço empata mas o peso "parece" diferente, decidir pela **quantidade de
 tinta**.
+
+
+### Pílula "+ 93%" — 1 canto reto (decisão Patrick, 2026-07-22)
+`borderRadius: '28px 28px 0px 28px'` — **canto inferior DIREITO reto**, os outros três com raio
+generoso. Segue a assinatura Doma de "1 canto reto por bloco" (RULES §20), a mesma de
+`troque-por-isso`, `certo-e-errado` e `produtividade`.
+
+O raio **28** também é o medido no modelo — o 18 anterior estava curto. Ordem do CSS:
+`sup-esq · sup-dir · inf-dir · inf-esq`.

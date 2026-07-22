@@ -103,7 +103,11 @@ export const MapaClientes: React.FC<{story?: boolean}> = ({story}) => (
           Textos: '+' cap13 (fs24, regular) · '93%' e 'DE CLIENTES' MESMA altura cap24 (fs32, 800) ·
           subtítulo cap15 (fs16). Gaps: '+'→'93%'≈22, '93%'→'DE'≈12. paddingLeft 28 (texto em x96). */}
       <div style={{position: 'absolute', left: 1, top: 895, width: 442, height: 98,
-        background: C.card, border: `2px solid ${C.bordaSelo}`, borderRadius: 18,
+        background: C.card, border: `2px solid ${C.bordaSelo}`,
+        /* padrão Doma de "1 canto reto" (RULES §20): inf-DIREITO reto, os outros 3 com raio
+           generoso. Raio 28 = o medido no modelo (o 18 anterior era curto demais).
+           Ordem CSS: sup-esq · sup-dir · inf-dir · inf-esq. */
+        borderRadius: '28px 28px 0px 28px',
         boxShadow: '0 2px 10px #00000014',
         display: 'flex', flexDirection: 'column', justifyContent: 'center', paddingLeft: 28, boxSizing: 'border-box'}}>
         <div style={{display: 'flex', alignItems: 'baseline', color: C.texto}}>
