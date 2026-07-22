@@ -43,4 +43,22 @@ Canvas 1080×1350. Render por `render-still.sh`.
 | Badge cidade | 34 | ~28 | pílula grafite cresce com o texto |
 | Foto | — | — | 87.3%×55.1% objectFit cover — foto vertical corta topo/base; conferir enquadramento |
 - Estrutura de texto fixa: "{nome} agora faz parte do time [logo]" — logo = asset, nunca digitado.
-- **Story: SEM prop `story`** — implementar ao usar.
+
+## Revisão v3 (2026-07-22) — story adicionado + posições em PX
+
+> Comparação com o modelo: recriação já estava FIEL (watermark medido = `#F5C758`, npx 7672 vs 8054;
+> layout, foto, pílula, texto e rodapé batendo). Patrick escolheu **só adicionar story + corrigir bugs**.
+
+**Conversão % → PX (obrigatória p/ story).** Antes o layout era em `%`; no story (1080×1920) o `%`
+esticaria a foto/pílula. Agora tudo em px, com um `photoTop` que muda por formato:
+- `photoTop`: feed **136** · story **470**
+- foto **68 / photoTop / 943×744** raio 40 (MESMO px nos 2 formatos)
+- watermark `top = photoTop − 106` · pílula `top = photoTop + 679` h88 · texto `top = photoTop + 806` fs64
+- rodapé fixo por formato: feed **1269** · story **1770**
+- watermark cor corrigida `#F6C85D → #F5C758` (medido no núcleo do outline do modelo).
+
+**⚠️ O "artefato" à esquerda da pílula NÃO é bug.** É o canto inf-esq da PRÓPRIA foto (raio 40)
+mostrando conteúdo escuro do ambiente (produto/cadeira). Varia por foto; some com foto real bem
+enquadrada. Não mexer no componente por causa disso — é enquadramento da foto.
+
+Stills: `padrao-clientes` · `padrao-clientes-2` · `padrao-clientes-story` · `padrao-clientes-2-story`.
