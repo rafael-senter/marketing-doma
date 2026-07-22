@@ -1,5 +1,45 @@
 # Ficha medida — Post "Mapa do Brasil + 93% DE CLIENTES"
 
+---
+
+## ⭐ PADRÃO DEFINITIVO (v0.2.3 — APROVADO Patrick 2026-07-22)
+
+> Categoria FECHADA e aprovada ("ficou muito bom esse do mapa"). Valores canônicos abaixo —
+> reusar direto em qualquer post desta categoria. Só variam: números do selo, estados pintados,
+> rótulos e a legenda. Layout, cores, pesos e raios NÃO se mexem sem re-medir.
+> Componente: `../../templates/components/mapa-de-clientes/MapaClientes.tsx`.
+> Stills: `padrao-mapa-clientes` · `padrao-mapa-clientes-story`.
+
+| Bloco | Propriedade | Valor canônico |
+|---|---|---|
+| Fundo | cor | `#F3BA35` chapado |
+| Card branco | bbox feed | `left 65, top 65, W 949, H 1014` · cantos retos |
+| Card branco | top story | `378` (blocos mantêm px, só descem) |
+| Mapa SVG | dims/pos | `width 867 height 906`, `left 8 top 43`, `overflow: visible` |
+| Mapa | preserveAspectRatio | `xMidYMid meet`, `strokeWidth 1.2` borda branca |
+| Estados | presente / ausente | `#F4BC34` / `#D3D3D3` (DF/TO/MA cinza) |
+| Rótulos | fontSize / peso | **10.9 / 600** (traço satura em px pequeno → decidir por TINTA) |
+| Rótulos | alinhamento `<g>` | `translate(22.2 10.2) translate(0 130) scale(1 1.029) translate(0 -130)` |
+| Rótulos | cor | `#202020` |
+| Pílula selo | bbox | `left 8, top 895, W 442, H 98` (`left 8` = folga mínima) |
+| Pílula selo | raio | `28px 28px 0px 28px` (canto inf-DIR reto — assinatura §20) |
+| Pílula selo | borda / sombra | `2px #EEBA42` (medir na LATERAL) · `0 2px 10px #00000014` |
+| Pílula "+" | fs / peso / ml | `33 / 600 / 14` (mesma grossura do "93%") |
+| Pílula "93%"+"DE CLIENTES" | fs / peso | `32 / 600`, letterSpacing 1 / 1.5 |
+| Pílula subtítulo | fs / peso / cor | `22 / 400 / #5A5A5A` (medir NÚCLEO, não média) |
+| Legenda inferior | fs / peso / lh | `52 / 500 / 1.30`, top feed `1106` / story `1419` |
+
+**Armadilhas de medição desta peça (não repetir):**
+1. Mancha do mapa: medir com **filtro de ruído** (`sum > 8` por linha/coluna) — senão o antialias do card infla a bbox.
+2. Cor de texto: medir o **núcleo** do glifo, não a média (antialias clareia).
+3. Borda de pílula: medir na **lateral**, não no topo (topo tem gradiente/sombra).
+4. Peso em texto pequeno: traço mediano **satura** (2px em vários pesos) → decidir por **quantidade de tinta**.
+5. Modelo JPEG **encorpa** o texto vs nosso PNG nítido — confiar no traço/tinta, não na impressão visual.
+6. `overflow: visible` no `<svg>` — PE/AL/ES/RJ têm rótulo FORA do estado, o clip padrão corta ("Pernambuc").
+
+---
+
+
 > ✅ **FINALIZADO ~85% (SSIM 0.839) — teto técnico aceito (Patrick).** Cores/rótulos/selo/legenda batendo.
 > Rótulos posicionados via skill `layout-mapper` (docling OCR + centróide pixel). Legenda: fontSize 52,
 > letterSpacing 0.8. O gap restante (~15%) é 100% a diferença de CONTORNO: `@svg-maps/brazil` (geográfico

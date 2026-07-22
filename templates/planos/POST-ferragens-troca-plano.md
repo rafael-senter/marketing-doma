@@ -57,29 +57,37 @@ Bordão no fecho: variação de "quem domina o que tem, vende mais".
 | 2 | Vender só a torneira | Vender o conjunto completo (veda rosca + conexão + ferramenta) | Você não vende peça… vende a solução pronta. |
 | 3 | Fios e cabos jogados por metragem | Indicar a aplicação: “ideal pra chuveiro / tomada / extensão” | Elétrico confunde. Quem simplifica, vende mais. |
 | 4 | Comprar baseado em promoção de fornecedor | Comprar baseado no seu histórico | Desconto não paga estoque parado. |
-| 5 | Ferramenta na prateleira parada | Ferramenta com contexto: “uso profissional / uso doméstico” | Ajuda o cliente a escolher mais rápido. |
+| 5 | Ferramenta na prateleira parada | Ferramenta com contexto “uso profissional / uso doméstico” | Ajuda o cliente a escolher mais rápido. |
 | 6 | Cliente comprando sem EPI | Sugerir junto: luva, óculos, máscara | Além de aumentar a venda, você agrega valor de verdade. |
-| 7 | Descobrir que acabou o disjuntor… na hora da venda | **Usar o Doma e ter controle total:** ✅ Vendas na palma da mão · ✅ Estoque redondinho · ✅ Compras certeiras | Produto que falta = venda que vai embora. |
+| 7 | Descobrir que acabou o disjuntor… na hora da venda | Ter controle do que sai todo dia | Produto que falta = venda que vai embora. |
 
-> Slide 7 replica o fecho comercial do modelo (POST 186 slide 7 cita o ERP + checklist ✅). ✅ aprovado.
-> O reforço "Produto que falta = venda que vai embora." fica no card de CIMA (no de baixo daria 7 linhas).
+> ⚠️ CORRIGIDO 2026-07-22: slide 7 NÃO leva o checklist Doma/ERP. A Dani pediu o par simples
+> "Ter controle do que sai todo dia" — miolo normal como os demais. O checklist ✅ (Vendas na
+> palma / Estoque redondinho / Compras certeiras) era adição minha, não estava no pedido. Removido.
+> Este post é um MODELO diferente dentro da mesma categoria (categoria em si continua certa).
 
-### Slide 8 — fecho (fs 73, esq, coluna estreita ~11-14 chars/linha)
+### Slide 8 — fecho (fs 73, esq — copy EXATA da Dani)
 ```
-Não é a loja
-com mais produto
-que cresce.
+Loja de
+ferragens que
+cresce não é
+a que tem
+mais produto…
 
-**É a que vende**
-**melhor o que**
-**já tem.**
+**é a que sabe**
+**vender melhor**
+**o que já tem.**
 ```
-> 3º parágrafo ("E agora você sabe como.") **cortado** — 9 linhas não cabiam no card (RULES §22).
+> ⚠️ CORRIGIDO 2026-07-22: copy exata da Dani ("Loja de ferragens que cresce não é a que tem mais
+> produto… é a que sabe vender melhor o que já tem."). Antes eu tinha reescrito ("Não é a loja com
+> mais produto…") — troca desnecessária. Cabe em fs73 quebrando em 5+3 linhas.
 
-### Slide 9 — CTA (fs 67, 3 blocos com ícone soft)
-1. 🔖 **Salve** esse post.
-2. ▼ **Compartilhe** com outros lojistas.
-3. 💬 **E conta pra gente:** qual dica você vai aplicar primeiro?
+### Slide 9 — CTA (fs 67, 2 blocos com ícone soft — copy EXATA da Dani)
+1. 🔖 **Salva** esse post.
+2. ▽ **E segue o perfil** pra vender mais sem depender de movimento 👇
+
+> ⚠️ CORRIGIDO 2026-07-22: eram 2 blocos, não 3. Antes eu tinha inventado "Compartilhe com outros
+> lojistas" + "E conta pra gente…" — não estava no pedido. Copy real da Dani = só os 2 acima.
 
 ---
 
@@ -105,5 +113,6 @@ Se quiser ajuda pra aplicar isso na prática, chama a gente.
 ## Decisões fechadas
 1. **Foto da capa** — v2 aprovada pelo Patrick (gerada via nanobanana, com correção cirúrgica das
    etiquetas de preço). v1 arquivada, v3 descartada.
-2. Slide 7 cita o Doma + checklist ✅ — aprovado.
-3. Negrito peso 500 (RULES §23) em toda a peça.
+2. Slide 7 = par simples "Ter controle do que sai todo dia" (SEM checklist Doma — corrigido 2026-07-22).
+3. Slides 8 e 9 = copy EXATA da Dani (corrigido 2026-07-22, sem reescritas/adições).
+4. Negrito peso 500 (RULES §23) em toda a peça.
