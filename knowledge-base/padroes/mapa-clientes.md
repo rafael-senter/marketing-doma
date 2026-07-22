@@ -178,7 +178,7 @@ Tudo abaixo foi MEDIDO contra o modelo, elemento por elemento:
 | Pílula — borda | cor | `#EEBA42` | `#F0B830` | **`#EEBA42`** |
 | Pílula — borda | raio | ~18 | 13 | **18** + sombra `0 2px 10px #00000014` |
 | Pílula — título | cor | `#202020` | `#131313` | **`#202020`** |
-| Pílula — "+" | fontSize / gap | maior, colado | 24 / ml 22 | **30 / ml 14** |
+| Pílula — "+" | fontSize / peso / gap | mesma grossura do "93%" | 24 / 400 / ml 22 | **33 / 600 / ml 14** |
 | Pílula — subtítulo | cor | núcleo escuro | `#8A8A8A` | **`#5A5A5A`** |
 | Pílula — subtítulo | fontSize / marginTop | alt 20px | 16 / 2 | **22 / 0** |
 | Texto inferior | peso | traço 4.0 | 500 | **500** (400 dava traço 3, fino demais) |

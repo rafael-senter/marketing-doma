@@ -111,7 +111,8 @@ export const MapaClientes: React.FC<{story?: boolean}> = ({story}) => (
         boxShadow: '0 2px 10px #00000014',
         display: 'flex', flexDirection: 'column', justifyContent: 'center', paddingLeft: 28, boxSizing: 'border-box'}}>
         <div style={{display: 'flex', alignItems: 'baseline', color: C.texto}}>
-          <span style={{fontSize: 30, fontWeight: 400}}>+</span>   {/* MEDIDO v3: maior e mais colado ao 93% */}
+          {/* '+' com a MESMA grossura do '93%' (peso 600) — pedido Patrick 2026-07-22 */}
+          <span style={{fontSize: 33, fontWeight: 600}}>+</span>
           <span style={{fontSize: 32, fontWeight: 600, marginLeft: 14, letterSpacing: 1}}>93%</span>
           <span style={{fontSize: 32, fontWeight: 600, marginLeft: 12, letterSpacing: 1.5}}>DE CLIENTES</span>
         </div>
