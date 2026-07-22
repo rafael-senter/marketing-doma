@@ -24,51 +24,47 @@ const baseFill = {
 /* ─────────────────────────  CAPA (slide 1)  ───────────────────────── */
 export type DicasCapaProps = {
   titulo: string;          // ex.: 'ERROS\nCOMUNS' (vira highlight soft)
-  subtitulo: string[];     // 1 string por linha; prefixo '**' = linha bold (ex.: '**margem')
-  icones: string;          // PNG line-art transparente extraído do modelo
+  subtitulo: string[];     // 1 linha por item; prefixo '**' = bold, '==' = highlight soft
+  icones: string;          // PNG line-art transparente extraído do modelo (LIMPO, sem texto baked)
+  story?: boolean;
 };
-export const DicasCapa: React.FC<DicasCapaProps> = ({titulo, subtitulo, icones}) => (
+export const DicasCapa: React.FC<DicasCapaProps> = ({titulo, subtitulo, icones, story}) => (
   <AbsoluteFill style={{...baseFill, backgroundColor: C.manga}}>
     {/* watermark "DOMa" gigante no topo (tom-sobre-tom) */}
-    <div style={{position: 'absolute', top: '4%', left: '0%', width: '100%', aspectRatio: '1767 / 322',
+    <div style={{position: 'absolute', top: story ? '6%' : '4%', left: '0%', width: '100%', aspectRatio: '1767 / 322',
       backgroundColor: C.watermark, WebkitMaskImage: maskUrl, maskImage: maskUrl,
       WebkitMaskSize: '100% 100%', maskSize: '100% 100%', WebkitMaskRepeat: 'no-repeat', maskRepeat: 'no-repeat',
       zIndex: 0}} />
 
-    {/* ícones line-art (extraídos do modelo) — centro */}
+    {/* ícone line-art LIMPO (medido no modelo: x250-820 y372-968) — sem translate hack */}
     <Img
       src={staticFile(icones)}
-      style={{
-        position: 'absolute',
-        left: '19.4%',
-        top: '27.6%',
-        width: '51.3%',
-        height: '42.1%',
-        objectFit: 'contain',
-        zIndex: 1,
-        translate: "78.5px 4.3px"
-      }} />
+      style={{position: 'absolute', left: '23.1%', top: story ? '30%' : '27.6%',
+        width: '52.8%', height: '44.1%', objectFit: 'contain', zIndex: 1}} />
 
     {/* título com highlight soft (esq) */}
-    <div style={{position: 'absolute', left: '7%', top: '29%', zIndex: 2}}>
+    <div style={{position: 'absolute', left: '7%', top: story ? '31%' : '29%', zIndex: 2}}>
       <TextoRicoHighlight texto={titulo} />
     </div>
 
-    {/* subtítulo (dir-inf): 1 linha por item; '**' no início = bold */}
-    <div style={{position: 'absolute', right: '7%', top: '56%', textAlign: 'right', zIndex: 2,
-      display: 'flex', flexDirection: 'column', alignItems: 'flex-end'}}>
+    {/* subtítulo (dir-inf): '**' = bold, '==' = highlight soft */}
+    <div style={{position: 'absolute', right: '7%', top: story ? '58%' : '56%', textAlign: 'right', zIndex: 2,
+      display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 4}}>
       {subtitulo.map((linha, i) => {
         const bold = linha.startsWith('**');
+        const hl = linha.startsWith('==');
+        const txt = bold || hl ? linha.slice(2) : linha;
         return (
-          <span key={i} style={{color: C.grafite, fontSize: 50, fontWeight: bold ? 700 : 400, lineHeight: 1.2}}>
-            {bold ? linha.slice(2) : linha}
+          <span key={i} style={{color: C.grafite, fontSize: 50, fontWeight: bold ? 700 : 400, lineHeight: 1.2,
+            ...(hl ? {background: C.soft, padding: '2px 12px'} : {})}}>
+            {txt}
           </span>
         );
       })}
     </div>
 
     {/* faixa inferior soft + "ARRASTA PRO LADO →" */}
-    <div style={{position: 'absolute', left: 0, bottom: 0, width: '100%', height: '8.8%',
+    <div style={{position: 'absolute', left: 0, bottom: 0, width: '100%', height: story ? '6.2%' : '8.8%',
       background: C.soft, borderTopLeftRadius: 40, borderTopRightRadius: 40, zIndex: 1,
       display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 12}}>
       <span style={{color: C.grafite, fontSize: 38, fontWeight: 400, letterSpacing: 4}}>ARRASTA PRO LADO</span>
@@ -93,20 +89,22 @@ export type DicasMioloProps = {
   headerHeight?: number;        // % altura do card soft topo (default 36.5 — POST 246)
   numeroSize?: number;          // px (default 200)
   tituloSize?: number;          // px (default 50)
+  story?: boolean;
 };
 export const DicasMiolo: React.FC<DicasMioloProps> = ({numero, titulo, corpo,
-  headerHeight = 36.5, numeroSize = 200, tituloSize = 50}) => {
-  const corpoTop = headerHeight + 0.1;
-  const corpoH = Math.min(89 - corpoTop, 60);
+  headerHeight = 36.5, numeroSize = 200, tituloSize = 50, story}) => {
+  // header em PX (não estica no story); corpo card px, centrado no espaço abaixo do header
+  const headerPx = headerHeight / 100 * 1350;
+  const corpoHpx = Math.min(1350 * (Math.min(89 - (headerHeight + 0.1), 60)) / 100, 810);
+  const canvasH = story ? 1920 : 1350;
+  const corpoTop = story ? headerPx + (canvasH - headerPx - corpoHpx) / 2 : headerPx + 1;
   return (
   <AbsoluteFill style={{...baseFill, backgroundColor: C.manga}}>
-    {/* card soft topo (full-width, cantos inf arredondados) */}
-    <div style={{position: 'absolute', left: 0, top: 0, width: '100%', height: `${headerHeight}%`,
+    {/* card soft topo (full-width, cantos inf arredondados) — altura em PX */}
+    <div style={{position: 'absolute', left: 0, top: 0, width: '100%', height: headerPx,
       background: C.soft, borderBottomLeftRadius: 50, borderBottomRightRadius: 50, zIndex: 1,  /* raio 51 medido */
       display: 'flex', alignItems: 'center', padding: '0 56px', boxSizing: 'border-box'}}>
-      {/* número grande */}
       <span style={{color: C.grafite, fontSize: numeroSize, fontWeight: 600, lineHeight: 0.9, letterSpacing: -6}}>{numero}</span>
-      {/* título à direita do número */}
       <div style={{marginLeft: 36, flex: 1}}>
         <TextoRico style={{color: C.grafite, fontSize: tituloSize, fontWeight: 600, lineHeight: 1.1, display: 'block'}}>
           {titulo}
@@ -114,8 +112,8 @@ export const DicasMiolo: React.FC<DicasMioloProps> = ({numero, titulo, corpo,
       </div>
     </div>
 
-    {/* card branco com o corpo */}
-    <div style={{position: 'absolute', left: '11.7%', top: `${corpoTop}%`, width: '76.6%', height: `${corpoH}%`,
+    {/* card branco com o corpo — px fixo */}
+    <div style={{position: 'absolute', left: '11.7%', top: corpoTop, width: '76.6%', height: corpoHpx,
       background: C.branco, borderRadius: 43, zIndex: 1,  /* raio 43 medido */
       display: 'flex', alignItems: 'center', padding: '0 64px', boxSizing: 'border-box'}}>
       <TextoRico style={{color: C.grafite, fontSize: 40, fontWeight: 400, lineHeight: 1.37, display: 'block'}}>
@@ -131,22 +129,25 @@ export const DicasMioloCompact: React.FC<Omit<DicasMioloProps, 'headerHeight' | 
   (props) => <DicasMiolo {...props} headerHeight={28} numeroSize={150} tituloSize={44} />;
 
 /* ─────────────────────────  CTA (slide final)  ─────────────────────── */
-export type DicasCtaProps = {texto: string};
-export const DicasCta: React.FC<DicasCtaProps> = ({texto}) => (
+export type DicasCtaProps = {texto: string; story?: boolean};
+export const DicasCta: React.FC<DicasCtaProps> = ({texto, story}) => {
+  const dy = story ? 254 : 0;   // card h841; story desce ~254 p/ centrar
+  return (
   <AbsoluteFill style={{...baseFill, backgroundColor: C.manga}}>
-    <div style={{position: 'absolute', left: '9.3%', top: '18.8%', width: '81.4%', height: '62.3%',
+    <div style={{position: 'absolute', left: '9.3%', top: 254 + dy, width: '81.4%', height: 841,
       background: C.soft, borderRadius: 54, zIndex: 1}} />  {/* raio 54 medido */}
     <Img
       src={staticFile('oficial/selo-grafite.png')}
       alt="DOMa"
-      style={{position: 'absolute', left: '80.3%', top: '14.2%', width: 176, height: 176, zIndex: 3}} />
-    <div style={{position: 'absolute', left: '20.5%', top: '28.5%', width: '64%', zIndex: 2}}>
+      style={{position: 'absolute', left: '80.3%', top: 192 + dy, width: 176, height: 176, zIndex: 3}} />
+    <div style={{position: 'absolute', left: '20.5%', top: 385 + dy, width: '64%', zIndex: 2}}>
       <TextoRico style={{color: C.grafite, fontSize: 44, fontWeight: 400, lineHeight: 1.27, display: 'block'}}>
         {texto}
       </TextoRico>
     </div>
-    <div style={{position: 'absolute', bottom: '6%', left: 0, right: 0, display: 'flex', justifyContent: 'center', zIndex: 3}}>
+    <div style={{position: 'absolute', bottom: story ? '7%' : '6%', left: 0, right: 0, display: 'flex', justifyContent: 'center', zIndex: 3}}>
       <LogoDoma cor={C.grafite} tamanho={70} wordmark />
     </div>
   </AbsoluteFill>
-);
+  );
+};

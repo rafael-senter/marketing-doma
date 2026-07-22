@@ -49,4 +49,22 @@ Carrossel numerado de "erros comuns / dicas". Canvas 1080×1350. 3 templates:
 | CTA texto | 44 lh1.27 | ~30 | ~11 | texto curto = buraco no card (densificar) |
 
 - Rodapé da capa = faixa soft FULL-WIDTH centrada "ARRASTA PRO LADO →" (≠ SPIN: aqui NÃO tem bloco branco de seta).
-- **Story (1080×1920): componente ainda SEM prop `story`** — ao criar peça nova nesta categoria, implementar na hora seguindo o padrão SPIN (cards flutuantes centrados com altura px ≈ do feed; faixa 9%; render `1080 1920`).
+
+## Revisão v3 (2026-07-22) — capa consertada + story nas 9
+
+**Capa tinha bugs graves** (POST 246): ícone com TEXTO baked ("ROS/MUNS" da própria capa + "que matam..." do
+subtítulo) bleeding pela alpha parcial → aparecia um "s" solto ao lado de ERROS/COMUNS e o balão saía deformado.
+Faltava também o highlight soft em "matam a".
+
+**Correções:**
+- **Ícone re-extraído LIMPO** do modelo (crop x250-820 y372-968, key da manga → transparente, e APAGADAS as
+  regiões de texto: sup-esq `col<230,row<228` e tudo à dir da money note `row>300,col>485`). Salvo em
+  `assets/oficial/_dicas246-icones.png`. Posicionado left23.1% top27.6% w52.8% h44.1% (sem o `translate` hack).
+- **Subtítulo** ganhou marcador `==` = highlight soft (além do `**` = bold). "matam a" agora tem caixa soft.
+- **Story nas 9**: header do miolo em PX (não estica no 1920), corpo card centrado no espaço abaixo;
+  CTA card px centrado; capa com faixa/ícone reposicionados. Render `1080 1920`.
+
+> ⚠️ REGRA (reforço §28): NUNCA usar recorte de modelo com texto baked como "ícone". Extrair SÓ o line-art,
+> keyando o fundo e apagando qualquer glifo de texto vizinho. Validar o PNG isolado ANTES de usar.
+
+Stills: `dicas-246-1..9` + `dicas-246-1..9-story`.
