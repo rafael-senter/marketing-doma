@@ -55,3 +55,24 @@ Badge "12 anos" x112 top783 w130 h99. 3 pílulas soft left280 (controle/vendas/l
 > fundo baked que conflita com watermark/posição → usar a versão **transparente** e montar o fundo em código.
 
 Stills: `doma-115/-story` · `doma-178/-story` · `doma-257/-story` · `doma-271/-story`.
+
+## Moldura com LINHA CORTADA (técnica principal — Patrick 2026-07-22)
+
+A moldura tipográfica (178 e a variante PRINCIPAL "Quem controla o número, controla o resultado.")
+tem a **linha da moldura CORTADA** onde um elemento cruza: o elemento fica POR CIMA, com a linha
+dos dois lados dele (acima e abaixo, na vertical), **SEM linha atrás**.
+
+**Como fazer (componente `BadgeGrafico`):** a linha da moldura é desenhada em `zIndex 1`; entre a
+linha e o elemento, põe-se uma **"borracha" = círculo/retângulo na COR DO FUNDO (manga #F4BB35)**,
+~14px maior que o elemento, em `zIndex 2`; o elemento (badge/palavra) vai em `zIndex 3` por cima.
+A borracha apaga a linha atrás → corte limpo dos dois lados. MEDIDO no modelo: linha direita x832
+com GAP y451-595 exatamente na altura do badge (cy516, Ø138). Borracha Ø166.
+
+> Regra transversal: **qualquer elemento que cruze uma linha/moldura** e deva ficar "por cima sem
+> linha atrás" usa a borracha na cor do fundo entre a linha e o elemento. Não basta pôr o elemento
+> opaco por cima (a linha reencostaria nele) — a borracha cria o GAP dos dois lados.
+
+**Peça principal "Quem controla o número, controla o resultado."** (`DomaQuem`, stills `doma-quem/-story`):
+frame x[247,832] y[285,1058] w585 h773. Texto left300, NORMAL fontSize 90 / "resultado" bold 118.
+Linhas: Quem(reg) · controla o(bold) · número,(bold) · controla o(reg) · resultado.(bold grande).
+Badge cx874 cy(frameTop+231) com borracha. São **2 modelos** na categoria (178 e Quem) — o Quem é o principal.

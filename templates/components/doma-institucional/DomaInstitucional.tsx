@@ -19,6 +19,31 @@ const baseFill = {
   textRendering: 'geometricPrecision' as const,
 };
 
+/* Badge "gráfico subindo" em balão branco + BORRACHA manga por baixo.
+   Técnica "linha cortada" (pedido Patrick 2026-07-22): a borracha (círculo cor do fundo,
+   ~14px maior que o balão) apaga a linha da moldura ATRÁS do badge → a linha fica cortada
+   dos dois lados (acima e abaixo), o badge por cima, SEM linha atrás. Vale p/ qualquer
+   elemento/palavra que cruze a moldura: pôr uma borracha manga entre a linha (z1) e o elemento. */
+const BadgeGrafico: React.FC<{cx: number; cy: number}> = ({cx, cy}) => (
+  <>
+    {/* borracha manga (corta a linha) */}
+    <div style={{position: 'absolute', left: cx, top: cy, width: 166, height: 166,
+      transform: 'translate(-50%,-50%)', borderRadius: '50%', background: C.manga, zIndex: 2}} />
+    {/* balão branco */}
+    <div style={{position: 'absolute', left: cx - 69, top: cy - 69, width: 138, aspectRatio: '1 / 1',
+      background: C.branco, borderRadius: '50% 50% 50% 8%', zIndex: 3,
+      display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+      <svg viewBox="0 0 48 48" width="58%" height="58%">
+        <rect x="6" y="30" width="6" height="10" rx="1.5" fill={C.grafite} />
+        <rect x="16" y="24" width="6" height="16" rx="1.5" fill={C.grafite} />
+        <rect x="26" y="27" width="6" height="13" rx="1.5" fill={C.grafite} />
+        <path d="M8 22 L20 14 L28 18 L42 7" stroke={C.manga} strokeWidth="3.4" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M34 7 L42 7 L42 15" stroke={C.manga} strokeWidth="3.4" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    </div>
+  </>
+);
+
 /* ── POST 178 — tipográfico "O nosso negócio é ver o seu prosperar." ──
    MEDIDO (2026-07-22): frame x[247,832] y[243,1107] (w585 h864) raio44 borda 2px grafite.
    Watermark "DOMa" full-bleed topo y8.6-26.6%, cor #F1A625 (mais saturada). Badge gráfico
@@ -42,18 +67,8 @@ export const Doma178: React.FC<{story?: boolean}> = ({story}) => {
     <div style={{position: 'absolute', left: 247, top: frameTop, width: 585, height: 864,
       border: `2px solid ${C.grafite}`, borderRadius: 44, zIndex: 1}} />
 
-    {/* badge gráfico branco (canto sup-dir do frame) */}
-    <div style={{position: 'absolute', left: 805, top: badgeTop, width: 138, aspectRatio: '1 / 1',
-      background: C.branco, borderRadius: '50% 50% 50% 8%', zIndex: 3,
-      display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-      <svg viewBox="0 0 48 48" width="58%" height="58%">
-        <rect x="6" y="30" width="6" height="10" rx="1.5" fill={C.grafite} />
-        <rect x="16" y="24" width="6" height="16" rx="1.5" fill={C.grafite} />
-        <rect x="26" y="27" width="6" height="13" rx="1.5" fill={C.grafite} />
-        <path d="M8 22 L20 14 L28 18 L42 7" stroke={C.manga} strokeWidth="3.4" fill="none" strokeLinecap="round" strokeLinejoin="round" />
-        <path d="M34 7 L42 7 L42 15" stroke={C.manga} strokeWidth="3.4" fill="none" strokeLinecap="round" strokeLinejoin="round" />
-      </svg>
-    </div>
+    {/* badge gráfico (canto sup-dir do frame) — com borracha manga = linha cortada */}
+    <BadgeGrafico cx={874} cy={badgeTop + 69} />
 
     {/* texto (left-align dentro do frame, ~x297) */}
     <div style={{position: 'absolute', left: 297, top: textTop, width: 560, zIndex: 2}}>
@@ -62,6 +77,44 @@ export const Doma178: React.FC<{story?: boolean}> = ({story}) => {
       </TextoRico>
       <span style={{color: C.grafite, fontSize: 112, fontWeight: 600, lineHeight: 1.0, display: 'block', marginTop: 12}}>
         prosperar.
+      </span>
+    </div>
+  </AbsoluteFill>
+  );
+};
+
+/* ── DOMA "Quem controla o número, controla o resultado." (VARIANTE PRINCIPAL da moldura) ──
+   Mesmo estilo do 178 (moldura + badge), mas é o modelo PRINCIPAL da categoria: a moldura tem
+   a LINHA CORTADA no badge (BadgeGrafico com borracha manga). MEDIDO (2026-07-22):
+   frame x[247,832] y[285,1058] w585 h773. Texto left ~300, fontSize NORMAL 90 / "resultado" bold 118.
+   Linhas: Quem(reg) · controla o(bold) · número,(bold) · controla o(reg) · resultado.(bold grande).
+   Badge cx874 cy516. Story mantém px, só reposiciona. */
+export const DomaQuem: React.FC<{story?: boolean}> = ({story}) => {
+  const frameTop = story ? 573 : 285;
+  const wmTop = frameTop - 185;
+  const textTop = frameTop + 92;
+  return (
+  <AbsoluteFill style={{...baseFill, backgroundColor: C.manga}}>
+    {/* watermark "DOMa" full-bleed topo (#F1A625) */}
+    <div style={{position: 'absolute', top: wmTop, left: '-8%', width: '116%', aspectRatio: '1767 / 322',
+      backgroundColor: '#F1A625', WebkitMaskImage: maskUrl, maskImage: maskUrl,
+      WebkitMaskSize: '100% 100%', maskSize: '100% 100%', WebkitMaskRepeat: 'no-repeat', maskRepeat: 'no-repeat',
+      zIndex: 0}} />
+
+    {/* moldura outline grafite — px fixo */}
+    <div style={{position: 'absolute', left: 247, top: frameTop, width: 585, height: 773,
+      border: `2px solid ${C.grafite}`, borderRadius: 44, zIndex: 1}} />
+
+    {/* badge gráfico com borracha = linha cortada */}
+    <BadgeGrafico cx={874} cy={frameTop + 231} />
+
+    {/* texto (left-align) */}
+    <div style={{position: 'absolute', left: 300, top: textTop, width: 560, zIndex: 4}}>
+      <TextoRico boldWeight={600} style={{color: C.grafite, fontSize: 90, fontWeight: 400, lineHeight: 1.24, display: 'block'}}>
+        {'Quem\n**controla o**\n**número,**\ncontrola o'}
+      </TextoRico>
+      <span style={{color: C.grafite, fontSize: 118, fontWeight: 600, lineHeight: 1.0, display: 'block', marginTop: 10}}>
+        resultado.
       </span>
     </div>
   </AbsoluteFill>
