@@ -149,7 +149,7 @@ Depois da escala, os 17 rótulos ainda estavam **dx −22px** e com **escala ver
 `translate(22.2 10.2) translate(0 130) scale(1 1.029) translate(0 -130)`.
 Resultado medido: dx **−0,2** · dy **−0,4** (máx |2| em y).
 
-`fontSize` dos rótulos = **10.9 peso 400**. Calibrado pela **quantidade de tinta**: 11/peso500 dava
+`fontSize` dos rótulos = **10.9 peso 600**. Calibrado pela **quantidade de tinta**: 11/peso500 dava
 1,26× a do modelo · 9.5/400 dava 0,81× · 10.9/400 dá **0,96×**.
 
 ⚠️ **`overflow: visible` no `<svg>`.** PE, AL, ES e RJ têm o rótulo FORA do estado (litoral estreito)
@@ -174,7 +174,7 @@ Tudo abaixo foi MEDIDO contra o modelo, elemento por elemento:
 
 | Elemento | Propriedade | Modelo | Estava | Ficou |
 |---|---|---|---|---|
-| Rótulos dos estados | fontSize / peso | traço 2.0px | 11 / 500 | **10.9 / 500** |
+| Rótulos dos estados | fontSize / peso | traço 2.0px · tinta 160 | 11 / 500 | **10.9 / 600** (tinta 171) |
 | Pílula — borda | cor | `#EEBA42` | `#F0B830` | **`#EEBA42`** |
 | Pílula — borda | raio | ~18 | 13 | **18** + sombra `0 2px 10px #00000014` |
 | Pílula — título | cor | `#202020` | `#131313` | **`#202020`** |
@@ -196,3 +196,11 @@ que bateu visualmente.
 ⚠️ **Modelo em JPEG encorpa o texto.** A compressão borra as bordas e faz o texto parecer mais
 pesado que o nosso PNG nítido. Confiar no **traço mediano** e na tinta com limiar restrito (110),
 não na impressão visual nem na tinta com limiar alto (150), que favorece o JPEG.
+
+
+### Peso dos rótulos = 600 (ajuste final Patrick, 2026-07-22)
+Com 500 o traço já batia (2.0 = modelo), mas a olho ainda ficava fino. Subindo para **600** a
+**tinta** foi de ~140 para **171**, contra **160** do modelo — e aí ficou igual.
+Lição: em texto pequeno o **traço mediano satura** (dá 2px em vários pesos, por arredondamento do
+rasterizador). Quando o traço empata mas o peso "parece" diferente, decidir pela **quantidade de
+tinta**.

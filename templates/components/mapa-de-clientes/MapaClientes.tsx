@@ -89,7 +89,7 @@ export const MapaClientes: React.FC<{story?: boolean}> = ({story}) => (
           const linhas = NOMES[id]?.split('\n') ?? [];
           return (
             <text key={id} x={x} y={y} fill={C.texto} fontFamily={F}
-              fontSize={fs} fontWeight={500} textAnchor="middle" dominantBaseline="middle">
+              fontSize={fs} fontWeight={600} textAnchor="middle" dominantBaseline="middle">
               {linhas.map((linha, i) => (
                 <tspan key={i} x={x} dy={i === 0 ? -(linhas.length - 1) * lh / 2 : lh}>{linha}</tspan>
               ))}
