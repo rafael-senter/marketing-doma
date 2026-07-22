@@ -55,18 +55,20 @@ const CENTROIDE: Record<string, [number, number]> = {
   sc: [373, 504], rs: [308, 542],
 };
 
-export const MapaClientes: React.FC = () => (
+export const MapaClientes: React.FC<{story?: boolean}> = ({story}) => (
   <AbsoluteFill style={{
     backgroundColor: C.fundo, fontFamily: F, overflow: 'hidden',
     WebkitFontSmoothing: 'antialiased', MozOsxFontSmoothing: 'grayscale', textRendering: 'geometricPrecision',
   }}>
     {/* CARD BRANCO — x65→1014, y65→1079, cantos retos */}
-    <div style={{position: 'absolute', left: 65, top: 65, width: 949, height: 1014, background: C.card}}>
+    <div style={{position: 'absolute', left: 65, top: story ? 378 : 65, width: 949, height: 1014, background: C.card}}>
       {/* MAPA choropleth — medido no modelo: bbox canvas x[77,969] y[108,1040] = 892×932px.
           Dentro do card (origem 65,65): left 12, top 43, width 892, height 932.
           (antes estava 893×851 e o meet encolhia p/ 816×851 → mapa pequeno demais). */}
-      <svg viewBox={BR_VIEWBOX} width={892} height={932}
-        style={{position: 'absolute', left: 12, top: 43}}
+      {/* MEDIDO v3 (2026-07-22): mapa amarelo 587×816 no modelo. ⚠️ medir com filtro de ruído
+          (col/linha com >8px), senão o antialias do card infla a bbox e a conta sai errada. */}
+      <svg viewBox={BR_VIEWBOX} width={867} height={906}
+        style={{position: 'absolute', left: 8, top: 43}}
         preserveAspectRatio="xMidYMid meet">
         {BR_ESTADOS.map((uf) => (
           <path key={uf.id} d={uf.path}
@@ -114,7 +116,7 @@ export const MapaClientes: React.FC = () => (
     {/* LEGENDA — 2 linhas centralizadas na zona amarela abaixo do card.
         medido no modelo: cap-height ~27px (→ fontSize ~42), topos linha1 y1127 / linha2 y1201
         (distância 74px → lineHeight ~1.45). centro x≈540. */}
-    <div style={{position: 'absolute', top: 1106, left: 0, right: 0, textAlign: 'center', color: C.texto}}>
+    <div style={{position: 'absolute', top: story ? 1419 : 1106, left: 0, right: 0, textAlign: 'center', color: C.texto}}>
       <div style={{fontSize: 52, fontWeight: 500, lineHeight: 1.30, letterSpacing: 0.8}}>Estamos presentes em 17 estados…</div>
       <div style={{fontSize: 52, fontWeight: 500, lineHeight: 1.30, letterSpacing: 0.8}}>e crescendo cada vez mais!</div>
     </div>

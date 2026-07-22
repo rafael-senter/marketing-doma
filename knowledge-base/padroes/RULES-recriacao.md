@@ -414,3 +414,16 @@ e o script ainda imprimia "✓". Custou quatro renders seguidos "sem efeito" at�
 cru e ver `Expected ")" but found "key"`. O script agora falha com `exit 1` e mostra o erro.
 Regra geral: **script de build/render nunca engole stderr** — o custo de depurar um sucesso falso é
 muito maior que o de ver ruído no terminal.
+
+
+## 29. Medir mancha de cor com filtro de ruído (Patrick 2026-07-22)
+
+Ao medir a bbox de uma mancha de cor (mapa, ilustração, área chapada), contar só as linhas e
+colunas com **mais de ~8 pixels** da cor. Sem isso, o antialias das bordas vizinhas entra na conta
+e a bbox infla.
+
+Caso real (`mapa-de-clientes`): a medição crua deu 900×886 contra 587×816 do modelo, e eu encolhi
+o mapa 8% — na direção **errada**, porque com o filtro o valor real era 556×790, ou seja **5%
+MENOR** que o modelo. Dois ajustes desperdiçados por confiar numa bbox contaminada.
+
+Vale também para: card sobre foto, pílula sobre fundo de cor próxima, watermark tom-sobre-tom.

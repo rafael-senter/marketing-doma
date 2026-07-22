@@ -132,3 +132,24 @@ Componente: `../../templates/components/mapa-de-clientes/MapaClientes.tsx`. Rend
 - Conteúdo majoritariamente FIXO (SVG mapa + selo + números). Mudanças = números/rótulos: rótulos sobre SVG SEMPRE por medição + conversão viewBox (RULES §17).
 - Números do selo: fs 32 bold — texto maior que "XX% DE CLIENTES" reflui o selo; auditar render.
 - **Story: SEM prop `story`** — implementar ao usar.
+
+
+---
+
+## Revisão v3 (2026-07-22) — categoria FECHADA
+
+A peça já estava boa (card `L6% T4.8% W88% H75.3%`, pílula e tipografia batendo). Único ajuste:
+o **SVG do mapa** estava fora de escala. Medido no modelo: mancha amarela **587×816 px**
+(`x349-935`, `y172-987`). Ajustado para `width 867 height 906` em `left 8, top 43` → o nosso
+render agora dá `x349-935`, y `172-1006` (19px a mais na ponta do RS, resíduo do path).
+
+⚠️ **Medir a mancha com filtro de ruído.** Sem ele (`sum > 8` por linha/coluna) o antialias da
+borda do card entra na conta e a bbox infla — a primeira medição deu 900×886 e me levou a
+encolher o mapa 8% na direção errada. Com o filtro, o número real era 556×790 (5% MENOR que o
+modelo, não maior).
+
+### STORY (1080×1920) — prop `story`
+Card e mapa mantêm o tamanho em px; muda só a posição: card `top 65 → 378`, bloco de texto
+`top 1106 → 1419`.
+
+Stills: `padrao-mapa-clientes` · `padrao-mapa-clientes-story`.
