@@ -102,7 +102,7 @@ export const MapaClientes: React.FC<{story?: boolean}> = ({story}) => (
       {/* SELO pill — MEDIDO: esq x66 → dir x508 (larg 442), base y1058, raio ~13, borda 2px.
           Textos: '+' cap13 (fs24, regular) · '93%' e 'DE CLIENTES' MESMA altura cap24 (fs32, 800) ·
           subtítulo cap15 (fs16). Gaps: '+'→'93%'≈22, '93%'→'DE'≈12. paddingLeft 28 (texto em x96). */}
-      <div style={{position: 'absolute', left: 1, top: 895, width: 442, height: 98,
+      <div style={{position: 'absolute', left: 22, top: 895, width: 442, height: 98,
         background: C.card, border: `2px solid ${C.bordaSelo}`,
         /* padrão Doma de "1 canto reto" (RULES §20): inf-DIREITO reto, os outros 3 com raio
            generoso. Raio 28 = o medido no modelo (o 18 anterior era curto demais).

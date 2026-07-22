@@ -213,3 +213,6 @@ generoso. Segue a assinatura Doma de "1 canto reto por bloco" (RULES §20), a me
 
 O raio **28** também é o medido no modelo — o 18 anterior estava curto. Ordem do CSS:
 `sup-esq · sup-dir · inf-dir · inf-esq`.
+
+**Folga à esquerda:** a pílula fica em `left: 22` dentro do card (não `left: 1`). No modelo ela
+quase encosta na borda, mas colada fica apertada — ajuste pedido pelo Patrick.
