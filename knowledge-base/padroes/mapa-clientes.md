@@ -143,6 +143,19 @@ o **SVG do mapa** estava fora de escala. Medido no modelo: mancha amarela **587�
 (`x349-935`, `y172-987`). Ajustado para `width 867 height 906` em `left 8, top 43` → o nosso
 render agora dá `x349-935`, y `172-1006` (19px a mais na ponta do RS, resíduo do path).
 
+### Rótulos dos estados (o que faltava)
+Depois da escala, os 17 rótulos ainda estavam **dx −22px** e com **escala vertical 2,8% menor**
+(dy de −6 no topo a −22 embaixo). Corrigido no `<g>` dos rótulos:
+`translate(22.2 10.2) translate(0 130) scale(1 1.029) translate(0 -130)`.
+Resultado medido: dx **−0,2** · dy **−0,4** (máx |2| em y).
+
+`fontSize` dos rótulos = **10.9 peso 400**. Calibrado pela **quantidade de tinta**: 11/peso500 dava
+1,26× a do modelo · 9.5/400 dava 0,81× · 10.9/400 dá **0,96×**.
+
+⚠️ **`overflow: visible` no `<svg>`.** PE, AL, ES e RJ têm o rótulo FORA do estado (litoral estreito)
+e passam do viewBox — com o `overflow: hidden` padrão do SVG o texto saía **cortado no meio**
+("Pernambuc", "Alagoa"). Não era a borda do card, era o próprio SVG clipando.
+
 ⚠️ **Medir a mancha com filtro de ruído.** Sem ele (`sum > 8` por linha/coluna) o antialias da
 borda do card entra na conta e a bbox infla — a primeira medição deu 900×886 e me levou a
 encolher o mapa 8% na direção errada. Com o filtro, o número real era 556×790 (5% MENOR que o

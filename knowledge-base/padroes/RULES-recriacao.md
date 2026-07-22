@@ -427,3 +427,21 @@ o mapa 8% — na direção **errada**, porque com o filtro o valor real era 556�
 MENOR** que o modelo. Dois ajustes desperdiçados por confiar numa bbox contaminada.
 
 Vale também para: card sobre foto, pílula sobre fundo de cor próxima, watermark tom-sobre-tom.
+
+
+## 30. Texto cortado dentro de `<svg>` = `overflow: hidden` padrão (Patrick 2026-07-22)
+
+Elemento perto da borda do `viewBox` (ou fora dele) é **clipado pelo próprio SVG** — o padrão de
+`overflow` em `<svg>` é `hidden`. Sintoma: texto que termina no meio da palavra ("Pernambuc") sem
+que nenhuma borda de card explique o corte. Correção: `style={{overflow: 'visible'}}` no `<svg>`.
+Antes de mexer em posição ou fontSize, conferir se o elemento só está passando do viewBox.
+
+### Alinhar um GRUPO de rótulos por medição
+Medir o delta de **cada** rótulo (blobs por dilatação + `ndimage.label`, casando o mais próximo) e
+ler o padrão:
+- **dx constante** → `translate` no grupo;
+- **dy crescendo com y** → erro de ESCALA vertical, não de posição: `scale(1, k)` ancorado no meio
+  do bloco (`translate(0 c) scale(1 k) translate(0 -c)`).
+
+Calibrar `fontSize` pela **quantidade de tinta** (soma de pixels escuros) contra o modelo — mais
+estável que medir cap-height em texto pequeno.

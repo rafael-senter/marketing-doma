@@ -68,7 +68,7 @@ export const MapaClientes: React.FC<{story?: boolean}> = ({story}) => (
       {/* MEDIDO v3 (2026-07-22): mapa amarelo 587×816 no modelo. ⚠️ medir com filtro de ruído
           (col/linha com >8px), senão o antialias do card infla a bbox e a conta sai errada. */}
       <svg viewBox={BR_VIEWBOX} width={867} height={906}
-        style={{position: 'absolute', left: 8, top: 43}}
+        style={{position: 'absolute', left: 8, top: 43, overflow: 'visible'}}   /* PE/AL ficam FORA do estado, além do viewBox — sem isto o SVG corta o texto */
         preserveAspectRatio="xMidYMid meet">
         {BR_ESTADOS.map((uf) => (
           <path key={uf.id} d={uf.path}
@@ -79,14 +79,17 @@ export const MapaClientes: React.FC<{story?: boolean}> = ({story}) => (
             densidade de traço: modelo 15.8%, 600 dava 24% bold demais), cor quase preta.
             OFFSET GLOBAL (Patrick): todos um pouco à direita e abaixo (translate em viewBox;
             ×1.455 → ~+7px direita / +9px baixo no canvas) p/ assentar no lugar certo. */}
-        <g transform="translate(5 6)">
+        {/* MEDIDO v3 (2026-07-22): os 17 rótulos estavam dx −22px e com escala vertical 2,8% menor
+            que o modelo (dy de −6 no topo a −22 embaixo). viewBox 613×639 em 867px → 1u = 1.414px.
+            translate corrige o dx; o scale(1,1.029) ancorado em y=130u corrige o dy progressivo. */}
+        <g transform="translate(22.2 10.2) translate(0 130) scale(1 1.029) translate(0 -130)">
         {Object.entries(CENTROIDE).map(([id, [x, y]]) => {
-          const fs = 11;
+          const fs = 10.9;   // MEDIDO v3: tinta dos rótulos = a do modelo (11 dava 1.26×, 9.5 dava 0.81×)
           const lh = fs * 1.18;
           const linhas = NOMES[id]?.split('\n') ?? [];
           return (
             <text key={id} x={x} y={y} fill={C.texto} fontFamily={F}
-              fontSize={fs} fontWeight={500} textAnchor="middle" dominantBaseline="middle">
+              fontSize={fs} fontWeight={400} textAnchor="middle" dominantBaseline="middle">
               {linhas.map((linha, i) => (
                 <tspan key={i} x={x} dy={i === 0 ? -(linhas.length - 1) * lh / 2 : lh}>{linha}</tspan>
               ))}
