@@ -21,9 +21,9 @@ const C = {
   ausente: '#D3D3D3',    // estado sem presença (cinza medido no modelo)
   bordaEstado: '#FFFFFF',
   card: '#FFFFFF',
-  bordaSelo: '#F0B830',
-  texto: '#131313',       // letras quase pretas (medido ~#0A0A0A no modelo)
-  subtitulo: '#8A8A8A',
+  bordaSelo: '#EEBA42',   // MEDIDO v3 na borda LATERAL (o topo tem gradiente e engana)
+  texto: '#202020',       // MEDIDO v3 no título do selo (era #131313)
+  subtitulo: '#5A5A5A',   // MEDIDO v3: o núcleo do texto no modelo é escuro (#878787 era a média com antialias)
 };
 const F = brand.fontes.titulo;
 
@@ -89,7 +89,7 @@ export const MapaClientes: React.FC<{story?: boolean}> = ({story}) => (
           const linhas = NOMES[id]?.split('\n') ?? [];
           return (
             <text key={id} x={x} y={y} fill={C.texto} fontFamily={F}
-              fontSize={fs} fontWeight={400} textAnchor="middle" dominantBaseline="middle">
+              fontSize={fs} fontWeight={500} textAnchor="middle" dominantBaseline="middle">
               {linhas.map((linha, i) => (
                 <tspan key={i} x={x} dy={i === 0 ? -(linhas.length - 1) * lh / 2 : lh}>{linha}</tspan>
               ))}
@@ -103,14 +103,15 @@ export const MapaClientes: React.FC<{story?: boolean}> = ({story}) => (
           Textos: '+' cap13 (fs24, regular) · '93%' e 'DE CLIENTES' MESMA altura cap24 (fs32, 800) ·
           subtítulo cap15 (fs16). Gaps: '+'→'93%'≈22, '93%'→'DE'≈12. paddingLeft 28 (texto em x96). */}
       <div style={{position: 'absolute', left: 1, top: 895, width: 442, height: 98,
-        background: C.card, border: `2px solid ${C.bordaSelo}`, borderRadius: 13,
+        background: C.card, border: `2px solid ${C.bordaSelo}`, borderRadius: 18,
+        boxShadow: '0 2px 10px #00000014',
         display: 'flex', flexDirection: 'column', justifyContent: 'center', paddingLeft: 28, boxSizing: 'border-box'}}>
         <div style={{display: 'flex', alignItems: 'baseline', color: C.texto}}>
-          <span style={{fontSize: 24, fontWeight: 400}}>+</span>
-          <span style={{fontSize: 32, fontWeight: 600, marginLeft: 22, letterSpacing: 1}}>93%</span>
+          <span style={{fontSize: 30, fontWeight: 400}}>+</span>   {/* MEDIDO v3: maior e mais colado ao 93% */}
+          <span style={{fontSize: 32, fontWeight: 600, marginLeft: 14, letterSpacing: 1}}>93%</span>
           <span style={{fontSize: 32, fontWeight: 600, marginLeft: 12, letterSpacing: 1.5}}>DE CLIENTES</span>
         </div>
-        <div style={{fontSize: 16, fontWeight: 400, color: C.subtitulo, marginTop: 2}}>
+        <div style={{fontSize: 22, fontWeight: 400, color: C.subtitulo, marginTop: 0}}>
           Satisfeitos com o suporte e produto
         </div>
       </div>

@@ -166,3 +166,33 @@ Card e mapa mantêm o tamanho em px; muda só a posição: card `top 65 → 378`
 `top 1106 → 1419`.
 
 Stills: `padrao-mapa-clientes` · `padrao-mapa-clientes-story`.
+
+
+### Auditoria fina — pesos, cores, tamanhos e raios (2026-07-22)
+
+Tudo abaixo foi MEDIDO contra o modelo, elemento por elemento:
+
+| Elemento | Propriedade | Modelo | Estava | Ficou |
+|---|---|---|---|---|
+| Rótulos dos estados | fontSize / peso | traço 2.0px | 11 / 500 | **10.9 / 500** |
+| Pílula — borda | cor | `#EEBA42` | `#F0B830` | **`#EEBA42`** |
+| Pílula — borda | raio | ~18 | 13 | **18** + sombra `0 2px 10px #00000014` |
+| Pílula — título | cor | `#202020` | `#131313` | **`#202020`** |
+| Pílula — "+" | fontSize / gap | maior, colado | 24 / ml 22 | **30 / ml 14** |
+| Pílula — subtítulo | cor | núcleo escuro | `#8A8A8A` | **`#5A5A5A`** |
+| Pílula — subtítulo | fontSize / marginTop | alt 20px | 16 / 2 | **22 / 0** |
+| Texto inferior | peso | traço 4.0 | 500 | **500** (400 dava traço 3, fino demais) |
+| Card branco | raio | inset 1px | — | conferido, OK |
+| Divisas do mapa | espessura | mediana 2px | 2px | OK |
+| Cores | presente/ausente | `#F4BC35` / `#D3D3D3` | iguais | OK |
+
+⚠️ **Cor de texto: medir o NÚCLEO, não a média.** O subtítulo media `#878787` na média, mas o
+núcleo do glifo é bem mais escuro — a média está contaminada pelo antialias. Usar `#5A5A5A` foi o
+que bateu visualmente.
+
+⚠️ **Borda de pílula: medir na LATERAL, não no topo.** O topo tem gradiente/sombra e devolveu
+`#FFFDED` (creme), o que apagou a borda. Na lateral o valor real é `#EEBA42`.
+
+⚠️ **Modelo em JPEG encorpa o texto.** A compressão borra as bordas e faz o texto parecer mais
+pesado que o nosso PNG nítido. Confiar no **traço mediano** e na tinta com limiar restrito (110),
+não na impressão visual nem na tinta com limiar alto (150), que favorece o JPEG.
