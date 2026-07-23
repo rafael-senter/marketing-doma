@@ -30,71 +30,87 @@ const Foto: React.FC<{b: Box; z?: number}> = ({b, z = 1}) => (
       width: `${b.w}%`, height: `${b.h}%`, objectFit: 'cover', borderRadius: RAD, zIndex: z}} />
 );
 
-const Pilula: React.FC<{texto: string; l: number; t: number; w: number; dark?: boolean}> = ({texto, l, t, w, dark}) => (
-  <div style={{position: 'absolute', left: `${l}%`, top: `${t}%`, width: `${w}%`, height: '3.6%',
-    background: dark ? C.grafite : C.soft, color: dark ? C.branco : C.grafite, fontSize: 22, fontWeight: 500,
-    letterSpacing: 0.5, borderRadius: 9, display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 3}}>{texto}</div>
+/* pílula (badge) OPACA — cobre a badge baked (cortada/feia) das fotos do antes/depois.
+   Fundo soft sólido + leve borda manga p/ garantir cobertura da baked por baixo. */
+const Pilula: React.FC<{texto: string; l: number; t: number; w: number}> = ({texto, l, t, w}) => (
+  <div style={{position: 'absolute', left: `${l}%`, top: `${t}%`, width: `${w}%`, height: '4.1%',
+    background: C.soft, color: C.grafite, fontSize: 22, fontWeight: 500, letterSpacing: 0.5,
+    borderRadius: 9, border: `4px solid ${C.manga}`, boxSizing: 'border-box',
+    display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 5}}>{texto}</div>
 );
 
-/* ─────────────────────────  CAPA (slide 1)  ───────────────────────── */
-export const OticaCapa: React.FC = () => (
+/* ─────────────────────────  CAPA (slide 1)  ─────────────────────────
+   MEDIDO (POST 133 s1): título x9.5-83% y13-28% fontSize ~64. Fotos A x5.6-51.8% y31.6-87.3%,
+   B x50-95.3% y31.6-86.7% (h55.7%, eram 48% pequenas). ⚠️ As BADGES (TROQUE ISSO/POR ISSO) e a
+   SETA já vêm BAKED nas fotos (_133-s1a/s1b) — o componente NÃO desenha (senão duplica: era o bug
+   da seta dupla). CTA pill + logo = componente. */
+export const OticaCapa: React.FC<{story?: boolean}> = ({story}) => {
+  const pt = story ? 40 : 31.6;      // photo top
+  const ph = story ? 39.2 : 55.7;    // photo height (mesma em px nos 2 formatos: 752px)
+  const phB = story ? 38.7 : 55;
+  return (
   <AbsoluteFill style={{...baseFill, backgroundColor: C.manga}}>
-    <div style={{position: 'absolute', left: '9%', top: '8%', width: '64%', zIndex: 2,
-      color: C.grafite, fontSize: 52, fontWeight: 500, lineHeight: 1.12}}>
-      Lojista,<br />faça <span style={{textDecoration: 'underline', textUnderlineOffset: 5}}>trocas inteligentes</span><br />em sua ótica
+    <div style={{position: 'absolute', left: '9%', top: story ? '17%' : '13%', width: '80%', zIndex: 2,
+      color: C.grafite, fontSize: 64, fontWeight: 500, lineHeight: 1.12}}>
+      Lojista,<br />faça <span style={{textDecoration: 'underline', textUnderlineOffset: 6}}>trocas inteligentes</span><br />em sua ótica
     </div>
-    <Foto b={{src: 'oficial/_133-s1a.jpg', l: 3.5, t: 31.6, w: 45.4, h: 48.5}} />
-    <Foto b={{src: 'oficial/_133-s1b.jpg', l: 51.1, t: 31.6, w: 45.2, h: 48.3}} />
-    <Pilula texto="TROQUE ISSO" l={3.7} t={40.3} w={21.9} />
-    <Pilula texto="POR ISSO" l={74.2} t={40.3} w={21.9} />
-    {/* seta entre as fotos */}
-    <div style={{position: 'absolute', left: '46.5%', top: '49%', width: 64, height: 64, borderRadius: '50%',
-      border: `3px solid ${C.grafite}`, display: 'flex', alignItems: 'center', justifyContent: 'center',
-      color: C.grafite, fontSize: 34, fontWeight: 500, background: C.manga, zIndex: 4}}>→</div>
-    {/* pílula CTA inferior */}
-    <div style={{position: 'absolute', left: '50%', top: '82.5%', transform: 'translateX(-50%)',
+    <Foto b={{src: 'oficial/_133-s1a.jpg', l: 5.6, t: pt, w: 46.2, h: ph}} />
+    <Foto b={{src: 'oficial/_133-s1b.jpg', l: 50, t: pt, w: 45.3, h: phB}} />
+    {/* pílula CTA inferior (sobre a base das fotos) */}
+    <div style={{position: 'absolute', left: '50%', top: story ? '79%' : '85%', transform: 'translateX(-50%)',
       background: C.grafite, color: C.branco, fontSize: 28, fontWeight: 500, borderRadius: 40,
       padding: '16px 34px', zIndex: 3, whiteSpace: 'nowrap'}}>para chamar mais atenção!</div>
-    <div style={{position: 'absolute', right: '6%', bottom: '4.5%', zIndex: 4}}>
+    <div style={{position: 'absolute', left: 0, right: 0, bottom: story ? '7%' : '4.5%',
+      display: 'flex', justifyContent: 'center', zIndex: 4}}>
       <LogoDoma cor={C.grafite} tamanho={58} wordmark />
     </div>
   </AbsoluteFill>
-);
+  );
+};
 
 /* ─────────────────────  ANTES / DEPOIS (slides 2-4)  ───────────────── */
 export type AntesDepoisProps = {
-  fotoA: Box; fotoB: Box; pilA: {l: number; t: number}; pilB: {l: number; t: number};
+  fotoA: Box; fotoB: Box; pilA?: {l: number; t: number}; pilB?: {l: number; t: number};
   compara: {texto: string; l: number; t: number; w: number};
   nota?: {texto: string; l: number; t: number; w: number};
+  story?: boolean;
 };
-export const OticaAntesDepois: React.FC<AntesDepoisProps> = ({fotoA, fotoB, pilA, pilB, compara, nota}) => (
+/* ⚠️ As pílulas TROQUE ISSO/POR ISSO vêm BAKED nas fotos (recorte do modelo) — o componente NÃO
+   as desenha (senão duplica). Só posiciona fotos + texto comparativo (X) no quadrante limpo. */
+export const OticaAntesDepois: React.FC<AntesDepoisProps> = ({fotoA, fotoB, pilA, pilB, compara, nota, story}) => {
+  // story: fotos na MESMA px (h*0.703), diagonal preservada, texto reposicionado
+  const adjB = (b: Box): Box => story ? {...b, t: b.t * 0.78 + 8, h: b.h * 0.703} : b;
+  const adjT = (t: number) => story ? t * 0.78 + 8 : t;
+  return (
   <AbsoluteFill style={{...baseFill, backgroundColor: C.manga}}>
-    <Foto b={fotoA} />
-    <Foto b={fotoB} />
-    <Pilula texto="TROQUE ISSO" l={pilA.l} t={pilA.t} w={21.9} />
-    <Pilula texto="POR ISSO" l={pilB.l} t={pilB.t} w={16.8} />
-    <div style={{position: 'absolute', left: `${compara.l}%`, top: `${compara.t}%`, width: `${compara.w}%`, zIndex: 2}}>
-      <TextoRico style={{color: C.grafite, fontSize: 30, fontWeight: 400, lineHeight: 1.3, display: 'block'}}>
+    <Foto b={adjB(fotoA)} />
+    <Foto b={adjB(fotoB)} />
+    {/* badges OPACAS cobrindo as baked (posições medidas no modelo) */}
+    {pilA && <Pilula texto="TROQUE ISSO" l={pilA.l} t={adjT(pilA.t)} w={21.9} />}
+    {pilB && <Pilula texto="POR ISSO" l={pilB.l} t={adjT(pilB.t)} w={13.9} />}
+    <div style={{position: 'absolute', left: `${compara.l}%`, top: `${adjT(compara.t)}%`, width: `${compara.w}%`, zIndex: 2}}>
+      <TextoRico style={{color: C.grafite, fontSize: 34, fontWeight: 400, lineHeight: 1.3, display: 'block'}}>
         {compara.texto}
       </TextoRico>
     </div>
     {nota && (
-      <div style={{position: 'absolute', left: `${nota.l}%`, top: `${nota.t}%`, width: `${nota.w}%`, zIndex: 2}}>
+      <div style={{position: 'absolute', left: `${nota.l}%`, top: `${adjT(nota.t)}%`, width: `${nota.w}%`, zIndex: 2}}>
         <TextoRico style={{color: C.grafite, fontSize: 26, fontWeight: 400, lineHeight: 1.35, display: 'block'}}>
           {nota.texto}
         </TextoRico>
       </div>
     )}
   </AbsoluteFill>
-);
+  );
+};
 
 /* ─────────────────────  FOTO FULL-BLEED + CARD (slides 5-8)  ───────── */
 export type FullFotoProps = {
   foto: string;
   card: {l: number; t: number; w: number; h: number; cor: 'soft' | 'grafite'};
-  titulo: string; corpo?: string;
+  titulo: string; corpo?: string; story?: boolean;
 };
-export const OticaFullFoto: React.FC<FullFotoProps> = ({foto, card, titulo, corpo}) => {
+export const OticaFullFoto: React.FC<FullFotoProps> = ({foto, card, titulo, corpo, story}) => {
   const escuro = card.cor === 'grafite';
   return (
     <AbsoluteFill style={{...baseFill}}>
@@ -117,17 +133,20 @@ export const OticaFullFoto: React.FC<FullFotoProps> = ({foto, card, titulo, corp
 };
 
 /* ─────────────────────────  CTA (slide 9)  ─────────────────────────── */
-export const OticaCta: React.FC = () => (
+export const OticaCta: React.FC<{story?: boolean}> = ({story}) => {
+  // card soft h ~918px; feed do topo (-27) até ~918; story centrado
+  const cardTop = story ? 380 : -27;
+  const cardH = 918;
+  return (
   <AbsoluteFill style={{...baseFill, backgroundColor: C.manga}}>
-    {/* card soft alto (do topo até ~66%) */}
-    <div style={{position: 'absolute', left: '16.9%', top: '-2%', width: '66.2%', height: '68%',
+    <div style={{position: 'absolute', left: '16.9%', top: cardTop, width: '66.2%', height: cardH,
       background: C.soft, borderRadius: 30, zIndex: 1, display: 'flex', alignItems: 'flex-end',
       justifyContent: 'center', paddingBottom: 56, boxSizing: 'border-box'}}>
       <span style={{color: C.grafite, fontSize: 96, fontWeight: 500, lineHeight: 1.0, textAlign: 'center'}}>
         Você já<br />faz isso?
       </span>
     </div>
-    <div style={{position: 'absolute', left: '20%', top: '70%', width: '60%', textAlign: 'center', zIndex: 2}}>
+    <div style={{position: 'absolute', left: '20%', top: cardTop + cardH + 27, width: '60%', textAlign: 'center', zIndex: 2}}>
       <span style={{color: C.grafite, fontSize: 38, fontWeight: 400, lineHeight: 1.25}}>
         Deixe seu like e salve esse post para consultar futuramente!
       </span>
@@ -137,4 +156,5 @@ export const OticaCta: React.FC = () => (
       backgroundColor: '#EBB231', WebkitMaskImage: maskUrl, maskImage: maskUrl,
       WebkitMaskSize: '100% 100%', maskSize: '100% 100%', WebkitMaskRepeat: 'no-repeat', maskRepeat: 'no-repeat', zIndex: 0}} />
   </AbsoluteFill>
-);
+  );
+};

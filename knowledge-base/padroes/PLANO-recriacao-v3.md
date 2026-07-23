@@ -25,7 +25,7 @@ com a skill nova** → entra na fila. Categoria **com prop `story` = já recriad
 | 6 | `clientes` | LAYOUT CLIENTE NOVO | 2 | card único (foto) | ✅ já fiel · % → px · watermark #F5C758 · story (bugs = foto) |
 | 7 | `doma-institucional` | POST 115, 178, 257, 271 | 4 | card único | ✅ 178/257/115 recriados (medidos) · 271 px · story nas 4 |
 | 8 | `dicas` | POST 246 | 9 | carrossel | ✅ capa consertada (ícone limpo + highlight) · story nas 9 |
-| 9 | `dicas-otica` | POST 133 | 9 | carrossel (fotos) | ⬜ |
+| 9 | `dicas-otica` | POST 133 | 9 | carrossel (fotos) | ✅ seta dupla + fotos/texto corrigidos · badge baked pintada · story nas 9 |
 | 10 | `doma-carrossel-clientes` | POST 205 | 8 | carrossel (logos) | ⬜ |
 
 Ordem: cards únicos primeiro (ciclo curto, valida o processo), carrosséis depois.

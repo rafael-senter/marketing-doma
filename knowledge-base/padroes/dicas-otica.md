@@ -36,3 +36,24 @@ soft `#F8DD6B` · grafite `#1F1F1F` · branco `#FFF`.
 - **Recorte = colocação**: recortar foto no rect % medido e colocar no MESMO rect → fidelidade alta automática.
 - **Pílula opaca na posição da baked** cobre a versão do modelo (não precisa pintar antes se a sobreposição é exata).
 - Ver [[carrosseis-foto-terceiros]] na memória + RULES §9 (watermark CSS-mask).
+
+## Revisão v3 (2026-07-23) — bugs consertados + story nas 9
+
+**Capa (slide 1):** tinha **SETA DUPLA** — a seta e as badges TROQUE ISSO/POR ISSO já vêm BAKED nas fotos
+`_133-s1a/s1b`, e o componente desenhava OUTRA seta no centro (46.5%). Fix: componente NÃO desenha
+seta/badges na capa (usa as baked). Título subiu p/ fontSize **64** (era 52) e largura 80% (medido
+x9.5-83%). Fotos maiores h**55.7%** (eram 48%). Logo centralizado no rodapé.
+
+**Antes/Depois (2-4):** fotos pequenas (slide 2 fotoA era h27) + texto colidindo. Fix: fotos nas
+posições MEDIDAS (A x8.6-51.8% y12.9-57.9%, B x52-93.4% y42.1-87.1%, diagonal), texto comparativo no
+quadrante limpo (l52 t24). Badges = **pílula OPACA** do componente (soft + borda manga 4px) cobrindo a
+baked. Slide 2 fotoA tinha a badge baked no MEIO (x43-100% y12-40%) → **pintada** copiando a prateleira
+de baixo por cima (a pílula do componente sozinha não cobria).
+
+**Story nas 9:** fotos mantêm px (h*0.703 no 1920), diagonal preservada; CTA card px centrado;
+capa/texto reposicionados. Render `1080 1920`.
+
+> ⚠️ Badge baked que NÃO fica sob a pílula do componente (posição do crop ≠ posição do modelo) →
+> PINTAR a região (copiar conteúdo de foto adjacente) antes. Não basta a pílula opaca.
+
+Stills: `otica-133-1..9` + `otica-133-1..9-story`.
