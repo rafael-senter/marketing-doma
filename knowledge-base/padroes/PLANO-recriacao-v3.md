@@ -1,5 +1,8 @@
 # PLANO — Recriação v3 das categorias antigas (2026-07-21)
 
+> ✅ **FILA CONCLUÍDA (2026-07-23) — 10/10 categorias recriadas + story.** Todas as antigas agora têm
+> componente medido/consertado + versão story (1080×1920). Fechamento em v0.2.11.
+
 ## Por que existe este plano
 As categorias abaixo foram criadas com a versão antiga da skill, **antes** das regras §22–§27
 (encaixe de texto, negrito medido, lineHeight em px, hierarquia de corpo, itálico por skew,
@@ -26,7 +29,7 @@ com a skill nova** → entra na fila. Categoria **com prop `story` = já recriad
 | 7 | `doma-institucional` | POST 115, 178, 257, 271 | 4 | card único | ✅ 178/257/115 recriados (medidos) · 271 px · story nas 4 |
 | 8 | `dicas` | POST 246 | 9 | carrossel | ✅ capa consertada (ícone limpo + highlight) · story nas 9 |
 | 9 | `dicas-otica` | POST 133 | 9 | carrossel (fotos) | ✅ seta dupla + fotos/texto corrigidos · badge baked pintada · story nas 9 |
-| 10 | `doma-carrossel-clientes` | POST 205 | 8 | carrossel (logos) | ⬜ |
+| 10 | `doma-carrossel-clientes` | POST 205 | 8 | carrossel (logos) | ✅ bug marca DOMa→Doma (7x) · story nas 8 |
 
 Ordem: cards únicos primeiro (ciclo curto, valida o processo), carrosséis depois.
 

@@ -37,4 +37,16 @@ NUNCA recriados. Cores: manga `#F4BB35` · soft `#F8DD6B` · card-claro `#EFEFEE
 | Capa subtexto | 44 lh1.22 | ~18 | width 38.3% |
 | Miolo texto (sob a foto) | 46 lh1.42 | ~32 | do top 56% até ~90% → máx ~7 linhas |
 | Fecho (card claro) | 50 lh1.3 | ~29 | mesma altura fixa 42.6% → máx ~8 linhas |
-- **Story: componente SEM prop `story`** — implementar ao usar (padrão SPIN: card flutuante, densidade do feed, render `1080 1920`).
+## Revisão v3 (2026-07-23) — bug de marca + story nas 8
+
+Categoria já estava boa (~90-95%). Único bug: o texto corrido usava **"DOMa"** (caixa/wordmark) — a
+regra de marca manda **"Doma"** (inicial maiúscula) em prosa. Corrigido em **7 lugares** (miolos 2-7 nos
+defaultProps + fecho no componente). O modelo usa "Doma" — confirmado.
+
+> ⚠️ REGRA DE MARCA (reforço): em TEXTO CORRIDO/prosa a empresa é **"Doma"**, nunca "DOMa"/"DOMA". O
+> wordmark caixa-alta só em logo (asset) ou lockup de arte. Auditar todo `**texto**` que cite a empresa.
+
+**Story nas 8:** cards em PX (h575, não esticam no 1920) — capa/fecho card claro, miolos card do cliente;
+textos/logo reposicionados. Grafismos full-bleed (cover). Render `1080 1920`.
+
+Stills: `clientes-205-1..8` + `clientes-205-1..8-story`.

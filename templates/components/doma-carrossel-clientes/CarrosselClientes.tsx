@@ -27,16 +27,19 @@ const Grafismos: React.FC<{src: string}> = ({src}) => (
     objectFit: 'cover', zIndex: 0}} />
 );
 
-/* ─────────────────────────  CAPA (slide 1)  ───────────────────────── */
-export const ClientesCapa: React.FC = () => (
+/* ─────────────────────────  CAPA (slide 1)  ─────────────────────────
+   ⚠️ MARCA: em texto corrido a empresa é "Doma" (não "DOMa"). O logo (sup-esq) usa LogoDoma (asset). */
+export const ClientesCapa: React.FC<{story?: boolean}> = ({story}) => {
+  const cardTop = story ? 540 : 358;   // card h575 px (não estica no story)
+  return (
   <AbsoluteFill style={{...baseFill, backgroundColor: C.manga}}>
     <Grafismos src="oficial/_205-graf1.png" />
     {/* logo DOMa (sup-esq) */}
-    <div style={{position: 'absolute', left: '16.4%', top: '14%', zIndex: 2}}>
+    <div style={{position: 'absolute', left: '16.4%', top: cardTop - 165, zIndex: 2}}>
       <LogoDoma cor={C.grafite} tamanho={70} wordmark />
     </div>
     {/* card claro com a frase */}
-    <div style={{position: 'absolute', left: '9.4%', top: '26.5%', width: '81.1%', height: '42.6%',
+    <div style={{position: 'absolute', left: '9.4%', top: cardTop, width: '81.1%', height: 575,
       background: C.claro, borderRadius: 40, zIndex: 1, display: 'flex', alignItems: 'center',
       padding: '0 60px', boxSizing: 'border-box'}}>
       <TextoRico style={{color: C.grafite, fontSize: 58, fontWeight: 400, lineHeight: 1.2, display: 'block'}}>
@@ -44,40 +47,47 @@ export const ClientesCapa: React.FC = () => (
       </TextoRico>
     </div>
     {/* texto solto inferior */}
-    <div style={{position: 'absolute', left: '22.1%', top: '77.3%', width: '38.3%', zIndex: 2}}>
+    <div style={{position: 'absolute', left: '22.1%', top: cardTop + 685, width: '38.3%', zIndex: 2}}>
       <TextoRico style={{color: C.grafite, fontSize: 44, fontWeight: 400, lineHeight: 1.22, display: 'block'}}>
         {'Porque grandes negócios precisam de uma **gestão à altura.**'}
       </TextoRico>
     </div>
   </AbsoluteFill>
-);
+  );
+};
 
 /* ─────────────────────────  MIOLO (slides 2-7)  ───────────────────── */
-export type ClientesMioloProps = {card: string; texto: string};
-export const ClientesMiolo: React.FC<ClientesMioloProps> = ({card, texto}) => (
+export type ClientesMioloProps = {card: string; texto: string; story?: boolean};
+export const ClientesMiolo: React.FC<ClientesMioloProps> = ({card, texto, story}) => {
+  const cardTop = story ? 300 : 135;   // card h575 px
+  return (
   <AbsoluteFill style={{...baseFill, backgroundColor: C.manga}}>
     {/* card do cliente (logo+card+cantos recortado do modelo) */}
-    <Img src={staticFile(card)} style={{position: 'absolute', left: '9.4%', top: '10%',
-      width: '81.1%', height: '42.6%', objectFit: 'fill', zIndex: 1}} />
+    <Img src={staticFile(card)} style={{position: 'absolute', left: '9.4%', top: cardTop,
+      width: '81.1%', height: 575, objectFit: 'fill', zIndex: 1}} />
     {/* texto corrido embaixo */}
-    <div style={{position: 'absolute', left: '16.7%', top: '56%', width: '72%', zIndex: 2}}>
+    <div style={{position: 'absolute', left: '16.7%', top: cardTop + 637, width: '72%', zIndex: 2}}>
       <TextoRico style={{color: C.grafite, fontSize: 46, fontWeight: 400, lineHeight: 1.42, display: 'block'}}>
         {texto}
       </TextoRico>
     </div>
   </AbsoluteFill>
-);
+  );
+};
 
 /* ─────────────────────────  FECHO (slide 8)  ───────────────────────── */
-export const ClientesFecho: React.FC = () => (
+export const ClientesFecho: React.FC<{story?: boolean}> = ({story}) => {
+  const cardTop = story ? 560 : 387;   // card h575 px
+  return (
   <AbsoluteFill style={{...baseFill, backgroundColor: C.manga}}>
     <Grafismos src="oficial/_205-graf8.png" />
-    <div style={{position: 'absolute', left: '9.4%', top: '28.7%', width: '81.1%', height: '42.6%',
+    <div style={{position: 'absolute', left: '9.4%', top: cardTop, width: '81.1%', height: 575,
       background: C.claro, borderRadius: 40, zIndex: 1, display: 'flex', alignItems: 'center',
       padding: '0 64px', boxSizing: 'border-box'}}>
       <TextoRico style={{color: C.grafite, fontSize: 50, fontWeight: 400, lineHeight: 1.3, display: 'block'}}>
-        {'Da indústria ao varejo: a **DOMa** está presente em negócios que não param de crescer.\n\nPorque grandes empresas precisam de uma gestão à altura.'}
+        {'Da indústria ao varejo: a **Doma** está presente em negócios que não param de crescer.\n\nPorque grandes empresas precisam de uma gestão à altura.'}
       </TextoRico>
     </div>
   </AbsoluteFill>
-);
+  );
+};
